@@ -15,6 +15,12 @@ export default function splash({ navigation }) {
       titleProps={{}}
       titleStyle={{ marginHorizontal: 5 }}
     />
+        <Button style={styles.button}
+      onPress={() => navigation.navigate('SignUp')}
+      title="Sign Up'"
+      titleProps={{}}
+      titleStyle={{ marginHorizontal: 5 }}
+    />
       <StatusBar style="auto" />
     </View>
   );
