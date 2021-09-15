@@ -2,7 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React ,{useEffect , useState} from 'react';
 import { StyleSheet, Text, View , Button, Pressable, SnapshotViewIOSBase } from 'react-native';
 import { color } from 'react-native-reanimated';
-import firebase from 'firebase';
+import AfaadFirebase from './firebaseConfig';
+
 
 
 export default function ViewIdea({ navigation }) {
@@ -10,7 +11,7 @@ export default function ViewIdea({ navigation }) {
     const [productsList , setproductsList]= useState();
    
     useEffect(() => {
-       const dataref=firebase.database().ref('ProductIdea')//When publishizing the idea we just need to push key named 'ProductIdea'
+       const dataref=AfaadFirebase.database().ref('ProductIdea')//When publishizing the idea we just need to push key named 'ProductIdea'
        dataref.on('value',(snapshot) =>{
           const products= snapshot.val();
           const productsList=[] // empty list
