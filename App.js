@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import firebase from 'firebase/app' ;
 import { default as splash } from './screens/splash' ;
-
+import { default as ViewIdea } from './screens/ViewIdea' ;
 // Initialize Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyC2iAuAhBcgED7WRZ2IaiN3B-dxCirZDuA",
@@ -25,7 +25,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="splash">
-        <Stack.Screen name="splash" component={splash} />
+      <Stack.Screen name="View Idea" component={ViewIdea}/>
+        <Stack.Screen name="splash" component={splash} />       
       </Stack.Navigator>
     </NavigationContainer>
   );
