@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import firebase from 'firebase/app' ;
 import { default as splash } from './screens/splash' ;
 import { default as ViewIdea } from './screens/ViewIdea' ;
 // Initialize Firebase
@@ -19,6 +18,9 @@ const firebaseConfig = {
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
+import { default as Login } from './screens/Login' ;
+import { default as welcome } from './screens/welcome' ;
+
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -27,6 +29,9 @@ export default function App() {
       <Stack.Navigator initialRouteName="splash">
       <Stack.Screen name="View Idea" component={ViewIdea}/>
         <Stack.Screen name="splash" component={splash} />       
+        <Stack.Screen name="splash" component={splash} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="welcome" component={welcome} options={{ headerBackVisible: false, gestureEnabled: false, }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
