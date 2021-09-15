@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { default as splash } from './screens/splash' ;
 import { default as ViewIdea } from './screens/ViewIdea' ;
+import {default as ViewAccount} from './screens/ViewAccount';
 
 
 import { default as Login } from './screens/Login' ;
@@ -14,8 +15,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="splash">
-      <Stack.Screen name="View Idea" component={ViewIdea}/>
-        <Stack.Screen name="splash" component={splash} />       
+        <Stack.Screen name="splash" component={splash} />  
+        <Stack.Screen name="View Idea" component={ViewIdea}/>  
+        <Stack.Screen name="View Account" component={ViewAccount}/>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="welcome" component={welcome} options={{ headerBackVisible: false, gestureEnabled: false, }}/>
       </Stack.Navigator>
