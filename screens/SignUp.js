@@ -20,11 +20,25 @@ export default function RegistrationScreen({navigation}) {
     }
     
   const onRegisterPress = () => {
-        if (password !== confirmPassword) {
-            alert("Passwords don't match.")
-            return
+         {
+           
+            if (email !== '' && password !== '') {
+                   
+                 auth.createUserWithEmailAndPassword(email, password)
+                  .then((userCredential) => {//success login
+                    navigation.navigate('welcome')
+                  })
+                  .catch(function (error) {
+                    // Handle Errors here.
+                    var errorMessage = error.message;
+                    alert(errorMessage);
+                  });
+              } else {
+                alert('one or more fields are missing!');
+              }
+      
          }
-          firebase
+          /*firebase
             .auth()
             .createUserWithEmailAndPassword(email, password)
             .then((response) => {
@@ -48,7 +62,7 @@ export default function RegistrationScreen({navigation}) {
             })
             .catch((error) => {
                 alert(error)
-        });
+        });*/
     }
     return (
         <View style={styles.container}>
