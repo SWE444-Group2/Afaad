@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React ,{useEffect , useState} from 'react';
-import { StyleSheet, Text, View , Button, Pressable, SnapshotViewIOSBase } from 'react-native';
-import { color } from 'react-native-reanimated';
-import AfaadFirebase from './firebaseConfig';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity} from 'react-native';
+import AfaadFirebase from '../screens/firebaseConfig';
+import 'firebase/auth';
 
 
 
@@ -13,14 +13,16 @@ export default function ViewIdea({ navigation }) {
     useEffect(() => {
        const dataref=AfaadFirebase.database().ref('ProductIdea')//When publishizing the idea we just need to push key named 'ProductIdea'
        dataref.on('value',(snapshot) =>{
-          const products= snapshot.val();
           const productsList=[] // empty list
+          const products= snapshot.val();   
           for (let productID in products){
                productsList.push(products[productID]);
           } 
           
           setproductsList(productsList)
+          console.log(productsList)
 
+          
         
           
           
@@ -28,13 +30,22 @@ export default function ViewIdea({ navigation }) {
     }, [])
   return (
     <View style={styles.container}>
-      <Text style={styles.Text}>عرض المنتجات</Text>
-      <StatusBar style="auto" />  
-    
-    
-        {productsList ? productsList.map((product)=><Text style={styles.Text}>{product.Title}</Text>): "No Products Found"}
-   
+      <Text style={styles.Text}>View Product Ideas</Text>
+      <StatusBar style="auto" />    
+      
+      <View>
+        <FlatList
+        data={productsList}
+        keyExtractor={(item) => item.key}    
+        renderItem={({ item })=>(
+          <TouchableOpacity  onPress={() => navigation.navigate('productIdea')}>
+            <Text style={styles.Title}>{item.Title}</Text>
+          </TouchableOpacity>
+        )}
+        /> 
+      </View> 
     </View>
+    
   );
   
 }
@@ -43,12 +54,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'flex-end',   
+    alignItems:'center'
+    
   },
   Text: {
-      marginTop:20,
-      marginRight:10,
-      fontSize: 30,
+    
+    marginTop:20 ,
+      fontSize: 40,
+     
       
+  },
+  Title :{
+    fontSize:35 ,   
+    marginTop:20 ,
+    color: 'dodgerblue',
+    
   }
+
 });
