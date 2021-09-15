@@ -6,7 +6,7 @@ import 'firebase/auth';
 
 
 
-export default function ViewIdea() {
+export default function ViewIdea({ navigation }) {
 
     const [productsList , setproductsList]= useState();
    
@@ -38,7 +38,7 @@ export default function ViewIdea() {
         data={productsList}
         keyExtractor={(item) => item.key}    
         renderItem={({ item })=>(
-          <TouchableOpacity>
+          <TouchableOpacity  onPress={() => navigation.navigate('productIdea')}>
             <Text style={styles.Title}>{item.Title}</Text>
           </TouchableOpacity>
         )}

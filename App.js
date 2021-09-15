@@ -7,7 +7,7 @@ import {default as ViewAccount} from './screens/ViewAccount';
 
 
 import { default as productIdea } from './screens/productIdea' ;
-import {default as invstorsAccount} from './screens/investorAccount';
+import {default as investorAccount} from './screens/investorAccount';
 import { default as Login } from './screens/Login' ;
 import { default as welcome } from './screens/welcome' ;
 
@@ -18,12 +18,10 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="splash">
         <Stack.Screen name="splash" component={splash} />  
-        <Stack.Screen name="View Idea" component={ViewIdea}/>  
-        <Stack.Screen name="View Account" component={ViewAccount}/>
-      <Stack.Screen name="View Idea" component={ViewIdea}/>
-        <Stack.Screen name="Product Idea Details" component={productIdea}/>
-        <Stack.Screen name="investor Account Details" component={invstorsAccount}/>
-        <Stack.Screen name="splash" component={splash} />       
+        <Stack.Screen name="ViewIdea" component={ViewIdea}/>  
+        <Stack.Screen name="ViewAccount" component={ViewAccount}/>
+        <Stack.Screen name="productIdea" component={productIdea}/>
+        <Stack.Screen name="investorAccount" component={investorAccount}/>         
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="welcome" component={welcome} options={{ headerBackVisible: false, gestureEnabled: false, }}/>
       </Stack.Navigator>

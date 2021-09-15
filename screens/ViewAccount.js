@@ -38,7 +38,7 @@ export default function ViewAccount({ navigation }) {
            <View style={styles.items}>
              {/* Investors Accounts is displayed  */}
 
-             <TouchableOpacity onPress={() => navigation.navigate('splash')}>
+             <TouchableOpacity onPress={() => navigation.navigate('investorAccount')}>
              <View style={styles.item}><Text style={styles.Accounts}>{individual}</Text></View>
              </TouchableOpacity>
              <View style={styles.item}><Text style={styles.Accounts}>{username}</Text></View>
