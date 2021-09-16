@@ -19,19 +19,6 @@ export default function welcome({ navigation }) {
         });
     };
 
-    const onInvestor = () => {
-        navigation.reset({
-            index: 0,
-            routes: [{ name: 'ViewAccount' }],
-        });
-    };
-
-    const onProduct = () => {
-        navigation.reset({
-            index: 0,
-            routes: [{ name: 'ViewIdea' }],
-        });
-    };
 
     return (
         <View style={styles.container}>
@@ -43,13 +30,13 @@ export default function welcome({ navigation }) {
                 titleStyle={{ marginHorizontal: 5 }}
             />
             <Button style={styles.button}
-                onPress={onInvestor}
+                onPress={() => navigation.navigate('ViewAccount')}
                 title="View Investors Accounts"
                 titleProps={{}}
                 titleStyle={{ marginHorizontal: 5 }}
             />
             <Button style={styles.button}
-                onPress={onProduct}
+                onPress={() => navigation.navigate('ViewIdea')}
                 title="View Entrepreneur Product Ideas"
                 titleProps={{}}
                 titleStyle={{ marginHorizontal: 5 }}

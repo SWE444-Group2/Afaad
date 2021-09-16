@@ -17,14 +17,15 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="splash">
-        <Stack.Screen name="splash" component={splash} />  
+      <Stack.Screen name="splash" component={splash} />  
+        <Stack.Screen name="welcome" component={welcome} options={{ headerBackVisible: false, gestureEnabled: false, }}/>
         <Stack.Screen name="ViewIdea" component={ViewIdea}/>  
         <Stack.Screen name="ViewAccount" component={ViewAccount}/>
         <Stack.Screen name="productIdea" component={productIdea}/>
         <Stack.Screen name="investorAccount" component={investorAccount}/>         
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="welcome" component={welcome} options={{ headerBackVisible: false, gestureEnabled: false, }}/>
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
