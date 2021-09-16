@@ -19,12 +19,38 @@ export default function welcome({ navigation }) {
         });
     };
 
+    const onInvestor = () => {
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'ViewAccount' }],
+        });
+    };
+
+    const onProduct = () => {
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'ViewIdea' }],
+        });
+    };
+
     return (
         <View style={styles.container}>
             <Text>welcome</Text>
             <Button style={styles.button}
                 onPress={onSignout}
                 title="Sign out"
+                titleProps={{}}
+                titleStyle={{ marginHorizontal: 5 }}
+            />
+            <Button style={styles.button}
+                onPress={onInvestor}
+                title="View Investors Accounts"
+                titleProps={{}}
+                titleStyle={{ marginHorizontal: 5 }}
+            />
+            <Button style={styles.button}
+                onPress={onProduct}
+                title="View Entrepreneur Product Ideas"
                 titleProps={{}}
                 titleStyle={{ marginHorizontal: 5 }}
             />
