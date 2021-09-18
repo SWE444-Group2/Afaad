@@ -11,6 +11,8 @@ import {default as investorAccount} from './screens/investorAccount';
 import { default as Login } from './screens/Login' ;
 import { default as welcome } from './screens/welcome' ;
 import { default as SignUp } from './screens/SignUp' ;
+import { default as PublishIdea } from './screens/PublishIdea' ;
+
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -25,6 +27,7 @@ export default function App() {
         <Stack.Screen name="investorAccount" component={investorAccount}/>         
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="PublishIdea" component={PublishIdea} />
         
       </Stack.Navigator>
     </NavigationContainer>
