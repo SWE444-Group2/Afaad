@@ -11,21 +11,19 @@ export default function ViewIdea({ navigation }) {
     const [productsList , setproductsList]= useState();
    
     useEffect(() => {
-       const dataref=AfaadFirebase.database().ref('ProductIdea')//When publishizing the idea we just need to push key named 'ProductIdea'
+       const dataref=AfaadFirebase.database().ref('ProductIdea')
+    
        dataref.on('value',(snapshot) =>{
           const productsList=[] // empty list
-          const products= snapshot.val();   
+          const products= snapshot.val();  
           for (let productID in products){
-               productsList.push(products[productID]);
+               productsList.push({productID,...products[productID]});
           } 
           
-          setproductsList(productsList)
-          console.log(productsList)
+          setproductsList(productsList) ;
+          
+          
 
-          
-        
-          
-          
        })
     }, [])
   return (
@@ -36,12 +34,14 @@ export default function ViewIdea({ navigation }) {
       <View>
         <FlatList
         data={productsList}
-        keyExtractor={(item) => item.key}    
+        keyExtractor={(data) => data._id }  
         renderItem={({ item })=>(
-          <TouchableOpacity  onPress={() => navigation.navigate('productIdea')}>
+          <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID})
+          }>   
             <Text style={styles.Title}>{item.Title}</Text>
           </TouchableOpacity>
         )}
+
         /> 
       </View> 
     </View>
