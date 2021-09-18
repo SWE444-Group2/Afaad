@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
-import { firebase } from './firebaseConfig'
+//import { firebase } from './firebaseConfig'
+import AfaadFirebase from './firebaseConfig';
+import 'firebase/auth';
 
+const auth = AfaadFirebase.auth();
 
 export default function RegistrationScreen({navigation}) {
     const [FirstName, setFirstName] = useState('')
@@ -70,25 +73,7 @@ export default function RegistrationScreen({navigation}) {
                 style={{ flex: 1, width: '100%' }}
                 keyboardShouldPersistTaps="always">
                
-                <TextInput
-                    style={styles.input}
-                    placeholder='First Name'
-                    placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setFirstName(text)}
-                    value={FirstName}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
-                 
-                 <TextInput
-                    style={styles.input}
-                    placeholder='Last Name'
-                    placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setLastName(text)}
-                    value={LastName}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
+                  
                 <TextInput
                     style={styles.input}
                     placeholder='E-mail'
