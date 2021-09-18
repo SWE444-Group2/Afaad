@@ -16,6 +16,8 @@ export default function RegistrationScreen({navigation}) {
     const [confirmPassword, setConfirmPassword] = useState('')
    const [passwordVisibility, setPasswordVisibility] = useState(true);
 
+   //Refrence to Investor object in DB
+   const InvestorsAccountsRef= AfaadFirebase.database().ref('Investor');
 
     const onFooterLinkPress = () => {
         navigation.navigate('Login')
@@ -30,6 +32,13 @@ export default function RegistrationScreen({navigation}) {
                  auth.createUserWithEmailAndPassword(email, password)
                   .then((userCredential) => {//success login
                     navigation.navigate('welcome')
+
+                    const addData={
+                        email,
+                        password,
+                        Verified: false,
+                    }
+                    InvestorsAccountsRef.push(addData);
                   })
                   .catch(function (error) {
                     // Handle Errors here.
