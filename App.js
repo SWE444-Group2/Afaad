@@ -4,8 +4,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { default as splash } from './screens/splash' ;
 import { default as ViewIdea } from './screens/ViewIdea' ;
 import {default as ViewAccount} from './screens/ViewAccount';
-
-
+import { default as Admin } from './screens/Admin' ;
+import { default as Investor } from './screens/Investor' ;
+import { default as Entrepreneur } from './screens/Entrepreneur' ;
 import { default as productIdea } from './screens/productIdea' ;
 import {default as investorAccount} from './screens/investorAccount';
 import { default as Login } from './screens/Login' ;
@@ -31,10 +32,12 @@ export default function App() {
         <Stack.Screen name="SignUpEntr" component={SignUpEntr} />
         <Stack.Screen name="SignUpInvst" component={SignUpInvst} />
         <Stack.Screen name="PublishIdea" component={PublishIdea} />
+        <Stack.Screen name="Admin" component={Admin} />
+        <Stack.Screen name="Investor" component={Investor} />
+        <Stack.Screen name="Entrepreneur" component={Entrepreneur} />
 
         
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
