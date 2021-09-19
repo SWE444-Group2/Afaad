@@ -9,6 +9,7 @@ import 'firebase/auth';
 export default function ViewIdea({ navigation }) {
 
     const [productsList , setproductsList]= useState();
+    const[PendingProductList ,setPendingproductsList ]=useState();
    
     useEffect(() => {
        const dataref=AfaadFirebase.database().ref('ProductIdea')
@@ -19,12 +20,20 @@ export default function ViewIdea({ navigation }) {
           for (let productID in products){
                productsList.push({productID,...products[productID]});
           } 
-          
-          setproductsList(productsList) ;
-          
-          
-          
 
+          setproductsList(productsList);
+        
+
+          const PendingProductList=[]
+          for(let productID in productsList){
+            if(!productsList[productID].accepted){
+              PendingProductList.push(productsList[productID]) } 
+            }
+
+           setPendingproductsList(PendingProductList) ;
+            console.log(PendingProductList);
+
+          
        })
     }, [])
   return (
@@ -34,7 +43,7 @@ export default function ViewIdea({ navigation }) {
       
       <View>
         <FlatList
-        data={productsList}
+        data={PendingProductList}
         keyExtractor={(item, index)=>index.toString()}
         renderItem={({ item })=>(
           <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID})
