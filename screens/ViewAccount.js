@@ -1,55 +1,58 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button,TouchableOpacity} from 'react-native';
+import React, { useState ,useEffect } from 'react';
+import { StyleSheet, Text, View, Button,TouchableOpacity, FlatList} from 'react-native';
 import AfaadFirebase from './firebaseConfig';
-
+import 'firebase/auth';
+//import { Item } from 'react-native-paper/lib/typescript/components/List/List';
 
 export default function ViewAccount({ navigation }) {
 
-    
-    const [username, setUserName]= useState('');
-    const[individual,setIndividual]=useState('');
+    //New code 
+      const [AccountsList,setAccountsList]= useState();
 
-    const InvestorsAccountsRef= AfaadFirebase.database().ref("Investor");
-    //const InvestorsAccountsRef2= AfaadFirebase.database().ref("Admin");
+      useEffect(()=> {
     
-    InvestorsAccountsRef.once('value').then(function(snapshot){
-      setUserName(snapshot.child('Company').child("CompanyName").val());
-      setIndividual(snapshot.child("Individual /username").val());
-    
-    });
-/*
-    InvestorsAccountsRef2.once('value').then(function(snapshot){
-      setIndividual(snapshot.child("password").val());
-    });
- */  
+        const InvestorTableRef = AfaadFirebase.database().ref("Investor");
+        
+        InvestorTableRef.on('value',(snapshot)=>{
+            
+            const AccountsList = [];
+            const investor=snapshot.val();
 
-    ShowVal=()=>{
-        //Bring the data to show
-        //alert("Welcome");
-    }
-
+            for(let id in investor){
+                AccountsList.push({id,...investor[id]}); //BRING ID FROM DB
+            }
+            
+            setAccountsList(AccountsList);
+        })
+    },[])
+  
   return (
     <View style={styles.container}>
         <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>Investor's Accounts</Text>
-        <Button title="Accounts to Verify" onPress={ShowVal}></Button>
+       
 
            <View style={styles.items}>
              {/* Investors Accounts is displayed  */}
+             <FlatList  
+             data = {AccountsList}
+             keyExtractor={(item, index)=>index.toString()}
+             renderItem = {({item})=>(
 
-             <TouchableOpacity onPress={() => navigation.navigate('investorAccount')}>
-             <View style={styles.item}><Text style={styles.Accounts}>{individual}</Text></View>
+             <TouchableOpacity onPress={() => navigation.navigate('investorAccount', {InvestorID:item.id})}>
+             <View style={styles.item}>
+             <Text style={styles.Accounts}>{item.email} </Text>
+             </View>
              </TouchableOpacity>
-             <View style={styles.item}><Text style={styles.Accounts}>{username}</Text></View>
-             <View style={styles.item}><Text style={styles.Accounts}>Investor Account 3</Text></View>
-             <View style={styles.item}><Text style={styles.Accounts}>Investor Account 4</Text></View>
+
+
+             ) }
+             />
+             
            </View>
-
-         </View>
-
-      <StatusBar style="auto" />
-    </View>
+      </View>
+   </View>
   );
 
 }
