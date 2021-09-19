@@ -30,7 +30,7 @@ export default function ViewAccount({ navigation }) {
   return (
     <View style={styles.container}>
         <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Investor's Accounts</Text>
+        <Text style={styles.sectionTitle}>تفعيل حسابات المستثمرين</Text>
        
 
            <View style={styles.items}>
@@ -43,6 +43,13 @@ export default function ViewAccount({ navigation }) {
              <TouchableOpacity onPress={() => navigation.navigate('investorAccount', {InvestorID:item.id})}>
              <View style={styles.item}>
              <Text style={styles.Accounts}>{item.email} </Text>
+             <Button style={styles.button}
+                onPress={() => navigation.navigate('investorAccount', {InvestorID:item.id})}
+                title="عرض التفاصيل"
+                titleProps={{}}
+                //titleStyle={{ marginHorizontal: 1 }}
+            />
+           
              </View>
              </TouchableOpacity>
 
@@ -68,7 +75,9 @@ const styles = StyleSheet.create({
     },
     sectionTitle:{
       fontSize:24,
-      fontWeight:'bold'
+      fontWeight:'bold',
+      paddingBottom: 20,
+      textAlign: 'right'
     },
     items:{
 
@@ -79,14 +88,20 @@ const styles = StyleSheet.create({
       padding:15,
       borderRadius:10,
       flexDirection:'row',
-      alignItems:'center',
+     // alignItems:'center',
       justifyContent:"space-between",
       marginBottom:20,
+     
     
     },
     Accounts:{
-      fontSize:20,
-      fontWeight:'bold'
+      fontSize:18,
+      fontWeight:'bold',
+      textAlign: 'right'
+      
+    },
+
+    button:{
     
     },
 
