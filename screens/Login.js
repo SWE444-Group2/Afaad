@@ -30,45 +30,47 @@ export default function Login({ navigation }) {
     if (email !== '' && password !== '') { //all fields are not empty
       auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {//success login
-          rootRef
-          .child('Admin')
-          .orderByChild('email')
-          .equalTo(email)
-          .once('value')
-          .then(snapshot => {
-          if (snapshot.exists()) {
-            navigation.navigate('Admin')
-          }
-          else if (!inv){
-            rootRef
-          .child('Entrepreneur')
-          .orderByChild('email')
-          .equalTo(email)
-          .once('value')
-          .then(snapshot => {
-            if (snapshot.exists()){
-              navigation.navigate('Entrepreneur')
-              ent = true;
-            }
-            else if (!ent){
-              rootRef
-              .child('Investor')
-              .orderByChild('email')
-              .equalTo(email)
-              .once('value')
-              .then(snapshot => {
-                if (snapshot.exists()){
-                  navigation.navigate('Investor')
-                }
-              })
+          // rootRef
+          // .child('Admin')
+          // .orderByChild('email')
+          // .equalTo(email)
+          // .once('value')
+          // .then(snapshot => {
+          // if (snapshot.exists()) {
+          //   navigation.navigate('Admin')
+          // }
+          // else if (!inv){
+          //   rootRef
+          // .child('Entrepreneur')
+          // .orderByChild('email')
+          // .equalTo(email)
+          // .once('value')
+          // .then(snapshot => {
+          //   if (snapshot.exists()){
+          //     navigation.navigate('Entrepreneur')
+          //     ent = true;
+          //   }
+          //   else if (!ent){
+          //     rootRef
+          //     .child('Investor')
+          //     .orderByChild('email')
+          //     .equalTo(email)
+          //     .once('value')
+          //     .then(snapshot => {
+          //       if (snapshot.exists()){
+          //         navigation.navigate('Investor')
+          //       }
+          //     })
               
-              }
-          })
-          }
+          //     }
+          // })
+          // }
          
-          }
+          // }
 
-          )
+          // )
+          
+          navigation.navigate('welcome')
           
       
       })
