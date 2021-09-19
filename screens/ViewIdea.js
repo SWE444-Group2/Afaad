@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import React ,{useEffect , useState} from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity} from 'react-native';
+import React ,{useEffect , useState , setState} from 'react';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button} from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 
@@ -35,24 +35,34 @@ export default function ViewIdea({ navigation }) {
 
           
        })
+
+       
     }, [])
   return (
     <View style={styles.container}>
-      <Text style={styles.Text}>View Product Ideas</Text>
-      <StatusBar style="auto" />    
-      
-      <View>
+       <View style={styles.tasksWrapper}>
+      <Text style={styles.sectionTitle}>عرض الافكار</Text>
+         
+      <View style={styles.items}>
         <FlatList
         data={PendingProductList}
         keyExtractor={(item, index)=>index.toString()}
         renderItem={({ item })=>(
-          <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID})
-          }>   
-            <Text style={styles.Title}>{item.Title}</Text>
+          <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID})}>   
+          <View style={styles.item}>
+            <Text style={styles.Accounts}>{item.Title}</Text>
+            <Button style={styles.button}
+                onPress={() => navigation.navigate('productIdea', {Product_id:item.productID})}
+                title="عرض التفاصيل"
+                titleProps={{}}
+                //titleStyle={{ marginHorizontal: 1 }}
+            />
+          </View>
           </TouchableOpacity>
         )}
 
         /> 
+        </View>
       </View> 
     </View>
     
@@ -63,22 +73,39 @@ export default function ViewIdea({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
-    alignItems:'center'
-    
+    backgroundColor: '#E8EAED',
   },
-  Text: {
+    tasksWrapper:{
+      paddingTop:80,
+      paddingHorizontal:20,
+    },
+    sectionTitle:{
+      fontSize:24,
+      fontWeight:'bold',
+      paddingBottom: 20,
+      textAlign: 'right'
+    },
+    items:{
+
     
-    marginTop:20 ,
-      fontSize: 40,
+    },
+    item:{
+      backgroundColor:'#FFF',
+      padding:15,
+      borderRadius:10,
+      flexDirection:'row',
+     // alignItems:'center',
+      justifyContent:"space-between",
+      marginBottom:20,
      
-      
-  },
-  Title :{
-    fontSize:35 ,   
-    marginTop:20 ,
-    color: 'dodgerblue',
     
-  }
+    },
+    Accounts:{
+      fontSize:18,
+      fontWeight:'bold',
+      textAlign: 'right'
+      
+    },
+
 
 });

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState ,useEffect } from 'react';
-import { StyleSheet, Text, View, Button,TouchableOpacity, FlatList} from 'react-native';
+import React, { useState ,useEffect , setState } from 'react';
+import { StyleSheet, Text, View, Button,TouchableOpacity, FlatList } from 'react-native';
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
 //import { Item } from 'react-native-paper/lib/typescript/components/List/List';
@@ -38,6 +38,8 @@ export default function ViewAccount({ navigation }) {
   
             
         })
+
+       
     },[])
   
   return (
