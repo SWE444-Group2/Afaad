@@ -28,8 +28,7 @@ export default function Login({ navigation }) {
         ProductDescription,
         costEstimation,
         investorsSpec,
-        invested: false,
-        accepted: false,
+        status: 'Pending',
         userID: user.uid,
         date: createDate,
     };
