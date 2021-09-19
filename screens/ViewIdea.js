@@ -26,7 +26,7 @@ export default function ViewIdea({ navigation }) {
 
           const PendingProductList=[]
           for(let productID in productsList){
-            if(!productsList[productID].accepted){
+            if(productsList[productID].status=='Pending'){
               PendingProductList.push(productsList[productID]) } 
             }
 

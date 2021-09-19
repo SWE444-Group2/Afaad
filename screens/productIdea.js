@@ -1,18 +1,12 @@
 
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View , Button } from 'react-native';
-import { cos } from 'react-native-reanimated';
+import { StyleSheet, Text, View , Button , TouchableOpacity , Alert} from 'react-native';
+
 import AfaadFirebase from "./firebaseConfig";
-
-
 // Expecting an id of product idea
-
-
 export default function productIdea({navigation , route}) {
-
     const ProductPath='ProductIdea/'+route.params.Product_id ;
-
     const [date, setdate] = useState('');
     const [Description, setDescription] = useState('');
     //const [FeasibilityAnalysis, setFeasibilityAnalysis] = useState('');
@@ -42,19 +36,40 @@ export default function productIdea({navigation , route}) {
         setcostEstimation(snapshot.child("costEstimation").val());
         setinvestorsSpec(snapshot.child("investorsSpec").val());
         setUserID(snapshot.child("userID"))
-          */
-        
-        
+          */ });
 
+    const AcceptIdea=()=>{
 
-    });
+        productIdeaRef.update({
+            status : 'Accepted' } )
+
+        Alert.alert(
+            "رائع!",
+            "تم قبول الفكرة بنجاح",[{text: "العودة لقائمه الافكار" ,onPress: () => {navigation.navigate('ViewIdea')}}]
+            );
+    }
+
+    const RejectIdea=()=>{
+        Alert.alert(
+            "تنبيه!",
+            "هل أنت متأكد من رفض الفكرة؟",
+            [
+              {
+                text: "نعم", onPress: () => { 
+                    productIdeaRef.update({status : 'Rejected' } )
+                    Alert.alert(
+                        "رائع!",
+                        "تم رفض الفكرة بنجاح",[{text: "العودة لقائمه الافكار" ,onPress: () => {navigation.navigate('ViewIdea')}}]
+                        );                         }
+              },
+              { text: "إلغاء"}
+            ]
+          ); }
     // console.log(pIdea);
     return(
         <View style={styles.container}>
            {/* <Text style={styles.label}>Feasibility Analysis</Text>
-            <Text>{FeasibilityAnalysis}</Text> 
-            <Text style={styles.label}>Verified</Text>
-            <Text>{Verified}</Text>
+            <Text>{FeasibilityAnalysis}</Text>       
             <Text style={styles.label}>Cost Estimation</Text>
             <Text>{costEstimation}</Text>
             <Text style={styles.label}>Cost Estimation</Text>
@@ -71,15 +86,18 @@ export default function productIdea({navigation , route}) {
             <Text>{category}</Text>
             
 {/*The accept/ reject function is on Verify page*/}
-            <Button style={styles.button}
-               onPress={()=>AcceptIdea(itemData.item.id)}
-               title="Accept"
-            />
+              <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => AcceptIdea()}>
+                    <Text style={styles.buttonTitle}>Accept</Text>
+                </TouchableOpacity>
 
-            <Button style={styles.button}
-               onPress={()=>RejectIdea(itemData.item.id)}
-               title="Reject"
-            />  
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => RejectIdea()}>
+                    <Text style={styles.buttonTitle}>Reject</Text>
+                </TouchableOpacity>
+            
            
             
            
@@ -89,7 +107,7 @@ export default function productIdea({navigation , route}) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#E1E5F2',
       alignItems: 'center',
     },
     label:{
@@ -99,5 +117,11 @@ const styles = StyleSheet.create({
      button: {
          width: 150,
         margin: 10,
+        },
+    buttonTitle: {
+        color: 'dodgerblue',
+        fontSize: 16,
+        fontWeight: "bold",
+        
         },
   });
