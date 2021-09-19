@@ -69,8 +69,7 @@ export default function productIdea({navigation , route}) {
             <Text>{date}</Text>
             <Text style={styles.label}>Catagory</Text>
             <Text>{category}</Text>
-            <Text style={styles.label}>Verified</Text>
-            <Text>{Verified}</Text>
+            
 {/*The accept/ reject function is on Verify page*/}
             <Button style={styles.button}
                onPress={()=>AcceptIdea(itemData.item.id)}

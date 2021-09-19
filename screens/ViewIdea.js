@@ -23,6 +23,7 @@ export default function ViewIdea({ navigation }) {
           setproductsList(productsList) ;
           
           
+          
 
        })
     }, [])
@@ -34,7 +35,7 @@ export default function ViewIdea({ navigation }) {
       <View>
         <FlatList
         data={productsList}
-        keyExtractor={(data) => data._id }  
+        keyExtractor={(item, index)=>index.toString()}
         renderItem={({ item })=>(
           <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID})
           }>   
