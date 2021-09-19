@@ -14,14 +14,12 @@ export default function RegistrationScreen({navigation}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [phone, setPhone] = useState('')
-    const [gender, setGender] = useState('')
-    const [age, setAge] = useState('')
     const [description, setdescription] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    const [passwordVisibility, setPasswordVisibility] = useState(true);
+   const [passwordVisibility, setPasswordVisibility] = useState(true);
 
    //Refrence to Investor object in DB
-   const InvestorsAccountsRef= AfaadFirebase.database().ref('Entrepreneur');
+   const InvestorsAccountsRef= AfaadFirebase.database().ref('Investor');
 
     const onFooterLinkPress = () => {
         navigation.navigate('Login')
@@ -43,10 +41,8 @@ export default function RegistrationScreen({navigation}) {
                         email,
                         password,
                         description,
-                        age,
-                        gender,
                         Verified: false,
-                        type:"Entrepreneur",
+                        type:"investor",
                     }
                     InvestorsAccountsRef.push(addData);
                   })
@@ -111,15 +107,7 @@ export default function RegistrationScreen({navigation}) {
                   underlineColorAndroid="transparent"
                   autoCapitalize="none"
                 />
-  <TextInput
-                  style={styles.input}
-                  placeholder="age"
-                  placeholderTextColor="#aaaaaa"
-                  onChangeText={(text) => setAge(text)}
-                  value={age}
-                  underlineColorAndroid="transparent"
-                  autoCapitalize="none"
-                />
+
                 <TextInput
                   style={styles.input}
                   placeholder="phone number"
@@ -129,17 +117,6 @@ export default function RegistrationScreen({navigation}) {
                   underlineColorAndroid="transparent"
                   autoCapitalize="none"
                 />
-
-                  <TextInput
-                  style={styles.input}
-                  placeholder="gender"
-                  placeholderTextColor="#aaaaaa"
-                  onChangeText={(text) => setGender(text)}
-                  value={gender}
-                  underlineColorAndroid="transparent"
-                  autoCapitalize="none"
-                />
-
                  
                 <TextInput
                     style={styles.input}
@@ -170,7 +147,16 @@ export default function RegistrationScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
-            
+                  <TextInput
+                  style={styles.input}
+                  placeholder="description"
+                  placeholderTextColor="#aaaaaa"
+                  onChangeText={(text) => setdescription(text)}
+                  value={description}
+                  underlineColorAndroid="transparent"
+                  autoCapitalize="none"
+                />
+             
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => onRegisterPress()}>

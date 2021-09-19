@@ -12,6 +12,7 @@ import { default as Login } from './screens/Login' ;
 import { default as welcome } from './screens/welcome' ;
 
 import { default as SignUpEntr } from './screens/SignUpEntr' ;
+import { default as SignUpInvst } from './screens/SignUpInvst' ;
 
 import { default as PublishIdea } from './screens/PublishIdea' ;
 
@@ -27,8 +28,8 @@ export default function App() {
         <Stack.Screen name="productIdea" component={productIdea}/>
         <Stack.Screen name="investorAccount" component={investorAccount}/>         
         <Stack.Screen name="Login" component={Login} />
-
         <Stack.Screen name="SignUpEntr" component={SignUpEntr} />
+        <Stack.Screen name="SignUpInvst" component={SignUpInvst} />
         <Stack.Screen name="PublishIdea" component={PublishIdea} />
 
         
