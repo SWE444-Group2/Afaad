@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         fontSize: 17
         },
      button: {
-         width: 150,
+        width: 150,
         margin: 10,
         },
     buttonTitle: {

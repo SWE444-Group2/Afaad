@@ -104,13 +104,17 @@ export default function invstorsAccount({navigation , route}) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#E1E5F2',
       alignItems: 'center',
     },
     label:{
         fontWeight: "bold",
         fontSize: 17
         },
+        button: {
+            width: 150,
+            margin: 10,
+            },
 
     buttonTitle: {
         color: 'dodgerblue',
