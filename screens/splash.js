@@ -16,7 +16,7 @@ export default function splash({ navigation }) {
       titleStyle={{ marginHorizontal: 5 }}
     />
         <Button style={styles.button}
-      onPress={() => navigation.navigate('SignUp')}
+      onPress={() => navigation.navigate('SignUpEntr')}
       title="Sign Up'"
       titleProps={{}}
       titleStyle={{ marginHorizontal: 5 }}

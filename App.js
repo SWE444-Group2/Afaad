@@ -10,7 +10,7 @@ import { default as productIdea } from './screens/productIdea' ;
 import {default as investorAccount} from './screens/investorAccount';
 import { default as Login } from './screens/Login' ;
 import { default as welcome } from './screens/welcome' ;
-import { default as SignUp } from './screens/SignUp' ;
+import { default as SignUpEntr } from './screens/SignUpEntr' ;
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -24,7 +24,7 @@ export default function App() {
         <Stack.Screen name="productIdea" component={productIdea}/>
         <Stack.Screen name="investorAccount" component={investorAccount}/>         
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="SignUpEntr" component={SignUpEntr} />
         
       </Stack.Navigator>
     </NavigationContainer>
