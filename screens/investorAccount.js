@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View ,TouchableOpacity , Alert } from 'react-native';
 import AfaadFirebase from "./firebaseConfig";
 
 
@@ -34,6 +34,35 @@ export default function invstorsAccount({navigation , route}) {
         */
         setEmail(snapshot.child("email").val());
     });
+
+
+    const AcceptIdea=()=>{
+
+        invstorsAccountRef.update({
+            Verified : 'Accepted' } )
+
+        Alert.alert(
+            "رائع!",
+            "تم قبول المستثمر  بنجاح",[{text: "العودة لقائمه المستثمرين" ,onPress: () => {navigation.navigate('ViewAccount')}}]
+            );
+    }
+
+    const RejectIdea=()=>{
+        Alert.alert(
+            "تنبيه!",
+            "هل أنت متأكد من رفض المستثمر؟",
+            [
+              {
+                text: "نعم", onPress: () => { 
+                    invstorsAccountRef.update({Verified : 'Rejected' } )
+                    Alert.alert(
+                        "رائع!",
+                        "تم رفض المستثمر بنجاح",[{text: "العودة لقائمه المستثمرين" ,onPress: () => {navigation.navigate('ViewAccount')}}]
+                        );                         }
+              },
+              { text: "إلغاء"}
+            ]
+          ); }
     // console.log(pIdea);
     return(
         <View style={styles.container}>
@@ -56,6 +85,18 @@ export default function invstorsAccount({navigation , route}) {
             <Text style={styles.label}>PhoneNum</Text>
             <Text>{PhoneNum}</Text>
         */}
+
+<TouchableOpacity
+                    style={styles.button}
+                    onPress={() => AcceptIdea()}>
+                    <Text style={styles.buttonTitle}>Accept</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => RejectIdea()}>
+                    <Text style={styles.buttonTitle}>Reject</Text>
+                </TouchableOpacity>
         </View>
     )
 }
@@ -69,5 +110,11 @@ const styles = StyleSheet.create({
     label:{
         fontWeight: "bold",
         fontSize: 17
-        }
+        },
+
+    buttonTitle: {
+        color: 'dodgerblue',
+         fontSize: 16,
+        fontWeight: "bold",   
+        },
   });

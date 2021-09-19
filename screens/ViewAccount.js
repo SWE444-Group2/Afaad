@@ -9,6 +9,7 @@ export default function ViewAccount({ navigation }) {
 
     //New code 
       const [AccountsList,setAccountsList]= useState();
+      const[PendingAccountsList ,setPendingAccountList ]=useState();
 
       useEffect(()=> {
     
@@ -24,6 +25,18 @@ export default function ViewAccount({ navigation }) {
             }
             
             setAccountsList(AccountsList);
+
+
+            const PendingAccountsList=[];
+          for(let AccountID in AccountsList){
+            if(AccountsList[AccountID].Verified=='Pending'){
+              PendingAccountsList.push(AccountsList[AccountID]) } 
+            }
+
+           setPendingAccountList(PendingAccountsList) ;
+           console.log(PendingAccountsList);
+  
+            
         })
     },[])
   
@@ -36,7 +49,7 @@ export default function ViewAccount({ navigation }) {
            <View style={styles.items}>
              {/* Investors Accounts is displayed  */}
              <FlatList  
-             data = {AccountsList}
+             data = {PendingAccountsList}
              keyExtractor={(item, index)=>index.toString()}
              renderItem = {({item})=>(
 
