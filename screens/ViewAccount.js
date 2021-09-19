@@ -9,6 +9,7 @@ export default function ViewAccount({ navigation }) {
 
     //New code 
       const [AccountsList,setAccountsList]= useState();
+      const[PendingAccountsList ,setPendingAccountList ]=useState();
 
       useEffect(()=> {
     
@@ -24,25 +25,44 @@ export default function ViewAccount({ navigation }) {
             }
             
             setAccountsList(AccountsList);
+
+
+            const PendingAccountsList=[];
+          for(let AccountID in AccountsList){
+            if(AccountsList[AccountID].Verified=='Pending'){
+              PendingAccountsList.push(AccountsList[AccountID]) } 
+            }
+
+           setPendingAccountList(PendingAccountsList) ;
+           console.log(PendingAccountsList);
+  
+            
         })
     },[])
   
   return (
     <View style={styles.container}>
         <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Investor's Accounts</Text>
+        <Text style={styles.sectionTitle}>تفعيل حسابات المستثمرين</Text>
        
 
            <View style={styles.items}>
              {/* Investors Accounts is displayed  */}
              <FlatList  
-             data = {AccountsList}
+             data = {PendingAccountsList}
              keyExtractor={(item, index)=>index.toString()}
              renderItem = {({item})=>(
 
              <TouchableOpacity onPress={() => navigation.navigate('investorAccount', {InvestorID:item.id})}>
              <View style={styles.item}>
              <Text style={styles.Accounts}>{item.email} </Text>
+             <Button style={styles.button}
+                onPress={() => navigation.navigate('investorAccount', {InvestorID:item.id})}
+                title="عرض التفاصيل"
+                titleProps={{}}
+                //titleStyle={{ marginHorizontal: 1 }}
+            />
+           
              </View>
              </TouchableOpacity>
 
@@ -68,7 +88,9 @@ const styles = StyleSheet.create({
     },
     sectionTitle:{
       fontSize:24,
-      fontWeight:'bold'
+      fontWeight:'bold',
+      paddingBottom: 20,
+      textAlign: 'right'
     },
     items:{
 
@@ -79,14 +101,20 @@ const styles = StyleSheet.create({
       padding:15,
       borderRadius:10,
       flexDirection:'row',
-      alignItems:'center',
+     // alignItems:'center',
       justifyContent:"space-between",
       marginBottom:20,
+     
     
     },
     Accounts:{
-      fontSize:20,
-      fontWeight:'bold'
+      fontSize:18,
+      fontWeight:'bold',
+      textAlign: 'right'
+      
+    },
+
+    button:{
     
     },
 
