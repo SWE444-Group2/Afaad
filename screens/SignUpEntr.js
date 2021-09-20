@@ -125,8 +125,14 @@ export default function RegistrationScreen({ navigation }) {
       );
       return;
     } else {
-  
-      /*AfaadFirebase.auth().createUserWithEmailAndPassword(Email, password).then((response) => {
+      auth.createUserWithEmailAndPassword(Email, password).then(() => {
+        //Redirect
+        navigation.navigate("welcome");
+      }); // Close of then fun
+
+      /*AfaadFirebase.auth()
+        .createUserWithEmailAndPassword(Email, password)
+        .then((response) => {
           AfaadFirebase.database()
             .ref("Entrepreneur/" + response.user.uid)
             .set({
@@ -155,29 +161,12 @@ export default function RegistrationScreen({ navigation }) {
           }
           InvestorsAccountsRef.push(addData);
         })
-        .catch((error) =>{
-         switch(error.code){
-          case "auth/invalid-email":
-            Alert.alert(
-              "أهلا",
-              "تم تسجيلك بنجاح",
-      
-              [
-                {
-                  text: "حسناً",
-                  onPress: () => console.log("yes Pressed"),
-                  style: "cancel",
-                },
-              ]
-            );
-            break;
+        .catch(function (error) {
+          // Handle Errors here.
 
-
-         }
         });
     }
 
-  
   };
   return (
     <View style={styles.container}>
