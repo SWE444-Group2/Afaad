@@ -41,7 +41,7 @@ export default function RegistrationScreen({navigation}) {
                         email,
                         password,
                         description,
-                        Verified: false,
+                        Verified: "Pending",
                         type:"investor",
                     }
                     InvestorsAccountsRef.push(addData);
