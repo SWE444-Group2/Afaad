@@ -14,24 +14,16 @@ export default function invstorsAccount({navigation , route}) {
    
     const [Firstname, setFirstname] = useState('');
     const [Lastname, setLastname] = useState('');
-    const [Gender, setGender] = useState('');
-    const [Birthdate, setBirthdate] = useState('');  
-    const [PhoneNum, setPhoneNum] = useState('');
+    const [Desc, setDesc] = useState('');
     const [email, setEmail] = useState('');
-    
-   // const [username, setUsername] = useState(''); 
 
     const invstorsAccountRef = AfaadFirebase.database().ref(AccountPath);
     invstorsAccountRef.once('value').then(function(snapshot){
         
-        /*
-        setBirthdate(snapshot.child("Individual /Birthdate").val());
-        setFirstname(snapshot.child("Individual /Firstname").val());
-        setGender(snapshot.child("Individual /Gender").val());
-        setLastname(snapshot.child("Individual /Lastname").val());
-        setPhoneNum(snapshot.child("Individual /PhoneNum").val());
-        setUsername(snapshot.child("Individual /username").val());
-        */
+               
+        setFirstname(snapshot.child("FirstName").val());
+        setLastname(snapshot.child("LastName").val());
+        setDesc(snapshot.child("description").val());
         setEmail(snapshot.child("email").val());
     });
 
@@ -66,25 +58,14 @@ export default function invstorsAccount({navigation , route}) {
     // console.log(pIdea);
     return(
         <View style={styles.container}>
-        {/*
-            <Text style={styles.label}>Username</Text>
-            <Text>{username}</Text>
-        */}
             <Text style={styles.label}>email</Text>
             <Text>{email}</Text>
-
-        {/*
-            <Text style={styles.label}>Firstname</Text>
+            <Text style={styles.label}>First name:</Text>
             <Text>{Firstname}</Text>
-            <Text style={styles.label}>Lastname</Text>
+            <Text style={styles.label}>Last name:</Text>
             <Text>{Lastname}</Text>
-            <Text style={styles.label}>Gender</Text>
-            <Text>{Gender}</Text>
-            <Text style={styles.label}>Birthdate</Text>
-            <Text>{Birthdate}</Text>
-            <Text style={styles.label}>PhoneNum</Text>
-            <Text>{PhoneNum}</Text>
-        */}
+            <Text style={styles.label}>Description:</Text>
+            <Text>{Desc}</Text>
 
 <TouchableOpacity
                     style={styles.button}
@@ -104,13 +85,17 @@ export default function invstorsAccount({navigation , route}) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#E1E5F2',
       alignItems: 'center',
     },
     label:{
         fontWeight: "bold",
         fontSize: 17
         },
+        button: {
+            width: 150,
+            margin: 10,
+            },
 
     buttonTitle: {
         color: 'dodgerblue',

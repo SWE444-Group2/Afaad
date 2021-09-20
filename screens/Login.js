@@ -8,6 +8,9 @@ import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
 
 const auth = AfaadFirebase.auth();
+const rootRef = AfaadFirebase.database().ref()
+var inv = false;
+var ent = false;
 
 //keyboard dismiss when click anywhere on the screen
 const DismissKeyboard = ({ children }) => (
@@ -27,8 +30,50 @@ export default function Login({ navigation }) {
     if (email !== '' && password !== '') { //all fields are not empty
       auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {//success login
+          // rootRef
+          // .child('Admin')
+          // .orderByChild('email')
+          // .equalTo(email)
+          // .once('value')
+          // .then(snapshot => {
+          // if (snapshot.exists()) {
+          //   navigation.navigate('Admin')
+          // }
+          // else if (!inv){
+          //   rootRef
+          // .child('Entrepreneur')
+          // .orderByChild('email')
+          // .equalTo(email)
+          // .once('value')
+          // .then(snapshot => {
+          //   if (snapshot.exists()){
+          //     navigation.navigate('Entrepreneur')
+          //     ent = true;
+          //   }
+          //   else if (!ent){
+          //     rootRef
+          //     .child('Investor')
+          //     .orderByChild('email')
+          //     .equalTo(email)
+          //     .once('value')
+          //     .then(snapshot => {
+          //       if (snapshot.exists()){
+          //         navigation.navigate('Investor')
+          //       }
+          //     })
+              
+          //     }
+          // })
+          // }
+         
+          // }
+
+          // )
+          
           navigation.navigate('welcome')
-        })
+          
+      
+      })
         .catch(function (error) {
           // Handle Errors here.
           var errorMessage = error.message;
