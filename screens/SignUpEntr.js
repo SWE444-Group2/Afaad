@@ -8,11 +8,12 @@ import "firebase/auth";
 import "firebase/database";
 
  //Refrence to Investor object in DB
- const InvestorsAccountsRef= AfaadFirebase.database().ref('Entrepreneur');
+const InvestorsAccountsRef= AfaadFirebase.database().ref('Entrepreneur');
  
 const auth = AfaadFirebase.auth();
 
 export default function RegistrationScreen({ navigation }) {
+
   const [FirstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState("");
   const [age, setAge] = useState("");
@@ -58,7 +59,7 @@ export default function RegistrationScreen({ navigation }) {
         },
       ]);
 
-      return;
+      return
     }
     if (password !== confirmPassword) {
       Alert.alert("تنبيه ", ".كلمة المرور وتأكيد كلمة المرور يجب أن تتطابق", [
@@ -68,7 +69,7 @@ export default function RegistrationScreen({ navigation }) {
           style: "cancel",
         },
       ]);
-      return;
+      return
     }
     if (IsValidName(FirstName) == false) {
       Alert.alert("تنبيه ", "الاسم يجب ان يحتوي على حروف فقط", [
@@ -78,7 +79,7 @@ export default function RegistrationScreen({ navigation }) {
           style: "cancel",
         },
       ]);
-      return;
+      return
     }
     if (IsValidPhone(phone) == false) {
       Alert.alert(
@@ -93,7 +94,7 @@ export default function RegistrationScreen({ navigation }) {
           },
         ]
       );
-      return;
+      return
     }
     if (IsValidPass(password) == false) {
       Alert.alert(
@@ -108,7 +109,7 @@ export default function RegistrationScreen({ navigation }) {
           },
         ]
       );
-      return;
+      return
     }
     if (IsValidPhone(phone) == false) {
       Alert.alert(
@@ -123,16 +124,10 @@ export default function RegistrationScreen({ navigation }) {
           },
         ]
       );
-      return;
-    } else {
-      auth.createUserWithEmailAndPassword(Email, password).then(() => {
-        //Redirect
-        navigation.navigate("welcome");
-      }); // Close of then fun
-
-      /*AfaadFirebase.auth()
-        .createUserWithEmailAndPassword(Email, password)
-        .then((response) => {
+      return
+    }
+ 
+      AfaadFirebase.auth().createUserWithEmailAndPassword(Email, password).then((response) => {
           AfaadFirebase.database()
             .ref("Entrepreneur/" + response.user.uid)
             .set({
@@ -141,31 +136,36 @@ export default function RegistrationScreen({ navigation }) {
               Gender: gender,
               Lastname: LastName,
               Password: password,
-              PhoneNum: phone,
+              phone: phone,
               email: Email,
-            }); //Set
-        }); //then;*/
-        auth.createUserWithEmailAndPassword(Email, password)
-        .then(() => {//success login
-          navigation.navigate('welcome')
-          const addData={
-            FirstName,
-            LastName,
-            age,
-            gender,
-             phone,
-              email,
-              password,
               type:"Entrepreneur",
-          }
-          InvestorsAccountsRef.push(addData);
-        })
-        .catch(function (error) {
-          // Handle Errors here.
+            }); //Set */
+           
+          }).then(()=> navigation.navigate('welcome'))
+   
+        .catch((error) =>{
+         switch(error.code){
+          case "auth/invalid-email":
+            Alert.alert(
+              "أهلا",
+              "تم تسجيلك بنجاح",
+     
+              [
+                {
+                  text: "حسناً",
+                  onPress: () => console.log("yes Pressed"),
+                  style: "cancel",
+                },
+              ]
+            );
+            break;
 
+
+         }
         });
-    }
+   
 
+ 
   };
   return (
     <View style={styles.container}>
@@ -231,7 +231,7 @@ export default function RegistrationScreen({ navigation }) {
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
-          
+         
           placeholder="Password"
           onChangeText={(text) => setPassword(text)}
           value={password}
@@ -242,7 +242,7 @@ export default function RegistrationScreen({ navigation }) {
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
-          
+         
           placeholder="Confirm Password"
           onChangeText={(text) => setConfirmPassword(text)}
           value={confirmPassword}
@@ -267,3 +267,4 @@ export default function RegistrationScreen({ navigation }) {
     </View>
   );
 }
+
