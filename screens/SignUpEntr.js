@@ -150,7 +150,6 @@ export default function RegistrationScreen({ navigation }) {
              phone,
               email,
               password,
-             
               type:"Entrepreneur",
           }
           InvestorsAccountsRef.push(addData);

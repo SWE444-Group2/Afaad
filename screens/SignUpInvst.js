@@ -1,172 +1,270 @@
-import React, { useState } from 'react'
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import styles from './styles';
+import React, { useState } from "react";
+import { Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import styles from "./styles";
 //import { firebase } from './firebaseConfig'
-import AfaadFirebase from './firebaseConfig';
-import 'firebase/auth';
+import AfaadFirebase from "./firebaseConfig";
+import "firebase/auth";
+import "firebase/database";
 
+ //Refrence to Investor object in DB
+const InvestorsAccountsRef= AfaadFirebase.database().ref('Entrepreneur');
+ 
 const auth = AfaadFirebase.auth();
 
-export default function RegistrationScreen({navigation}) {
-    const [FirstName, setFirstName] = useState('')
-    const [LastName, setLastName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [phone, setPhone] = useState('')
-    const [description, setdescription] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
-   const [passwordVisibility, setPasswordVisibility] = useState(true);
+export default function RegistrationScreen({ navigation }) {
 
-   //Refrence to Investor object in DB
-   const InvestorsAccountsRef= AfaadFirebase.database().ref('Investor');
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
+  const [age, setAge] = useState("");
+  const [Email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [gender, setGender] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+ 
+  const onFooterLinkPress = () => {
+    navigation.navigate("Login");
+  };
+  const IsValidName = (FirstName) => {
+    const RegxOfNames = /^[a-zA-Z]+$/;
+    return RegxOfNames.test(FirstName);
+  };
+  const IsValidPass = (password) => {
+    const strongPass = new RegExp(
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+    );
+    return strongPass.test(password);
+  };
+  const IsValidPhone = (phone) => {
+    const RegxPhone = /^[0-9]+$/;
+    return RegxPhone.test(phone);
+  };
 
-    const onFooterLinkPress = () => {
-        navigation.navigate('Login')
-       
-    }
-   
   const onRegisterPress = () => {
-         {
-           
-            if (email !== '' && password !== '') {
-                   
-                 auth.createUserWithEmailAndPassword(email, password)
-                  .then((userCredential) => {//success login
-                    navigation.navigate('welcome')
+    if (
+      Email == "" && //empty?
+      password == "" &&
+      confirmPassword == "" &&
+      FirstName == "" &&
+      LastName == "" &&
+      phone == "" &&
+      gender == ""
+    ) {
+      Alert.alert("تنبيه ", "جميع الحقول مطلوبة لإستكمال التسجيل", [
+        {
+          text: "حسناً",
+          onPress: () => console.log("yes Pressed"),
+          style: "cancel",
+        },
+      ]);
 
-                    const addData={
-                      FirstName,
-                      LastName,
-                        email,
-                        password,
-                        description,
-                        Verified: "Pending",
-                        type:"investor",
-                    }
-                    InvestorsAccountsRef.push(addData);
-                  })
-                  .catch(function (error) {
-                    // Handle Errors here.
-                    var errorMessage = error.message;
-                    alert(errorMessage);
-                  });
-              } else {
-                alert('one or more fields are missing!');
-              }
-     
-         }
-          /*firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password)
-            .then((response) => {
-                const uid = response.user.uid
-                const data = {
-                    id: uid,
-                    email,
-                    FirstName,
-                    LastName,
-                };
-                const usersRef = firebase.firestore().collection('users')
-                usersRef
-                    .doc(uid)
-                    .set(data)
-                    .then(() => {
-                        navigation.navigate('splash', {user: data})
-                    })
-                    .catch((error) => {
-                        alert(error)
-                    });
-            })
-            .catch((error) => {
-                alert(error)
-        });*/
+      return
     }
-    return (
-        <View style={styles.container}>
-            <KeyboardAwareScrollView
-                style={{ flex: 1, width: '100%' }}
-                keyboardShouldPersistTaps="always">
-               
-               <TextInput
-                  style={styles.input}
-                  placeholder="First Name"
-                  placeholderTextColor="#aaaaaa"
-                  onChangeText={(text) => setFirstName(text)}
-                  value={FirstName}
-                  underlineColorAndroid="transparent"
-                  autoCapitalize="none"
-                />
-        
-                <TextInput
-                  style={styles.input}
-                  placeholder="Last Name"
-                  placeholderTextColor="#aaaaaa"
-                  onChangeText={(text) => setLastName(text)}
-                  value={LastName}
-                  underlineColorAndroid="transparent"
-                  autoCapitalize="none"
-                />
+    if (password !== confirmPassword) {
+      Alert.alert("تنبيه ", ".كلمة المرور وتأكيد كلمة المرور يجب أن تتطابق", [
+        {
+          text: "سأعيد المحاولة",
+          onPress: () => console.log("yes Pressed"),
+          style: "cancel",
+        },
+      ]);
+      return
+    }
+    if (IsValidName(FirstName) == false) {
+      Alert.alert("تنبيه ", "الاسم يجب ان يحتوي على حروف فقط", [
+        {
+          text: "سإعيد المحاولة",
+          onPress: () => console.log("yes Pressed"),
+          style: "cancel",
+        },
+      ]);
+      return
+    }
+    if (IsValidPhone(phone) == false) {
+      Alert.alert(
+        "تنبيه",
+        "يجب ان تحتوي رقم الهاتف على ارقام فقط",
 
-                <TextInput
-                  style={styles.input}
-                  placeholder="phone number"
-                  placeholderTextColor="#aaaaaa"
-                  onChangeText={(text) => setPhone(text)}
-                  value={phone}
-                  underlineColorAndroid="transparent"
-                  autoCapitalize="none"
-                />
-                 
-                <TextInput
-                    style={styles.input}
-                    placeholder='E-mail'
-                    placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setEmail(text)}
-                    value={email}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholderTextColor="#aaaaaa"
-                    secureTextEntry
-                    placeholder='Password'
-                    onChangeText={(text) => setPassword(text)}
-                    value={password}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholderTextColor="#aaaaaa"
-                    secureTextEntry
-                    placeholder='Confirm Password'
-                    onChangeText={(text) => setConfirmPassword(text)}
-                    value={confirmPassword}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
-                  <TextInput
-                  style={styles.input}
-                  placeholder="description"
-                  placeholderTextColor="#aaaaaa"
-                  onChangeText={(text) => setdescription(text)}
-                  value={description}
-                  underlineColorAndroid="transparent"
-                  autoCapitalize="none"
-                />
-             
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => onRegisterPress()}>
-                    <Text style={styles.buttonTitle}>Create account</Text>
-                </TouchableOpacity>
-                <View style={styles.footerView}>
-                    <Text style={styles.footerText}>Already got an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Log in</Text></Text>
-                </View>
-            </KeyboardAwareScrollView>
+        [
+          {
+            text: "سأعيد المحاولة",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]
+      );
+      return
+    }
+    if (IsValidPass(password) == false) {
+      Alert.alert(
+        "كلمة السر ضعيفة ",
+        " يجب ان تحتوي كلمة السر على ٨ حروف على الاقل وارقام ورموز",
+
+        [
+          {
+            text: "سأعيد المحاولة",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]
+      );
+      return
+    }
+    if (IsValidPhone(phone) == false) {
+      Alert.alert(
+        "تنبيه",
+        "يجب ان تحتوي رقم الهاتف على ارقام فقط",
+
+        [
+          {
+            text: "سأعيد المحاولة",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]
+      );
+      return
+    }
+ 
+      AfaadFirebase.auth().createUserWithEmailAndPassword(Email, password).then((response) => {
+          AfaadFirebase.database()
+            .ref("Entrepreneur/" + response.user.uid)
+            .set({
+              Age: age,
+              FirstName: FirstName,
+              Gender: gender,
+              Lastname: LastName,
+              Password: password,
+              phone: phone,
+              email: Email,
+              type:"Entrepreneur",
+            }); //Set */
+           
+          }).then(()=> navigation.navigate('welcome'))
+   
+        .catch((error) =>{
+         switch(error.code){
+          case "auth/invalid-email":
+            Alert.alert(
+              "أهلا",
+              "تم تسجيلك بنجاح",
+     
+              [
+                {
+                  text: "حسناً",
+                  onPress: () => console.log("yes Pressed"),
+                  style: "cancel",
+                },
+              ]
+            );
+            break;
+
+
+         }
+        });
+   
+
+ 
+  };
+  return (
+    <View style={styles.container}>
+      <KeyboardAwareScrollView
+        style={{ flex: 1, width: "100%" }}
+        keyboardShouldPersistTaps="always"
+      >
+        <TextInput
+          style={styles.input}
+          placeholder="First Name"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setFirstName(text)}
+          value={FirstName}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Last Name"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setLastName(text)}
+          value={LastName}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Age"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setAge(text)}
+          value={age}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="phone number"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setPhone(text)}
+          value={phone}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Gender"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setGender(text)}
+          value={gender}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="E-mail"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setEmail(text)}
+          value={Email}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          placeholderTextColor="#aaaaaa"
+         
+          placeholder="Password"
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholderTextColor="#aaaaaa"
+         
+          placeholder="Confirm Password"
+          onChangeText={(text) => setConfirmPassword(text)}
+          value={confirmPassword}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => onRegisterPress()}
+        >
+          <Text style={styles.buttonTitle}>Create account</Text>
+        </TouchableOpacity>
+        <View style={styles.footerView}>
+          <Text style={styles.footerText}>
+            Already got an account?{" "}
+            <Text onPress={onFooterLinkPress} style={styles.footerLink}>
+              Log in
+            </Text>
+          </Text>
         </View>
-    )
-};
+      </KeyboardAwareScrollView>
+    </View>
+  );
+}
 
