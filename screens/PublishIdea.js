@@ -6,9 +6,10 @@ import { Button, Input } from 'react-native-elements';
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
 
-let user = AfaadFirebase.auth().currentUser ;
 
-export default function Login({ navigation }) {
+export default function PublishIdea({ navigation }) {
+
+  const user = AfaadFirebase.auth().currentUser ;
 
     //fields value
     const [Title, setTitle] = useState('');
@@ -22,6 +23,7 @@ export default function Login({ navigation }) {
     const ProductsRef = AfaadFirebase.database().ref('ProductIdea');
     let createDate = new Date().toLocaleDateString() ;
 
+    if (user){
     const productData = {
         Title,
         category,
@@ -33,6 +35,7 @@ export default function Login({ navigation }) {
         date: createDate,
     };
     ProductsRef.push(productData);
+  }
     };
   
     return (
