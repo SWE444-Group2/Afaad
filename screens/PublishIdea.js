@@ -34,7 +34,10 @@ export default function PublishIdea({ navigation }) {
         userID: user.uid,
         date: createDate,
     };
-    ProductsRef.push(productData);
+    ProductsRef.push(productData).then((dataRef) => {
+      navigation.pop()
+      navigation.push('ViewIdea');
+    });
   }
     };
   

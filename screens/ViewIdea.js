@@ -8,6 +8,21 @@ import 'firebase/auth';
 
 export default function ViewIdea({ navigation }) {
 
+  let user = AfaadFirebase.auth().currentUser ;
+  let userID, userType ;
+
+  if(user){
+    userID = user.uid ;
+    AfaadFirebase.database().ref('/Admin/'+userID).on('value', (snapshot) => {
+      if (snapshot.exists()) {
+        userType = 'Admin' ;
+      }})
+    AfaadFirebase.database().ref('/Entrepreneur/'+userID).on('value', (snapshot) => {
+      if (snapshot.exists()) {
+        userType = 'Entrepreneur' ;
+      }
+    })
+  }
     const [productsList , setproductsList]= useState();
     const[PendingProductList ,setPendingproductsList ]=useState();
    
@@ -26,9 +41,13 @@ export default function ViewIdea({ navigation }) {
 
           const PendingProductList=[]
           for(let productID in productsList){
-            if(productsList[productID].status=='Pending'){
-              PendingProductList.push(productsList[productID]) } 
+            if (userType === 'Admin' && productsList[productID].status == 'Pending') {
+              PendingProductList.push(productsList[productID])
             }
+            else if (userType === 'Entrepreneur' && productsList[productID].userID == userID) {
+              PendingProductList.push(productsList[productID])
+            }
+          }
 
            setPendingproductsList(PendingProductList) ;
             console.log(PendingProductList);
