@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, ScrollView, Alert} from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
@@ -17,9 +17,77 @@ export default function PublishIdea({ navigation }) {
     const [ProductDescription, setProductDescription] = useState('');
     const [costEstimation, setCostEstimation] = useState('');
     const [investorsSpec, setInvestorsSpec] = useState('');
+
+    const IsValidfield= (field) => {
+      const RegxOfNames = /^[a-zA-Z\s]*$/;
+      return RegxOfNames.test(field);
+    };
+
   
-    //when login button is pressed perform this
+    //when submit button is pressed perform this
     const submit = () => {
+
+      // Checking for empty fields
+      if (
+        Title == "" || 
+        category == "" ||
+        ProductDescription == "" ||
+        investorsSpec == ""
+      ) {
+        Alert.alert("تنبيه ", "جميع الحقول مطلوبة", [
+          {
+            text: "حسناً",
+            style: "cancel",
+          },
+        ]);
+  
+        return
+      } 
+      if (IsValidfield(Title) == false) {
+        Alert.alert("تنبيه", "حقل \"العنوان\" يجب ان يحتوي على حروف فقط", [
+          {
+            text: "سإعيد المحاولة",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]);
+        return
+      }
+
+      if (IsValidfield(category) == false) {
+        Alert.alert("تنبيه", "حقل \"التصنيف\" يجب ان يحتوي على حروف فقط", [
+          {
+            text: "سإعيد المحاولة",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]);
+        return
+      }
+
+      if (IsValidfield(ProductDescription) == false) {
+        Alert.alert("تنبيه", "حقل \"الوصف\" يجب ان يحتوي على حروف فقط", [
+          {
+            text: "سإعيد المحاولة",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]);
+        return
+      }
+
+      if (IsValidfield(investorsSpec) == false) {
+        Alert.alert("تنبيه", "حقل \"وصف المستثمر المراد\" يجب ان يحتوي على حروف فقط", [
+          {
+            text: "سإعيد المحاولة",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]);
+        return
+      }
+
+
     const ProductsRef = AfaadFirebase.database().ref('ProductIdea');
     let createDate = new Date().toLocaleDateString() ;
 
@@ -77,8 +145,9 @@ export default function PublishIdea({ navigation }) {
             onChangeText={text => setProductDescription(text)}
           />
           <Input
-            label="Product Cost Estimation"
+            label="Product Cost Estimation (SAR)"
             placeholder="Enter Your Estimation"
+            keyboardType = {'number-pad'}
             value={costEstimation}
             onChangeText={text => setCostEstimation(text)}
           />
