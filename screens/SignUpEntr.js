@@ -81,6 +81,16 @@ export default function RegistrationScreen({ navigation }) {
       ]);
       return
     }
+    if (age>120) {
+      Alert.alert("تنبيه ", "العمر يجب ان يكون أقل من ١٢٠ سنة ", [
+        {
+          text: "سإعيد المحاولة",
+          onPress: () => console.log("yes Pressed"),
+          style: "cancel",
+        },
+      ]);
+      return
+    }
     if (IsValidPhone(phone) == false) {
       Alert.alert(
         "تنبيه",
@@ -237,17 +247,20 @@ export default function RegistrationScreen({ navigation }) {
           value={password}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          onChangeText={text => setPassword(text)}
+          secureTextEntry={true}
         />
 
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
-         
           placeholder="Confirm Password"
           onChangeText={(text) => setConfirmPassword(text)}
           value={confirmPassword}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          onChangeText={text => setPassword(text)}
+          secureTextEntry={true}
         />
         <TouchableOpacity
           style={styles.button}
@@ -267,3 +280,4 @@ export default function RegistrationScreen({ navigation }) {
     </View>
   );
 }
+
