@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View ,TouchableOpacity , Alert } from 'react-native';
 import AfaadFirebase from "./firebaseConfig";
+import TitleStyles from './TitleStyles';
 
 
 // Expecting an id of product idea
@@ -68,15 +69,15 @@ export default function invstorsAccount({navigation , route}) {
             <Text>{Desc}</Text>
 
 <TouchableOpacity
-                    style={styles.button}
+                    style={TitleStyles.Acceptbutton}
                     onPress={() => AcceptIdea()}>
-                    <Text style={styles.buttonTitle}>Accept</Text>
+                    <Text style={TitleStyles.AcceptDetailsBtn}>قبول</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={styles.button}
+                    style={TitleStyles.Rejectbutton}
                     onPress={() => RejectIdea()}>
-                    <Text style={styles.buttonTitle}>Reject</Text>
+                    <Text style={TitleStyles.RejectDetailsBtn}>رفض</Text>
                 </TouchableOpacity>
         </View>
     )
@@ -92,13 +93,10 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 17
         },
-        button: {
-            width: 150,
-            margin: 10,
-            },
+        
 
     buttonTitle: {
-        color: 'dodgerblue',
+        color: 'pink',
          fontSize: 16,
         fontWeight: "bold",   
         },

@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Button,TouchableOpacity, FlatList } from 'react
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
 //import { Item } from 'react-native-paper/lib/typescript/components/List/List';
+import Titlestyles from './TitleStyles';
 
 export default function ViewAccount({ navigation }) {
 
@@ -43,12 +44,12 @@ export default function ViewAccount({ navigation }) {
     },[])
   
   return (
-    <View style={styles.container}>
-        <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>تفعيل حسابات المستثمرين</Text>
+    <View style={Titlestyles.container}>
+        <View style={Titlestyles.tasksWrapper}>
+        <Text style={Titlestyles.sectionTitle}>تفعيل حسابات المستثمرين</Text>
        
 
-           <View style={styles.items}>
+           <View style={Titlestyles.items}>
              {/* Investors Accounts is displayed  */}
              <FlatList  
              data = {PendingAccountsList}
@@ -56,9 +57,9 @@ export default function ViewAccount({ navigation }) {
              renderItem = {({item})=>(
 
              <TouchableOpacity onPress={() => navigation.navigate('investorAccount', {InvestorID:item.id})}>
-             <View style={styles.item}>
-             <Text style={styles.Accounts}>{item.email} </Text>
-             <Button style={styles.button}
+             <View style={Titlestyles.item}>
+             <Text style={Titlestyles.subTitle} >{item.email} </Text>
+             <Button style={Titlestyles.button}
                 onPress={() => navigation.navigate('investorAccount', {InvestorID:item.id})}
                 title="عرض التفاصيل"
                 titleProps={{}}
@@ -78,46 +79,3 @@ export default function ViewAccount({ navigation }) {
   );
 
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#E8EAED',
-  },
-    tasksWrapper:{
-      paddingTop:80,
-      paddingHorizontal:20,
-    },
-    sectionTitle:{
-      fontSize:24,
-      fontWeight:'bold',
-      paddingBottom: 20,
-      textAlign: 'right'
-    },
-    items:{
-
-    
-    },
-    item:{
-      backgroundColor:'#FFF',
-      padding:15,
-      borderRadius:10,
-      flexDirection:'row',
-     // alignItems:'center',
-      justifyContent:"space-between",
-      marginBottom:20,
-     
-    
-    },
-    Accounts:{
-      fontSize:18,
-      fontWeight:'bold',
-      textAlign: 'right'
-      
-    },
-
-    button:{
-    
-    },
-
-});

@@ -11,13 +11,19 @@ import { default as productIdea } from './screens/productIdea' ;
 import {default as investorAccount} from './screens/investorAccount';
 import { default as Login } from './screens/Login' ;
 import { default as welcome } from './screens/welcome' ;
-
 import { default as SignUpEntr } from './screens/SignUpEntr' ;
 import { default as SignUpInvst } from './screens/SignUpInvst' ;
-
 import { default as PublishIdea } from './screens/PublishIdea' ;
+import {useFonts} from 'expo-font';
 
 export default function App() {
+
+  const[isLoaded]=useFonts({
+    AJannatLT: require('./assets/fonts/AJannatLT.otf'),
+    AJannatLTBold: require('./assets/fonts/AJannatLT-Bold.otf'),
+  });
+
+
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
