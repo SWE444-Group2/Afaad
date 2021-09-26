@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
+import TitleStyles from './TitleStyles';
 
 const auth = AfaadFirebase.auth();
 
@@ -22,31 +23,31 @@ export default function welcome({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text>welcome</Text>
+            <Text style={TitleStyles.sectionTitle} >مرحبا بك</Text>
             <Button style={styles.button}
                 onPress={onSignout}
-                title="Sign out"
+                title="تسجيل الخروج"
                 titleProps={{}}
                 titleStyle={{ marginHorizontal: 5 }}
             />
             <Button style={styles.button}
                 onPress={() => navigation.navigate('ViewAccount')}
-                title="View Investors Accounts"
+                title="تفعيل حسابات المستثمرين"
                 titleProps={{}}
                 titleStyle={{ marginHorizontal: 5 }}
             />
             <Button style={styles.button}
                 onPress={() => navigation.navigate('ViewIdea')}
-                title="View Entrepreneur Product Ideas"
+                title="تفعيل المشاريع"
                 titleProps={{}}
                 titleStyle={{ marginHorizontal: 5 }}
-            />
+            />         
             <Icon style={styles.addIcon}
                 name="add"
                 onPress={() => navigation.navigate('PublishIdea')}
                 size={70}
                 type="material"
-            />
+            />         
             <StatusBar style="auto" />
         </View>
     );
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        
     },
     button: {
         width: 150,
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
     },
     addIcon: {
         marginTop: '90%',
-        marginRight: 300,
-        color: "#1c73d4",
+        backgroundColor:'#BFDBF7',
+        borderRadius:50
     },
 });

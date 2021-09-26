@@ -58,15 +58,15 @@ export default function invstorsAccount({navigation , route}) {
           ); }
     // console.log(pIdea);
     return(
-        <View style={styles.container}>
-            <Text style={styles.label}>email</Text>
-            <Text>{email}</Text>
-            <Text style={styles.label}>First name:</Text>
-            <Text>{Firstname}</Text>
-            <Text style={styles.label}>Last name:</Text>
-            <Text>{Lastname}</Text>
-            <Text style={styles.label}>Description:</Text>
-            <Text>{Desc}</Text>
+        <View style={[TitleStyles.containerDetails , styles.container]}>
+            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>الاسم الاول</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{Firstname}</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>الاسم الاخير</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{Lastname}</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>البريد الالكتروني</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{email}</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>وصف المستثمر</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{Desc}</Text>
 
 <TouchableOpacity
                     style={TitleStyles.Acceptbutton}
@@ -85,19 +85,6 @@ export default function invstorsAccount({navigation , route}) {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#E1E5F2',
       alignItems: 'center',
     },
-    label:{
-        fontWeight: "bold",
-        fontSize: 17
-        },
-        
-
-    buttonTitle: {
-        color: 'pink',
-         fontSize: 16,
-        fontWeight: "bold",   
-        },
   });
