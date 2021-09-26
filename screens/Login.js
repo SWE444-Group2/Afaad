@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback, Alert } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
+import TitleStyles from './TitleStyles';
+
 
 const auth = AfaadFirebase.auth();
 const rootRef = AfaadFirebase.database().ref()
@@ -80,35 +82,40 @@ export default function Login({ navigation }) {
           alert(errorMessage);
         });
     } else {
-      alert('one or more fields are missing!');
+      Alert.alert('تنبيه', 'الرجاء تعبئة كل الفراغات', [
+        {
+          text: "حسنًا",
+          style: "cancel",
+        },
+      ]);
     }
   };
 
   return (
     <DismissKeyboard>
       <View style={styles.container}>
-        <Text style={styles.titleText}>Log in page</Text>
-        <Input
-          label="Email Address"
-          disabledInputStyle={{ background: "#ddd" }}
-          leftIcon={<Icon name="account-outline" size={20} />}
-          placeholder="Enter Email"
+        <Text style={TitleStyles.sectionTitle}>صفحة تسجيل الدخول</Text>
+        <Input style = {{ textAlign: 'right', fontFamily: 'AJannatLT' }}
+          labelStyle={{ textAlign: 'right', fontFamily: 'AJannatLTBold' }}
+          label="البريد الإلكتروني"
+          rightIcon={<Icon name="account-outline" size={20} />}
+          placeholder="ادخل عنوانك الإلكتروني"
           value={email}
           onChangeText={text => setEmail(text)}
         />
-        <Input
-          label="Password"
-          disabledInputStyle={{ background: "#ddd" }}
-          leftIcon={<Icon name="key" size={20} />}
-          placeholder="Enter Password"
+        <Input style={{ textAlign: 'right', fontFamily: 'AJannatLT' }}
+          labelStyle={{textAlign: 'right', fontFamily: 'AJannatLTBold'}}
+          label="كلمة السر"
+          rightIcon={<Icon name="key" size={20} />}
+          placeholder="ادخل كلمة السر"
           value={password}
           onChangeText={text => setPassword(text)}
           secureTextEntry={true}
         />
         <Button style={styles.button}
           onPress={onLogin}
-          title="Log in"
-          titleStyle={{ marginHorizontal: 5 }}
+          title="تسجيل الدخول"
+          titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT'}}
         />
         <StatusBar style="auto" />
       </View>
@@ -118,8 +125,6 @@ export default function Login({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
