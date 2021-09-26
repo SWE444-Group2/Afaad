@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback, KeyboardAvo
 import { Button, Input } from 'react-native-elements';
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
-
+import TitleStyles from './TitleStyles';
 
 export default function PublishIdea({ navigation }) {
 
@@ -113,16 +113,18 @@ export default function PublishIdea({ navigation }) {
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView contentContainerStyle={styles.inner}>
-        <Text style={styles.titleText}>Submit idea</Text>
-          <Input
-            label="Title"
-            placeholder="Enter Title"
+        <Text style={TitleStyles.sectionTitle}>نشر المشروع</Text>
+          <Input style = {{ textAlign: 'right', fontFamily: 'AJannatLT' }}
+            labelStyle={{ textAlign: 'right', fontFamily: 'AJannatLTBold' }}
+            label="عنوان المشروع"
+            placeholder="ادخل عنوان المشروع"
             value={Title}
             onChangeText={text => setTitle(text)}
           />
-          <Input
-            label="Category"
-            placeholder="Enter Category"
+          <Input style = {{ textAlign: 'right', fontFamily: 'AJannatLT' }}
+            labelStyle={{ textAlign: 'right', fontFamily: 'AJannatLTBold' }}
+            label="الفئه"
+            placeholder="ادخل فئه المشروع مثال : مشروع تقني"
             value={category}
             onChangeText={text => setCategory(text)}
           />
@@ -136,23 +138,26 @@ export default function PublishIdea({ navigation }) {
             onChangeText={text => (text)}
           /> */}
 
-          <Input
-            label="Product Description"
-            placeholder="Enter Product Description"
+          <Input style = {{ textAlign: 'right', fontFamily: 'AJannatLT' }}
+            labelStyle={{ textAlign: 'right', fontFamily: 'AJannatLTBold' }}
+            label="وصف المشروع"
+            placeholder="ادخل وصف مختصر للمشروع"
             multiline={true}
             numberOfLines={4}
             value={ProductDescription}
             onChangeText={text => setProductDescription(text)}
           />
-          <Input
-            label="Product Cost Estimation (SAR)"
-            placeholder="Enter Your Estimation"
+          <Input style = {{ textAlign: 'right', fontFamily: 'AJannatLT' }}
+            labelStyle={{ textAlign: 'right', fontFamily: 'AJannatLTBold' }}
+            label="تقدير تكلفة المنتج (ريال سعودي)"
+            placeholder="أدخل تقديرك"
             keyboardType = {'number-pad'}
             value={costEstimation}
             onChangeText={text => setCostEstimation(text)}
           />
-          <Input
-            label="What do you look for in investors?"
+          <Input style = {{ textAlign: 'right', fontFamily: 'AJannatLT' }}
+            labelStyle={{ textAlign: 'right', fontFamily: 'AJannatLTBold' }}
+            label="ما الذي تبحث عنه في المستثمرين؟"
             placeholder="..."
             multiline={true}
             numberOfLines={4}
@@ -162,8 +167,8 @@ export default function PublishIdea({ navigation }) {
 
           <Button style={styles.button}
             onPress={submit}
-            title="Submit"
-            titleStyle={{ marginHorizontal: 5 }}
+            title="ارسال"
+            titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT'}}
           />
           <StatusBar style="auto" />
         </ScrollView>
@@ -184,6 +189,8 @@ export default function PublishIdea({ navigation }) {
     button: {
       width: 150,
       margin: 10,
+      //paddingLeft: 50]
+      marginLeft:120,
     },
     titleText: {
       fontSize: 30,
