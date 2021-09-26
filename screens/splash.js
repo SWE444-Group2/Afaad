@@ -16,14 +16,14 @@ export default function splash({ navigation }) {
       titleStyle={{ marginHorizontal: 5 }}
     />
         <Button style={styles.button}
-      onPress={() => navigation.navigate('SignUpEntr')}
+      onPress={() => navigation.navigate('Sign Up Entrepreneur')}
       title="Sign Up Entrepreneur"
       titleProps={{}}
       titleStyle={{ marginHorizontal: 5 }}
     />
     <Button style={styles.button}
-      onPress={() => navigation.navigate('SignUpInvst')}
-      title="Sign Up investor'"
+      onPress={() => navigation.navigate('Sign Up investor"')}
+      title="Sign Up investor"
       titleProps={{}}
       titleStyle={{ marginHorizontal: 5 }}
     />

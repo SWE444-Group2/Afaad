@@ -1,34 +1,32 @@
 import React, { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
+import { Text, TextInput, TouchableOpacity, View, Alert,StyleSheet } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 //import { firebase } from './firebaseConfig'
 import AfaadFirebase from "./firebaseConfig";
 import "firebase/auth";
 import "firebase/database";
+import RNPickerSelect from "react-native-picker-select";
 
- //Refrence to Investor object in DB
-const InvestorsAccountsRef= AfaadFirebase.database().ref('Entrepreneur');
- 
+//Refrence to Investor object in DB
+const InvestorsAccountsRef = AfaadFirebase.database().ref("Entrepreneur");
+
 const auth = AfaadFirebase.auth();
 
 export default function RegistrationScreen({ navigation }) {
+    const [FullName, setFullName] = useState("");
+    const [Email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [Describtion, setDescribtion] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [FirstName, setFirstName] = useState("");
-  const [LastName, setLastName] = useState("");
-  const [age, setAge] = useState("");
-  const [Email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [gender, setGender] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
- 
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
   };
-  const IsValidName = (FirstName) => {
+  const IsValidName = (FullName) => {
     const RegxOfNames = /^[a-zA-Z]+$/;
-    return RegxOfNames.test(FirstName);
+    return RegxOfNames.test(FullName);
   };
   const IsValidPass = (password) => {
     const strongPass = new RegExp(
@@ -43,13 +41,12 @@ export default function RegistrationScreen({ navigation }) {
 
   const onRegisterPress = () => {
     if (
-      Email == "" && //empty?
-      password == "" &&
-      confirmPassword == "" &&
-      FirstName == "" &&
-      LastName == "" &&
-      phone == "" &&
-      gender == ""
+        Email == "" && //empty?
+        password == "" &&
+        confirmPassword == "" &&
+        FullName == "" &&
+        phone == "" &&
+        Describtion == ""
     ) {
       Alert.alert("تنبيه ", "جميع الحقول مطلوبة لإستكمال التسجيل", [
         {
@@ -59,7 +56,7 @@ export default function RegistrationScreen({ navigation }) {
         },
       ]);
 
-      return
+      return;
     }
     if (password !== confirmPassword) {
       Alert.alert("تنبيه ", ".كلمة المرور وتأكيد كلمة المرور يجب أن تتطابق", [
@@ -69,19 +66,19 @@ export default function RegistrationScreen({ navigation }) {
           style: "cancel",
         },
       ]);
-      return
+      return;
     }
-    if (IsValidName(FirstName) == false) {
-      Alert.alert("تنبيه ", "الاسم يجب ان يحتوي على حروف فقط", [
+    if (IsValidName(FullName) == false) {
+      Alert.alert("تنبيه ", "الاسم الكامل يجب ان يحتوي على حروف فقط", [
         {
           text: "سإعيد المحاولة",
           onPress: () => console.log("yes Pressed"),
           style: "cancel",
         },
       ]);
-      return
+      return;
     }
-    if (IsValidPhone(phone) == false) {
+      if (IsValidPhone(phone) == false) {
       Alert.alert(
         "تنبيه",
         "يجب ان تحتوي رقم الهاتف على ارقام فقط",
@@ -94,7 +91,7 @@ export default function RegistrationScreen({ navigation }) {
           },
         ]
       );
-      return
+      return;
     }
     if (IsValidPass(password) == false) {
       Alert.alert(
@@ -109,7 +106,7 @@ export default function RegistrationScreen({ navigation }) {
           },
         ]
       );
-      return
+      return;
     }
     if (IsValidPhone(phone) == false) {
       Alert.alert(
@@ -124,32 +121,33 @@ export default function RegistrationScreen({ navigation }) {
           },
         ]
       );
-      return
+      return;
     }
- 
-      AfaadFirebase.auth().createUserWithEmailAndPassword(Email, password).then((response) => {
-          AfaadFirebase.database()
-            .ref("Entrepreneur/" + response.user.uid)
-            .set({
-              Age: age,
-              FirstName: FirstName,
-              Gender: gender,
-              Lastname: LastName,
-              Password: password,
-              phone: phone,
-              email: Email,
-              type:"Entrepreneur",
-            }); //Set */
-           
-          }).then(()=> navigation.navigate('welcome'))
-   
-        .catch((error) =>{
-         switch(error.code){
+
+    AfaadFirebase.auth()
+      .createUserWithEmailAndPassword(Email, password)
+      .then((response) => {
+        AfaadFirebase.database()
+          .ref("Investor/" + response.user.uid)
+          .set({
+            FullName: FullName,
+            Password: password,
+            phone: phone,
+            email: Email,
+            Describetion:Describtion,
+            type: "Investor",
+            Varified:"Pending",
+          }); //Set */
+      })
+      .then(() => navigation.navigate("welcome"))
+
+      .catch((error) => {
+        switch (error.code) {
           case "auth/invalid-email":
             Alert.alert(
               "أهلا",
               "تم تسجيلك بنجاح",
-     
+
               [
                 {
                   text: "حسناً",
@@ -159,13 +157,8 @@ export default function RegistrationScreen({ navigation }) {
               ]
             );
             break;
-
-
-         }
-        });
-   
-
- 
+        }
+      });
   };
   return (
     <View style={styles.container}>
@@ -175,32 +168,15 @@ export default function RegistrationScreen({ navigation }) {
       >
         <TextInput
           style={styles.input}
-          placeholder="First Name"
+          placeholder="Full name"
           placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setFirstName(text)}
-          value={FirstName}
+          onChangeText={(text) => setFullName(text)}
+          value={FullName}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Last Name"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setLastName(text)}
-          value={LastName}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Age"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setAge(text)}
-          value={age}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
+       
         <TextInput
           style={styles.input}
           placeholder="phone number"
@@ -210,15 +186,7 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Gender"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setGender(text)}
-          value={gender}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
+
         <TextInput
           style={styles.input}
           placeholder="E-mail"
@@ -228,24 +196,33 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
+        
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
-         
           placeholder="Password"
           onChangeText={(text) => setPassword(text)}
           value={password}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          onChangeText={(text) => setPassword(text)}
+          secureTextEntry={true}
         />
 
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
-         
           placeholder="Confirm Password"
           onChangeText={(text) => setConfirmPassword(text)}
           value={confirmPassword}
+          secureTextEntry={true}
+        />
+           <TextInput
+          style={styles.dec}
+          placeholder="Describe yourself or your company"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setDescribtion(text)}
+          value={Describtion}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
@@ -267,4 +244,3 @@ export default function RegistrationScreen({ navigation }) {
     </View>
   );
 }
-

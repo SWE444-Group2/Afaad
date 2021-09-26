@@ -147,13 +147,14 @@ export default function RegistrationScreen({ navigation }) {
         AfaadFirebase.database()
           .ref("Entrepreneur/" + response.user.uid)
           .set({
-            Age: age,
+            
             FirstName: FirstName,
-            Gender: gender,
             Lastname: LastName,
-            Password: password,
+            Gender: gender,
+            Age: age,
             phone: phone,
             email: Email,
+            Password: password,
             type: "Entrepreneur",
           }); //Set */
       })
@@ -224,7 +225,6 @@ export default function RegistrationScreen({ navigation }) {
 
           <View style={styles.input}>
           <RNPickerSelect
-          style={styles}
             placeholder={{
               label: "Gender",
               value: null,
@@ -258,7 +258,7 @@ export default function RegistrationScreen({ navigation }) {
           value={password}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
-          onChangeText={(text) => setPassword(text)}
+      
           secureTextEntry={true}
         />
 
@@ -270,9 +270,9 @@ export default function RegistrationScreen({ navigation }) {
           value={confirmPassword}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
-          onChangeText={(text) => setPassword(text)}
           secureTextEntry={true}
         />
+
         <TouchableOpacity
           style={styles.button}
           onPress={() => onRegisterPress()}
@@ -291,6 +291,3 @@ export default function RegistrationScreen({ navigation }) {
     </View>
   );
 }
-
-
-);
