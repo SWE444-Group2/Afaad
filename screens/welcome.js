@@ -25,21 +25,21 @@ export default function welcome({ navigation }) {
             <Text>welcome</Text>
             <Button style={styles.button}
                 onPress={onSignout}
-                title="Sign out"
+                title="تسجييل خروج"
                 titleProps={{}}
-                titleStyle={{ marginHorizontal: 5 }}
+                titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT'}}
             />
             <Button style={styles.button}
                 onPress={() => navigation.navigate('ViewAccount')}
-                title="View Investors Accounts"
+                title="تفعيل الحسابات"
                 titleProps={{}}
-                titleStyle={{ marginHorizontal: 5 }}
+                titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT'}}
             />
             <Button style={styles.button}
                 onPress={() => navigation.navigate('ViewIdea')}
-                title="View Entrepreneur Product Ideas"
+                title="تفعيل المشاريع"
                 titleProps={{}}
-                titleStyle={{ marginHorizontal: 5 }}
+                titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT'}}
             />
             <Icon style={styles.addIcon}
                 name="add"
