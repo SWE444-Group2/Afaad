@@ -2,6 +2,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View , Button , TouchableOpacity , Alert} from 'react-native';
+import TitleStyles from './TitleStyles';
+
 
 import AfaadFirebase from "./firebaseConfig";
 // Expecting an id of product idea
@@ -75,15 +77,15 @@ export default function productIdea({navigation , route}) {
             
 {/*The accept/ reject function is on Verify page*/}
               <TouchableOpacity
-                    style={styles.button}
+                    style={TitleStyles.Acceptbutton}
                     onPress={() => AcceptIdea()}>
-                    <Text style={styles.buttonTitle}>Accept</Text>
+                    <Text style={TitleStyles.AcceptDetailsBtn}> قبول</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={styles.button}
+                    style={TitleStyles.Rejectbutton}
                     onPress={() => RejectIdea()}>
-                    <Text style={styles.buttonTitle}>Reject</Text>
+                    <Text style={TitleStyles.RejectDetailsBtn}>رفض</Text>
                 </TouchableOpacity>
             
            

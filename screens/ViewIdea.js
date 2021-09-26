@@ -3,6 +3,7 @@ import React ,{useEffect , useState , setState} from 'react';
 import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button} from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
+import Titlestyles from './TitleStyles';
 
 
 
@@ -58,19 +59,20 @@ export default function ViewIdea({ navigation }) {
        
     }, [])
   return (
-    <View style={styles.container}>
-       <View style={styles.tasksWrapper}>
-      <Text style={styles.sectionTitle}>عرض الافكار</Text>
+    <View style={Titlestyles.container}>
+       <View style={Titlestyles.tasksWrapper}>
+      <Text style={Titlestyles.sectionTitle}>عرض الافكار</Text>
          
-      <View style={styles.items}>
+      <View style={Titlestyles.items}>
         <FlatList
         data={PendingProductList}
         keyExtractor={(item, index)=>index.toString()}
         renderItem={({ item })=>(
           <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID})}>   
-          <View style={styles.item}>
-            <Text style={styles.Accounts}>{item.Title}</Text>
-            <Button style={styles.button}
+          <View style={Titlestyles.item}>
+            <Text style={Titlestyles.subTitle}>{item.Title}</Text>
+            <Button 
+                style={Titlestyles.DetailsBtn}
                 onPress={() => navigation.navigate('productIdea', {Product_id:item.productID})}
                 title="عرض التفاصيل"
                 titleProps={{}}
@@ -89,42 +91,3 @@ export default function ViewIdea({ navigation }) {
   
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#E8EAED',
-  },
-    tasksWrapper:{
-      paddingTop:80,
-      paddingHorizontal:20,
-    },
-    sectionTitle:{
-      fontSize:24,
-      fontWeight:'bold',
-      paddingBottom: 20,
-      textAlign: 'right'
-    },
-    items:{
-
-    
-    },
-    item:{
-      backgroundColor:'#FFF',
-      padding:15,
-      borderRadius:10,
-      flexDirection:'row',
-     // alignItems:'center',
-      justifyContent:"space-between",
-      marginBottom:20,
-     
-    
-    },
-    Accounts:{
-      fontSize:18,
-      fontWeight:'bold',
-      textAlign: 'right'
-      
-    },
-
-
-});
