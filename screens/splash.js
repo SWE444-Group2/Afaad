@@ -6,7 +6,7 @@ import { Button } from 'react-native-elements' ;
 
 
 export default function splash({ navigation }) {
-  return (
+   return (
     <View style={styles.container}>
       <Text>Afaad Project</Text>
       <Button style={styles.button}
@@ -16,13 +16,13 @@ export default function splash({ navigation }) {
       titleStyle={{ marginHorizontal: 5 }}
     />
         <Button style={styles.button}
-      onPress={() => navigation.navigate('Sign Up Entrepreneur')}
+      onPress={() => navigation.navigate('SignUpEntr')}
       title="Sign Up Entrepreneur"
       titleProps={{}}
       titleStyle={{ marginHorizontal: 5 }}
     />
     <Button style={styles.button}
-      onPress={() => navigation.navigate('Sign Up investor"')}
+      onPress={() => navigation.navigate("SignUpEntr")}
       title="Sign Up investor"
       titleProps={{}}
       titleStyle={{ marginHorizontal: 5 }}

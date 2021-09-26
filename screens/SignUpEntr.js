@@ -22,10 +22,7 @@ export default function RegistrationScreen({ navigation }) {
   const [gender, setGender] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const selectedItem = {
-    title: "Gender",
-    description: "Secondary long descriptive text ...",
-  };
+ 
 
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
@@ -229,7 +226,6 @@ export default function RegistrationScreen({ navigation }) {
               label: "Gender",
               value: null,
             }}
-          
 
             onValueChange={(value) => console.log(value)}
             items={[
