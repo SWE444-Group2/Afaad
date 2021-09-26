@@ -145,8 +145,37 @@ export default function RegistrationScreen({ navigation }) {
         switch (error.code) {
           case "auth/invalid-email":
             Alert.alert(
-              "أهلا",
-              "تم تسجيلك بنجاح",
+              "تنبيه",
+              "الأيميل المدخل غير صالح",
+
+              [
+                {
+                  text: "حسناً",
+                  onPress: () => console.log("yes Pressed"),
+                  style: "cancel",
+                },
+              ]
+            );
+            break;
+            case "auth/network-request-failed":
+              Alert.alert(
+                "تنبيه",
+                "الرجاد التحقق من الأتصال بالانترنت",
+  
+                [
+                  {
+                    text: "حسناً",
+                    onPress: () => console.log("yes Pressed"),
+                    style: "cancel",
+                  },
+                ]
+              );
+            break;
+          
+          case "auth/email-already-in-use":
+            Alert.alert(
+              "تنبيه",
+              "البريد الألكتروني مسجل من قبل",
 
               [
                 {
@@ -168,7 +197,7 @@ export default function RegistrationScreen({ navigation }) {
       >
         <TextInput
           style={styles.input}
-          placeholder="Full name"
+          placeholder="الأسم الكامل"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setFullName(text)}
           value={FullName}
@@ -179,7 +208,7 @@ export default function RegistrationScreen({ navigation }) {
        
         <TextInput
           style={styles.input}
-          placeholder="phone number"
+          placeholder="رقم الجوال"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setPhone(text)}
           value={phone}
@@ -189,7 +218,7 @@ export default function RegistrationScreen({ navigation }) {
 
         <TextInput
           style={styles.input}
-          placeholder="E-mail"
+          placeholder="البريد الالكتروني"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setEmail(text)}
           value={Email}
@@ -200,7 +229,7 @@ export default function RegistrationScreen({ navigation }) {
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
-          placeholder="Password"
+          placeholder="كلمة المرور"
           onChangeText={(text) => setPassword(text)}
           value={password}
           underlineColorAndroid="transparent"
@@ -212,14 +241,14 @@ export default function RegistrationScreen({ navigation }) {
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
-          placeholder="Confirm Password"
+          placeholder="تأكيد كلمة المرور"
           onChangeText={(text) => setConfirmPassword(text)}
           value={confirmPassword}
           secureTextEntry={true}
         />
            <TextInput
           style={styles.dec}
-          placeholder="Describe yourself or your company"
+          placeholder="وصف المستثمر او وصف الشركة المستثمرة"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setDescribtion(text)}
           value={Describtion}

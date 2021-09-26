@@ -161,8 +161,37 @@ export default function RegistrationScreen({ navigation }) {
         switch (error.code) {
           case "auth/invalid-email":
             Alert.alert(
-              "أهلا",
-              "تم تسجيلك بنجاح",
+              "تنبيه",
+              "الأيميل المدخل غير صالح",
+
+              [
+                {
+                  text: "حسناً",
+                  onPress: () => console.log("yes Pressed"),
+                  style: "cancel",
+                },
+              ]
+            );
+            break;
+            case "auth/network-request-failed":
+              Alert.alert(
+                "تنبيه",
+                "الرجاد التحقق من الأتصال بالانترنت",
+  
+                [
+                  {
+                    text: "حسناً",
+                    onPress: () => console.log("yes Pressed"),
+                    style: "cancel",
+                  },
+                ]
+              );
+            break;
+          
+          case "auth/email-already-in-use":
+            Alert.alert(
+              "تنبيه",
+              "البريد الألكتروني مسجل من قبل",
 
               [
                 {
@@ -184,7 +213,7 @@ export default function RegistrationScreen({ navigation }) {
       >
         <TextInput
           style={styles.input}
-          placeholder="First Name"
+          placeholder="الاسم الأول"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setFirstName(text)}
           value={FirstName}
@@ -194,7 +223,7 @@ export default function RegistrationScreen({ navigation }) {
 
         <TextInput
           style={styles.input}
-          placeholder="Last Name"
+          placeholder="الاسم الأخير"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setLastName(text)}
           value={LastName}
@@ -203,7 +232,7 @@ export default function RegistrationScreen({ navigation }) {
         />
         <TextInput
           style={styles.input}
-          placeholder="Age"
+          placeholder="العمر"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setAge(text)}
           value={age}
@@ -212,7 +241,7 @@ export default function RegistrationScreen({ navigation }) {
         />
         <TextInput
           style={styles.input}
-          placeholder="phone number"
+          placeholder="رقم الجوال"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setPhone(text)}
           value={phone}
@@ -223,14 +252,14 @@ export default function RegistrationScreen({ navigation }) {
           <View style={styles.input}>
           <RNPickerSelect
             placeholder={{
-              label: "Gender",
+              label: "الجنس",
               value: null,
             }}
 
             onValueChange={(value) => console.log(value)}
             items={[
-              { label: "Female", value: "Female" },
-              { label: "Male", value: "Male" },
+              { label: "أنثى", value: "Female" },
+              { label: "ذكر", value: "Male" },
               
             ]}
             
@@ -239,7 +268,7 @@ export default function RegistrationScreen({ navigation }) {
       
         <TextInput
           style={styles.input}
-          placeholder="E-mail"
+          placeholder="البريد الالكتروني"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setEmail(text)}
           value={Email}
@@ -249,19 +278,18 @@ export default function RegistrationScreen({ navigation }) {
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
-          placeholder="Password"
+          placeholder="كلمة المرور"
           onChangeText={(text) => setPassword(text)}
           value={password}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
-      
           secureTextEntry={true}
         />
 
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
-          placeholder="Confirm Password"
+          placeholder="تأكيد كلمة المرور"
           onChangeText={(text) => setConfirmPassword(text)}
           value={confirmPassword}
           underlineColorAndroid="transparent"
