@@ -5,6 +5,7 @@ import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
 //import { Item } from 'react-native-paper/lib/typescript/components/List/List';
 import Titlestyles from './TitleStyles';
+import { color } from 'react-native-reanimated';
 
 export default function ViewAccount({ navigation }) {
 
@@ -46,7 +47,7 @@ export default function ViewAccount({ navigation }) {
   return (
     <View style={Titlestyles.container}>
         <View style={Titlestyles.tasksWrapper}>
-        <Text style={Titlestyles.sectionTitle}>تفعيل حسابات المستثمرين</Text>
+        <Text style={[Titlestyles.sectionTitle]}>تفعيل حسابات المستثمرين</Text>
        
 
            <View style={Titlestyles.items}>
@@ -58,13 +59,14 @@ export default function ViewAccount({ navigation }) {
 
              <TouchableOpacity onPress={() => navigation.navigate('investorAccount', {InvestorID:item.id})}>
              <View style={Titlestyles.item}>
-             <Text style={Titlestyles.subTitle} >{item.email} </Text>
              <Button style={Titlestyles.button}
                 onPress={() => navigation.navigate('investorAccount', {InvestorID:item.id})}
                 title="عرض التفاصيل"
                 titleProps={{}}
                 //titleStyle={{ marginHorizontal: 1 }}
             />
+             <Text style={Titlestyles.subTitle} >{item.email} </Text>
+             
            
              </View>
              </TouchableOpacity>

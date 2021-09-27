@@ -8,7 +8,9 @@ export default StyleSheet.create({
         fontSize:24,
         fontWeight:'bold',
         paddingBottom: 20,
-        textAlign: 'right'
+        textAlign: 'right',
+        color:'#536b78'
+      
           },
 
     // sub headings
@@ -21,7 +23,7 @@ export default StyleSheet.create({
 
     container: {
         flex: 1,
-         backgroundColor: '#E1E5F2',
+         backgroundColor: '#cee5f2',
     },
     tasksWrapper:{
          paddingTop:80,
@@ -47,14 +49,17 @@ export default StyleSheet.create({
 
     containerDetails: {
         flex: 1,
-        backgroundColor: '#E1E5F2',
-        alignItems: 'flex-end',
+        backgroundColor: '#cee5f2',
+        alignItems: 'center',
       },
+
+     
+      
  
     Rejectbutton: {
         position:'absolute',
         bottom:50,
-        left:50,
+        left:30,
         width:150,
         backgroundColor:'#FF6663',
         borderRadius:30,
@@ -63,7 +68,6 @@ export default StyleSheet.create({
 
     RejectDetailsBtn:{
         fontFamily:'AJannatLT',
-
         color:'white',
         textAlign:'center',
         padding:10,
@@ -74,7 +78,7 @@ export default StyleSheet.create({
     Acceptbutton: {
         position:'absolute',
         bottom:50,
-        right:50,
+        right:30,
         width:150,
         backgroundColor:'#6DA34D',
         borderRadius:30,
@@ -91,20 +95,31 @@ export default StyleSheet.create({
     },
 
     ProjectName:{
-        marginTop: '30%',
+        marginTop:20,
         alignSelf:'center',
+        fontFamily:'AJannatLTBold',
+        fontSize:40,
+        fontWeight:'bold',
+        color:'#536b78'
         
     },
     TitleFix:{
-       marginTop: '5%',
+       marginTop: '4%',
        backgroundColor:'white',
-       fontSize:30,
-       width:'100%',
-       textAlign:'right',
+       fontSize:20,
+       padding:10,
+       width:'90%',
+       textAlign:'right'
+
     },
     DescText:{
-       //I dont know what to do here  
+        padding:10,
+        width:'90%',
+        backgroundColor:'#accbe1',
+        textAlign:'right'
     },
+
+   
     
      button: {
         width: 150,

@@ -56,14 +56,15 @@ export default function invstorsAccount({navigation , route}) {
           ); }
     // console.log(pIdea);
     return(
-        <View style={[TitleStyles.containerDetails , styles.container]}>
-            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>الاسم الكامل</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{FullName}</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>البريد الالكتروني</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{email}</Text>
+        <View style={[TitleStyles.containerDetails]}>
+  
+            <Text style={[TitleStyles.ProjectName ]}>معلومات المستثمر</Text> 
+            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>البيانات الشخصية</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>الاسم الكامل : {FullName}</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>البريد الالكتروني : {email}</Text>
             <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>وصف المستثمر</Text>
             <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{Desc}</Text>
-
+       
 <TouchableOpacity
                     style={TitleStyles.Acceptbutton}
                     onPress={() => AcceptIdea()}>
@@ -79,8 +80,4 @@ export default function invstorsAccount({navigation , route}) {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-      alignItems: 'center',
-    },
-  });
+

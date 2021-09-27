@@ -61,8 +61,9 @@ export default function productIdea({navigation , route}) {
           ); }
     // console.log(pIdea);
     return(
-        <View style={[TitleStyles.containerDetails , styles.container]}>
-            <Text style={[TitleStyles.ProjectName , TitleStyles.sectionTitle]}>{Title}</Text> 
+        <View style={[TitleStyles.containerDetails ]}>
+        <View style={TitleStyles.square}/>
+            <Text style={[TitleStyles.ProjectName ]}>{Title}</Text> 
             <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>فكرة المشروع</Text>
             <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{Description}</Text> 
             <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>القيمة التقديرية</Text>
@@ -70,8 +71,7 @@ export default function productIdea({navigation , route}) {
             <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>فئة المشروع</Text>
             <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{category}</Text>
             <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>المستثمر المراد</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}
-            >{investorsSpec}</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{investorsSpec}</Text>
             
 
               <TouchableOpacity
@@ -93,8 +93,4 @@ export default function productIdea({navigation , route}) {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-      alignItems: 'center',
-    },
-  });
+

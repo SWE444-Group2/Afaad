@@ -23,6 +23,10 @@ export default function App() {
     AJannatLTBold: require('./assets/fonts/AJannatLT-Bold.otf'),
   });
 
+if(!isLoaded){
+  return null;
+}
+
 
   const Stack = createNativeStackNavigator();
   return (
@@ -30,11 +34,11 @@ export default function App() {
       <Stack.Navigator initialRouteName="splash">
       <Stack.Screen name="splash" component={splash} />  
         <Stack.Screen name="welcome" component={welcome} options={{ headerTitle:'الصفحة الرئيسية', headerBackVisible: false, gestureEnabled: false, }}/>
-        <Stack.Screen name="ViewIdea" component={ViewIdea} options={{ headerTitle: ""}}/>  
-        <Stack.Screen name="ViewAccount" component={ViewAccount} options={{ headerTitle: ""}} />
-        <Stack.Screen name="productIdea" component={productIdea} options={{ headerTitle: ""}} />
-        <Stack.Screen name="investorAccount" component={investorAccount} options={{ headerTitle: ""}}/>         
-        <Stack.Screen name="Login" component={Login}  />
+        <Stack.Screen name="ViewIdea" component={ViewIdea} options={{ headerTitle: "قائمة المشاريع"}}/>  
+        <Stack.Screen name="ViewAccount" component={ViewAccount} options={{ headerTitle: "قائمة الحسابات"}} />
+        <Stack.Screen name="productIdea" component={productIdea} options={{ headerTitle: "تفاصيل المشروع"}} />
+        <Stack.Screen name="investorAccount" component={investorAccount} options={{ headerTitle: "تفاصيل الحساب"}}/>         
+        <Stack.Screen name="Login" component={Login} options={{ headerTitle: "تسجيل الدخول"}} />
         <Stack.Screen name="SignUpEntr" component={SignUpEntr} options={{ headerTitle: "إنشاء حساب "}}/>
         <Stack.Screen name="SignUpInvst" component={SignUpInvst} options={{ headerTitle: "إنشاء حساب "}} />
         <Stack.Screen name="PublishIdea" component={PublishIdea} options={{ headerTitle: "نشر مشروع جديد"}}/>

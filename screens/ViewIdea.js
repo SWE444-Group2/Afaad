@@ -76,14 +76,15 @@ export default function ViewIdea({ navigation }) {
         renderItem={({ item })=>(
           <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType})}>   
           <View style={Titlestyles.item}>
-            <Text style={Titlestyles.subTitle}>{item.Title}</Text>
-            <Button 
+          <Button 
                 style={Titlestyles.DetailsBtn}
                 onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType})}
                 title="عرض التفاصيل"
                 titleProps={{}}
                 //titleStyle={{ marginHorizontal: 1 }}
             />
+            <Text style={Titlestyles.subTitle}>{item.Title}</Text>
+            
           </View>
           </TouchableOpacity>
         )}
