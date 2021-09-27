@@ -61,21 +61,19 @@ export default function productIdea({navigation , route}) {
           ); }
     // console.log(pIdea);
     return(
-        <View style={styles.container}>
-          <Text style={styles.label}>Title</Text>
-            <Text>{Title}</Text> 
-            <Text style={styles.label}>Description</Text>
-            <Text>{Description}</Text> 
-            <Text style={styles.label}>Cost Estimation</Text>
-            <Text>{costEstimation}</Text>
-            <Text style={styles.label}>Investors Specifications</Text>
-            <Text>{investorsSpec}</Text>
-            <Text style={styles.label}>Date</Text>
-            <Text>{date}</Text>
-            <Text style={styles.label}>Catagory</Text>
-            <Text>{category}</Text>
+        <View style={[TitleStyles.containerDetails , styles.container]}>
+            <Text style={[TitleStyles.ProjectName , TitleStyles.sectionTitle]}>{Title}</Text> 
+            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>فكرة المشروع</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{Description}</Text> 
+            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>القيمة التقديرية</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{costEstimation}</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>فئة المشروع</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{category}</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>المستثمر المراد</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}
+            >{investorsSpec}</Text>
             
-{/*The accept/ reject function is on Verify page*/}
+
               <TouchableOpacity
                     style={TitleStyles.Acceptbutton}
                     onPress={() => AcceptIdea()}>
@@ -94,24 +92,9 @@ export default function productIdea({navigation , route}) {
         </View>
     )
 }
+
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#E1E5F2',
       alignItems: 'center',
     },
-    label:{
-        fontWeight: "bold",
-        fontSize: 17
-        },
-     button: {
-        width: 150,
-        margin: 10,
-        },
-    buttonTitle: {
-        color: 'dodgerblue',
-        fontSize: 16,
-        fontWeight: "bold",
-        
-        },
   });

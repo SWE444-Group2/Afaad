@@ -41,6 +41,15 @@ export default StyleSheet.create({
          fontWeight:'bold',
          textAlign: 'right'  
     },
+
+
+    //Page details
+
+    containerDetails: {
+        flex: 1,
+        backgroundColor: '#E1E5F2',
+        alignItems: 'flex-end',
+      },
  
     Rejectbutton: {
         position:'absolute',
@@ -80,5 +89,32 @@ export default StyleSheet.create({
         fontSize: 25, 
         
     },
+
+    ProjectName:{
+        marginTop: '30%',
+        alignSelf:'center',
+        
+    },
+    TitleFix:{
+       marginTop: '5%',
+       backgroundColor:'white',
+       fontSize:30,
+       width:'100%',
+       textAlign:'right',
+    },
+    DescText:{
+       //I dont know what to do here  
+    },
+    
+     button: {
+        width: 150,
+        margin: 10,
+        },
+    buttonTitle: {
+        color: 'dodgerblue',
+        fontSize: 16,
+        fontWeight: "bold",
+        
+        },
 
 })

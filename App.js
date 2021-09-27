@@ -29,15 +29,15 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="splash">
       <Stack.Screen name="splash" component={splash} />  
-        <Stack.Screen name="welcome" component={welcome} options={{ headerBackVisible: false, gestureEnabled: false, }}/>
-        <Stack.Screen name="ViewIdea" component={ViewIdea}/>  
-        <Stack.Screen name="ViewAccount" component={ViewAccount}/>
-        <Stack.Screen name="productIdea" component={productIdea}/>
-        <Stack.Screen name="investorAccount" component={investorAccount}/>         
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUpEntr" component={SignUpEntr} />
-        <Stack.Screen name="SignUpInvst" component={SignUpInvst} />
-        <Stack.Screen name="PublishIdea" component={PublishIdea} />
+        <Stack.Screen name="welcome" component={welcome} options={{ headerTitle:'الصفحة الرئيسية', headerBackVisible: false, gestureEnabled: false, }}/>
+        <Stack.Screen name="ViewIdea" component={ViewIdea} options={{ headerTitle: ""}}/>  
+        <Stack.Screen name="ViewAccount" component={ViewAccount} options={{ headerTitle: ""}} />
+        <Stack.Screen name="productIdea" component={productIdea} options={{ headerTitle: ""}} />
+        <Stack.Screen name="investorAccount" component={investorAccount} options={{ headerTitle: ""}}/>         
+        <Stack.Screen name="Login" component={Login}  />
+        <Stack.Screen name="SignUpEntr" component={SignUpEntr} options={{ headerTitle: "إنشاء حساب مستقل"}}/>
+        <Stack.Screen name="SignUpInvst" component={SignUpInvst} options={{ headerTitle: "إنشاء حساب مستثمر"}} />
+        <Stack.Screen name="PublishIdea" component={PublishIdea} options={{ headerTitle: "نشر مشروع جديد"}}/>
         <Stack.Screen name="Admin" component={Admin} />
         <Stack.Screen name="Investor" component={Investor} />
         <Stack.Screen name="Entrepreneur" component={Entrepreneur} />
