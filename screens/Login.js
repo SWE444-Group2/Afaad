@@ -32,48 +32,33 @@ export default function Login({ navigation }) {
     if (email !== '' && password !== '') { //all fields are not empty
       auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {//success login
-          // rootRef
-          // .child('Admin')
-          // .orderByChild('email')
-          // .equalTo(email)
-          // .once('value')
-          // .then(snapshot => {
-          // if (snapshot.exists()) {
-          //   navigation.navigate('Admin')
-          // }
-          // else if (!inv){
-          //   rootRef
-          // .child('Entrepreneur')
-          // .orderByChild('email')
-          // .equalTo(email)
-          // .once('value')
-          // .then(snapshot => {
-          //   if (snapshot.exists()){
-          //     navigation.navigate('Entrepreneur')
-          //     ent = true;
-          //   }
-          //   else if (!ent){
-          //     rootRef
-          //     .child('Investor')
-          //     .orderByChild('email')
-          //     .equalTo(email)
-          //     .once('value')
-          //     .then(snapshot => {
-          //       if (snapshot.exists()){
-          //         navigation.navigate('Investor')
-          //       }
-          //     })
-              
-          //     }
-          // })
-          // }
-         
-          // }
-
-          // )
-          
-          navigation.navigate('welcome')
-          
+          let user = AfaadFirebase.auth().currentUser ;
+          let userID, userType ;
+          if(user){
+            userID = user.uid ;
+            console.log(userID)
+            AfaadFirebase.database().ref('/Admin/'+userID).on('value', (snapshot) => {
+              if (snapshot.exists()) {
+                userType = 'Admin';
+                console.log('Found admin')
+                navigation.navigate('Admin')
+              }})
+            AfaadFirebase.database().ref('/Entrepreneur/'+userID).on('value', (snapshot) => {
+              if (snapshot.exists()) {
+                userType = 'Entrepreneur' ;
+                console.log('Found Entrepreneur')
+                navigation.navigate('Entrepreneur')
+              }
+            })
+            AfaadFirebase.database().ref('/Investor/'+userID).on('value', (snapshot) => {
+              if (snapshot.exists()) {
+                userType = 'Investor' ;
+                console.log('Found Investor')
+                navigation.navigate('Investor')
+              }
+            })
+          }
+                    
       
       })
         .catch(function (error) {

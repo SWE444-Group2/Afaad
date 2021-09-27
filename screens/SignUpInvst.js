@@ -6,7 +6,6 @@ import styles from "./styles";
 import AfaadFirebase from "./firebaseConfig";
 import "firebase/auth";
 import "firebase/database";
-import RNPickerSelect from "react-native-picker-select";
 
 //Refrence to Investor object in DB
 const InvestorsAccountsRef = AfaadFirebase.database().ref("Entrepreneur");

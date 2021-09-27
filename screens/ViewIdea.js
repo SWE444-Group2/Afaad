@@ -23,6 +23,11 @@ export default function ViewIdea({ navigation }) {
         userType = 'Entrepreneur' ;
       }
     })
+    AfaadFirebase.database().ref('/Investor/'+userID).on('value', (snapshot) => {
+      if (snapshot.exists()) {
+        userType = 'Investor' ;
+      }
+    })
   }
     const [productsList , setproductsList]= useState();
     const[PendingProductList ,setPendingproductsList ]=useState();
@@ -45,13 +50,14 @@ export default function ViewIdea({ navigation }) {
             if (userType === 'Admin' && productsList[productID].status == 'Pending') {
               PendingProductList.push(productsList[productID])
             }
+            else if (userType === 'Investor' && productsList[productID].status == 'Accepted') {
+              PendingProductList.push(productsList[productID])
+            }
             else if (userType === 'Entrepreneur' && productsList[productID].userID == userID) {
               PendingProductList.push(productsList[productID])
             }
           }
-
            setPendingproductsList(PendingProductList) ;
-            console.log(PendingProductList);
 
           
        })
@@ -68,12 +74,12 @@ export default function ViewIdea({ navigation }) {
         data={PendingProductList}
         keyExtractor={(item, index)=>index.toString()}
         renderItem={({ item })=>(
-          <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID})}>   
+          <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType})}>   
           <View style={Titlestyles.item}>
             <Text style={Titlestyles.subTitle}>{item.Title}</Text>
             <Button 
                 style={Titlestyles.DetailsBtn}
-                onPress={() => navigation.navigate('productIdea', {Product_id:item.productID})}
+                onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType})}
                 title="عرض التفاصيل"
                 titleProps={{}}
                 //titleStyle={{ marginHorizontal: 1 }}
