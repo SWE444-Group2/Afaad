@@ -8,6 +8,7 @@ import "firebase/auth";
 import "firebase/database";
 import RNPickerSelect from "react-native-picker-select";
 
+
 //Refrence to Investor object in DB
 const InvestorsAccountsRef = AfaadFirebase.database().ref("Entrepreneur");
 
@@ -248,15 +249,19 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
-
-          <View style={styles.input}>
+      
+          <View style={styles.input}> 
+          <Text></Text>
           <RNPickerSelect 
             placeholder={{
               label: "الجنس",
               value: null,
-
+          
             }}
-
+            pickerProps={{ style: { height: 214, overflow: 'hidden',  textAlign: 'right' } }}
+            //disabled = {false}
+            //useNativeAndroidPickerStyle={false}
+            //style={{alignItems:'center',}}
             onValueChange={(value) => console.log(value)}
             items={[
               { label: "أنثى", value: "Female" },
@@ -302,13 +307,13 @@ export default function RegistrationScreen({ navigation }) {
           style={styles.button}
           onPress={() => onRegisterPress()}
         >
-          <Text style={styles.buttonTitle}>Create account</Text>
+          <Text style={styles.buttonTitle}>إنشاء حساب</Text>
         </TouchableOpacity>
         <View style={styles.footerView}>
           <Text style={styles.footerText}>
-            Already got an account?{" "}
+            هل لديك حساب مسبق؟{" "}
             <Text onPress={onFooterLinkPress} style={styles.footerLink}>
-              Log in
+              تسجل دخول
             </Text>
           </Text>
         </View>

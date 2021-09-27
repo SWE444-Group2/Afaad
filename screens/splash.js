@@ -22,7 +22,7 @@ export default function splash({ navigation }) {
       titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT'}}
     />
     <Button style={styles.button}
-      onPress={() => navigation.navigate("SignUpEntr")}
+      onPress={() => navigation.navigate("SignUpInvst")}
       title="تسجيل المستثمرين"
       titleProps={{}}
       titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT'}}

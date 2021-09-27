@@ -258,13 +258,13 @@ export default function RegistrationScreen({ navigation }) {
           style={styles.button}
           onPress={() => onRegisterPress()}
         >
-          <Text style={styles.buttonTitle}>Create account</Text>
+          <Text style={styles.buttonTitle}>إنشاء حساب </Text>
         </TouchableOpacity>
         <View style={styles.footerView}>
           <Text style={styles.footerText}>
-            Already got an account?{" "}
+           هل لديك حساب مسبق؟{" "}
             <Text onPress={onFooterLinkPress} style={styles.footerLink}>
-              Log in
+              تسجيل دخول
             </Text>
           </Text>
         </View>
