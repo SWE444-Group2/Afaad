@@ -38,9 +38,9 @@ export default function App() {
         <Stack.Screen name="SignUpEntr" component={SignUpEntr} options={{ headerTitle: "إنشاء حساب "}}/>
         <Stack.Screen name="SignUpInvst" component={SignUpInvst} options={{ headerTitle: "إنشاء حساب "}} />
         <Stack.Screen name="PublishIdea" component={PublishIdea} options={{ headerTitle: "نشر مشروع جديد"}}/>
-        <Stack.Screen name="Admin" component={Admin} />
-        <Stack.Screen name="Investor" component={Investor} />
-        <Stack.Screen name="Entrepreneur" component={Entrepreneur} />
+        <Stack.Screen name="Admin" component={Admin} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false , gestureEnabled: false }}/>
+        <Stack.Screen name="Investor" component={Investor} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false }}/>
+        <Stack.Screen name="Entrepreneur" component={Entrepreneur} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
 
         
       </Stack.Navigator>

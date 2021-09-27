@@ -26,7 +26,7 @@ export default function welcome({ navigation }) {
             <Text style={TitleStyles.sectionTitle} >مرحبا بك</Text>
             <Button style={styles.button}
                 onPress={onSignout}
-                title="تسجييل خروج"
+                title="تسجيل خروج"
                 titleProps={{}}
                 titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT'}}
             />

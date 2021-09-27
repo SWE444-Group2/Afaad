@@ -5,6 +5,8 @@ import { StatusBar } from 'expo-status-bar';
 import { Button, Icon } from 'react-native-elements';
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
+import TitleStyles from './TitleStyles';
+
 
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
@@ -22,20 +24,23 @@ export default function welcome({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text>welcome Entrepreneur,</Text>
+            <Text style={TitleStyles.sectionTitle}>مرحبا رائد الاعمال</Text>
 
-            <Icon style={styles.addIcon}
+
+
+            <Button style={styles.button}
+                onPress={onSignout}
+                title="تسجيل خروج"
+                titleProps={{}}
+                titleStyle={{ marginHorizontal: 5 }}
+            />
+
+
+<Icon style={styles.addIcon}
                 name="add"
                 onPress={() => navigation.navigate('PublishIdea')}
                 size={70}
                 type="material"
-            />
-
-            <Button style={styles.button}
-                onPress={onSignout}
-                title="Sign out"
-                titleProps={{}}
-                titleStyle={{ marginHorizontal: 5 }}
             />
             
             <StatusBar style="auto" />
@@ -65,4 +70,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+
+  addIcon: {
+    width:70,
+    marginTop: '100%',
+    backgroundColor:'#BFDBF7',
+    borderRadius:50
+},
 });
