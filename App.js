@@ -23,10 +23,6 @@ export default function App() {
     AJannatLTBold: require('./assets/fonts/AJannatLT-Bold.otf'),
   });
 
-  if(!isLoaded){
-    return null;
-  }
-
 
   const Stack = createNativeStackNavigator();
   return (
