@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View  } from 'react-native';
+import { StyleSheet, Text, View ,Image } from 'react-native';
 
 import { Button } from 'react-native-elements' ;
 
@@ -11,21 +11,21 @@ export default function splash({ navigation }) {
       <Text>Afaad Project</Text>
       <Button style={styles.button}
       onPress={() => navigation.navigate('Login')}
-      title="Log in"
+      title="تسجيل دخول"
       titleProps={{}}
-      titleStyle={{ marginHorizontal: 5 }}
+      titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT'}}
     />
         <Button style={styles.button}
       onPress={() => navigation.navigate('SignUpEntr')}
-      title="Sign Up Entrepreneur"
+      title="تسجيل رواد الأعمال"
       titleProps={{}}
-      titleStyle={{ marginHorizontal: 5 }}
+      titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT'}}
     />
     <Button style={styles.button}
       onPress={() => navigation.navigate("SignUpEntr")}
-      title="Sign Up investor"
+      title="تسجيل المستثمرين"
       titleProps={{}}
-      titleStyle={{ marginHorizontal: 5 }}
+      titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT'}}
     />
       <StatusBar style="auto" />
     </View>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    width: 150,
+    width: 170,
     margin: 10,
   },
 });

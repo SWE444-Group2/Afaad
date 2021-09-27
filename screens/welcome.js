@@ -26,22 +26,22 @@ export default function welcome({ navigation }) {
             <Text style={TitleStyles.sectionTitle} >مرحبا بك</Text>
             <Button style={styles.button}
                 onPress={onSignout}
-                title="تسجيل الخروج"
+                title="تسجييل خروج"
                 titleProps={{}}
-                titleStyle={{ marginHorizontal: 5 }}
+                titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT'}}
             />
             <Button style={styles.button}
                 onPress={() => navigation.navigate('ViewAccount')}
-                title="تفعيل حسابات المستثمرين"
+                title="تفعيل الحسابات"
                 titleProps={{}}
-                titleStyle={{ marginHorizontal: 5 }}
+                titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT'}}
             />
             <Button style={styles.button}
                 onPress={() => navigation.navigate('ViewIdea')}
                 title="تفعيل المشاريع"
                 titleProps={{}}
-                titleStyle={{ marginHorizontal: 5 }}
-            />         
+                titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT'}}
+            />
             <Icon style={styles.addIcon}
                 name="add"
                 onPress={() => navigation.navigate('PublishIdea')}
