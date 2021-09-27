@@ -16,7 +16,8 @@ export default StyleSheet.create({
     marginBottom: 10,
     marginLeft: 30,
     marginRight: 30,
-    paddingLeft: 16,
+    paddingRight: 15,
+    textAlign: 'right'
   },
   button: {
     backgroundColor: "#1F7A8C",

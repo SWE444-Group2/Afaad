@@ -35,8 +35,8 @@ export default function App() {
         <Stack.Screen name="productIdea" component={productIdea} options={{ headerTitle: ""}} />
         <Stack.Screen name="investorAccount" component={investorAccount} options={{ headerTitle: ""}}/>         
         <Stack.Screen name="Login" component={Login}  />
-        <Stack.Screen name="SignUpEntr" component={SignUpEntr} options={{ headerTitle: "إنشاء حساب مستقل"}}/>
-        <Stack.Screen name="SignUpInvst" component={SignUpInvst} options={{ headerTitle: "إنشاء حساب مستثمر"}} />
+        <Stack.Screen name="SignUpEntr" component={SignUpEntr} options={{ headerTitle: "إنشاء حساب "}}/>
+        <Stack.Screen name="SignUpInvst" component={SignUpInvst} options={{ headerTitle: "إنشاء حساب "}} />
         <Stack.Screen name="PublishIdea" component={PublishIdea} options={{ headerTitle: "نشر مشروع جديد"}}/>
         <Stack.Screen name="Admin" component={Admin} />
         <Stack.Screen name="Investor" component={Investor} />

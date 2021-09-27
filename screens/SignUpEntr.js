@@ -250,10 +250,11 @@ export default function RegistrationScreen({ navigation }) {
         />
 
           <View style={styles.input}>
-          <RNPickerSelect
+          <RNPickerSelect 
             placeholder={{
               label: "الجنس",
               value: null,
+
             }}
 
             onValueChange={(value) => console.log(value)}
