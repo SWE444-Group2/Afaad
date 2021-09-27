@@ -13,8 +13,7 @@ export default function invstorsAccount({navigation , route}) {
     const AccountPath='Investor/'+route.params.InvestorID;
 
    
-    const [Firstname, setFirstname] = useState('');
-    const [Lastname, setLastname] = useState('');
+    const [FullName, setFullName] = useState('');
     const [Desc, setDesc] = useState('');
     const [email, setEmail] = useState('');
 
@@ -22,9 +21,8 @@ export default function invstorsAccount({navigation , route}) {
     invstorsAccountRef.once('value').then(function(snapshot){
         
                
-        setFirstname(snapshot.child("FirstName").val());
-        setLastname(snapshot.child("LastName").val());
-        setDesc(snapshot.child("description").val());
+        setFullName(snapshot.child("FullName").val());
+        setDesc(snapshot.child("Describetion").val());
         setEmail(snapshot.child("email").val());
     });
 
@@ -59,10 +57,8 @@ export default function invstorsAccount({navigation , route}) {
     // console.log(pIdea);
     return(
         <View style={[TitleStyles.containerDetails , styles.container]}>
-            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>الاسم الاول</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{Firstname}</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>الاسم الاخير</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{Lastname}</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>الاسم الكامل</Text>
+            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{FullName}</Text>
             <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>البريد الالكتروني</Text>
             <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{email}</Text>
             <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>وصف المستثمر</Text>
