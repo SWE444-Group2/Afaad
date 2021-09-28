@@ -2,19 +2,16 @@ import * as React from 'react';
 import { Text, View, StyleSheet,Image,TouchableOpacity} from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 //import styles from './styles';
-//import Titlestyles from './TitleStyles';
 
 
 export default function SignupOption({ navigation }) {
-
-   
-        return(             
+       return(        
                 <View style={styles.container}>
 
                     <Text>تسجيل المستثمرين</Text>
                     <Text>تسجيل رواد الأعمال</Text>      
                
-                </View>
+                </View>               
              );
 
 }
@@ -27,47 +24,57 @@ const styles= StyleSheet.create({
         //justifyContent:'center',
         //alignItems:'center',
     },
-    logo:{
-        marginLeft:150,
-        marginTop:115,
-    },
-
-    TextLogo:{
-        marginTop:70,
-        marginLeft:100,
-
-    },
-
-    button1: {
-        width: 213,
-        height:52,
-        borderRadius:6,
-        margin: 40,
-        marginLeft:100,
+   
+      Box1:{
+        width:155,
+        height:155,
         backgroundColor: "#ADCBD8",
-        alignItems: "center",
-        justifyContent: "center",
-       
-      },
-
-    button2: {
-        width: 213,
-        height:52,
         borderRadius:6,
-        marginLeft:100,
-        backgroundColor: "#002B3E",
-        alignItems: "center",
-        justifyContent: "center",
+    },
+
+      Box2:{
+          width:155,
+          height:155,
+          backgroundColor: "#002B3E",
+          borderRadius:6,
       },
 
-      appButtonText:{
-        fontFamily: 'AJannatLTBold',
-        color:'white',
-        textAlign:'center',
-        alignSelf: "center",
-        fontSize: 18,
-       
-       
-      },
+      item:{
+     // backgroundColor:'#536B78',
+        padding:30,
+     //   borderRadius:10,
+        flexDirection:'row',
+    // alignItems:'center',
+        justifyContent:"space-between",
+        margin:10,
+        marginTop:180, 
+     //   marginBottom:30, 
+   },
+
+   icons:{
+       marginLeft:50,
+       marginTop:35,
+   },
+
+   TextBox:{
+    fontFamily: 'AJannatLT',
+    fontSize:18,
+    color:'#FFF',
+    textAlign:'center'
+
+   },
+   
+   
+   button1: {
+    width: 213,
+    height:52,
+    borderRadius:6,
+    margin: 40,
+    marginLeft:100,
+    backgroundColor: "#ADCBD8",
+    alignItems: "center",
+    justifyContent: "center",
+   
+  },    
 
 });
