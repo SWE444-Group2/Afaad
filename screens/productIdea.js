@@ -9,16 +9,16 @@ import AfaadFirebase from "./firebaseConfig";
 // Expecting an id of product idea
 export default function productIdea({navigation , route}) {
     const ProductPath='ProductIdea/'+route.params.Product_id ;
+    const userType = route.params.userType;
     const [date, setdate] = useState('');
     const [Description, setDescription] = useState('');
     //const [FeasibilityAnalysis, setFeasibilityAnalysis] = useState('');
-    const [Verified, setVerified] = useState('');
+    const [status, setStatus] = useState('');
     const [Title, setTitle] = useState('');
     const [category, setcategory] = useState('');
     const [costEstimation, setcostEstimation] = useState('');
     const [invested, setInvested] = useState('');
     const [investorsSpec, setinvestorsSpec] = useState('');
-    const [userID, setUserID] = useState('');
 
 
     const productIdeaRef = AfaadFirebase.database().ref(ProductPath)
@@ -26,7 +26,7 @@ export default function productIdea({navigation , route}) {
         setTitle(snapshot.child("Title").val())
         setdate(snapshot.child("date").val());
         setDescription(snapshot.child("ProductDescription").val());
-        setVerified(snapshot.child("accepted").val());
+        setStatus(snapshot.child("status").val());
         setcategory(snapshot.child("category").val());
         setcostEstimation(snapshot.child("costEstimation").val());
         setinvestorsSpec(snapshot.child("investorsSpec").val());
@@ -73,18 +73,32 @@ export default function productIdea({navigation , route}) {
             <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>المستثمر المراد</Text>
             <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{investorsSpec}</Text>
             
+            { userType== 'Entrepreneur' &&
+                <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>حالة المشروع</Text>
+            }
 
+            { userType== 'Entrepreneur' &&
+             <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{status}</Text> 
+        }
+
+            { userType== 'Admin' &&
               <TouchableOpacity
                     style={TitleStyles.Acceptbutton}
                     onPress={() => AcceptIdea()}>
                     <Text style={TitleStyles.AcceptDetailsBtn}> قبول</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> }
 
+                { userType== 'Admin' &&
                 <TouchableOpacity
                     style={TitleStyles.Rejectbutton}
                     onPress={() => RejectIdea()}>
                     <Text style={TitleStyles.RejectDetailsBtn}>رفض</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> }
+
+
+
+
+
             
            
             

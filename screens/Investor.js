@@ -17,7 +17,7 @@ export default function welcome({ navigation }) {
         auth.signOut();
         navigation.reset({
             index: 0,
-            routes: [{ name: 'splash' }],
+            routes: [{ name: 'MainScreen' }],
         });
     };
 
