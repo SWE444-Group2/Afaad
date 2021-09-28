@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View ,TouchableOpacity , Alert } from 'react-native';
+import { StyleSheet, Text, View ,TouchableOpacity , Alert , Image } from 'react-native';
 import AfaadFirebase from "./firebaseConfig";
 import TitleStyles from './TitleStyles';
+import AfaadLogo from '../assets/images/LOGO.jpeg';
 
 
 // Expecting an id of product idea
@@ -57,25 +58,34 @@ export default function invstorsAccount({navigation , route}) {
     // console.log(pIdea);
     return(
         <View style={[TitleStyles.containerDetails]}>
-  
+            <Image source={AfaadLogo} style={{ width: 150, height: 150 }}/>
             <Text style={[TitleStyles.ProjectName ]}>معلومات المستثمر</Text> 
-            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>البيانات الشخصية</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>الاسم الكامل : {FullName}</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>البريد الالكتروني : {email}</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>وصف المستثمر</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{Desc}</Text>
-       
-<TouchableOpacity
+            <View style={TitleStyles.square} >
+              <Text style={[ TitleStyles.TitleFix]}>البيانات الشخصية</Text>
+              <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:'50%'}}/>
+              <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>الاسم الكامل : {FullName}</Text>
+              <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>البريد الالكتروني : {email}</Text>
+              <Text style={[TitleStyles.TitleFix]}>وصف المستثمر</Text>
+              <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:'50%'}}/>
+              <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{Desc}</Text>
+        </View>
+
+        <View style={{flexDirection:'row'}}>
+
+        <TouchableOpacity
+                    style={TitleStyles.Rejectbutton}
+                    onPress={() => RejectIdea()}>
+                    <Text style={TitleStyles.RejectDetailsBtn}>رفض</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
                     style={TitleStyles.Acceptbutton}
                     onPress={() => AcceptIdea()}>
                     <Text style={TitleStyles.AcceptDetailsBtn}>قبول</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={TitleStyles.Rejectbutton}
-                    onPress={() => RejectIdea()}>
-                    <Text style={TitleStyles.RejectDetailsBtn}>رفض</Text>
-                </TouchableOpacity>
+
+                </View>
         </View>
     )
 }

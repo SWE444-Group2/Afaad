@@ -79,7 +79,10 @@ export default function ViewIdea({ navigation }) {
     }, [])
   return (
     <View style={Titlestyles.container}>
-      <Text style={Titlestyles.sectionTitle}> مرحبا {userName}،</Text>
+       { userType=='Entrepreneur'&&
+      <Text style={Titlestyles.sectionTitle}> مرحبا {userName}،</Text>}
+        { userType=='Investor'&&
+      <Text style={Titlestyles.sectionTitle}> مرحبا {userName}،</Text>}
        <View style={Titlestyles.tasksWrapper}>
       <Text style={Titlestyles.sectionTitle}>عرض الافكار</Text>
          
@@ -96,6 +99,7 @@ export default function ViewIdea({ navigation }) {
                 title="عرض التفاصيل"
                 titleProps={{}}
                 //titleStyle={{ marginHorizontal: 1 }}
+                color='#247ba0'
             />
             <Text style={Titlestyles.subTitle}>{item.Title}</Text>
             

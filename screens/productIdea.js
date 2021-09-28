@@ -1,11 +1,13 @@
 
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View , Button , TouchableOpacity , Alert} from 'react-native';
+import { StyleSheet, Text, View , Button , TouchableOpacity , Alert ,Image } from 'react-native';
 import TitleStyles from './TitleStyles';
+import AfaadLogo from '../assets/images/LOGO.jpeg';
 
 
 import AfaadFirebase from "./firebaseConfig";
+import { ScrollView } from 'react-native-gesture-handler';
 // Expecting an id of product idea
 export default function productIdea({navigation , route}) {
     const ProductPath='ProductIdea/'+route.params.Product_id ;
@@ -61,49 +63,55 @@ export default function productIdea({navigation , route}) {
           ); }
     // console.log(pIdea);
     return(
+        <ScrollView>
         <View style={[TitleStyles.containerDetails ]}>
-        <View style={TitleStyles.square}/>
-            <Text style={[TitleStyles.ProjectName ]}>{Title}</Text> 
-            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>فكرة المشروع</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{Description}</Text> 
-            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>القيمة التقديرية</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{costEstimation}</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>فئة المشروع</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{category}</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>المستثمر المراد</Text>
-            <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{investorsSpec}</Text>
-            
-            { userType== 'Entrepreneur' &&
+            <Image source={AfaadLogo} style={{ width: 150, height: 150 }}/>
+           <Text style={[TitleStyles.ProjectName ]}>{Title}</Text> 
+              <View style={TitleStyles.square}>
+                    <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>فكرة المشروع</Text>
+                    <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:'50%'}}/>
+                    <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{Description}</Text> 
+                    <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>القيمة التقديرية</Text>
+                    <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:'50%'}}/>
+                    <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{costEstimation}</Text>
+                    <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>فئة المشروع</Text>
+                    <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:'50%'}}/>
+                    <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{category}</Text>
+                    <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>المستثمر المراد</Text>
+                    <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:'50%'}}/>
+                    <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{investorsSpec}</Text>
+               </View>
+
+
+
+               { userType== 'Entrepreneur' &&
                 <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>حالة المشروع</Text>
             }
 
             { userType== 'Entrepreneur' &&
              <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{status}</Text> 
         }
-
-            { userType== 'Admin' &&
-              <TouchableOpacity
-                    style={TitleStyles.Acceptbutton}
-                    onPress={() => AcceptIdea()}>
-                    <Text style={TitleStyles.AcceptDetailsBtn}> قبول</Text>
-                </TouchableOpacity> }
+           <View style={{flexDirection:'row'}}>
+           { userType== 'Admin' &&
+            <TouchableOpacity
+                style={TitleStyles.Rejectbutton}
+                onPress={() => RejectIdea()}>
+                <Text style={TitleStyles.RejectDetailsBtn}>رفض</Text>
+            </TouchableOpacity> 
+              }
 
                 { userType== 'Admin' &&
-                <TouchableOpacity
-                    style={TitleStyles.Rejectbutton}
-                    onPress={() => RejectIdea()}>
-                    <Text style={TitleStyles.RejectDetailsBtn}>رفض</Text>
-                </TouchableOpacity> }
-
-
-
-
-
-            
-           
-            
-           
+                   <TouchableOpacity
+                   style={TitleStyles.Acceptbutton}
+                   onPress={() => AcceptIdea()}>
+                   <Text style={TitleStyles.AcceptDetailsBtn}> قبول</Text>
+                </TouchableOpacity>  }         
+         </View>  
         </View>
+
+        </ScrollView>
+
+        
     )
 }
 

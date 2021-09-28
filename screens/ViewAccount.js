@@ -63,7 +63,7 @@ export default function ViewAccount({ navigation }) {
                 onPress={() => navigation.navigate('investorAccount', {InvestorID:item.id})}
                 title="عرض التفاصيل"
                 titleProps={{}}
-                //titleStyle={{ marginHorizontal: 1 }}
+                color='#247ba0'
             />
              <Text style={Titlestyles.subTitle} >{item.email} </Text>
              

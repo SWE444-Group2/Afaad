@@ -9,28 +9,29 @@ export default StyleSheet.create({
         fontWeight:'bold',
         paddingBottom: 20,
         textAlign: 'right',
-        color:'#536b78'
-      
-          },
+        color:'#536b78' },
 
     // sub headings
     subTitle:{ 
         fontFamily: 'AJannatLT',
         fontSize:18,
+        color:'#637081',
           },
       
     // the List styles
 
     container: {
         flex: 1,
-         backgroundColor: '#cee5f2',
+         backgroundColor: 'white',
+         
     },
     tasksWrapper:{
          paddingTop:80,
          paddingHorizontal:20,
     }, 
     item:{
-         backgroundColor:'#FFF',
+        
+         backgroundColor:'#eeeeee',
          padding:15,
          borderRadius:10,
          flexDirection:'row',
@@ -49,20 +50,28 @@ export default StyleSheet.create({
 
     containerDetails: {
         flex: 1,
-        backgroundColor: '#cee5f2',
+        backgroundColor: '#FFFFFF',
         alignItems: 'center',
+        
       },
 
-     
+      square:{
+        marginTop:20,
+        alignItems:'flex-end',
+        backgroundColor:'#eeeeee',
+        borderRadius:10,
+        width:'90%', 
+      },
       
  
     Rejectbutton: {
-        position:'absolute',
-        bottom:50,
-        left:30,
-        width:150,
+        position:'relative',
+        marginTop:'5%',
+        marginRight:'5%',
+        marginBottom:'5%',
+        width:100,
         backgroundColor:'#FF6663',
-        borderRadius:30,
+        borderRadius:6,
          
   },
 
@@ -70,18 +79,18 @@ export default StyleSheet.create({
         fontFamily:'AJannatLT',
         color:'white',
         textAlign:'center',
-        padding:10,
+        padding:3,
         fontSize: 25, 
         
     },
 
     Acceptbutton: {
-        position:'absolute',
-        bottom:50,
-        right:30,
-        width:150,
+        position:'relative',
+        marginTop:'5%',
+        marginBottom:'5%',
+        width:100,
         backgroundColor:'#6DA34D',
-        borderRadius:30,
+        borderRadius:6,
          
   },
 
@@ -89,41 +98,44 @@ export default StyleSheet.create({
         fontFamily:'AJannatLT',
         color:'white',
         textAlign:'center',
-        padding:10,
+        padding:3,
         fontSize: 25, 
         
     },
 
     ProjectName:{
         marginTop:20,
-        alignSelf:'center',
         fontFamily:'AJannatLTBold',
-        fontSize:40,
+        fontSize:30,
         fontWeight:'bold',
-        color:'#536b78'
+        color:'#1d2d44',
+       
         
     },
     TitleFix:{
+       fontFamily: 'AJannatLTBold',
        marginTop: '4%',
-       backgroundColor:'white',
+       color:'#536b78',
        fontSize:20,
-       padding:10,
+       marginRight:15,
        width:'90%',
        textAlign:'right'
+       
+       
+        },
 
-    },
     DescText:{
-        padding:10,
+        marginRight:20,
         width:'90%',
-        backgroundColor:'#accbe1',
         textAlign:'right'
-    },
+         },
 
    
     
      button: {
         width: 150,
         margin: 10,
+        color:'white'
         },
     buttonTitle: {
         color: 'dodgerblue',
