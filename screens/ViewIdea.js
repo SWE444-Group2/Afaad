@@ -142,8 +142,9 @@ export default function ViewIdea({ navigation }) {
 
 const styles = StyleSheet.create({
   addIcon: {
-    marginTop:'40%',
-    marginLeft:'5%',
+    position:'absolute',
+    bottom:'3%',
+    left:'5%',
     height:90,
     width:90,
     backgroundColor:'#BFDBF7',

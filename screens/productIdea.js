@@ -25,14 +25,22 @@ export default function productIdea({navigation , route}) {
 
     const productIdeaRef = AfaadFirebase.database().ref(ProductPath)
     productIdeaRef.once('value').then(function(snapshot){
-        setTitle(snapshot.child("Title").val())
+        setTitle(snapshot.child("Title").val());
         setdate(snapshot.child("date").val());
         setDescription(snapshot.child("ProductDescription").val());
-        setStatus(snapshot.child("status").val());
+        if(snapshot.child("status").val()=='Accepted')
+        setStatus('مقبول');
+        if(snapshot.child("status").val()=='Rejected')
+        setStatus('مرفوض');
+        if(snapshot.child("status").val()=='Pending')
+        setStatus('في حالة المراجعة');
         setcategory(snapshot.child("category").val());
         setcostEstimation(snapshot.child("costEstimation").val());
         setinvestorsSpec(snapshot.child("investorsSpec").val());
        });
+  
+        
+       console.log(status);
 
     const AcceptIdea=()=>{
 
@@ -63,7 +71,7 @@ export default function productIdea({navigation , route}) {
           ); }
     // console.log(pIdea);
     return(
-        <ScrollView  contentContainerStyle={styles.inner}>
+        <ScrollView >
         <View style={[TitleStyles.containerDetails ]}>
             <Image source={AfaadLogo} style={{ width: 150, height: 150 }}/>
            <Text style={[TitleStyles.ProjectName ]}>{Title}</Text> 
@@ -80,17 +88,21 @@ export default function productIdea({navigation , route}) {
                     <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>المستثمر المراد</Text>
                     <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:'50%'}}/>
                     <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{investorsSpec}</Text>
+                    { userType== 'Entrepreneur' &&
+                    <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>حالة المشروع</Text> 
+                    }
+                    { userType== 'Entrepreneur' &&
+                     <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:'50%'}}/>
+                    }
+                    { userType== 'Entrepreneur' &&
+                     <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{status}</Text> }
                </View>
 
 
 
-               { userType== 'Entrepreneur' &&
-                <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>حالة المشروع</Text>
-            }
+               
 
-            { userType== 'Entrepreneur' &&
-             <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{status}</Text> 
-        }
+            
            <View style={{flexDirection:'row'}}>
            { userType== 'Admin' &&
             <TouchableOpacity

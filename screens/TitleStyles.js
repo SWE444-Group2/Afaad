@@ -28,7 +28,8 @@ export default StyleSheet.create({
         marginTop:25,
         backgroundColor: "#eeeeee",
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'center',
+        transform: [{ rotate: '180deg'}]
             
             
             },  
