@@ -63,7 +63,7 @@ export default function productIdea({navigation , route}) {
           ); }
     // console.log(pIdea);
     return(
-        <ScrollView>
+        <ScrollView  contentContainerStyle={styles.inner}>
         <View style={[TitleStyles.containerDetails ]}>
             <Image source={AfaadLogo} style={{ width: 150, height: 150 }}/>
            <Text style={[TitleStyles.ProjectName ]}>{Title}</Text> 
@@ -127,5 +127,14 @@ export default function productIdea({navigation , route}) {
         
     )
 }
+
+
+const styles = StyleSheet.create({
+    
+    inner: {
+        padding: 24,
+        justifyContent: 'space-evenly'
+
+    }, });
 
 

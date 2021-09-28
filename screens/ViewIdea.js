@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import React ,{useEffect , useState , setState} from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image , Icon} from 'react-native';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image , Icon } from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 import Titlestyles from './TitleStyles';
 import SignOut from '../assets/images/SignOut.png';
+import PlusIcon from '../assets/images/plusIcon.png';
 
 
 let user = AfaadFirebase.auth().currentUser;
@@ -119,19 +120,16 @@ export default function ViewIdea({ navigation }) {
            style={Titlestyles.SignOutbutton} onPress={onSignout}>
           <Image source={SignOut} style={{ width: 25, height: 25 }}/>
           </TouchableOpacity>}
-
+          
       { userType=='Entrepreneur' && <TouchableOpacity  
            style={Titlestyles.SignOutbutton} onPress={onSignout}>
           <Image source={SignOut} style={{ width: 25, height: 25 }}/>
         </TouchableOpacity>
 }
-            { userType== 'Entrepreneur' &&
-              <Icon style={Titlestyles.addIcon}
-                name="add"
-                onPress={() => navigation.navigate('PublishIdea')}
-                size={70}
-                type="material"
-            />}
+            { userType== 'Entrepreneur' && <TouchableOpacity  
+             style={styles.addIcon} onPress={() => navigation.navigate('PublishIdea')}>
+             <Image source={PlusIcon} style={{ width: 60, height: 60 }}/>
+            </TouchableOpacity>}
 
       
 
@@ -140,4 +138,19 @@ export default function ViewIdea({ navigation }) {
   );
   
 }
+
+
+const styles = StyleSheet.create({
+  addIcon: {
+    marginTop:'40%',
+    marginLeft:'5%',
+    height:90,
+    width:90,
+    backgroundColor:'#BFDBF7',
+    borderRadius:50,
+    justifyContent:'center',
+    alignItems:'center'
+   
+},
+});
 
