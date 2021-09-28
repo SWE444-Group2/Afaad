@@ -18,7 +18,7 @@ export default function welcome({ navigation }) {
         auth.signOut();
         navigation.reset({
             index: 0,
-            routes: [{ name: 'splash' }],
+            routes: [{ name: 'MainScreen' }],
         });
     };
 
@@ -26,7 +26,12 @@ export default function welcome({ navigation }) {
         <View style={styles.container}>
             <Text style={TitleStyles.sectionTitle}>مرحبا رائد الاعمال</Text>
 
-
+            <Button style={styles.button}
+                onPress={() => navigation.navigate('ViewIdea')}
+                title="عرض مشاريعك"
+                titleProps={{}}
+                titleStyle={{ marginHorizontal: 5 }}
+            />
 
             <Button style={styles.button}
                 onPress={onSignout}

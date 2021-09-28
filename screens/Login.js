@@ -11,8 +11,7 @@ import TitleStyles from './TitleStyles';
 
 const auth = AfaadFirebase.auth();
 const rootRef = AfaadFirebase.database().ref()
-var inv = false;
-var ent = false;
+
 
 //keyboard dismiss when click anywhere on the screen
 const DismissKeyboard = ({ children }) => (
@@ -40,21 +39,18 @@ export default function Login({ navigation }) {
             AfaadFirebase.database().ref('/Admin/'+userID).on('value', (snapshot) => {
               if (snapshot.exists()) {
                 userType = 'Admin';
-                console.log('Found admin')
                 navigation.navigate('Admin')
               }})
             AfaadFirebase.database().ref('/Entrepreneur/'+userID).on('value', (snapshot) => {
               if (snapshot.exists()) {
                 userType = 'Entrepreneur' ;
-                console.log('Found Entrepreneur')
-                navigation.navigate('Entrepreneur')
+                navigation.navigate('ViewIdea')
               }
             })
             AfaadFirebase.database().ref('/Investor/'+userID).on('value', (snapshot) => {
               if (snapshot.exists()) {
                 userType = 'Investor' ;
-                console.log('Found Investor')
-                navigation.navigate('Investor')
+                navigation.navigate('ViewIdea')
               }
             })
           }

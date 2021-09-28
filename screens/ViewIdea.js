@@ -6,11 +6,22 @@ import 'firebase/auth';
 import Titlestyles from './TitleStyles';
 
 
+let user = AfaadFirebase.auth().currentUser;
+const auth = AfaadFirebase.auth();
 
 export default function ViewIdea({ navigation }) {
 
+  //signout function
+  const onSignout = () => {
+    auth.signOut();
+    navigation.reset({
+        index: 0,
+        routes: [{ name: 'MainScreen' }],
+    });
+};
+
   let user = AfaadFirebase.auth().currentUser ;
-  let userID, userType ;
+  let userID, userType , userName;
 
   if(user){
     userID = user.uid ;
@@ -21,11 +32,13 @@ export default function ViewIdea({ navigation }) {
     AfaadFirebase.database().ref('/Entrepreneur/'+userID).on('value', (snapshot) => {
       if (snapshot.exists()) {
         userType = 'Entrepreneur' ;
+        userName = snapshot.child('FirstName').val()
       }
     })
     AfaadFirebase.database().ref('/Investor/'+userID).on('value', (snapshot) => {
       if (snapshot.exists()) {
         userType = 'Investor' ;
+        userName = snapshot.child('FullName').val()
       }
     })
   }
@@ -66,6 +79,7 @@ export default function ViewIdea({ navigation }) {
     }, [])
   return (
     <View style={Titlestyles.container}>
+      <Text style={Titlestyles.sectionTitle}> مرحبا {userName}،</Text>
        <View style={Titlestyles.tasksWrapper}>
       <Text style={Titlestyles.sectionTitle}>عرض الافكار</Text>
          
@@ -92,6 +106,26 @@ export default function ViewIdea({ navigation }) {
         /> 
         </View>
       </View> 
+     { userType=='Investor' && <Button 
+                onPress={onSignout}
+                title="تسجيل خروج"
+                titleProps={{}}
+                titleStyle={{ marginHorizontal: 5 }}
+            />}
+      { userType=='Entrepreneur' && <Button 
+                onPress={onSignout}
+                title="تسجيل خروج"
+                titleProps={{}}
+                titleStyle={{ marginHorizontal: 5 }}
+            />}
+            { userType== 'Entrepreneur' &&
+<Button 
+                name="add"
+                title="أنشر مشروع"
+                onPress={() => navigation.navigate('PublishIdea')}
+                size={70}
+                type="material"
+            />}
     </View>
     
   );
