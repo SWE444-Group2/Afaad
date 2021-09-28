@@ -18,6 +18,20 @@ export default StyleSheet.create({
         color:'#637081',
           },
       
+
+    SignOutbutton: {
+        position:'absolute',
+        height:35,
+        width:35,
+        borderRadius:6,
+        marginLeft:30,
+        marginTop:25,
+        backgroundColor: "#eeeeee",
+        alignItems:'center',
+        justifyContent:'center'
+            
+            
+            },  
     // the List styles
 
     container: {
@@ -92,6 +106,16 @@ export default StyleSheet.create({
         backgroundColor:'#6DA34D',
         borderRadius:6,
          
+  },
+
+  investButton:{
+    position:'relative',
+    marginTop:'5%',
+    marginBottom:'5%',
+    marginRight:'5%',
+    width:100,
+    backgroundColor:'#7c98b3',
+    borderRadius:6,
   },
 
     AcceptDetailsBtn:{

@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React ,{useEffect , useState , setState} from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button} from 'react-native';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image , Icon} from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 import Titlestyles from './TitleStyles';
+import SignOut from '../assets/images/SignOut.png';
 
 
 let user = AfaadFirebase.auth().currentUser;
@@ -79,13 +80,17 @@ export default function ViewIdea({ navigation }) {
     }, [])
   return (
     <View style={Titlestyles.container}>
+
        { userType=='Entrepreneur'&&
-      <Text style={Titlestyles.sectionTitle}> مرحبا {userName}،</Text>}
+      <Text style={Titlestyles.sectionTitle}> مرحبا، {userName}</Text>}
         { userType=='Investor'&&
-      <Text style={Titlestyles.sectionTitle}> مرحبا {userName}،</Text>}
+      <Text style={Titlestyles.sectionTitle}> مرحبا، {userName}</Text>}
        <View style={Titlestyles.tasksWrapper}>
       <Text style={Titlestyles.sectionTitle}>عرض الافكار</Text>
          
+
+     
+      
       <View style={Titlestyles.items}>
         <FlatList
         data={PendingProductList}
@@ -110,26 +115,26 @@ export default function ViewIdea({ navigation }) {
         /> 
         </View>
       </View> 
-     { userType=='Investor' && <Button 
-                onPress={onSignout}
-                title="تسجيل خروج"
-                titleProps={{}}
-                titleStyle={{ marginHorizontal: 5 }}
-            />}
-      { userType=='Entrepreneur' && <Button 
-                onPress={onSignout}
-                title="تسجيل خروج"
-                titleProps={{}}
-                titleStyle={{ marginHorizontal: 5 }}
-            />}
+     { userType=='Investor' && <TouchableOpacity  
+           style={Titlestyles.SignOutbutton} onPress={onSignout}>
+          <Image source={SignOut} style={{ width: 25, height: 25 }}/>
+          </TouchableOpacity>}
+
+      { userType=='Entrepreneur' && <TouchableOpacity  
+           style={Titlestyles.SignOutbutton} onPress={onSignout}>
+          <Image source={SignOut} style={{ width: 25, height: 25 }}/>
+        </TouchableOpacity>
+}
             { userType== 'Entrepreneur' &&
-<Button 
+              <Icon style={Titlestyles.addIcon}
                 name="add"
-                title="أنشر مشروع"
                 onPress={() => navigation.navigate('PublishIdea')}
                 size={70}
                 type="material"
             />}
+
+      
+
     </View>
     
   );

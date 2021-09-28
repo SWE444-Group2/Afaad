@@ -8,6 +8,7 @@ import 'firebase/auth';
 import TitleStyles from './TitleStyles';
 import ideaLogo from '../assets/images/idea1.png';
 import accountLogo from '../assets/images/account.png';
+import SignOut from '../assets/images/SignOut.png';
 
 
 let user = AfaadFirebase.auth().currentUser;
@@ -55,8 +56,8 @@ export default function welcome({ navigation }) {
 
           </View>
 
-          <TouchableOpacity  style={styles.button1} onPress={onSignout}>
-           <Text >تسجيل خروج </Text>
+          <TouchableOpacity  style={TitleStyles.SignOutbutton} onPress={onSignout}>
+          <Image source={SignOut} style={{ width: 25, height: 25 }}/>
           </TouchableOpacity>
         
      
@@ -114,16 +115,6 @@ textAlign:'center'
 },
 
 
-button1: {
-width: 213,
-height:52,
-borderRadius:6,
-margin: 40,
-marginLeft:100,
-backgroundColor: "#ADCBD8",
-alignItems: "center",
-justifyContent: "center",
 
-},    
 
 });

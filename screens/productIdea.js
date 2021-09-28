@@ -105,7 +105,20 @@ export default function productIdea({navigation , route}) {
                    style={TitleStyles.Acceptbutton}
                    onPress={() => AcceptIdea()}>
                    <Text style={TitleStyles.AcceptDetailsBtn}> قبول</Text>
-                </TouchableOpacity>  }         
+                </TouchableOpacity>  }    
+
+
+                 { userType== 'Investor' &&
+                   <TouchableOpacity
+                   style={TitleStyles.investButton}>
+                   <Text style={TitleStyles.AcceptDetailsBtn}>استثمر</Text>
+                </TouchableOpacity>  }   
+
+                 { userType== 'Investor' &&
+                   <TouchableOpacity
+                   style={TitleStyles.investButton}>
+                   <Text style={TitleStyles.AcceptDetailsBtn}>ادعم</Text>
+                </TouchableOpacity>  }        
          </View>  
         </View>
 
