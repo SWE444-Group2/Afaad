@@ -14,6 +14,8 @@ import { default as welcome } from './screens/welcome' ;
 import { default as SignUpEntr } from './screens/SignUpEntr' ;
 import { default as SignUpInvst } from './screens/SignUpInvst' ;
 import { default as PublishIdea } from './screens/PublishIdea' ;
+import { default as MainScreen } from './screens/MainScreen' ;
+import { default as SignupOption } from './screens/SignupOption' ;
 import {useFonts} from 'expo-font';
 
 export default function App() {
@@ -31,7 +33,8 @@ if(!isLoaded){
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="splash">
+      <Stack.Navigator initialRouteName="MainScreen">
+      <Stack.Screen name="MainScreen" component={MainScreen} /> 
       <Stack.Screen name="splash" component={splash} />  
         <Stack.Screen name="welcome" component={welcome} options={{ headerTitle:'الصفحة الرئيسية', headerBackVisible: false, gestureEnabled: false, }}/>
         <Stack.Screen name="ViewIdea" component={ViewIdea} options={{ headerTitle: "قائمة المشاريع"}}/>  
@@ -45,7 +48,7 @@ if(!isLoaded){
         <Stack.Screen name="Admin" component={Admin} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false , gestureEnabled: false }}/>
         <Stack.Screen name="Investor" component={Investor} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false }}/>
         <Stack.Screen name="Entrepreneur" component={Entrepreneur} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
-
+        <Stack.Screen name="SignupOption" component={SignupOption} options={{ headerTitle: ""}}/>
         
       </Stack.Navigator>
     </NavigationContainer>
