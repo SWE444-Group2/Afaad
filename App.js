@@ -35,7 +35,7 @@ if(!isLoaded){
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="MainScreen">
-      <Stack.Screen name="MainScreen" component={MainScreen} /> 
+      <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerTitle: "ابدأ"}}/> 
       <Stack.Screen name="splash" component={splash} />  
         <Stack.Screen name="welcome" component={welcome} options={{ headerTitle:'الصفحة الرئيسية', headerBackVisible: false, gestureEnabled: false, }}/>
         <Stack.Screen name="ViewIdea" component={ViewIdea} options={{ headerTitle: "قائمة المشاريع"}}/>  
