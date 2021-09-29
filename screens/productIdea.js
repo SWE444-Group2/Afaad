@@ -71,6 +71,7 @@ export default function productIdea({navigation , route}) {
           ); }
     // console.log(pIdea);
     return(
+        <View style={styles.container}>
         <ScrollView >
         <View style={[TitleStyles.containerDetails ]}>
             <Image source={AfaadLogo} style={{ width: 150, height: 150 }}/>
@@ -135,6 +136,7 @@ export default function productIdea({navigation , route}) {
         </View>
 
         </ScrollView>
+        </View>
 
         
     )
@@ -147,6 +149,11 @@ const styles = StyleSheet.create({
         padding: 24,
         justifyContent: 'space-evenly'
 
-    }, });
+    },
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+    }
+});
 
 

@@ -1,8 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Keyboard, TouchableWithoutFeedback, Alert } from 'react-native';
+import { StyleSheet, View, Keyboard, TouchableWithoutFeedback, Alert, ScrollView } from 'react-native';
 import { Button, Input } from 'react-native-elements';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
@@ -11,14 +11,6 @@ import TitleStyles from './TitleStyles';
 
 const auth = AfaadFirebase.auth();
 const rootRef = AfaadFirebase.database().ref()
-
-
-//keyboard dismiss when click anywhere on the screen
-const DismissKeyboard = ({ children }) => (
-  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-    {children}
-  </TouchableWithoutFeedback>
-);
 
 export default function Login({ navigation }) {
 
@@ -73,49 +65,66 @@ export default function Login({ navigation }) {
   };
 
   return (
-    <DismissKeyboard>
-      <View style={styles.container}>
-        <Text style={TitleStyles.sectionTitle}>صفحة تسجيل الدخول</Text>
-        <Input style = {{ textAlign: 'right', fontFamily: 'AJannatLT' }}
-          labelStyle={{ textAlign: 'right', fontFamily: 'AJannatLTBold' }}
-          label="البريد الإلكتروني"
+    <KeyboardAwareScrollView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView> 
+        <View style={TitleStyles.containerDetails}>
+        <View style={[TitleStyles.square, { padding: 10, alignItems: 'center', marginTop:'30%' }]}>
+        <Input style={styles.InputStyle}
+          labelStyle={styles.LabelStyle}
+          label="عنوان البريد الإلكتروني"
           rightIcon={<Icon name="account-outline" size={20} />}
-          placeholder="ادخل عنوانك الإلكتروني"
+          clearButtonMode="always"
+          placeholder="ادخل عنوان بريدك الإلكتروني"
           value={email}
           onChangeText={text => setEmail(text)}
         />
-        <Input style={{ textAlign: 'right', fontFamily: 'AJannatLT' }}
-          labelStyle={{textAlign: 'right', fontFamily: 'AJannatLTBold'}}
+        <Input style={styles.InputStyle}
+          labelStyle={styles.LabelStyle}
           label="كلمة السر"
           rightIcon={<Icon name="key" size={20} />}
+          clearButtonMode="always"
           placeholder="ادخل كلمة السر"
           value={password}
           onChangeText={text => setPassword(text)}
           secureTextEntry={true}
         />
-        <Button style={styles.button}
+        </View>
+        <Button buttonStyle={styles.button}
           onPress={onLogin}
-          title="تسجيل الدخول"
-          titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT'}}
+          title="تسجيل دخول"
+          titleStyle={{fontFamily: 'AJannatLTBold', fontSize: 18}}
         />
-        <StatusBar style="auto" />
+
       </View>
-    </DismissKeyboard>
-  );
+      </ScrollView>
+        </TouchableWithoutFeedback>
+      </KeyboardAwareScrollView>  );
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1,
+    backgroundColor: 'white',
   },
   button: {
-    width: 150,
-    margin: 10,
+    width: 213,
+    height: 52,
+    borderRadius: 6,
+    marginHorizontal: 'auto',
+    marginTop: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: '#022B3A',
   },
-  titleText: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    marginBottom: 100,
+  InputStyle: {
+    textAlign: 'right',
+    fontFamily: 'AJannatLT',
   },
+  LabelStyle: {
+    textAlign: 'right',
+    fontFamily: 'AJannatLTBold',
+    color: '#022B3A',
+    fontSize: 20,
+  }
 });
