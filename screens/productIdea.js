@@ -43,15 +43,21 @@ export default function productIdea({navigation , route}) {
        
 
     const AcceptIdea=()=>{
-
-        productIdeaRef.update({
-            status : 'Accepted' } )
-
         Alert.alert(
-            "رائع!",
-            "تم قبول الفكرة بنجاح",[{text: "العودة لقائمه الافكار" ,onPress: () => {navigation.navigate('ViewIdea')}}]
-            );
-    }
+            "تنبيه!",
+            "هل أنت متأكد من قبول الفكرة؟",
+            [
+              {
+                text: "نعم", onPress: () => { 
+                    productIdeaRef.update({status : 'Accepted' } )
+                    Alert.alert(
+                        "رائع!",
+                        "تم قبول الفكرة بنجاح",[{text: "العودة لقائمه الافكار" ,onPress: () => {navigation.navigate('ViewIdea')}}]
+                        );                         }
+              },
+              { text: "إلغاء"}
+            ]
+         );}
 
     const RejectIdea=()=>{
         Alert.alert(
