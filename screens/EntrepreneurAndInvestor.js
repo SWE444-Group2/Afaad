@@ -1,3 +1,6 @@
+
+import Constants from 'expo-constants';
+import ViewIdea from './ViewIdea';
 import { StatusBar } from 'expo-status-bar';
 import React ,{useEffect , useState , setState} from 'react';
 import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image , Icon } from 'react-native';
@@ -9,13 +12,12 @@ import PlusIcon from '../assets/images/plusIcon.png';
 import Background from '../assets/images/Background.jpg';
 import { ScrollView } from 'react-native-gesture-handler';
 
-
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
 
-export default function ViewIdea({ navigation }) {
 
-  //signout function
+export default function Entrepreneur({ navigation }) {
+    //signout function
   const onSignout = () => {
     auth.signOut();
     navigation.reset({
@@ -89,10 +91,9 @@ export default function ViewIdea({ navigation }) {
        };
 
     }, [])
-  return (
+    return (
 
-    
-    <View style={Titlestyles.container}>
+      <View style={Titlestyles.container}>
 
     <Image source={Background} style={{ flex: 1,width:'100%',height:'13%', opacity:1, position:'absolute' ,transform: [{ rotate: '180deg'}] }}/>
 
@@ -156,10 +157,11 @@ export default function ViewIdea({ navigation }) {
 
     </View>
 
-    
-    
-  );
-  
+    );
+
+
+
+
 }
 
 
@@ -176,4 +178,3 @@ const styles = StyleSheet.create({
    
 },
 });
-

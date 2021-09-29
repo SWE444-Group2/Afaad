@@ -6,7 +6,7 @@ import { default as ViewIdea } from './screens/ViewIdea' ;
 import {default as ViewAccount} from './screens/ViewAccount';
 import { default as Admin } from './screens/Admin' ;
 import { default as Investor } from './screens/Investor' ;
-import { default as Entrepreneur } from './screens/Entrepreneur' ;
+import { default as EntrepreneurAndInvestor } from './screens/EntrepreneurAndInvestor' ;
 import { default as productIdea } from './screens/productIdea' ;
 import {default as investorAccount} from './screens/investorAccount';
 import { default as Login } from './screens/Login' ;
@@ -38,7 +38,7 @@ if(!isLoaded){
       <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerTitle: "ابدأ"}}/> 
       <Stack.Screen name="splash" component={splash} />  
         <Stack.Screen name="welcome" component={welcome} options={{ headerTitle:'الصفحة الرئيسية', headerBackVisible: false, gestureEnabled: false, }}/>
-        <Stack.Screen name="ViewIdea" component={ViewIdea} options={{ headerTitle: "قائمة المشاريع"}}/>  
+        <Stack.Screen name="ViewIdea" component={ViewIdea} options={{ headerTitle: "قائمة المشاريع" }} />  
         <Stack.Screen name="ViewAccount" component={ViewAccount} options={{ headerTitle: "قائمة الحسابات"}} />
         <Stack.Screen name="productIdea" component={productIdea} options={{ headerTitle: "تفاصيل المشروع"}} />
         <Stack.Screen name="investorAccount" component={investorAccount} options={{ headerTitle: "تفاصيل الحساب"}}/>         
@@ -48,7 +48,7 @@ if(!isLoaded){
         <Stack.Screen name="PublishIdea" component={PublishIdea} options={{ headerTitle: "نشر مشروع جديد"}}/>
         <Stack.Screen name="Admin" component={Admin} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false , gestureEnabled: false }}/>
         <Stack.Screen name="Investor" component={Investor} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false }}/>
-        <Stack.Screen name="Entrepreneur" component={Entrepreneur} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
+        <Stack.Screen name="EntrepreneurAndInvestor" component={EntrepreneurAndInvestor} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
         <Stack.Screen name="SignupOption" component={SignupOption} options={{ headerTitle: ""}}/>
         <Stack.Screen name="PendingPage" component={PendingPage} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
         

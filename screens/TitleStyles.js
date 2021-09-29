@@ -7,7 +7,6 @@ export default StyleSheet.create({
         fontFamily: 'AJannatLTBold',
         fontSize:24,
         fontWeight:'bold',
-        paddingBottom: 20,
         textAlign: 'right',
         color:'#536b78' },
 
@@ -16,6 +15,7 @@ export default StyleSheet.create({
         fontFamily: 'AJannatLT',
         fontSize:18,
         color:'#637081',
+        textAlign: 'right',
           },
       
 
@@ -26,7 +26,7 @@ export default StyleSheet.create({
         borderRadius:6,
         marginLeft:30,
         marginTop:25,
-        backgroundColor: "#eeeeee",
+        backgroundColor: "white",
         alignItems:'center',
         justifyContent:'center',
         transform: [{ rotate: '180deg'}]
@@ -38,21 +38,24 @@ export default StyleSheet.create({
     container: {
         flex: 1,
          backgroundColor: 'white',
+        
          
     },
     tasksWrapper:{
-         paddingTop:80,
+         flex:1,
          paddingHorizontal:20,
     }, 
     item:{
-        
+        flex: 1,
          backgroundColor:'#eeeeee',
-         padding:15,
+         padding:10,
          borderRadius:10,
          flexDirection:'row',
      // alignItems:'center',
          justifyContent:"space-between",
          marginBottom:20, 
+         overflow:'scroll'
+    
     },
     Accounts:{
          fontSize:18,
@@ -76,12 +79,12 @@ export default StyleSheet.create({
         backgroundColor:'#eeeeee',
         borderRadius:10,
         width:'90%', 
+        marginBottom:'20%'
       },
       
  
     Rejectbutton: {
         position:'relative',
-        marginTop:'5%',
         marginRight:'5%',
         marginBottom:'5%',
         width:100,
@@ -101,7 +104,6 @@ export default StyleSheet.create({
 
     Acceptbutton: {
         position:'relative',
-        marginTop:'5%',
         marginBottom:'5%',
         width:100,
         backgroundColor:'#6DA34D',
@@ -111,7 +113,6 @@ export default StyleSheet.create({
 
   investButton:{
     position:'relative',
-    marginTop:'5%',
     marginBottom:'5%',
     marginRight:'5%',
     width:100,
