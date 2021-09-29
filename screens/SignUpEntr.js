@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View, Alert,StyleSheet,Input } from "react-native";
+import { Text, TextInput, TouchableOpacity, View, Alert,Image } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 //import { firebase } from './firebaseConfig'
@@ -9,6 +9,7 @@ import "firebase/database";
 //Refrence to Investor object in DB
 const InvestorsAccountsRef = AfaadFirebase.database().ref("Entrepreneur");
 import DropDownPicker from 'react-native-dropdown-picker';
+import corner from '../assets/images/corner.png';
 const auth = AfaadFirebase.auth();
 
 //fix VirtualizedLists should never be nested inside plain ScrollViews warnning
@@ -243,11 +244,15 @@ export default function RegistrationScreen({ navigation }) {
       });
   };
   return (
+    
+  
     <View style={styles.container}>
+       
       <KeyboardAwareScrollView
         style={{ flex: 1, width: "100%" }}
         keyboardShouldPersistTaps="always"
       >
+     
         <TextInput
           style={styles.input}
           placeholder="الاسم الأول"
