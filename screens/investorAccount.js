@@ -30,14 +30,21 @@ export default function invstorsAccount({navigation , route}) {
 
     const AcceptIdea=()=>{
 
-        invstorsAccountRef.update({
-            Verified : 'Accepted' } )
-
         Alert.alert(
-            "رائع!",
-            "تم قبول المستثمر  بنجاح",[{text: "العودة لقائمه المستثمرين" ,onPress: () => {navigation.navigate('ViewAccount')}}]
-            );
-    }
+            "تنبيه!",
+            "هل أنت متأكد من قبول المستثمر؟",
+            [
+              {
+                text: "نعم", onPress: () => { 
+                    invstorsAccountRef.update({Verified : 'Accepted' } )
+                    Alert.alert(
+                        "رائع!",
+                        "تم قبول المستثمر بنجاح",[{text: "العودة لقائمه المستثمرين" ,onPress: () => {navigation.navigate('ViewAccount')}}]
+                        );                         }
+              },
+              { text: "إلغاء"}
+            ]
+          ); }
 
     const RejectIdea=()=>{
         Alert.alert(
