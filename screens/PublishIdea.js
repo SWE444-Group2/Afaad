@@ -108,6 +108,24 @@ export default function PublishIdea({ navigation }) {
         ]);
         return
       }
+      if(ProductDescription.length > 250){
+        Alert.alert("تنبيه", "حقل وصف المشروع يجب ألا يتجاوز ٢٥٠ حرف ", [
+          {
+            text: "سأعيد المحاولة",
+            style: "cancel",
+          },
+        ]);
+        return
+      }
+      if(investorsSpec.length > 250){
+        Alert.alert("تنبيه", "حقل وصف المستثمرين يجب ألا يتجاوز ٢٥٠ حرف ", [
+          {
+            text: "سأعيد المحاولة",
+            style: "cancel",
+          },
+        ]);
+        return
+      }
 
 
 
@@ -195,7 +213,7 @@ export default function PublishIdea({ navigation }) {
           <Input style = {{ textAlign: 'right', fontFamily: 'AJannatLT', height: 100 }}
             labelStyle={{ textAlign: 'right', fontFamily: 'AJannatLTBold' }}
             label="وصف المشروع"
-            placeholder="(حد أقصى:٢٠٠ حرف)"
+            placeholder="(حد أقصى:٢٥٠ حرف)"
             multiline={true}
             numberOfLines={4}
             value={ProductDescription}
@@ -211,7 +229,7 @@ export default function PublishIdea({ navigation }) {
           <Input style = {{ textAlign: 'right', fontFamily: 'AJannatLT', height: 100 }}
             labelStyle={{ textAlign: 'right', fontFamily: 'AJannatLTBold' }}
             label="ما الذي تبحث عنه في المستثمرين؟"
-            placeholder="(حد أقصى:٢٠٠ حرف)"
+            placeholder="(حد أقصى:٢٥٠ حرف)"
             multiline={true}
             value={investorsSpec}
             onChangeText={text => setInvestorsSpec(text)}

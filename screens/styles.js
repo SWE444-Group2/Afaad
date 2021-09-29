@@ -16,11 +16,11 @@ export default StyleSheet.create({
     marginBottom: 10,
     marginLeft: 30,
     marginRight: 30,
-    paddingRight: 15,
-    textAlign: 'right'
+    paddingRight: 16,
+    textAlign: 'right',
   },
   button: {
-    backgroundColor: "#1F7A8C",
+    backgroundColor: "#7C98B3",
     marginLeft: 30,
     marginRight: 30,
     marginTop: 20,
@@ -44,7 +44,7 @@ export default StyleSheet.create({
     color: "#2e2e2d",
   },
   footerLink: {
-    color: "#1F7A8C",
+    color: "#7C98B3",
     fontWeight: "bold",
     fontSize: 16,
   },
@@ -62,9 +62,9 @@ export default StyleSheet.create({
     marginBottom: 10,
     marginLeft: 30,
     marginRight: 30,
-    paddingRight: 16,
+    paddingRight: 10,
     paddingBottom:120,
-    textAlign: 'right'
+    textAlign: 'right',
   },
   
   viewContainer: {
@@ -104,4 +104,14 @@ export default StyleSheet.create({
     marginRight: 30,
     paddingLeft: 16
   },
+  RadioBtnsTitle :{
+    paddingRight: 5,
+    textAlign: 'right',
+    color:"#aaaaaa",
+  
+    marginBottom: -23,
+ 
+    paddingTop: 13,
+  },
+
 });
