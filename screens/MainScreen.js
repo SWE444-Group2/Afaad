@@ -46,13 +46,13 @@ const styles= StyleSheet.create({
         //alignItems:'center',
     },
     logo:{
-        marginLeft:150,
+        marginLeft:135,
         marginTop:115,
     },
 
     TextLogo:{
         marginTop:70,
-        marginLeft:100,
+        marginLeft:85,
 
     },
 
@@ -61,7 +61,7 @@ const styles= StyleSheet.create({
         height:52,
         borderRadius:6,
         margin: 40,
-        marginLeft:100,
+        marginLeft:85,
         backgroundColor: "#ADCBD8",
         alignItems: "center",
         justifyContent: "center",
@@ -72,7 +72,7 @@ const styles= StyleSheet.create({
         width: 213,
         height:52,
         borderRadius:6,
-        marginLeft:100,
+        marginLeft:85,
         backgroundColor: "#002B3E",
         alignItems: "center",
         justifyContent: "center",

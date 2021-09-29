@@ -80,6 +80,7 @@ width:155,
 height:155,
 backgroundColor: "#ADCBD8",
 borderRadius:6,
+margin:10,
 },
 
 Box2:{
@@ -87,11 +88,12 @@ width:155,
 height:155,
 backgroundColor: "#002B3E",
 borderRadius:6,
+margin:10,
 },
 
 item:{
 // backgroundColor:'#536B78',
-padding:30,
+padding:10,
 //   borderRadius:10,
 flexDirection:'row',
 // alignItems:'center',
