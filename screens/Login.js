@@ -36,13 +36,18 @@ export default function Login({ navigation }) {
             AfaadFirebase.database().ref('/Entrepreneur/'+userID).on('value', (snapshot) => {
               if (snapshot.exists()) {
                 userType = 'Entrepreneur' ;
-                navigation.navigate('ViewIdea')
+                navigation.navigate('EntrepreneurAndInvestor')
               }
             })
             AfaadFirebase.database().ref('/Investor/'+userID).on('value', (snapshot) => {
               if (snapshot.exists()) {
                 userType = 'Investor' ;
-                navigation.navigate('ViewIdea')
+                if(snapshot.child("Verified").val()=='Pending'){
+                  navigation.navigate('PendingPage')}
+
+                if(snapshot.child("Verified").val()=='Accepted'){
+                  if(userType=='Investor')
+                     navigation.navigate('EntrepreneurAndInvestor');}
               }
             })
           }

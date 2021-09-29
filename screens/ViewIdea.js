@@ -6,6 +6,8 @@ import 'firebase/auth';
 import Titlestyles from './TitleStyles';
 import SignOut from '../assets/images/SignOut.png';
 import PlusIcon from '../assets/images/plusIcon.png';
+import Background from '../assets/images/Background.jpg';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 let user = AfaadFirebase.auth().currentUser;
@@ -88,20 +90,26 @@ export default function ViewIdea({ navigation }) {
 
     }, [])
   return (
+
+    
     <View style={Titlestyles.container}>
 
+    <Image source={Background} style={{ flex: 1,width:'100%',height:'10%', opacity:1, position:'absolute' ,transform: [{ rotate: '180deg'}] }}/>
+
+
        { userType=='Entrepreneur'&&
-      <Text style={Titlestyles.sectionTitle}> مرحبا، {userName}</Text>}
+      <Text style={[Titlestyles.sectionTitle ,{marginTop:'5%' , right:'5%'}] }> مرحبا، {userName}</Text>}
         { userType=='Investor'&&
-      <Text style={Titlestyles.sectionTitle}> مرحبا، {userName}</Text>}
+      <Text style={[Titlestyles.sectionTitle ,{marginTop:'5%'}] }> مرحبا، {userName}</Text>}
+     
        <View style={Titlestyles.tasksWrapper}>
-      <Text style={Titlestyles.sectionTitle}>عرض الافكار</Text>
+      <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:35 , marginTop:15}]}>عرض الافكار</Text>
+    
          
 
      
-      
       <View style={Titlestyles.items}>
-        <FlatList
+        <FlatList style={{height:'85%'}}
         data={PendingProductList}
         keyExtractor={(item, index)=>index.toString()}
         renderItem={({ item })=>(
@@ -122,8 +130,13 @@ export default function ViewIdea({ navigation }) {
         )}
 
         /> 
+       
         </View>
+        
+       
       </View> 
+
+     
      { userType=='Investor' && <TouchableOpacity  
            style={Titlestyles.SignOutbutton} onPress={onSignout}>
           <Image source={SignOut} style={{ width: 25, height: 25 }}/>
@@ -142,6 +155,8 @@ export default function ViewIdea({ navigation }) {
       
 
     </View>
+
+    
     
   );
   
@@ -150,12 +165,11 @@ export default function ViewIdea({ navigation }) {
 
 const styles = StyleSheet.create({
   addIcon: {
-    position:'absolute',
-    bottom:'3%',
+    bottom:'2%',
     left:'5%',
-    height:90,
-    width:90,
-    backgroundColor:'#BFDBF7',
+    height:80,
+    width:80,
+    backgroundColor:'#7c98b3',
     borderRadius:50,
     justifyContent:'center',
     alignItems:'center'

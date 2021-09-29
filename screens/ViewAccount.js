@@ -37,7 +37,7 @@ export default function ViewAccount({ navigation }) {
               PendingAccountsList.push(AccountsList[AccountID]) } 
             }
 
-            if(isUnmounted){
+            if(!isUnmounted){
            setPendingAccountList(PendingAccountsList) ;}
           
   
