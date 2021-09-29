@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View, Alert,StyleSheet } from "react-native";
+import { Text, TextInput, TouchableOpacity, View, Alert,StyleSheet,Input } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 //import { firebase } from './firebaseConfig'
@@ -8,12 +8,15 @@ import "firebase/auth";
 import "firebase/database";
 //Refrence to Investor object in DB
 const InvestorsAccountsRef = AfaadFirebase.database().ref("Entrepreneur");
-
+import DropDownPicker from 'react-native-dropdown-picker';
 const auth = AfaadFirebase.auth();
+
+//fix VirtualizedLists should never be nested inside plain ScrollViews warnning
+DropDownPicker.setListMode("SCROLLVIEW");
 
 import RadioGroup from 'react-native-radio-buttons-group';
 
-
+/*
 const radioButtonsData = [{
     id: 'F', // acts as primary key, should be unique and non-empty string
     label: 'أنثــى',
@@ -26,7 +29,7 @@ const radioButtonsData = [{
     value: 'Male',
     color: "#536B78",
    
-}]
+}]*/
 
 export default function RegistrationScreen({ navigation }) {
   const [FirstName, setFirstName] = useState("");
@@ -37,11 +40,16 @@ export default function RegistrationScreen({ navigation }) {
   const [gender, setGender] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [open, setOpen] = useState(false);
  
-  const [radioButtons, setRadioButtons] = useState(radioButtonsData)
 
+  const [items, setItems] = useState([
+    {label: 'أنثـى', value: "انثى" },
+    {label: 'ذكر', value: 'ذكر'},
+  ]);
+  //const [radioButtons, setRadioButtons] = useState(radioButtonsData)
 
-    function onPressRadioButton(radioButtonsArray) {
+    /*function onPressRadioButton(radioButtonsArray) {
         setRadioButtons(radioButtonsArray);
         
         let selectedGender ; 
@@ -52,7 +60,7 @@ export default function RegistrationScreen({ navigation }) {
         }
         setGender(selectedGender) ;
     }
-
+*/
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
   };
@@ -177,7 +185,7 @@ export default function RegistrationScreen({ navigation }) {
             FirstName: FirstName,
             Lastname: LastName,
             Gender: gender,
-            Age: age,
+       
             phone: phone,
             email: Email,
             Password: password,
@@ -248,6 +256,7 @@ export default function RegistrationScreen({ navigation }) {
           value={FirstName}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+         
         />
 
         <TextInput
@@ -258,16 +267,34 @@ export default function RegistrationScreen({ navigation }) {
           value={LastName}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+
+       
+        
         />
-        <TextInput
-          style={styles.input}
-          placeholder="العمر"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setAge(text)}
-          value={age}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
+          <DropDownPicker 
+              textStyle={{
+                textAlign: 'right',
+                fontFamily: 'AJannatLT',
+                fontSize: 14,
+                color:"#aaaaaa"
+              }}
+              containerStyle={{
+                marginTop: 10,
+                marginBottom: 10,
+                width:356,
+                marginLeft:30,
+                         }}
+              style={{borderColor:"white"}}
+              open={open}
+              value={gender}
+              items={items}
+              setOpen={setOpen}
+              setValue={setGender}
+              setItems={setItems}
+              placeholder='الجنـس'
+              placeholderTextColor="#aaaaaa"
+              onChangeValue={value => setGender(value)}
+          />
         <TextInput
           style={styles.input}
           placeholder="رقم الجوال"
@@ -276,6 +303,7 @@ export default function RegistrationScreen({ navigation }) {
           value={phone}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+   
         />
 
          
@@ -287,6 +315,7 @@ export default function RegistrationScreen({ navigation }) {
           value={Email}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+         
         />
         <TextInput
           style={styles.input}
@@ -297,6 +326,7 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
           secureTextEntry={true}
+         
         />
 
         <TextInput
@@ -308,28 +338,11 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
           secureTextEntry={true}
+     
 
         />
-        <View style={styles.input}>
-
-      <Text style={styles.RadioBtnsTitle}
-      
-      >الجنـــس</Text>
-      
-          <RadioGroup  style={styles.RadioBtns}
-            radioButtons={radioButtons} 
-            onPress={onPressRadioButton} 
-            layout='row'
-            containerStyle={{ flexDirection: 'row-reverse', flexWrap: 'wrap',marginLeft: 90}}
-  
-            
-        />
-
+    
         
-          
-
-      
-    </View>
 
         <TouchableOpacity
           style={styles.button}
