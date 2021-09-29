@@ -8,6 +8,7 @@ import 'firebase/auth';
 import TitleStyles from './TitleStyles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import DropDownPicker from 'react-native-dropdown-picker';
+import RadioGroup from 'react-native-radio-buttons-group';
 
 //fix VirtualizedLists should never be nested inside plain ScrollViews warnning
 DropDownPicker.setListMode("SCROLLVIEW");
@@ -20,7 +21,7 @@ export default function PublishIdea({ navigation }) {
     const [Title, setTitle] = useState('');
     const [category, setCategory] = useState('');
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
+    const [categoryValue, setCategoryValue] = useState(null);
     const [items, setItems] = useState([
       {label: 'اعلام ونشر وتوزيع', value: 'اعلام ونشر وتوزيع'},
       {label: 'تجارة', value: 'تجارة'},
@@ -35,10 +36,43 @@ export default function PublishIdea({ navigation }) {
     ]);
     const [ProductDescription, setProductDescription] = useState('');
     const [costEstimation, setCostEstimation] = useState('');
+    const radioButtonsData = [{
+      id: '1', 
+      label: '١٠٠٠-١٠،٠٠٠',
+      value: '١٠٠٠-١٠،٠٠٠'
+    }, {
+      id: '2',
+      label: '١٠،٠٠٠-٥٠،٠٠٠',
+      value: '١٠،٠٠٠-٥٠،٠٠٠'
+    },{
+      id: '3',
+      label: '٥٠،٠٠٠-١٠٠،٠٠٠',
+      value: '٥٠،٠٠٠-١٠٠،٠٠٠'
+    },{
+      id: '4',
+      label: '١٠٠،٠٠٠-٥٠٠،٠٠٠',
+      value: '١٠٠،٠٠٠-٥٠٠،٠٠٠'
+    },{
+      id: '5',
+      label: '٥٠٠،٠٠٠-١،٠٠٠،٠٠٠',
+      value: '٥٠٠،٠٠٠-١،٠٠٠،٠٠٠'
+    }]
+    const [radioButtons, setRadioButtons] = useState(radioButtonsData)
     const [investorsSpec, setInvestorsSpec] = useState('');
 
+    function onPressRadioButton(radioButtonsArray) {
+      setRadioButtons(radioButtonsArray) ;
+      let selectedCost ; 
+      for(let radioButton in radioButtons){
+        if(radioButtons[radioButton].selected == true){
+          selectedCost = radioButtons[radioButton].value ; 
+        }
+      }
+         setCostEstimation(selectedCost) ;
+    }
+
     const IsValidfield= (field) => {
-      const RegxOfNames = /^[a-zA-Z\s\u0600-\u06FF]*$/;
+      const RegxOfNames = /^[a-zA-Z\s\u0600-\u065F\u066A-\u06EF\u06FA-\u06FF]*$/;
       return RegxOfNames.test(field);
     };
 
@@ -46,12 +80,14 @@ export default function PublishIdea({ navigation }) {
     //when submit button is pressed perform this
     const submit = () => {
 
-      setCategory(value) ;
+      setCategory(categoryValue) ;
       // Checking for empty fields
       if (
         Title == "" || 
         ProductDescription == "" ||
-        investorsSpec == ""
+        investorsSpec == "" ||
+        costEstimation == '' ||
+        categoryValue == null
       ) {
         Alert.alert("تنبيه ", "جميع الحقول مطلوبة", [
           {
@@ -73,38 +109,6 @@ export default function PublishIdea({ navigation }) {
         return
       }
 
-      if (category == null) {
-        Alert.alert("تنبيه", "يجب اختيار فئة المشروع", [
-          {
-            text: "سأعيد المحاولة",
-            onPress: () => console.log("yes Pressed"),
-            style: "cancel",
-          },
-        ]);
-        return
-      }
-
-      if (IsValidfield(ProductDescription) == false) {
-        Alert.alert("تنبيه", "حقل \"الوصف\" يجب ان يحتوي على حروف فقط", [
-          {
-            text: "سأعيد المحاولة",
-            onPress: () => console.log("yes Pressed"),
-            style: "cancel",
-          },
-        ]);
-        return
-      }
-
-      if (IsValidfield(investorsSpec) == false) {
-        Alert.alert("تنبيه", "حقل \"وصف المستثمر المراد\" يجب ان يحتوي على حروف فقط", [
-          {
-            text: "سأعيد المحاولة",
-            onPress: () => console.log("yes Pressed"),
-            style: "cancel",
-          },
-        ]);
-        return
-      }
 
 
     const ProductsRef = AfaadFirebase.database().ref('ProductIdea');
@@ -170,10 +174,10 @@ export default function PublishIdea({ navigation }) {
                 marginBottom: 15
               }}
               open={open}
-              value={value}
+              value={categoryValue}
               items={items}
               setOpen={setOpen}
-              setValue={setValue}
+              setValue={setCategoryValue}
               setItems={setItems}
               placeholder='اختر فئة المشروع'
               onChangeValue={value => setCategory(value)}
@@ -197,13 +201,12 @@ export default function PublishIdea({ navigation }) {
             value={ProductDescription}
             onChangeText={text => setProductDescription(text)}
           />
-          <Input style = {{ textAlign: 'right', fontFamily: 'AJannatLT' }}
-            labelStyle={{ textAlign: 'right', fontFamily: 'AJannatLTBold' }}
-            label="تقدير تكلفة المنتج (ريال سعودي)"
-            placeholder="أدخل تقديرك"
-            keyboardType = {'number-pad'}
-            value={costEstimation}
-            onChangeText={text => setCostEstimation(text)}
+          <Text style={styles.labelText}>تقدير تكلفة المنتج (ريال سعودي)</Text>
+          <RadioGroup
+            radioButtons={radioButtons}
+            onPress={onPressRadioButton}
+            containerStyle={{ flexDirection: 'row-reverse', flexWrap: 'wrap', marginBottom: 15}}
+            layout= 'row'
           />
           <Input style = {{ textAlign: 'right', fontFamily: 'AJannatLT', height: 100 }}
             labelStyle={{ textAlign: 'right', fontFamily: 'AJannatLTBold' }}
