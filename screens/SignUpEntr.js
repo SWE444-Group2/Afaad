@@ -6,13 +6,27 @@ import styles from "./styles";
 import AfaadFirebase from "./firebaseConfig";
 import "firebase/auth";
 import "firebase/database";
-import RNPickerSelect from "react-native-picker-select";
-
-
 //Refrence to Investor object in DB
 const InvestorsAccountsRef = AfaadFirebase.database().ref("Entrepreneur");
 
 const auth = AfaadFirebase.auth();
+
+import RadioGroup from 'react-native-radio-buttons-group';
+
+
+const radioButtonsData = [{
+    id: 'F', // acts as primary key, should be unique and non-empty string
+    label: 'أنثــى',
+    value: 'Female',
+    color: "#536B78",
+}
+, {
+    id: 'Male',
+    label: 'ذكــر',
+    value: 'Male',
+    color: "#536B78",
+   
+}]
 
 export default function RegistrationScreen({ navigation }) {
   const [FirstName, setFirstName] = useState("");
@@ -24,6 +38,11 @@ export default function RegistrationScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
  
+  const [radioButtons, setRadioButtons] = useState(radioButtonsData)
+
+    function onPressRadioButton(radioButtonsArray) {
+        setRadioButtons(radioButtonsArray);
+    }
 
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
@@ -249,29 +268,8 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
-      
-          <View style={styles.input}> 
-          <Text></Text>
-          <RNPickerSelect 
-            placeholder={{
-              label: "الجنس",
-              value: null,
-          
-            }}
-            pickerProps={{ style: { height: 214, overflow: 'hidden',  textAlign: 'right' } }}
-            //disabled = {false}
-            //useNativeAndroidPickerStyle={false}
-            //style={{alignItems:'center',}}
-            onValueChange={(value) => console.log(value)}
-            items={[
-              { label: "أنثى", value: "Female" },
-              { label: "ذكر", value: "Male" },
-              
-            ]}
-            
-          />
-          </View>
-      
+
+         
         <TextInput
           style={styles.input}
           placeholder="البريد الالكتروني"
@@ -301,19 +299,39 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
           secureTextEntry={true}
+
         />
+        <View style={styles.input}>
+
+      <Text style={styles.RadioBtnsTitle}
+      
+      >الجنـــس</Text>
+      
+          <RadioGroup  style={styles.RadioBtns}
+            radioButtons={radioButtons} 
+            onPress={onPressRadioButton} 
+            layout='row'
+            value={gender}
+            onChangeText={(text) => setGender(radioButtonsData)}
+        />
+
+        
+          
+
+      
+    </View>
 
         <TouchableOpacity
           style={styles.button}
           onPress={() => onRegisterPress()}
         >
-          <Text style={styles.buttonTitle}>إنشاء حساب</Text>
+          <Text style={styles.buttonTitle}>إنشاء الحساب</Text>
         </TouchableOpacity>
         <View style={styles.footerView}>
           <Text style={styles.footerText}>
-            هل لديك حساب مسبق؟{" "}
+            لديك بالفعل حساب مسجل ؟{" "}
             <Text onPress={onFooterLinkPress} style={styles.footerLink}>
-              تسجل دخول
+              تسجيل الدخول
             </Text>
           </Text>
         </View>
