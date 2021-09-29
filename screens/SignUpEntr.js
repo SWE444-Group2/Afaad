@@ -40,15 +40,24 @@ export default function RegistrationScreen({ navigation }) {
  
   const [radioButtons, setRadioButtons] = useState(radioButtonsData)
 
+
     function onPressRadioButton(radioButtonsArray) {
         setRadioButtons(radioButtonsArray);
+        
+        let selectedGender ; 
+        for(let radioButton in radioButtons){
+          if(radioButtons[radioButton].selected == true){
+            selectedGender = radioButtons[radioButton].value ; 
+          }
+        }
+        setGender(selectedGender) ;
     }
 
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
   };
   const IsValidName = (FirstName) => {
-    const RegxOfNames = /^[a-zA-Z]+$/;
+    const RegxOfNames =/^[a-zA-Z\s\u0600-\u065F\u066A-\u06EF\u06FA-\u06FF]*$/;
     return RegxOfNames.test(FirstName);
   };
   const IsValidPass = (password) => {
@@ -64,12 +73,12 @@ export default function RegistrationScreen({ navigation }) {
 
   const onRegisterPress = () => {
     if (
-      Email == "" && //empty?
-      password == "" &&
-      confirmPassword == "" &&
-      FirstName == "" &&
-      LastName == "" &&
-      phone == "" &&
+      Email == "" || //empty?
+      password == ""||
+      confirmPassword == "" ||
+      FirstName == "" ||
+      LastName == "" ||
+      phone == "" ||
       gender == ""
     ) {
       Alert.alert("تنبيه ", "جميع الحقول مطلوبة لإستكمال التسجيل", [
@@ -311,8 +320,9 @@ export default function RegistrationScreen({ navigation }) {
             radioButtons={radioButtons} 
             onPress={onPressRadioButton} 
             layout='row'
-            value={gender}
-            onChangeText={(text) => setGender(radioButtonsData)}
+            containerStyle={{ flexDirection: 'row-reverse', flexWrap: 'wrap',marginLeft: 90}}
+  
+            
         />
 
         
@@ -329,7 +339,7 @@ export default function RegistrationScreen({ navigation }) {
         </TouchableOpacity>
         <View style={styles.footerView}>
           <Text style={styles.footerText}>
-            لديك بالفعل حساب مسجل ؟{" "}
+          هل لديك حساب مسبق؟{" "}
             <Text onPress={onFooterLinkPress} style={styles.footerLink}>
               تسجيل الدخول
             </Text>
@@ -339,3 +349,4 @@ export default function RegistrationScreen({ navigation }) {
     </View>
   );
 }
+
