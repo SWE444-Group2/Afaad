@@ -40,7 +40,7 @@ export default function productIdea({navigation , route}) {
        });
   
         
-       console.log(status);
+       
 
     const AcceptIdea=()=>{
 

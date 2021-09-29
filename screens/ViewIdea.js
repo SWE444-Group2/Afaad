@@ -48,6 +48,7 @@ export default function ViewIdea({ navigation }) {
     const[PendingProductList ,setPendingproductsList ]=useState();
    
     useEffect(() => {
+      let isUnmounted=false;
        const dataref=AfaadFirebase.database().ref('ProductIdea')
     
        dataref.on('value',(snapshot) =>{
@@ -57,7 +58,8 @@ export default function ViewIdea({ navigation }) {
                productsList.push({productID,...products[productID]});
           } 
 
-          setproductsList(productsList);
+          if(!isUnmounted){
+          setproductsList(productsList);}
         
 
           const PendingProductList=[]
@@ -72,12 +74,18 @@ export default function ViewIdea({ navigation }) {
               PendingProductList.push(productsList[productID])
             }
           }
-           setPendingproductsList(PendingProductList) ;
+
+          if(!isUnmounted){
+           setPendingproductsList(PendingProductList) ;}
 
           
-       })
+       });
 
-       
+       return()=>{
+        isUnmounted=true;
+
+       };
+
     }, [])
   return (
     <View style={Titlestyles.container}>

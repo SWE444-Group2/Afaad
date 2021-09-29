@@ -15,6 +15,7 @@ export default function ViewAccount({ navigation }) {
 
       useEffect(()=> {
     
+        let isUnmounted=false;
         const InvestorTableRef = AfaadFirebase.database().ref("Investor");
         
         InvestorTableRef.on('value',(snapshot)=>{
@@ -26,7 +27,8 @@ export default function ViewAccount({ navigation }) {
                 AccountsList.push({id,...investor[id]}); //BRING ID FROM DB
             }
             
-            setAccountsList(AccountsList);
+            if(!isUnmounted){
+            setAccountsList(AccountsList);}
 
 
             const PendingAccountsList=[];
@@ -35,11 +37,18 @@ export default function ViewAccount({ navigation }) {
               PendingAccountsList.push(AccountsList[AccountID]) } 
             }
 
-           setPendingAccountList(PendingAccountsList) ;
-           console.log(PendingAccountsList);
+            if(isUnmounted){
+           setPendingAccountList(PendingAccountsList) ;}
+          
   
+           
             
-        })
+        });
+
+        return()=>{
+          isUnmounted=true;
+ 
+        };
 
        
     },[])

@@ -16,6 +16,7 @@ import { default as SignUpInvst } from './screens/SignUpInvst' ;
 import { default as PublishIdea } from './screens/PublishIdea' ;
 import { default as MainScreen } from './screens/MainScreen' ;
 import { default as SignupOption } from './screens/SignupOption' ;
+import { default as PendingPage } from './screens/PendingPage' ;
 import {useFonts} from 'expo-font';
 
 export default function App() {
@@ -49,6 +50,7 @@ if(!isLoaded){
         <Stack.Screen name="Investor" component={Investor} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false }}/>
         <Stack.Screen name="Entrepreneur" component={Entrepreneur} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
         <Stack.Screen name="SignupOption" component={SignupOption} options={{ headerTitle: ""}}/>
+        <Stack.Screen name="PendingPage" component={PendingPage} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
         
       </Stack.Navigator>
     </NavigationContainer>
