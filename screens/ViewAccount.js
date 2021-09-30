@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState ,useEffect , setState } from 'react';
-import { StyleSheet, Text, View, Button,TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Button,TouchableOpacity, FlatList ,Image} from 'react-native';
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
 //import { Item } from 'react-native-paper/lib/typescript/components/List/List';
 import Titlestyles from './TitleStyles';
 import { color } from 'react-native-reanimated';
-
+import Background from '../assets/images/Background.jpg';
 export default function ViewAccount({ navigation }) {
 
     //New code 
@@ -55,8 +55,10 @@ export default function ViewAccount({ navigation }) {
   
   return (
     <View style={Titlestyles.container}>
+        <Image source={Background} style={{ flex: 1,width:'100%',height:'10%', opacity:1, position:'absolute' ,transform: [{ rotate: '180deg'}] }}/>
+
         <View style={Titlestyles.tasksWrapper}>
-        <Text style={[Titlestyles.sectionTitle]}>تفعيل حسابات المستثمرين</Text>
+        <Text style={[Titlestyles.subTitle , {fontSize:20 , marginBottom:35 , marginTop:15}]}>تفعيل حسابات المستثمرين</Text>
        
 
            <View style={Titlestyles.items}>
