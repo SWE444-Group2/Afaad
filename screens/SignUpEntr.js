@@ -76,7 +76,7 @@ export default function RegistrationScreen({ navigation }) {
     return strongPass.test(password);
   };
   const IsValidPhone = (phone) => {
-    const RegxPhone = /^[0-9]+$/;
+  const RegxPhone = /^[0-9\u0660-\u0669]*{10}/;
     return RegxPhone.test(phone);
   };
 
@@ -113,7 +113,7 @@ export default function RegistrationScreen({ navigation }) {
     if (IsValidName(FirstName) == false) {
       Alert.alert("تنبيه ", "الاسم يجب ان يحتوي على حروف فقط", [
         {
-          text: "سإعيد المحاولة",
+          text: "حسنًا",
           onPress: () => console.log("yes Pressed"),
           style: "cancel",
         },
@@ -123,7 +123,7 @@ export default function RegistrationScreen({ navigation }) {
     if (age > 120) {
       Alert.alert("تنبيه ", "العمر يجب ان يكون أقل من ١٢٠ سنة ", [
         {
-          text: "سإعيد المحاولة",
+          text: "حسنًا",
           onPress: () => console.log("yes Pressed"),
           style: "cancel",
         },
@@ -290,6 +290,7 @@ export default function RegistrationScreen({ navigation }) {
                 marginBottom: 10,
                 width:356,
                 marginLeft:30,
+                marginRight:30,
                          }}
               style={{borderColor:"white",flexDirection: 'row-reverse',}}
               open={open}

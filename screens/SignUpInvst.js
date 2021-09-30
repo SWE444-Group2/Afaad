@@ -34,7 +34,7 @@ export default function RegistrationScreen({ navigation }) {
     return strongPass.test(password);
   };
   const IsValidPhone = (phone) => {
-    const RegxPhone = /^[0-9]+$/;
+    const RegxPhone = /^[0-9\u0660-\u0669]*{10}/;
     return RegxPhone.test(phone);
   };
 
@@ -70,7 +70,7 @@ export default function RegistrationScreen({ navigation }) {
     if (IsValidName(FullName) == false) {
       Alert.alert("تنبيه ", "الاسم الكامل يجب ان يحتوي على حروف فقط", [
         {
-          text: "سإعيد المحاولة",
+          text: "حسنًا",
           onPress: () => console.log("yes Pressed"),
           style: "cancel",
         },
@@ -114,15 +114,29 @@ export default function RegistrationScreen({ navigation }) {
 
         [
           {
-            text: "سأعيد المحاولة",
+            text: "حسنًا",
             onPress: () => console.log("yes Pressed"),
             style: "cancel",
           },
         ]
       );
       return;
-    }
-
+      }
+      if (Describtion.length > 250) {
+        Alert.alert(
+          "تنبيه",
+          "حقل وصف المستثمر يجب الا يتجاوز ٢٥٠ حرف",
+  
+          [
+            {
+              text: " حسنًا",
+              onPress: () => console.log("yes Pressed"),
+              style: "cancel",
+            },
+          ]
+        );
+        return;
+        }
     AfaadFirebase.auth()
       .createUserWithEmailAndPassword(Email, password)
       .then((response) => {
@@ -135,10 +149,10 @@ export default function RegistrationScreen({ navigation }) {
             email: Email,
             Describetion:Describtion,
             type: "Investor",
-            Varified:"Pending",
+            Verified:"Pending",
           }); //Set */
       })
-      .then(() => navigation.navigate("welcome"))
+      .then(() => navigation.navigate("PendingPage"))
 
       .catch((error) => {
         switch (error.code) {
