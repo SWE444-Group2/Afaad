@@ -148,13 +148,17 @@ export default function Entrepreneur({ navigation }) {
           <Image source={SignOut} style={{ width: 25, height: 25 }}/>
         </TouchableOpacity>
 }
-            { userType== 'Entrepreneur' && <TouchableOpacity  
+           
+
+      
+      <View style={styles.BottomBar}>
+
+      </View>
+
+      { userType== 'Entrepreneur' && <TouchableOpacity  
              style={styles.addIcon} onPress={() => navigation.navigate('PublishIdea')}>
              <Image source={PlusIcon} style={{ width: 60, height: 60 }}/>
             </TouchableOpacity>}
-
-      
-
     </View>
 
     );
@@ -167,14 +171,22 @@ export default function Entrepreneur({ navigation }) {
 
 const styles = StyleSheet.create({
   addIcon: {
-    bottom:'2%',
-    left:'5%',
-    height:80,
-    width:80,
-    backgroundColor:'#7c98b3',
+    position:'absolute',
+    bottom:'3%',
+    left:'38%',
+    height:90,
+    width:90,
+    backgroundColor:'#cee5f2',
     borderRadius:50,
     justifyContent:'center',
     alignItems:'center'
    
 },
+
+BottomBar:{
+  height:80,
+  width:null,
+  backgroundColor:'#7c98b3'
+
+}
 });
