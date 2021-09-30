@@ -76,7 +76,7 @@ export default function RegistrationScreen({ navigation }) {
     return strongPass.test(password);
   };
   const IsValidPhone = (phone) => {
-  const RegxPhone = /^[0-9\u0660-\u0669]*{10}/;
+    const RegxPhone = /^[0-9\u0660-\u0669]{10}$/;
     return RegxPhone.test(phone);
   };
 
@@ -103,7 +103,7 @@ export default function RegistrationScreen({ navigation }) {
     if (password !== confirmPassword) {
       Alert.alert("تنبيه ", ".كلمة المرور وتأكيد كلمة المرور يجب أن تتطابق", [
         {
-          text: "سأعيد المحاولة",
+          text: "حسنًا",
           onPress: () => console.log("yes Pressed"),
           style: "cancel",
         },
@@ -120,16 +120,6 @@ export default function RegistrationScreen({ navigation }) {
       ]);
       return;
     }
-    if (age > 120) {
-      Alert.alert("تنبيه ", "العمر يجب ان يكون أقل من ١٢٠ سنة ", [
-        {
-          text: "حسنًا",
-          onPress: () => console.log("yes Pressed"),
-          style: "cancel",
-        },
-      ]);
-      return;
-    }
     if (IsValidPhone(phone) == false) {
       Alert.alert(
         "تنبيه",
@@ -137,7 +127,7 @@ export default function RegistrationScreen({ navigation }) {
 
         [
           {
-            text: "سأعيد المحاولة",
+            text: "حسنًا",
             onPress: () => console.log("yes Pressed"),
             style: "cancel",
           },
@@ -152,7 +142,7 @@ export default function RegistrationScreen({ navigation }) {
 
         [
           {
-            text: "سأعيد المحاولة",
+            text: "حسنًا",
             onPress: () => console.log("yes Pressed"),
             style: "cancel",
           },
@@ -167,7 +157,7 @@ export default function RegistrationScreen({ navigation }) {
 
         [
           {
-            text: "سأعيد المحاولة",
+            text: "حسنًا",
             onPress: () => console.log("yes Pressed"),
             style: "cancel",
           },
@@ -186,11 +176,8 @@ export default function RegistrationScreen({ navigation }) {
             FirstName: FirstName,
             Lastname: LastName,
             Gender: gender,
-       
             phone: phone,
             email: Email,
-            Password: password,
-            type: "Entrepreneur",
           }); //Set */
       })
       .then(() => navigation.navigate("welcome"))
@@ -275,8 +262,6 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
 
-       
-        
         />
           <DropDownPicker 
               textStyle={{
@@ -286,9 +271,9 @@ export default function RegistrationScreen({ navigation }) {
                 color:"#aaaaaa"
               }}
               containerStyle={{
-                marginTop: 10,
+                marginTop:10,
                 marginBottom: 10,
-                width:356,
+                width:330,
                 marginLeft:30,
                 marginRight:30,
                          }}
@@ -312,9 +297,7 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
    
-        />
-
-         
+        /> 
         <TextInput
           style={styles.input}
           placeholder="*البريد الالكتروني"
@@ -325,6 +308,7 @@ export default function RegistrationScreen({ navigation }) {
           autoCapitalize="none"
          
         />
+
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
@@ -334,9 +318,7 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
           secureTextEntry={true}
-         
         />
-
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
@@ -346,12 +328,7 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
           secureTextEntry={true}
-     
-
         />
-    
-        
-
         <TouchableOpacity
           style={styles.button}
           onPress={() => onRegisterPress()}

@@ -101,7 +101,7 @@ export default function PublishIdea({ navigation }) {
       if (IsValidfield(Title) == false) {
         Alert.alert("تنبيه", "حقل \"العنوان\" يجب ان يحتوي على حروف فقط", [
           {
-            text: "سأعيد المحاولة",
+            text: "حسنًا",
             onPress: () => console.log("yes Pressed"),
             style: "cancel",
           },
@@ -111,7 +111,7 @@ export default function PublishIdea({ navigation }) {
       if(ProductDescription.length > 250){
         Alert.alert("تنبيه", "حقل وصف المشروع يجب ألا يتجاوز ٢٥٠ حرف ", [
           {
-            text: "سأعيد المحاولة",
+            text: "حسنًا =",
             style: "cancel",
           },
         ]);
@@ -120,7 +120,7 @@ export default function PublishIdea({ navigation }) {
       if(investorsSpec.length > 250){
         Alert.alert("تنبيه", "حقل وصف المستثمرين يجب ألا يتجاوز ٢٥٠ حرف ", [
           {
-            text: "سأعيد المحاولة",
+            text: "حسنًا ",
             style: "cancel",
           },
         ]);

@@ -34,7 +34,7 @@ export default function RegistrationScreen({ navigation }) {
     return strongPass.test(password);
   };
   const IsValidPhone = (phone) => {
-    const RegxPhone = /^[0-9\u0660-\u0669]*{10}/;
+    const RegxPhone = /^[0-9\u0660-\u0669]{10}$/;
     return RegxPhone.test(phone);
   };
 
@@ -60,7 +60,7 @@ export default function RegistrationScreen({ navigation }) {
     if (password !== confirmPassword) {
       Alert.alert("تنبيه ", ".كلمة المرور وتأكيد كلمة المرور يجب أن تتطابق", [
         {
-          text: "سأعيد المحاولة",
+          text: "حسنًا المحاولة",
           onPress: () => console.log("yes Pressed"),
           style: "cancel",
         },
@@ -84,7 +84,7 @@ export default function RegistrationScreen({ navigation }) {
 
         [
           {
-            text: "سأعيد المحاولة",
+            text: "حسنًا",
             onPress: () => console.log("yes Pressed"),
             style: "cancel",
           },
@@ -99,7 +99,7 @@ export default function RegistrationScreen({ navigation }) {
 
         [
           {
-            text: "سأعيد المحاولة",
+            text: "حسنًا",
             onPress: () => console.log("yes Pressed"),
             style: "cancel",
           },
@@ -148,7 +148,6 @@ export default function RegistrationScreen({ navigation }) {
             phone: phone,
             email: Email,
             Describetion:Describtion,
-            type: "Investor",
             Verified:"Pending",
           }); //Set */
       })
