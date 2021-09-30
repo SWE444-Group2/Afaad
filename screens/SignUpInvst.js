@@ -194,9 +194,12 @@ export default function RegistrationScreen({ navigation }) {
         style={{ flex: 1, width: "100%" }}
         keyboardShouldPersistTaps="always"
       >
+          <Text style={styles.warning      }>
+       *جميـع الحقول مطلوبـــة
+     </Text>
         <TextInput
           style={styles.input}
-          placeholder="الأسم الكامل"
+          placeholder="*الأسم الكامل"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setFullName(text)}
           value={FullName}
@@ -207,7 +210,7 @@ export default function RegistrationScreen({ navigation }) {
        
         <TextInput
           style={styles.input}
-          placeholder="رقم الجوال"
+          placeholder="*رقم الجوال"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setPhone(text)}
           value={phone}
@@ -217,7 +220,7 @@ export default function RegistrationScreen({ navigation }) {
 
         <TextInput
           style={styles.input}
-          placeholder="البريد الالكتروني"
+          placeholder="*البريد الالكتروني"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setEmail(text)}
           value={Email}
@@ -228,7 +231,7 @@ export default function RegistrationScreen({ navigation }) {
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
-          placeholder="كلمة المرور"
+          placeholder="*كلمة المرور"
           onChangeText={(text) => setPassword(text)}
           value={password}
           underlineColorAndroid="transparent"
@@ -240,14 +243,14 @@ export default function RegistrationScreen({ navigation }) {
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
-          placeholder="تأكيد كلمة المرور"
+          placeholder="*تأكيد كلمة المرور"
           onChangeText={(text) => setConfirmPassword(text)}
           value={confirmPassword}
           secureTextEntry={true}
         />
            <TextInput
           style={styles.dec}
-          placeholder="وصف المستثمر او وصف الشركة المستثمرة"
+          placeholder="*وصف المستثمر او وصف الشركة المستثمرة"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setDescribtion(text)}
           value={Describtion}

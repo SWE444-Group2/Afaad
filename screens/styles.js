@@ -20,7 +20,7 @@ export default StyleSheet.create({
     textAlign: 'right',
   },
   button: {
-    backgroundColor: "#7C98B3",
+    backgroundColor: "#536B78",
     marginLeft: 30,
     marginRight: 30,
     marginTop: 20,
@@ -113,5 +113,12 @@ export default StyleSheet.create({
  
     paddingTop: 13,
   },
+  warning:{
+    fontSize: 14,
+    textAlign: 'right',
+    paddingRight: 30,
+    color:"#9a2222"
+  
+  }
 
 });

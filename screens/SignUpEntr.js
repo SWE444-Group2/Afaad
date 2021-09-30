@@ -252,10 +252,12 @@ export default function RegistrationScreen({ navigation }) {
         style={{ flex: 1, width: "100%" }}
         keyboardShouldPersistTaps="always"
       >
-     
+     <Text style={styles.warning      }>
+       *جميـع الحقول مطلوبـــة
+     </Text>
         <TextInput
           style={styles.input}
-          placeholder="الاسم الأول"
+          placeholder="*الاسم الأول"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setFirstName(text)}
           value={FirstName}
@@ -266,7 +268,7 @@ export default function RegistrationScreen({ navigation }) {
 
         <TextInput
           style={styles.input}
-          placeholder="الاسم الأخير"
+          placeholder="*الاسم الأخير"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setLastName(text)}
           value={LastName}
@@ -289,20 +291,20 @@ export default function RegistrationScreen({ navigation }) {
                 width:356,
                 marginLeft:30,
                          }}
-              style={{borderColor:"white"}}
+              style={{borderColor:"white",flexDirection: 'row-reverse',}}
               open={open}
               value={gender}
               items={items}
               setOpen={setOpen}
               setValue={setGender}
               setItems={setItems}
-              placeholder='الجنـس'
+              placeholder='*الجنـس'
               placeholderTextColor="#aaaaaa"
               onChangeValue={value => setGender(value)}
           />
         <TextInput
           style={styles.input}
-          placeholder="رقم الجوال"
+          placeholder="*رقم الجوال"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setPhone(text)}
           value={phone}
@@ -314,7 +316,7 @@ export default function RegistrationScreen({ navigation }) {
          
         <TextInput
           style={styles.input}
-          placeholder="البريد الالكتروني"
+          placeholder="*البريد الالكتروني"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setEmail(text)}
           value={Email}
@@ -325,7 +327,7 @@ export default function RegistrationScreen({ navigation }) {
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
-          placeholder="كلمة المرور"
+          placeholder="*كلمة المرور"
           onChangeText={(text) => setPassword(text)}
           value={password}
           underlineColorAndroid="transparent"
@@ -337,7 +339,7 @@ export default function RegistrationScreen({ navigation }) {
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
-          placeholder="تأكيد كلمة المرور"
+          placeholder="*تأكيد كلمة المرور"
           onChangeText={(text) => setConfirmPassword(text)}
           value={confirmPassword}
           underlineColorAndroid="transparent"
