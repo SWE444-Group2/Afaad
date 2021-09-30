@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet ,Image,TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet ,Image,TouchableOpacity  } from 'react-native';
 import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
 import { Button, Icon } from 'react-native-elements';
@@ -9,6 +9,7 @@ import TitleStyles from './TitleStyles';
 import ideaLogo from '../assets/images/idea1.png';
 import accountLogo from '../assets/images/account.png';
 import SignOut from '../assets/images/SignOut.png';
+import Background from '../assets/images/Background.jpg';
 
 
 let user = AfaadFirebase.auth().currentUser;
@@ -30,8 +31,8 @@ export default function welcome({ navigation }) {
                  
       <View style={styles.container}>
 
-
-      <View><Text style={TitleStyles.TitleFix}>مرحبا مشرف</Text></View>
+      <Image source={Background} style={{ flex: 1,width:'100%',height:'10%', opacity:1, position:'absolute' ,transform: [{ rotate: '180deg'}] }}/>
+      <Text style={TitleStyles.TitleFix}>مرحبا مشرف</Text>
           
 
           <View style={styles.item}>

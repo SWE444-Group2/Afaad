@@ -26,13 +26,10 @@ export default StyleSheet.create({
         borderRadius:6,
         marginLeft:30,
         marginTop:25,
-        backgroundColor: "white",
         alignItems:'center',
         justifyContent:'center',
         transform: [{ rotate: '180deg'}]
-            
-            
-            },  
+         },  
     // the List styles
 
     container: {
