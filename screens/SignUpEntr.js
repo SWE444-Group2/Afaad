@@ -180,7 +180,7 @@ export default function RegistrationScreen({ navigation }) {
             email: Email,
           }); //Set */
       })
-      .then(() => navigation.navigate("welcome"))
+      .then(() => navigation.navigate("EntrepreneurAndInvestor"))
 
       .catch((error) => {
         switch (error.code) {
