@@ -46,13 +46,13 @@ const styles= StyleSheet.create({
         //alignItems:'center',
     },
     logo:{
-        marginLeft:135,
+        alignSelf: 'center',
         marginTop:115,
     },
 
     TextLogo:{
         marginTop:70,
-        marginLeft:85,
+        alignSelf: 'center',
 
     },
 
@@ -60,8 +60,8 @@ const styles= StyleSheet.create({
         width: 213,
         height:52,
         borderRadius:6,
-        margin: 40,
-        marginLeft:85,
+        marginTop: 40,
+        alignSelf: 'center',
         backgroundColor: "#ADCBD8",
         alignItems: "center",
         justifyContent: "center",
@@ -72,7 +72,8 @@ const styles= StyleSheet.create({
         width: 213,
         height:52,
         borderRadius:6,
-        marginLeft:85,
+        marginTop: 40,
+        alignSelf: 'center',
         backgroundColor: "#002B3E",
         alignItems: "center",
         justifyContent: "center",

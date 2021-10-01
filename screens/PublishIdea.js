@@ -1,11 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useState } from 'react';
-import { StyleSheet, Text, Keyboard, TouchableWithoutFeedback, ScrollView, Alert} from 'react-native';
-import { Button, Input } from 'react-native-elements';
+import { StyleSheet, TextInput, Text, Keyboard, TouchableWithoutFeedback, ScrollView, Alert} from 'react-native';
+import { Button } from 'react-native-elements';
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
-import TitleStyles from './TitleStyles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import DropDownPicker from 'react-native-dropdown-picker';
 import RadioGroup from 'react-native-radio-buttons-group';
@@ -38,24 +37,44 @@ export default function PublishIdea({ navigation }) {
     const [costEstimation, setCostEstimation] = useState('');
     const radioButtonsData = [{
       id: '1', 
-      label: '١٠٠٠-١٠،٠٠٠',
-      value: '١٠٠٠-١٠،٠٠٠'
+      label: '١ ألف - ١٠ آلاف',
+      value: '١ ألف - ١٠ آلاف',
+      containerStyle: {flexDirection: 'row-reverse', marginTop:5},
+      labelStyle: styles.radioLabel,
+      size: 20,
+      color: '#7c98b3'
     }, {
       id: '2',
-      label: '١٠،٠٠٠-٥٠،٠٠٠',
-      value: '١٠،٠٠٠-٥٠،٠٠٠'
+      label: '١٠ آلاف - ٥٠ ألف',
+      value: '١٠ آلاف - ٥٠ ألف',
+      containerStyle: {flexDirection: 'row-reverse', marginTop:5},
+      labelStyle: styles.radioLabel,
+      size: 20,
+      color: '#7c98b3'
     },{
       id: '3',
-      label: '٥٠،٠٠٠-١٠٠،٠٠٠',
-      value: '٥٠،٠٠٠-١٠٠،٠٠٠'
+      label: '٥٠ ألف - ١٠٠ ألف',
+      value: '٥٠ ألف - ١٠٠ ألف',
+      containerStyle: {flexDirection: 'row-reverse', marginTop:5},
+      labelStyle: styles.radioLabel,
+      size: 20,
+      color: '#7c98b3'
     },{
       id: '4',
-      label: '١٠٠،٠٠٠-٥٠٠،٠٠٠',
-      value: '١٠٠،٠٠٠-٥٠٠،٠٠٠'
+      label: '١٠٠ ألف - ٥٠٠ ألف',
+      value: '١٠٠ ألف - ٥٠٠ ألف',
+      containerStyle: {flexDirection: 'row-reverse', marginTop:5},
+      labelStyle: styles.radioLabel,
+      size: 20,
+      color: '#7c98b3'
     },{
       id: '5',
-      label: '٥٠٠،٠٠٠-١،٠٠٠،٠٠٠',
-      value: '٥٠٠،٠٠٠-١،٠٠٠،٠٠٠'
+      label: '٥٠٠ ألف - ١ مليون',
+      value: '٥٠٠ ألف - ١ مليون',
+      containerStyle: {flexDirection: 'row-reverse', marginTop:5},
+      labelStyle: styles.radioLabel,
+      size: 20,
+      color: '#7c98b3'
     }]
     const [radioButtons, setRadioButtons] = useState(radioButtonsData)
     const [investorsSpec, setInvestorsSpec] = useState('');
@@ -111,7 +130,7 @@ export default function PublishIdea({ navigation }) {
       if(ProductDescription.length > 250){
         Alert.alert("تنبيه", "حقل وصف المشروع يجب ألا يتجاوز ٢٥٠ حرف ", [
           {
-            text: "حسنًا =",
+            text: "حسنًا",
             style: "cancel",
           },
         ]);
@@ -150,7 +169,7 @@ export default function PublishIdea({ navigation }) {
             text: "حسنًا",
             onPress: () => {
               navigation.pop()
-              navigation.push('ViewIdea');
+              navigation.push('EntrepreneurAndInvestor');
             },
             style: "cancel",
           },
@@ -169,28 +188,27 @@ export default function PublishIdea({ navigation }) {
     };
   
     return (
-    <KeyboardAwareScrollView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"} extraScrollHeight={100}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView contentContainerStyle={styles.inner}>
-        <Text style={TitleStyles.sectionTitle}>نشر المشروع</Text>
-          <Input style = {{ textAlign: 'right', fontFamily: 'AJannatLT' }}
-            labelStyle={{ textAlign: 'right', fontFamily: 'AJannatLTBold' }}
-            label="عنوان المشروع"
-            placeholder="ادخل عنوان المشروع"
-            value={Title}
-            onChangeText={text => setTitle(text)}
-          />
-          <Text style={styles.labelText}>فئة المشروع</Text>
-          <DropDownPicker
-              textStyle={{
-                textAlign: 'right',
-                fontFamily: 'AJannatLT',
-                fontSize: 18,
-                color: '#536b78'
-              }}
-              containerStyle={{
-                marginBottom: 15
-              }}
+      <KeyboardAwareScrollView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <ScrollView contentContainerStyle={styles.inner}>
+            <Text style={styles.warning}>
+              *جميـع الحقول مطلوبـــة
+            </Text>
+
+            <Text style={styles.labelText}>عنوان المشروع<Text style={styles.warning}>*</Text></Text>
+            <TextInput
+              style={styles.input}
+              placeholder="ادخل عنوان المشروع"
+              onChangeText={(text) => setTitle(text)}
+              value={Title}
+              underlineColorAndroid="transparent"
+            />
+
+            <Text style={styles.labelText}>فئة المشروع<Text style={styles.warning}>*</Text></Text>
+            <DropDownPicker
+              style={styles.dropDownStyle}
+              textStyle={styles.categoryText}
+              containerStyle={{ marginBottom: 15 }}
               open={open}
               value={categoryValue}
               items={items}
@@ -199,49 +217,44 @@ export default function PublishIdea({ navigation }) {
               setItems={setItems}
               placeholder='اختر فئة المشروع'
               onChangeValue={value => setCategory(value)}
-          />
+            />
 
-          {/* 
-          *********Uploading Input***********
-          <Input
-            label=""
-            placeholder=""
-            value={}
-            onChangeText={text => (text)}
-          /> */}
+            <Text style={styles.labelText}>وصف المشروع<Text style={styles.warning}>*</Text></Text>
+            <TextInput
+              style={[styles.input, { height: 150 }]}
+              placeholder="(حد أقصى:٢٥٠ حرف)"
+              onChangeText={(text) => setProductDescription(text)}
+              value={ProductDescription}
+              underlineColorAndroid="transparent"
+              multiline={true}
+            />
 
-          <Input style = {{ textAlign: 'right', fontFamily: 'AJannatLT', height: 100 }}
-            labelStyle={{ textAlign: 'right', fontFamily: 'AJannatLTBold' }}
-            label="وصف المشروع"
-            placeholder="(حد أقصى:٢٥٠ حرف)"
-            multiline={true}
-            numberOfLines={4}
-            value={ProductDescription}
-            onChangeText={text => setProductDescription(text)}
-          />
-          <Text style={styles.labelText}>تقدير تكلفة المنتج (ريال سعودي)</Text>
-          <RadioGroup
-            radioButtons={radioButtons}
-            onPress={onPressRadioButton}
-            containerStyle={{ flexDirection: 'row-reverse', flexWrap: 'wrap', marginBottom: 15}}
-            layout= 'row'
-          />
-          <Input style = {{ textAlign: 'right', fontFamily: 'AJannatLT', height: 100 }}
-            labelStyle={{ textAlign: 'right', fontFamily: 'AJannatLTBold' }}
-            label="ما الذي تبحث عنه في المستثمرين؟"
-            placeholder="(حد أقصى:٢٥٠ حرف)"
-            multiline={true}
-            value={investorsSpec}
-            onChangeText={text => setInvestorsSpec(text)}
-          />
+            <Text style={styles.labelText}>تقدير تكلفة المنتج (بالريال السعودي)<Text style={styles.warning}>*</Text></Text>
+            <RadioGroup
+              radioButtons={radioButtons}
+              onPress={onPressRadioButton}
+              containerStyle={{ alignItems: 'flex-end', marginBottom: 10 }}
+              layout='col'
+            />
 
-          <Button style={styles.button}
-            onPress={submit}
-            title="ارسال"
-            titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT'}}
-          />
-          <StatusBar style="auto" />
-        </ScrollView>
+            <Text style={styles.labelText}>ما الذي تبحث عنه في المستثمرين؟<Text style={styles.warning}>*</Text></Text>
+            <TextInput
+              style={[styles.input, { height: 150 }]}
+              placeholder="(حد أقصى:٢٥٠ حرف)"
+              onChangeText={(text) => setInvestorsSpec(text)}
+              value={investorsSpec}
+              underlineColorAndroid="transparent"
+              multiline={true}
+            />
+
+            <Button buttonStyle={styles.button}
+              onPress={submit}
+              title="إرسال"
+              titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT' }}
+            />
+
+            <StatusBar style="auto" />
+          </ScrollView>
         </TouchableWithoutFeedback>
       </KeyboardAwareScrollView>
     );
@@ -268,6 +281,44 @@ export default function PublishIdea({ navigation }) {
       fontFamily: 'AJannatLTBold',
       fontWeight: 'bold',
       textAlign: 'right',
-      color: '#86939e'
+      color: '#86939e',
+      marginTop: 10,
     },
+    warning:{
+      fontSize: 14,
+      textAlign: 'right',
+      color:"#9a2222",    
+    },
+    input: {
+      height: 48,
+      borderRadius: 10,
+      overflow: "hidden",
+      backgroundColor: "white",
+      marginBottom: 10,
+      paddingRight: 15,
+      textAlign: 'right',
+      fontFamily: 'AJannatLT',
+    },
+    button: {
+      width: 213,
+      height: 52,
+      borderRadius: 6,
+      marginVertical: 50,
+      alignSelf: 'center',
+      backgroundColor: '#022B3A',
+    },
+    radioLabel: {
+      marginHorizontal:10,
+      fontFamily: 'AJannatLT',
+      fontSize: 16,
+      color: '#022B3A'
+    },
+    dropDownStyle: {
+      borderColor: "white", flexDirection: 'row-reverse'
+    },
+    categoryText: {
+      textAlign: 'right',
+      fontFamily: 'AJannatLT',
+      fontSize: 14,
+    }
   });
