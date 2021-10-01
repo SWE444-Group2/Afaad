@@ -48,6 +48,19 @@ export default function Login({ navigation }) {
                 if(snapshot.child("Verified").val()=='Accepted'){
                   if(userType=='Investor')
                      navigation.navigate('EntrepreneurAndInvestor');}
+
+                     if(snapshot.child("Verified").val()=='Rejected'){
+                      if(userType=='Investor'){
+                        Alert.alert(
+                          "تنبيه!",
+                          "لقد تم رفض حسابك لعدم توافي الشروط",
+                          [
+                            { text: "إلغاء"}
+                          ]
+                        );
+                      }                 
+                    }
+
               }
             })
           }
