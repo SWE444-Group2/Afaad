@@ -10,6 +10,10 @@ import Titlestyles from './TitleStyles';
 import SignOut from '../assets/images/SignOut.png';
 import PlusIcon from '../assets/images/plusIcon.png';
 import Background from '../assets/images/Background.jpg';
+import ClickedHomeIcon from '../assets/images/ClickedHomeIcon.png';
+import SearchIcon from '../assets/images/SearchIcon.png';
+import NotificationIcon from '../assets/images/NotificationIcon.png'
+import ProfileIcon from '../assets/images/ProfileIcon.png'
 import { ScrollView } from 'react-native-gesture-handler';
 
 let user = AfaadFirebase.auth().currentUser;
@@ -151,14 +155,21 @@ export default function Entrepreneur({ navigation }) {
            
 
       
-      <View style={styles.BottomBar}>
-
-      </View>
+      <View style={styles.BottomBar}> 
 
       { userType== 'Entrepreneur' && <TouchableOpacity  
              style={styles.addIcon} onPress={() => navigation.navigate('PublishIdea')}>
              <Image source={PlusIcon} style={{ width: 60, height: 60 }}/>
             </TouchableOpacity>}
+
+            <TouchableOpacity style={styles.Clicked}>
+              <Image source={ClickedHomeIcon} style={{ width: 30, height: 30  , marginLeft:30, marginTop:10} }/> 
+           </TouchableOpacity>
+              <Image source={SearchIcon} style={{ width: 30, height: 30  , marginLeft:105, marginTop:-80} }/>    
+              <Image source={NotificationIcon} style={{ width: 30, height: 30  , marginLeft:253, marginTop:-30} }/> 
+              <Image source={ProfileIcon} style={{ width: 30, height: 30  , marginLeft:325, marginTop:-30} }/> 
+
+            </View>
     </View>
 
     );
@@ -172,10 +183,10 @@ export default function Entrepreneur({ navigation }) {
 const styles = StyleSheet.create({
   addIcon: {
     position:'absolute',
-    bottom:'3%',
-    left:'38%',
-    height:90,
-    width:90,
+    bottom:'40%',
+    left:'40%',
+    height:80,
+    width:80,
     backgroundColor:'#cee5f2',
     borderRadius:50,
     justifyContent:'center',
@@ -184,9 +195,17 @@ const styles = StyleSheet.create({
 },
 
 BottomBar:{
-  height:80,
+  
+  height:60,
   width:null,
   backgroundColor:'#7c98b3'
+
+},
+
+Clicked:{
+  backgroundColor:'#cee5f2',
+  width:80,
+  height:90
 
 }
 });
