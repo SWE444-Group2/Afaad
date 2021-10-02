@@ -223,7 +223,7 @@ export default function RegistrationScreen({ navigation }) {
        
         <TextInput
           style={styles.input}
-          placeholder="*رقم الجوال"
+          placeholder="*رقم الجوال : 05xxxxxxxx"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setPhone(text)}
           value={phone}

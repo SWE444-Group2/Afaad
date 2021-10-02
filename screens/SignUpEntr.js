@@ -1,21 +1,31 @@
 import React, { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View, Alert,Image } from "react-native";
+import {
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Alert,
+  Button,
+  Image
+} from "react-native";
+import TipProvider from "react-native-tip";
+import { Tip } from "react-native-tip";
+
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 //import { firebase } from './firebaseConfig'
 import AfaadFirebase from "./firebaseConfig";
 import "firebase/auth";
 import "firebase/database";
-//Refrence to Investor object in DB
-const InvestorsAccountsRef = AfaadFirebase.database().ref("Entrepreneur");
-import DropDownPicker from 'react-native-dropdown-picker';
-import corner from '../assets/images/corner.png';
+import DropDownPicker from "react-native-dropdown-picker";
 const auth = AfaadFirebase.auth();
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import alert from '../assets/images/alert.png';
 
 //fix VirtualizedLists should never be nested inside plain ScrollViews warnning
 DropDownPicker.setListMode("SCROLLVIEW");
 
-import RadioGroup from 'react-native-radio-buttons-group';
+import RadioGroup from "react-native-radio-buttons-group";
 
 /*
 const radioButtonsData = [{
@@ -42,15 +52,15 @@ export default function RegistrationScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [open, setOpen] = useState(false);
- 
+  const Message = '  يجب ان تحتوي كلمة المرور على : \n٨ خانات على الاقل\n حرف كبير و صغير على الاقل\n رمز خاص على الاقل\n رقم على الاقل';
 
   const [items, setItems] = useState([
-    {label: 'أنثـى', value: "انثى" },
-    {label: 'ذكر', value: 'ذكر'},
+    { label: "أنثـى", value: "انثى" },
+    { label: "ذكر", value: "ذكر" },
   ]);
   //const [radioButtons, setRadioButtons] = useState(radioButtonsData)
 
-    /*function onPressRadioButton(radioButtonsArray) {
+  /*function onPressRadioButton(radioButtonsArray) {
         setRadioButtons(radioButtonsArray);
         
         let selectedGender ; 
@@ -65,8 +75,13 @@ export default function RegistrationScreen({ navigation }) {
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
   };
+
+  const condtions = () => {
+    navigation.navigate("conditions");
+  };
+
   const IsValidName = (FirstName) => {
-    const RegxOfNames =/^[a-zA-Z\s\u0600-\u065F\u066A-\u06EF\u06FA-\u06FF]*$/;
+    const RegxOfNames = /^[a-zA-Z\s\u0600-\u065F\u066A-\u06EF\u06FA-\u06FF]*$/;
     return RegxOfNames.test(FirstName);
   };
   const IsValidPass = (password) => {
@@ -83,7 +98,7 @@ export default function RegistrationScreen({ navigation }) {
   const onRegisterPress = () => {
     if (
       Email == "" || //empty?
-      password == ""||
+      password == "" ||
       confirmPassword == "" ||
       FirstName == "" ||
       LastName == "" ||
@@ -172,7 +187,6 @@ export default function RegistrationScreen({ navigation }) {
         AfaadFirebase.database()
           .ref("Entrepreneur/" + response.user.uid)
           .set({
-            
             FirstName: FirstName,
             Lastname: LastName,
             Gender: gender,
@@ -198,21 +212,21 @@ export default function RegistrationScreen({ navigation }) {
               ]
             );
             break;
-            case "auth/network-request-failed":
-              Alert.alert(
-                "تنبيه",
-                "الرجاد التحقق من الأتصال بالانترنت",
-  
-                [
-                  {
-                    text: "حسناً",
-                    onPress: () => console.log("yes Pressed"),
-                    style: "cancel",
-                  },
-                ]
-              );
+          case "auth/network-request-failed":
+            Alert.alert(
+              "تنبيه",
+              "الرجاد التحقق من الأتصال بالانترنت",
+
+              [
+                {
+                  text: "حسناً",
+                  onPress: () => console.log("yes Pressed"),
+                  style: "cancel",
+                },
+              ]
+            );
             break;
-          
+
           case "auth/email-already-in-use":
             Alert.alert(
               "تنبيه",
@@ -231,17 +245,12 @@ export default function RegistrationScreen({ navigation }) {
       });
   };
   return (
-    
-  
     <View style={styles.container}>
-       
       <KeyboardAwareScrollView
         style={{ flex: 1, width: "100%" }}
         keyboardShouldPersistTaps="always"
       >
-     <Text style={styles.warning      }>
-       *جميـع الحقول مطلوبـــة
-     </Text>
+        <Text style={styles.warning}>*جميـع الحقول مطلوبـــة</Text>
         <TextInput
           style={styles.input}
           placeholder="*الاسم الأول"
@@ -250,7 +259,6 @@ export default function RegistrationScreen({ navigation }) {
           value={FirstName}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
-         
         />
 
         <TextInput
@@ -261,43 +269,41 @@ export default function RegistrationScreen({ navigation }) {
           value={LastName}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
-
         />
-          <DropDownPicker 
-              textStyle={{
-                textAlign: 'right',
-                fontFamily: 'AJannatLT',
-                fontSize: 14,
-                color:"#aaaaaa"
-              }}
-              containerStyle={{
-                marginTop:10,
-                marginBottom: 10,
-                width:330,
-                marginLeft:30,
-                marginRight:30,
-                         }}
-              style={{borderColor:"white",flexDirection: 'row-reverse',}}
-              open={open}
-              value={gender}
-              items={items}
-              setOpen={setOpen}
-              setValue={setGender}
-              setItems={setItems}
-              placeholder='*الجنـس'
-              placeholderTextColor="#aaaaaa"
-              onChangeValue={value => setGender(value)}
-          />
+        <DropDownPicker
+          textStyle={{
+            textAlign: "right",
+            fontFamily: "AJannatLT",
+            fontSize: 14,
+            color: "#aaaaaa",
+          }}
+          containerStyle={{
+            marginTop: 10,
+            marginBottom: 10,
+            width: 330,
+            marginLeft: 30,
+            marginRight: 30,
+          }}
+          style={{ borderColor: "white", flexDirection: "row-reverse" }}
+          open={open}
+          value={gender}
+          items={items}
+          setOpen={setOpen}
+          setValue={setGender}
+          setItems={setItems}
+          placeholder="*الجنـس"
+          placeholderTextColor="#aaaaaa"
+          onChangeValue={(value) => setGender(value)}
+        />
         <TextInput
           style={styles.input}
-          placeholder="*رقم الجوال"
+          placeholder="*رقم الجوال : 05xxxxxxxx"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setPhone(text)}
           value={phone}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
-   
-        /> 
+        />
         <TextInput
           style={styles.input}
           placeholder="*البريد الالكتروني"
@@ -306,19 +312,59 @@ export default function RegistrationScreen({ navigation }) {
           value={Email}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
-         
         />
 
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#aaaaaa"
-          placeholder="*كلمة المرور"
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          secureTextEntry={true}
-        />
+        
+<Tip 
+            title="تنبية"
+            body={Message}
+        >
+          <View style={styles.SectionStyle}>
+
+        <Icon  style={styles.searchIcon} name="alert-circle-outline" size={25} color={"#022B3A"} />
+        <View>
+                <TextInput
+            style={styles.pass}
+            placeholderTextColor="#aaaaaa"
+            placeholder="*كلمة المرور"
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            secureTextEntry={true}
+          />
+        </View>
+        
+  
+        </View>
+
+        </Tip>
+       
+        <TipProvider
+                    overlayOpacity={0.7}
+                    titleStyle={{
+                        fontWeight: 'bold',
+                        fontSize: 15,
+                        marginBottom: 10,
+                        textAlign: 'center',
+                        flex:1,
+                        
+                    }}
+                    bodyStyle={{
+                        fontSize: 16,
+                        textAlign: 'center',
+                        fontSize: 13,
+ 
+                    }}
+                    tipContainerStyle={{
+                        padding: 12,
+                        borderRadius: 20,
+                        maxWidth: 300,
+                    
+                    }}
+                
+                    
+                />
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
@@ -329,6 +375,14 @@ export default function RegistrationScreen({ navigation }) {
           autoCapitalize="none"
           secureTextEntry={true}
         />
+
+        <Text style={styles.condtions}>
+          *بالضغط على إنشاء حساب، فإنك توافق {""}
+          <Text style={styles.agree}>
+            {""}على الشروط {""}وقد قرأت سياسية الإفصاح
+          </Text>
+        </Text>
+
         <TouchableOpacity
           style={styles.button}
           onPress={() => onRegisterPress()}
@@ -337,7 +391,7 @@ export default function RegistrationScreen({ navigation }) {
         </TouchableOpacity>
         <View style={styles.footerView}>
           <Text style={styles.footerText}>
-          هل لديك حساب مسبق؟{" "}
+            هل لديك حساب مسبق؟{" "}
             <Text onPress={onFooterLinkPress} style={styles.footerLink}>
               تسجيل الدخول
             </Text>
@@ -347,4 +401,3 @@ export default function RegistrationScreen({ navigation }) {
     </View>
   );
 }
-

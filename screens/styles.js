@@ -5,12 +5,10 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  title: {},
 
   input: {
     height: 48,
     borderRadius: 5,
-    overflow: "hidden",
     backgroundColor: "white",
     marginTop: 10,
     marginBottom: 10,
@@ -18,12 +16,15 @@ export default StyleSheet.create({
     marginRight: 30,
     paddingRight: 16,
     textAlign: 'right',
+    flex: 1 ,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   button: {
-    backgroundColor: "#536B78",
+    backgroundColor:'#022B3A',
     marginLeft: 30,
     marginRight: 30,
-    marginTop: 20,
+    marginTop: 0,
     height: 48,
     borderRadius: 5,
     alignItems: "center",
@@ -37,7 +38,7 @@ export default StyleSheet.create({
   footerView: {
     flex: 1,
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 7,
   },
   footerText: {
     fontSize: 16,
@@ -108,17 +109,70 @@ export default StyleSheet.create({
     paddingRight: 5,
     textAlign: 'right',
     color:"#aaaaaa",
-  
     marginBottom: -23,
- 
     paddingTop: 13,
   },
   warning:{
     fontSize: 14,
     textAlign: 'right',
     paddingRight: 30,
-    color:"#9a2222"
+    color:"#9a2222",
+    fontWeight: "bold",
   
-  }
+  },
+  condtions:{
+    height: 48,
+    borderRadius: 5,
+    overflow: "hidden",
+    marginTop: 5,
+    marginBottom: 10,
+    marginLeft: 30,
+    marginRight: 30,
+    paddingRight: 16,
+    textAlign: 'right',
+    fontSize: 14,
+    color:"gray",
+  },
+  agree:{
+    color: "#7C98B3",
+    fontWeight: "bold",
+    fontSize: 14,
+  },
+
+
+SectionStyle: {
+  flexDirection: 'row',
+  backgroundColor: '#fff',
+  borderRadius: 5,
+  marginTop: 10,
+  marginBottom: 10,
+  marginLeft: 30,
+  marginRight: 30,
+
+  
+},
+searchIcon:{
+
+  marginTop: 10,
+  marginBottom: 10,
+  marginLeft: 20,
+  marginRight: 30,
+},
+pass:{
+  height: 48,
+  width:215,
+    borderRadius: 5,
+
+    marginTop: 0,
+    marginLeft: 15,
+    marginRight: 1,
+    paddingRight: 16,
+    textAlign: 'right',
+    flex: 1 ,
+    marginLeft: 40,
+   
+  },
+
+
 
 });

@@ -8,6 +8,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@mdi/js": "^6.2.95",
+    "@mdi/react": "^1.5.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
@@ -34,6 +36,8 @@
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-simple-radio-button": "^2.7.4",
+    "react-native-tip": "0.0.18",
+    "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
     "save": "^2.4.0"
   },
