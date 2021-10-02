@@ -121,7 +121,15 @@ export default function PublishIdea({ navigation }) {
         Alert.alert("تنبيه", "حقل \"العنوان\" يجب ان يحتوي على حروف فقط", [
           {
             text: "حسنًا",
-            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]);
+        return
+      }
+      if(Title.length > 30){
+        Alert.alert("تنبيه", "حقل العنوان يجب ألا يتجاوز ٣٠ حرف ", [
+          {
+            text: "حسنًا",
             style: "cancel",
           },
         ]);
