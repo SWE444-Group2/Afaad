@@ -182,7 +182,7 @@ export default function Entrepreneur({ navigation }) {
               { userType== 'Investor' && 
               <Image source={SearchIcon} style={{ width: 30, height: 30  , marginLeft:225, marginTop:-30} }/> }
               { userType== 'Investor' &&
-              <TouchableOpacity style={styles.Clicked}>
+              <TouchableOpacity style={[styles.Clicked ,{marginLeft:290}]}>
               <Image source={ClickedHomeIcon} style={{ width: 30, height: 30  , marginLeft:30 , marginTop:12} }/> 
               </TouchableOpacity>}
 
@@ -222,7 +222,7 @@ BottomBar:{
 
 Clicked:{
   marginTop:-42,
-  marginLeft:290,
+  marginLeft:300,
   backgroundColor:'#cee5f2',
   width:100,
   height:90
