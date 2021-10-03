@@ -153,7 +153,7 @@ export default function RegistrationScreen({ navigation }) {
     if (IsValidPass(password) == false) {
       Alert.alert(
         "كلمة السر ضعيفة ",
-        " يجب ان تحتوي كلمة السر على ٨ حروف على الاقل وارقام ورموز",
+        "كلمة السر لا تستوفي الشروط المطلوبة",
 
         [
           {

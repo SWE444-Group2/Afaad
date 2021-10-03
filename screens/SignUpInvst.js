@@ -1,24 +1,35 @@
 import React, { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View, Alert,StyleSheet } from "react-native";
+import {
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Alert,
+  StyleSheet,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 //import { firebase } from './firebaseConfig'
 import AfaadFirebase from "./firebaseConfig";
 import "firebase/auth";
 import "firebase/database";
-
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import TipProvider from "react-native-tip";
+import { Tip } from "react-native-tip";
 //Refrence to Investor object in DB
 const InvestorsAccountsRef = AfaadFirebase.database().ref("Entrepreneur");
 
 const auth = AfaadFirebase.auth();
 
 export default function RegistrationScreen({ navigation }) {
-    const [FullName, setFullName] = useState("");
-    const [Email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
-    const [Describtion, setDescribtion] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+  const [FullName, setFullName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [Describtion, setDescribtion] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const Message =
+    "  يجب ان تحتوي كلمة المرور على : \n٨ خانات على الاقل\n حرف كبير و صغير على الاقل\n رمز خاص على الاقل\n رقم على الاقل";
 
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
@@ -40,12 +51,12 @@ export default function RegistrationScreen({ navigation }) {
 
   const onRegisterPress = () => {
     if (
-        Email == "" && //empty?
-        password == "" &&
-        confirmPassword == "" &&
-        FullName == "" &&
-        phone == "" &&
-        Describtion == ""
+      Email == "" || //empty?
+      password == "" ||
+      confirmPassword == "" ||
+      FullName == "" ||
+      phone == "" ||
+      Describtion == ""
     ) {
       Alert.alert("تنبيه ", "جميع الحقول مطلوبة لإستكمال التسجيل", [
         {
@@ -77,7 +88,7 @@ export default function RegistrationScreen({ navigation }) {
       ]);
       return;
     }
-      if (IsValidPhone(phone) == false) {
+    if (IsValidPhone(phone) == false) {
       Alert.alert(
         "تنبيه",
         "يجب ان تحتوي رقم الهاتف على ارقام فقط",
@@ -95,7 +106,7 @@ export default function RegistrationScreen({ navigation }) {
     if (IsValidPass(password) == false) {
       Alert.alert(
         "كلمة السر ضعيفة ",
-        " يجب ان تحتوي كلمة السر على ٨ حروف على الاقل وارقام ورموز",
+        "كلمة السر لا تستوفي الشروط المطلوبة",
 
         [
           {
@@ -121,22 +132,22 @@ export default function RegistrationScreen({ navigation }) {
         ]
       );
       return;
-      }
-      if (Describtion.length > 250) {
-        Alert.alert(
-          "تنبيه",
-          "حقل وصف المستثمر يجب الا يتجاوز ٢٥٠ حرف",
-  
-          [
-            {
-              text: " حسنًا",
-              onPress: () => console.log("yes Pressed"),
-              style: "cancel",
-            },
-          ]
-        );
-        return;
-        }
+    }
+    if (Describtion.length > 250) {
+      Alert.alert(
+        "تنبيه",
+        "حقل وصف المستثمر يجب الا يتجاوز ٢٥٠ حرف",
+
+        [
+          {
+            text: " حسنًا",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]
+      );
+      return;
+    }
     AfaadFirebase.auth()
       .createUserWithEmailAndPassword(Email, password)
       .then((response) => {
@@ -147,8 +158,8 @@ export default function RegistrationScreen({ navigation }) {
             Password: password,
             phone: phone,
             email: Email,
-            Describetion:Describtion,
-            Verified:"Pending",
+            Describetion: Describtion,
+            Verified: "Pending",
           }); //Set */
       })
       .then(() => navigation.navigate("PendingPage"))
@@ -169,21 +180,21 @@ export default function RegistrationScreen({ navigation }) {
               ]
             );
             break;
-            case "auth/network-request-failed":
-              Alert.alert(
-                "تنبيه",
-                "الرجاد التحقق من الأتصال بالانترنت",
-  
-                [
-                  {
-                    text: "حسناً",
-                    onPress: () => console.log("yes Pressed"),
-                    style: "cancel",
-                  },
-                ]
-              );
+          case "auth/network-request-failed":
+            Alert.alert(
+              "تنبيه",
+              "الرجاد التحقق من الأتصال بالانترنت",
+
+              [
+                {
+                  text: "حسناً",
+                  onPress: () => console.log("yes Pressed"),
+                  style: "cancel",
+                },
+              ]
+            );
             break;
-          
+
           case "auth/email-already-in-use":
             Alert.alert(
               "تنبيه",
@@ -207,9 +218,7 @@ export default function RegistrationScreen({ navigation }) {
         style={{ flex: 1, width: "100%" }}
         keyboardShouldPersistTaps="always"
       >
-          <Text style={styles.warning      }>
-       *جميـع الحقول مطلوبـــة
-     </Text>
+        <Text style={styles.warning}>*جميـع الحقول مطلوبـــة</Text>
         <TextInput
           style={styles.input}
           placeholder="*الأسم الكامل"
@@ -220,7 +229,6 @@ export default function RegistrationScreen({ navigation }) {
           autoCapitalize="none"
         />
 
-       
         <TextInput
           style={styles.input}
           placeholder="*رقم الجوال : 05xxxxxxxx"
@@ -240,17 +248,49 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
-        
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#aaaaaa"
-          placeholder="*كلمة المرور"
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          onChangeText={(text) => setPassword(text)}
-          secureTextEntry={true}
+
+        <Tip title="تنبية" body={Message}>
+          <View style={styles.SectionStyle}>
+            <Icon
+              style={styles.searchIcon}
+              name="alert-circle-outline"
+              size={25}
+              color={"#022B3A"}
+            />
+            <View>
+              <TextInput
+                style={styles.pass}
+                placeholderTextColor="#aaaaaa"
+                placeholder="*كلمة المرور"
+                onChangeText={(text) => setPassword(text)}
+                value={password}
+                underlineColorAndroid="transparent"
+                autoCapitalize="none"
+                secureTextEntry={true}
+              />
+            </View>
+          </View>
+        </Tip>
+
+        <TipProvider
+          overlayOpacity={0.7}
+          titleStyle={{
+            fontWeight: "bold",
+            fontSize: 15,
+            marginBottom: 10,
+            textAlign: "center",
+            flex: 1,
+          }}
+          bodyStyle={{
+            fontSize: 16,
+            textAlign: "center",
+            fontSize: 13,
+          }}
+          tipContainerStyle={{
+            padding: 12,
+            borderRadius: 20,
+            maxWidth: 300,
+          }}
         />
 
         <TextInput
@@ -261,7 +301,7 @@ export default function RegistrationScreen({ navigation }) {
           value={confirmPassword}
           secureTextEntry={true}
         />
-           <TextInput
+        <TextInput
           style={styles.dec}
           placeholder="*وصف المستثمر او وصف الشركة المستثمرة"
           placeholderTextColor="#aaaaaa"
@@ -270,6 +310,14 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
+
+
+<Text style={styles.condtions}>
+          *بالضغط على إنشاء حساب، فإنك توافق {""}
+          <Text style={styles.agree}>
+            {""}على الشروط {""}وقد قرأت سياسية الإفصاح
+          </Text>
+        </Text>
         <TouchableOpacity
           style={styles.button}
           onPress={() => onRegisterPress()}
@@ -278,7 +326,7 @@ export default function RegistrationScreen({ navigation }) {
         </TouchableOpacity>
         <View style={styles.footerView}>
           <Text style={styles.footerText}>
-           هل لديك حساب مسبق؟{" "}
+            هل لديك حساب مسبق؟{" "}
             <Text onPress={onFooterLinkPress} style={styles.footerLink}>
               تسجيل دخول
             </Text>

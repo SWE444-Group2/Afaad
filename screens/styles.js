@@ -55,7 +55,7 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   dec: {
-    height: 180,
+    height: 130,
     borderRadius: 5,
     overflow: "hidden",
     backgroundColor: "white",
@@ -64,7 +64,7 @@ export default StyleSheet.create({
     marginLeft: 30,
     marginRight: 30,
     paddingRight: 10,
-    paddingBottom:120,
+    paddingBottom:90,
     textAlign: 'right',
   },
   
