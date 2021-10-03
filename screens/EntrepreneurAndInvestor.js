@@ -159,15 +159,36 @@ export default function Entrepreneur({ navigation }) {
 
       { userType== 'Entrepreneur' && <TouchableOpacity  
              style={styles.addIcon} onPress={() => navigation.navigate('PublishIdea')}>
-             <Image source={PlusIcon} style={{ width: 60, height: 60 }}/>
+             <Image source={PlusIcon} style={{ width: 30, height: 30 }}/>
             </TouchableOpacity>}
 
-            <TouchableOpacity style={styles.Clicked}>
-              <Image source={ClickedHomeIcon} style={{ width: 30, height: 30  , marginLeft:30, marginTop:10} }/> 
-           </TouchableOpacity>
-              <Image source={SearchIcon} style={{ width: 30, height: 30  , marginLeft:105, marginTop:-80} }/>    
-              <Image source={NotificationIcon} style={{ width: 30, height: 30  , marginLeft:253, marginTop:-30} }/> 
-              <Image source={ProfileIcon} style={{ width: 30, height: 30  , marginLeft:325, marginTop:-30} }/> 
+            { userType== 'Entrepreneur' &&  
+              <Image source={ProfileIcon} style={{ width: 30, height: 30  , marginLeft:30, marginTop:10} }/> }
+              { userType== 'Entrepreneur' &&
+              <Image source={NotificationIcon} style={{ width: 30, height: 30  , marginLeft:105,marginTop:-28} }/>  } 
+              { userType== 'Entrepreneur' && 
+              <Image source={SearchIcon} style={{ width: 30, height: 30  , marginLeft:253, marginTop:-30} }/> }
+              { userType== 'Entrepreneur' &&
+              <TouchableOpacity style={styles.Clicked}>
+              <Image source={ClickedHomeIcon} style={{ width: 30, height: 30  , marginLeft:25 , marginTop:12} }/> 
+              </TouchableOpacity>}
+
+
+
+              { userType== 'Investor' &&  
+              <Image source={ProfileIcon} style={{ width: 30, height: 30  , marginLeft:40, marginTop:10} }/> }
+              { userType== 'Investor' &&
+              <Image source={NotificationIcon} style={{ width: 30, height: 30  , marginLeft:125,marginTop:-28} }/>  } 
+              { userType== 'Investor' && 
+              <Image source={SearchIcon} style={{ width: 30, height: 30  , marginLeft:225, marginTop:-30} }/> }
+              { userType== 'Investor' &&
+              <TouchableOpacity style={styles.Clicked}>
+              <Image source={ClickedHomeIcon} style={{ width: 30, height: 30  , marginLeft:30 , marginTop:12} }/> 
+              </TouchableOpacity>}
+
+
+
+
 
             </View>
     </View>
@@ -183,11 +204,8 @@ export default function Entrepreneur({ navigation }) {
 const styles = StyleSheet.create({
   addIcon: {
     position:'absolute',
-    bottom:'40%',
-    left:'40%',
-    height:80,
-    width:80,
-    backgroundColor:'#cee5f2',
+    bottom:'30%',
+    left:'46%',
     borderRadius:50,
     justifyContent:'center',
     alignItems:'center'
@@ -203,8 +221,10 @@ BottomBar:{
 },
 
 Clicked:{
+  marginTop:-42,
+  marginLeft:290,
   backgroundColor:'#cee5f2',
-  width:80,
+  width:100,
   height:90
 
 }
