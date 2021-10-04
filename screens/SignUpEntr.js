@@ -45,7 +45,6 @@ const radioButtonsData = [{
 export default function RegistrationScreen({ navigation }) {
   const [FirstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState("");
-  const [age, setAge] = useState("");
   const [Email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
@@ -81,7 +80,7 @@ export default function RegistrationScreen({ navigation }) {
   };
 
   const IsValidName = (FirstName) => {
-    const RegxOfNames = /^[a-zA-Z\s\u0600-\u065F\u066A-\u06EF\u06FA-\u06FF]*$/;
+    const RegxOfNames = /^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z\s]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z-_]*$/;
     return RegxOfNames.test(FirstName);
   };
   const IsValidPass = (password) => {
@@ -138,7 +137,7 @@ export default function RegistrationScreen({ navigation }) {
     if (IsValidPhone(phone) == false) {
       Alert.alert(
         "تنبيه",
-        "يجب ان تحتوي رقم الهاتف على ارقام فقط",
+        "يجب ان يحتوي رقم الهاتف على ارقام فقط",
 
         [
           {
@@ -165,22 +164,17 @@ export default function RegistrationScreen({ navigation }) {
       );
       return;
     }
-    if (IsValidPhone(phone) == false) {
-      Alert.alert(
-        "تنبيه",
-        "يجب ان تحتوي رقم الهاتف على ارقام فقط",
-
-        [
-          {
-            text: "حسنًا",
-            onPress: () => console.log("yes Pressed"),
-            style: "cancel",
-          },
-        ]
-      );
+    if (IsValidName(LastName) == false) {
+      Alert.alert("تنبيه ", "الاسم يجب ان يحتوي على حروف فقط", [
+        {
+          text: "حسنًا",
+          onPress: () => console.log("yes Pressed"),
+          style: "cancel",
+        },
+      ]);
       return;
     }
-
+  
     AfaadFirebase.auth()
       .createUserWithEmailAndPassword(Email, password)
       .then((response) => {
