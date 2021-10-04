@@ -80,7 +80,8 @@ export default function RegistrationScreen({ navigation }) {
   };
 
   const IsValidName = (FirstName) => {
-    const RegxOfNames = /^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z\s]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z-_]*$/;
+    const Regx = /^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z\s]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z-_]*$/;
+    const RegxOfNames=/^[\u0621-\u064Aa-zA-Z\s]+$/;
     return RegxOfNames.test(FirstName);
   };
   const IsValidPass = (password) => {

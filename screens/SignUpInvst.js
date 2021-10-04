@@ -35,7 +35,7 @@ export default function RegistrationScreen({ navigation }) {
     navigation.navigate("Login");
   };
   const IsValidName = (FullName) => {
-    const RegxOfNames = /^[a-zA-Z\s\u0600-\u065F\u066A-\u06EF\u06FA-\u06FF]*$/;
+  const RegxOfNames=/^[\u0621-\u064Aa-zA-Z\s]+$/;
     return RegxOfNames.test(FullName);
   };
   const IsValidPass = (password) => {
