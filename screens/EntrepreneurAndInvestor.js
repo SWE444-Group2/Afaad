@@ -159,7 +159,7 @@ export default function Entrepreneur({ navigation }) {
 
       { userType== 'Entrepreneur' && <TouchableOpacity  
              style={styles.addIcon} onPress={() => navigation.navigate('PublishIdea')}>
-             <Image source={PlusIcon} style={{ width: 30, height: 30 }}/>
+             <Image source={PlusIcon} style={{ width: 20, height: 20 }}/>
             </TouchableOpacity>}
 
             { userType== 'Entrepreneur' &&  
@@ -191,6 +191,7 @@ export default function Entrepreneur({ navigation }) {
 
 
             </View>
+            <StatusBar style="auto" />
     </View>
 
     );
@@ -206,9 +207,12 @@ const styles = StyleSheet.create({
     position:'absolute',
     bottom:'30%',
     left:'46%',
-    borderRadius:50,
+    borderRadius:10,
+    backgroundColor:'#536b78',
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+    width:30,
+    height:30
    
 },
 

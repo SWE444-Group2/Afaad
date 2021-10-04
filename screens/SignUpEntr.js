@@ -1,3 +1,4 @@
+import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
   Text,
@@ -395,6 +396,7 @@ export default function RegistrationScreen({ navigation }) {
 
         </View>
       </KeyboardAwareScrollView>
+      <StatusBar style="auto" />
     </View>
   );
 }

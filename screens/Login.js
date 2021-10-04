@@ -1,4 +1,5 @@
 import React from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, Text, TextInput, View, Keyboard, TouchableWithoutFeedback, Alert, ScrollView } from 'react-native';
 import { Button } from 'react-native-elements';
@@ -132,6 +133,7 @@ export default function Login({ navigation }) {
           </View>
         </ScrollView>
       </TouchableWithoutFeedback>
+      <StatusBar style="auto" />
     </KeyboardAwareScrollView>
   );
 }

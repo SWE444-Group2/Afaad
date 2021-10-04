@@ -1,4 +1,4 @@
-
+import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { Text, View, StyleSheet,Image,TouchableOpacity} from 'react-native';
 import { Button, Icon } from 'react-native-elements';
@@ -31,6 +31,7 @@ export default function MainScreen({ navigation }) {
                      <Text style={styles.appButtonText}>تسجيل دخول</Text>
                  </TouchableOpacity>
 
+                 <StatusBar style="auto" />
                
                 </View>
              );

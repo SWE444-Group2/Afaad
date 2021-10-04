@@ -94,6 +94,7 @@ export default function ViewIdea({ navigation }) {
     
     <View style={Titlestyles.container}>
 
+      <StatusBar style="auto" />  
     <Image source={Background} style={{ flex: 1,width:'100%',height:'10%', opacity:1, position:'absolute' ,transform: [{ rotate: '180deg'}] }}/>
 
 

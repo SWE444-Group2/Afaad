@@ -154,6 +154,7 @@ export default function ViewIdea({ navigation }) {
 
       
 
+            <StatusBar style="auto" />
     </View>
 
     

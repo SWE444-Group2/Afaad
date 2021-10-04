@@ -53,6 +53,8 @@ return(
              <Image source={SignOut} style={{ width: 25, height: 25 }}/>
      </TouchableOpacity>
 
+     <StatusBar style="auto" />
+
  </View>
 );
 }

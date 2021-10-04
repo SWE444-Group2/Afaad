@@ -93,6 +93,8 @@ export default function invstorsAccount({navigation , route}) {
 
 
                 </View>
+
+                <StatusBar style="auto" />
         </View>
     )
 }

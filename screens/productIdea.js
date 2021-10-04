@@ -144,6 +144,8 @@ export default function productIdea({navigation , route}) {
         </View>
 
         </ScrollView>
+
+        <StatusBar style="auto" />
         </View>
 
         

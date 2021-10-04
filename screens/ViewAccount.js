@@ -88,6 +88,8 @@ export default function ViewAccount({ navigation }) {
              
            </View>
       </View>
+
+      <StatusBar style="auto" />
    </View>
   );
 
