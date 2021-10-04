@@ -77,7 +77,7 @@ export default function RegistrationScreen({ navigation }) {
   };
 
   const condtions = () => {
-    navigation.navigate("conditions");
+    navigation.navigate("conditionsPage");
   };
 
   const IsValidName = (FirstName) => {
@@ -280,7 +280,7 @@ export default function RegistrationScreen({ navigation }) {
           containerStyle={{
             marginTop: 10,
             marginBottom: 10,
-            width: 330,
+            width: 355,
             marginLeft: 30,
             marginRight: 30,
           }}
@@ -376,7 +376,7 @@ export default function RegistrationScreen({ navigation }) {
           secureTextEntry={true}
         />
 
-        <Text style={styles.condtions}>
+        <Text onPress={condtions}  style={styles.condtions  }>
           *بالضغط على إنشاء حساب، فإنك توافق {""}
           <Text style={styles.agree}>
             {""}على الشروط {""}وقد قرأت سياسية الإفصاح
@@ -387,15 +387,17 @@ export default function RegistrationScreen({ navigation }) {
           style={styles.button}
           onPress={() => onRegisterPress()}
         >
-          <Text style={styles.buttonTitle}>إنشاء الحساب</Text>
+          <Text style={styles.buttonTitle} >  الحساب</Text>
         </TouchableOpacity>
         <View style={styles.footerView}>
+
           <Text style={styles.footerText}>
             هل لديك حساب مسبق؟{" "}
             <Text onPress={onFooterLinkPress} style={styles.footerLink}>
               تسجيل الدخول
             </Text>
           </Text>
+
         </View>
       </KeyboardAwareScrollView>
     </View>

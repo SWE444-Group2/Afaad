@@ -3,7 +3,12 @@ import { Text, TextInput, TouchableOpacity, View, Alert,StyleSheet } from "react
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 
+export default function RegistrationScreen({ navigation }) {
 
-<Text>
-    hello
+
+return (
+    <Text>
+    السياسة هنا         
 </Text>
+)
+}

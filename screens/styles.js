@@ -29,6 +29,7 @@ export default StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
+    
   },
   buttonTitle: {
     color: "white",
@@ -160,7 +161,7 @@ searchIcon:{
 },
 pass:{
   height: 48,
-  width:215,
+  width:236,
     borderRadius: 5,
 
     marginTop: 0,
