@@ -1,12 +1,13 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Keyboard, TouchableWithoutFeedback, Alert, ScrollView } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Keyboard, TouchableWithoutFeedback, Alert, ScrollView ,Image,TouchableOpacity} from 'react-native';
 import { Button } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
 import TitleStyles from './TitleStyles';
+import TextLogo from '../assets/images/AfaadLogo.jpeg';
 
 
 const auth = AfaadFirebase.auth();
@@ -89,14 +90,23 @@ export default function Login({ navigation }) {
   return (
     <KeyboardAwareScrollView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView>
-          <View style={TitleStyles.containerDetails}>
-            <View style={[TitleStyles.square, { padding: 15, alignItems: 'center', marginTop: '20%', height: 300, alignItems:'flex-end' }]}>
 
-              <Text style={[styles.LabelStyle, {}]}>عنوان البريد الإلكتروني</Text>
+          <View style={styles.mainView}>
+
+          <View style={styles.TopView}>
+                    <Image source={TextLogo} style={styles.image}/>
+          </View>
+
+            <View style={styles.BottomView}>
+
+            <Text style={styles.Heading}> صفحه تسجيل الدخول </Text>
+
+            <View style={styles.FormView}>
+   
               <TextInput
-                style={styles.input}
+                style={styles.TextInput}
                 placeholder="ادخل عنوان بريدك الإلكتروني"
+                placeholderTextColor={"#fff"} 
                 onChangeText={(text) => setEmail(text)}
                 value={email}
                 underlineColorAndroid="transparent"
@@ -104,9 +114,9 @@ export default function Login({ navigation }) {
                 clearButtonMode='while-editing'
               />
 
-              <Text style={[styles.LabelStyle, {}]}>كلمة السر</Text>
               <TextInput
-                style={styles.input}
+                style={styles.TextInput}
+                placeholderTextColor={"#fff"} 
                 placeholder="ادخل كلمة السر"
                 onChangeText={(text) => setPassword(text)}
                 value={password}
@@ -116,22 +126,22 @@ export default function Login({ navigation }) {
                 clearButtonMode='while-editing'
               />
 
-              <Text style={styles.footerText}>
-                هل أنت مستخدم جديد؟{" "}
-                <Text onPress={onFooterLinkPress} style={styles.footerLink}>
-                  إنشاء حساب
-                </Text>
-              </Text>
+
+            <TouchableOpacity  style={styles.Button}   onPress={onLogin}>
+                     <Text style={styles.ButtonText} >تسجيل دخول</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity  style={styles.TextButton} onPress={onFooterLinkPress}>
+                     <Text style={styles.SignUpText}> إنشاء حساب</Text>
+             </TouchableOpacity>
+
+              </View>
 
             </View>
-            <Button buttonStyle={styles.button}
-              onPress={onLogin}
-              title="تسجيل دخول"
-              titleStyle={{ fontFamily: 'AJannatLTBold', fontSize: 18 }}
-            />
+
 
           </View>
-        </ScrollView>
+
       </TouchableWithoutFeedback>
       <StatusBar style="auto" />
     </KeyboardAwareScrollView>
@@ -141,8 +151,10 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#002B3E',
+
   },
+  /*
   button: {
     width: 213,
     height: 52,
@@ -180,4 +192,109 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
+  */
+
+  ///////// NEW DESIGN ///////////
+  mainView:{
+     //marginTop:40,
+     flex:1,
+     flexDirection:'column',
+     justifyContent:'center',
+     alignItems:'center',
+     backgroundColor:'#fff',
+     
+   },
+   TopView:{
+     width:"100%",
+     height:"30%",
+     backgroundColor:'#fff',
+     display:'flex',
+     justifyContent:'center',
+     alignItems:'center',
+   
+   },
+   BottomView:{
+     width:"100%",
+     height:"70%",
+     backgroundColor:'#002B3E',
+     borderTopLeftRadius:30,
+     borderTopRightRadius:30,
+ 
+   },
+   image:{
+       width:"50%",
+       resizeMode:'contain',
+
+
+   },
+   Heading:{
+      color:"#fff",
+      fontFamily: 'AJannatLTBold',
+      fontSize:24,
+      fontWeight:'bold',
+      textAlign: 'right',
+      marginRight:30,
+      margin:30,
+
+   },
+
+   TextInput:{
+       width:'90%',
+       borderWidth:1,
+       borderColor:"#fff",
+       height:52,
+       borderRadius:10,
+       fontFamily: 'AJannatLT',
+       fontSize:18,
+       textAlign: 'right',
+       paddingRight:5,
+       marginTop:20,
+       color:"#fff",
+
+   },
+
+   FormView:{
+       width:'100%',
+       display:'flex',
+       flexDirection:'column',
+       justifyContent:'center',
+       alignItems:'center',
+       marginTop:40,
+     
+   },
+
+   Button:{
+     width:"90%",
+     color:"#002B3E",
+     height:52,
+     backgroundColor:"#fff",
+     borderRadius:10,
+     marginTop:20,
+     display:'flex',
+     justifyContent:'center',
+     alignItems:'center',
+ 
+
+   },
+   ButtonText:{
+     fontFamily: 'AJannatLT',
+     fontSize:18,
+     fontWeight:'bold',
+
+
+   },
+
+   TextButton:{
+       width:'100%',
+       display:'flex',
+      alignItems:'center',
+      marginTop:20,
+
+
+   },
+
+   SignUpText:{
+       color:"#CEE5F2",
+       fontSize:14,
+   }
 });
