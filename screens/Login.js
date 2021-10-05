@@ -65,7 +65,6 @@ export default function Login({ navigation }) {
                         );
                       }                 
                     }
-
               }
             })
           }
@@ -73,9 +72,57 @@ export default function Login({ navigation }) {
       
       })
         .catch(function (error) {
-          // Handle Errors here.
-          var errorMessage = error.message;
-          alert(errorMessage);
+          switch (error.code) {
+            case "auth/invalid-email":
+              Alert.alert(
+                "تنبيه",
+                "الأيميل المدخل غير صالح",
+                [
+                  {
+                    text: "حسناً",
+                    style: "cancel",
+                  },
+                ]
+              );
+              break;
+            case "auth/network-request-failed":
+              Alert.alert(
+                "تنبيه",
+                "الرجاد التحقق من الأتصال بالانترنت",
+                [
+                  {
+                    text: "حسناً",
+                    style: "cancel",
+                  },
+                ]
+              );
+              break;
+            case "auth/user-not-found":
+              Alert.alert(
+                "تنبيه",
+                "الإيميل أو كلمة المرور خاطئة",
+                [
+                  {
+                    text: "حسناً",
+                    style: "cancel",
+                  },
+                ]
+              );
+              break;
+
+            case "auth/user-mismatch":
+              Alert.alert(
+                "تنبيه",
+                "الإيميل أو كلمة المرور خاطئة",
+                [
+                  {
+                    text: "حسناً",
+                    style: "cancel",
+                  },
+                ]
+              );
+              break;
+          }
         });
     } else {
       Alert.alert('تنبيه', 'الرجاء تعبئة كل الفراغات', [
