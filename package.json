@@ -24,6 +24,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-animated-radio-button": "^2.0.6",
     "react-native-animated-radio-button-group": "^1.0.0",
+    "react-native-arabic-numbers": "^1.0.1",
     "react-native-dropdown-picker": "^5.1.28",
     "react-native-elements": "^3.4.2",
     "react-native-flexi-radio-button": "^0.2.2",

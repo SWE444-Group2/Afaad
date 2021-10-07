@@ -58,6 +58,8 @@ export default function RegistrationScreen({ navigation }) {
     { label: "أنثـى", value: "انثى" },
     { label: "ذكر", value: "ذكر" },
   ]);
+
+
   //const [radioButtons, setRadioButtons] = useState(radioButtonsData)
 
   /*function onPressRadioButton(radioButtonsArray) {
@@ -81,8 +83,7 @@ export default function RegistrationScreen({ navigation }) {
   };
 
   const IsValidName = (FirstName) => {
-    const Regx = /^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z\s]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z-_]*$/;
-    const RegxOfNames=/^[\u0621-\u064Aa-zA-Z\s]+$/;
+    const RegxOfNames = /^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z\s]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z-_]*$/;
     return RegxOfNames.test(FirstName);
   };
   const IsValidPass = (password) => {
@@ -92,8 +93,13 @@ export default function RegistrationScreen({ navigation }) {
     return strongPass.test(password);
   };
   const IsValidPhone = (phone) => {
-    const RegxPhone = /^[0-9\u0660-\u0669]{10}$/;
+    const RegxPhone = /^[0-9\u0660-\u0669]*$/;
     return RegxPhone.test(phone);
+  };
+
+  const IsValidPhoneStart = (phone) => {
+    var regex = new RegExp(/^(009665|9665|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/);
+    return regex.test(phone);
   };
 
   const onRegisterPress = () => {
@@ -136,10 +142,10 @@ export default function RegistrationScreen({ navigation }) {
       ]);
       return;
     }
-    if (FirstName.length > 20) {
+    if (FirstName.length > 20 ||FirstName.length <2) {
       Alert.alert(
         "تنبيه",
-        "حقل الاسم الأول  يجب ان لا يتجاوز ٢٠ حرف",
+        "حقل الاسم الاول يجب ان يتكون من حرفين على الاقل حتى ٢٠ حرف ",
 
         [
           {
@@ -151,10 +157,10 @@ export default function RegistrationScreen({ navigation }) {
       );
       return;
     }
-    if (LastName.length > 20) {
+    if (LastName.length > 20 ||LastName.length <2 ) {
       Alert.alert(
         "تنبيه",
-        "حقل الاسم الاخير  يجب ان لا يتجاوز ٢٠ حرف",
+        "حقل الاسم الاخير يجب ان يتكون من حرفين على الاقل حتى ٢٠ حرف ",
 
         [
           {
@@ -169,7 +175,7 @@ export default function RegistrationScreen({ navigation }) {
     if (IsValidPhone(phone) == false) {
       Alert.alert(
         "تنبيه",
-        "يجب ان يحتوي رقم الهاتف على ارقام فقط",
+        " يجب ان يكون رقم الهاتف من أرقام فقط ",
 
         [
           {
@@ -181,6 +187,22 @@ export default function RegistrationScreen({ navigation }) {
       );
       return;
     }
+    if (IsValidPhoneStart(phone) == false) {
+      Alert.alert(
+        "تنبيه",
+        " يجب ان يبدأ الرقم بمفتاح الدولة السعودي ",
+
+        [
+          {
+            text: "حسنًا",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]
+      );
+      return;
+    }
+  
     if (IsValidPass(password) == false) {
       Alert.alert(
         "كلمة السر ضعيفة ",

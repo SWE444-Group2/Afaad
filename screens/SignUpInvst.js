@@ -16,6 +16,7 @@ import "firebase/auth";
 import "firebase/database";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import TipProvider from "react-native-tip";
+
 import { Tip } from "react-native-tip";
 //Refrence to Investor object in DB
 const InvestorsAccountsRef = AfaadFirebase.database().ref("Entrepreneur");
@@ -36,7 +37,7 @@ export default function RegistrationScreen({ navigation }) {
     navigation.navigate("Login");
   };
   const IsValidName = (FullName) => {
-  const RegxOfNames=/^[\u0621-\u064Aa-zA-Z\s]{30}$/;
+    const RegxOfNames = /^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z\s]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z-_]*$/;
     return RegxOfNames.test(FullName);
   };
   const IsValidPass = (password) => {
@@ -46,13 +47,17 @@ export default function RegistrationScreen({ navigation }) {
     return strongPass.test(password);
   };
   const IsValidPhone = (phone) => {
-    const RegxPhone = /^[0-9\u0660-\u0669]{10}$/;
+    const RegxPhone = /^[0-9\u0660-\u0669]*$/;
     return RegxPhone.test(phone);
   };
   const condtions = () => {
     navigation.navigate("conditionsPage");
   };
 
+  const IsValidPhoneStart = (phone) => {
+    var regex = new RegExp(/^(009665|9665|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/);
+    return regex.test(phone);
+  };
 
   const onRegisterPress = () => {
     if (
@@ -93,7 +98,7 @@ export default function RegistrationScreen({ navigation }) {
       ]);
       return;
     }
-    if (FullName.length > 31) {
+    if (FullName.length > 30) {
       Alert.alert(
         "تنبيه",
         "حقل اسم المستخدم يجب ان لا يتجاوز ٣٠ حرف",
@@ -123,10 +128,10 @@ export default function RegistrationScreen({ navigation }) {
       );
       return;
     }
-    if (IsValidPass(password) == false) {
+    if (IsValidPhoneStart(phone) == false) {
       Alert.alert(
-        "كلمة السر ضعيفة ",
-        "كلمة السر لا تستوفي الشروط المطلوبة",
+        "تنبيه",
+        " يجب ان يبدأ الرقم بمفتاح الدولة السعودي ",
 
         [
           {
@@ -138,10 +143,10 @@ export default function RegistrationScreen({ navigation }) {
       );
       return;
     }
-    if (IsValidPhone(phone) == false) {
+    if (IsValidPass(password) == false) {
       Alert.alert(
-        "تنبيه",
-        "يجب ان تحتوي رقم الهاتف على ارقام فقط",
+        "كلمة السر ضعيفة ",
+        "كلمة السر لا تستوفي الشروط المطلوبة",
 
         [
           {
