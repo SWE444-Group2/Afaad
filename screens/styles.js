@@ -150,7 +150,6 @@ SectionStyle: {
   marginLeft: 30,
   marginRight: 30,
 
-  
 },
 searchIcon:{
 
@@ -158,22 +157,18 @@ searchIcon:{
   marginBottom: 10,
   marginLeft: 20,
   marginRight: 30,
+  width:"auto"
 },
 pass:{
   height: 48,
-  width:236,
     borderRadius: 5,
-
-    marginTop: 0,
-    marginLeft: 15,
-    marginRight: 1,
-    paddingRight: 16,
+    paddingRight: 15,
     textAlign: 'right',
     flex: 1 ,
-    marginLeft: 40,
-   
-  },
+    width:250,
 
+    
+  },
 
 
 });

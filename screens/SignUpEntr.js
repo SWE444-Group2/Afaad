@@ -136,6 +136,36 @@ export default function RegistrationScreen({ navigation }) {
       ]);
       return;
     }
+    if (FirstName.length > 20) {
+      Alert.alert(
+        "تنبيه",
+        "حقل الاسم الأول  يجب ان لا يتجاوز ٢٠ حرف",
+
+        [
+          {
+            text: " حسنًا",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]
+      );
+      return;
+    }
+    if (LastName.length > 20) {
+      Alert.alert(
+        "تنبيه",
+        "حقل الاسم الاخير  يجب ان لا يتجاوز ٢٠ حرف",
+
+        [
+          {
+            text: " حسنًا",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]
+      );
+      return;
+    }
     if (IsValidPhone(phone) == false) {
       Alert.alert(
         "تنبيه",
@@ -247,6 +277,7 @@ export default function RegistrationScreen({ navigation }) {
         keyboardShouldPersistTaps="always"
       >
         <Text style={styles.warning}>*جميـع الحقول مطلوبـــة</Text>
+
         <TextInput
           style={styles.input}
           placeholder="*الاسم الأول"
@@ -276,9 +307,9 @@ export default function RegistrationScreen({ navigation }) {
           containerStyle={{
             marginTop: 10,
             marginBottom: 10,
-            width: 355,
             marginLeft: 30,
             marginRight: 30,
+            width:"auto"
           }}
           style={{ borderColor: "white", flexDirection: "row-reverse" }}
           open={open}
@@ -318,7 +349,7 @@ export default function RegistrationScreen({ navigation }) {
           <View style={styles.SectionStyle}>
 
         <Icon  style={styles.searchIcon} name="alert-circle-outline" size={25} color={"#022B3A"} />
-        <View>
+        <View     >
                 <TextInput
             style={styles.pass}
             placeholderTextColor="#aaaaaa"

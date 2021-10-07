@@ -35,7 +35,7 @@ export default function RegistrationScreen({ navigation }) {
     navigation.navigate("Login");
   };
   const IsValidName = (FullName) => {
-  const RegxOfNames=/^[\u0621-\u064Aa-zA-Z\s]+$/;
+  const RegxOfNames=/^[\u0621-\u064Aa-zA-Z\s]{30}$/;
     return RegxOfNames.test(FullName);
   };
   const IsValidPass = (password) => {
@@ -86,6 +86,21 @@ export default function RegistrationScreen({ navigation }) {
           style: "cancel",
         },
       ]);
+      return;
+    }
+    if (FullName.length > 31) {
+      Alert.alert(
+        "تنبيه",
+        "حقل اسم المستخدم يجب ان لا يتجاوز ٣٠ حرف",
+
+        [
+          {
+            text: " حسنًا",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]
+      );
       return;
     }
     if (IsValidPhone(phone) == false) {
@@ -155,7 +170,6 @@ export default function RegistrationScreen({ navigation }) {
           .ref("Investor/" + response.user.uid)
           .set({
             FullName: FullName,
-            Password: password,
             phone: phone,
             email: Email,
             Describetion: Describtion,
