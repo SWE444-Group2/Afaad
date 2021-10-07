@@ -48,6 +48,10 @@ export default function RegistrationScreen({ navigation }) {
     const RegxPhone = /^[0-9\u0660-\u0669]{10}$/;
     return RegxPhone.test(phone);
   };
+  const condtions = () => {
+    navigation.navigate("conditionsPage");
+  };
+
 
   const onRegisterPress = () => {
     if (
@@ -326,7 +330,8 @@ export default function RegistrationScreen({ navigation }) {
         />
 
 
-<Text style={styles.condtions}>
+
+<Text onPress={condtions}  style={styles.condtions}>
           *بالضغط على إنشاء حساب، فإنك توافق {""}
           <Text style={styles.agree}>
             {""}على الشروط {""}وقد قرأت سياسية الإفصاح
@@ -347,7 +352,7 @@ export default function RegistrationScreen({ navigation }) {
           </Text>
         </View>
       </KeyboardAwareScrollView>
-      <StatusBar style="auto" />
+
     </View>
   );
 }

@@ -165,7 +165,7 @@ pass:{
     paddingRight: 15,
     textAlign: 'right',
     flex: 1 ,
-    width:280,
+    width:255,
   },
 Title:{
   textAlign: 'right',
