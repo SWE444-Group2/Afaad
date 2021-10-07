@@ -347,6 +347,7 @@ export default function RegistrationScreen({ navigation }) {
           </Text>
         </View>
       </KeyboardAwareScrollView>
+      <StatusBar style="auto" />
     </View>
   );
 }

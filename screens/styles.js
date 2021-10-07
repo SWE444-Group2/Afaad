@@ -165,10 +165,19 @@ pass:{
     paddingRight: 15,
     textAlign: 'right',
     flex: 1 ,
-    width:250,
-
-    
+    width:280,
   },
+Title:{
+  textAlign: 'right',
+  fontWeight: "bold",
+  fontSize: 17,
+  paddingRight: 10,
+  color: "#7C98B3",
+},
 
+t1:{
+  textAlign: 'right',
+  paddingRight: 10,
 
+}
 });
