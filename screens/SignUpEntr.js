@@ -132,7 +132,7 @@ export default function RegistrationScreen({ navigation }) {
       ]);
       return;
     }
-    if (IsValidName(FirstName) == false) {
+    if (IsValidName(FirstName) == false ||!FullName.replace(/\s/g, '').length) {
       Alert.alert("تنبيه ", "الاسم يجب ان يحتوي على حروف فقط", [
         {
           text: "حسنًا",
@@ -289,7 +289,22 @@ export default function RegistrationScreen({ navigation }) {
               ]
             );
             break;
-        }
+        
+        case "auth/phone-number-already-exists":
+          Alert.alert(
+            "تنبيه",
+           "رقم الجوال مسجل من قبل",
+
+            [
+              {
+                text: "حسناً",
+                onPress: () => console.log("yes Pressed"),
+                style: "cancel",
+              },
+            ]
+          );
+          break;
+      }
       });
   };
   return (

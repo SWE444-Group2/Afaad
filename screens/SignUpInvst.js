@@ -88,7 +88,7 @@ export default function RegistrationScreen({ navigation }) {
       ]);
       return;
     }
-    if (IsValidName(FullName) == false) {
+    if (IsValidName(FullName) == false || !FullName.replace(/\s/g, '').length) {
       Alert.alert("تنبيه ", "الاسم الكامل يجب ان يحتوي على حروف فقط", [
         {
           text: "حسنًا",
@@ -101,7 +101,7 @@ export default function RegistrationScreen({ navigation }) {
     if (FullName.length > 30) {
       Alert.alert(
         "تنبيه",
-        "حقل اسم المستخدم يجب ان لا يتجاوز ٣٠ حرف",
+        " اسم المستخدم يجب ان لا يتجاوز ٣٠ حرف",
 
         [
           {
@@ -113,6 +113,7 @@ export default function RegistrationScreen({ navigation }) {
       );
       return;
     }
+  
     if (IsValidPhone(phone) == false) {
       Alert.alert(
         "تنبيه",
@@ -233,8 +234,26 @@ export default function RegistrationScreen({ navigation }) {
               ]
             );
             break;
+            case "auth/phone-number-already-exists":
+          Alert.alert(
+            "تنبيه",
+           "رقم الجوال مسجل من قبل",
+
+            [
+              {
+                text: "حسناً",
+                onPress: () => console.log("yes Pressed"),
+                style: "cancel",
+              },
+            ]
+          );
+          break;
+      
         }
       });
+
+
+      
   };
   return (
     <View style={styles.container}>
