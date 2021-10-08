@@ -177,7 +177,7 @@ export default function Login({ navigation }) {
               <TextInput
                 style={styles.TextInput}
                 placeholderTextColor={"#fff"} 
-                placeholder=" كلمة السر"
+                placeholder="كلمة السر"
                 onChangeText={(text) => setPassword(text)}
                 value={password}
                 underlineColorAndroid="transparent"

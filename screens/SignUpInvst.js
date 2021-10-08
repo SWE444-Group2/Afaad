@@ -50,7 +50,7 @@ export default function RegistrationScreen({ navigation }) {
     return strongPass.test(password);
   };
   const IsValidPhone = (phone) => {
-    const RegxPhone = /^[0-9\u0660-\u0669]*$/;
+    const RegxPhone = /^[0-9]*$/;
     return RegxPhone.test(phone);
   };
   const condtions = () => {
@@ -120,7 +120,7 @@ export default function RegistrationScreen({ navigation }) {
     if (IsValidPhone(phone) == false) {
       Alert.alert(
         "تنبيه",
-        "يجب ان تحتوي رقم الهاتف على ارقام فقط",
+        "يجب ان تحتوي رقم الهاتف على ارقام إنجليزية فقط",
 
         [
           {
@@ -304,6 +304,7 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
           color="black"
+          keyboardType='numeric'
           
         
         />

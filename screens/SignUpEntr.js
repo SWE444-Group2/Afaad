@@ -54,7 +54,7 @@ export default function RegistrationScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [open, setOpen] = useState(false);
-  const Message = '  يجب ان تحتوي كلمة المرور على : \n٨ خانات على الاقل\n حرف كبير و صغير على الاقل\n رمز خاص على الاقل\n رقم على الاقل';
+  const Message = '  يجب ان تحتوي كلمة المرور على : \n٨ خانات على الاقل\n حرف كبير و صغير انجليزي على الاقل\n رمز خاص على الاقل\n رقم على الاقل';
 
   const [items, setItems] = useState([
     { label: "أنثـى", value: "انثى" },
@@ -95,7 +95,7 @@ export default function RegistrationScreen({ navigation }) {
     return strongPass.test(password);
   };
   const IsValidPhone = (phone) => {
-    const RegxPhone = /^[0-9\u0660-\u0669]*$/;
+    const RegxPhone = /^[0-9]*$/;
     return RegxPhone.test(phone);
   };
 
@@ -177,7 +177,7 @@ export default function RegistrationScreen({ navigation }) {
     if (IsValidPhone(phone) == false) {
       Alert.alert(
         "تنبيه",
-        " يجب ان يكون رقم الهاتف من أرقام فقط ",
+        " يجب ان يكون رقم الهاتف من أرقام إنجليزية فقط ",
 
         [
           {
@@ -408,6 +408,7 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
           color="black"
+          keyboardType='numeric'
         />
         <TextInput
           style={styles.TextInput}
