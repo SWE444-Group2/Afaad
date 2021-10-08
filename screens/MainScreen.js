@@ -21,15 +21,16 @@ export default function MainScreen({ navigation }) {
                     <Image source={TextLogo} style={{ width: 207, height: 46 }}/>
                 </View>
                 
-                
-                <TouchableOpacity  style={styles.button1} onPress={() => navigation.navigate('SignupOption')}>
-                     <Text style={styles.appButtonText}>إنشاء حساب </Text>
-                 </TouchableOpacity>
-
-
                 <TouchableOpacity  style={styles.button2} onPress={() => navigation.navigate('Login')}>
                      <Text style={styles.appButtonText}>تسجيل دخول</Text>
                  </TouchableOpacity>
+                
+                <TouchableOpacity  style={styles.button1} onPress={() => navigation.navigate('SignupOption')}>
+                     <Text style={styles.appButtonText1}>إنشاء حساب </Text>
+                 </TouchableOpacity>
+
+
+
 
                  <StatusBar style="auto" />
                
@@ -63,9 +64,11 @@ const styles= StyleSheet.create({
         borderRadius:6,
         marginTop: 40,
         alignSelf: 'center',
-        backgroundColor: "#ADCBD8",
+        //backgroundColor: "#ADCBD8",
         alignItems: "center",
         justifyContent: "center",
+        borderWidth:2,
+        borderColor:'#002B3E',
        
       },
 
@@ -79,15 +82,21 @@ const styles= StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
       },
-
+      appButtonText1:{
+        fontFamily: 'AJannatLTBold',
+        color:'#002B3E',
+        textAlign:'center',
+        alignSelf: "center",
+        fontSize: 18,
+  
+      },
       appButtonText:{
         fontFamily: 'AJannatLTBold',
         color:'white',
         textAlign:'center',
         alignSelf: "center",
         fontSize: 18,
-       
-       
+  
       },
 
 });

@@ -322,7 +322,7 @@ export default function RegistrationScreen({ navigation }) {
               size={25}
               color={"#fff"}
             />
-            <View >
+          
               <TextInput
                 style={styles.pass}
                 placeholderTextColor={"#fff"} 
@@ -333,7 +333,7 @@ export default function RegistrationScreen({ navigation }) {
                 autoCapitalize="none"
                 secureTextEntry={true}
               />
-            </View>
+          
           </View>
         </Tip>
 
@@ -441,7 +441,7 @@ const styles = StyleSheet.create({
    BottomView:{
      width:"100%",
      height:"70%",
-     backgroundColor:'#002B3E',
+     backgroundColor:'#7C98B3',
      borderTopLeftRadius:30,
      borderTopRightRadius:30,
  
@@ -505,6 +505,7 @@ const styles = StyleSheet.create({
      fontFamily: 'AJannatLT',
      fontSize:18,
      fontWeight:'bold',
+     color:"#002B3E",
 
 
    },
@@ -521,7 +522,7 @@ const styles = StyleSheet.create({
    },
 
    SignUpText:{
-       color:"#CEE5F2",
+    color:"#002B3E",
        fontSize:14,
    },
 
@@ -564,8 +565,8 @@ const styles = StyleSheet.create({
 
 
 
-       width:'90%',
-       borderWidth:1,
+      // width:'90%',
+       //borderWidth:1,
        borderColor:"#fff",
        height:52,
        borderRadius:10,
@@ -573,7 +574,7 @@ const styles = StyleSheet.create({
        fontSize:18,
        textAlign: 'right',
        paddingRight:5,
-       marginTop:20,
+      // marginTop:20,
        color:"#fff",
     },
 
@@ -588,12 +589,14 @@ const styles = StyleSheet.create({
       paddingRight: 16,
       textAlign: 'right',
       fontSize: 14,
-      color:"#fff",
+      color:"#002B3E",
+      
     },
     agree:{
-      color: "#7C98B3",
+      color:"#002B3E",
       fontWeight: "bold",
       fontSize: 14,
+      textDecorationLine:'underline',
     },
     searchIcon:{
       
@@ -609,7 +612,7 @@ const styles = StyleSheet.create({
       //borderRadius: 5,
       //marginTop: 10,
       //marginBottom: 10,
-      marginLeft: 30,
+       marginLeft: 20,
       //marginRight: 30,
 
        width:'90%',
