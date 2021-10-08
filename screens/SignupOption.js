@@ -9,7 +9,7 @@ export default function SignupOption({ navigation }) {
        return(        
              <View style={styles.container}>
                 <View style={Titlestyles.tasksWrapper}>
-                <Text style={[Titlestyles.sectionTitle]}>حدد النوع الخاص بك</Text>
+                <Text style={[styles.sectionTitle]}>حدد النوع الخاص بك</Text>
 
                   <View style={styles.item}>
 
@@ -75,6 +75,15 @@ const styles= StyleSheet.create({
     
 
    },
+   sectionTitle:{ 
+    fontFamily: 'AJannatLTBold',
+    fontSize:24,
+    fontWeight:'bold',
+    textAlign: 'right',
+    color:'#536b78',
+    paddingTop:30,
+
+  },
     
   
   rectangle1:{
