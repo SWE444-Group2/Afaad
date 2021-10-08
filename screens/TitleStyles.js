@@ -76,7 +76,7 @@ export default StyleSheet.create({
         backgroundColor:'#eeeeee',
         borderRadius:10,
         width:'90%', 
-        marginBottom:'20%'
+        marginBottom:'5%'
       },
       
  

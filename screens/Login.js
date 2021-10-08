@@ -146,7 +146,7 @@ export default function Login({ navigation }) {
 
             <View style={styles.BottomView}>
 
-            <Text style={styles.Heading}> صفحه تسجيل الدخول </Text>
+            <Text style={styles.Heading}>  تسجيل الدخول </Text>
 
             <View style={styles.FormView}>
    
@@ -343,5 +343,6 @@ const styles = StyleSheet.create({
    SignUpText:{
        color:"#CEE5F2",
        fontSize:14,
+       fontWeight:'bold',
    }
 });

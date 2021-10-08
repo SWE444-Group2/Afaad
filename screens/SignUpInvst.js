@@ -7,15 +7,18 @@ import {
   View,
   Alert,
   StyleSheet,
+  Image,
+  ScrollView
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import styles from "./styles";
+//import styles from "./styles";
 //import { firebase } from './firebaseConfig'
 import AfaadFirebase from "./firebaseConfig";
 import "firebase/auth";
 import "firebase/database";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import TipProvider from "react-native-tip";
+import TextLogo from '../assets/images/AfaadLogo.jpeg';
 
 import { Tip } from "react-native-tip";
 //Refrence to Investor object in DB
@@ -256,16 +259,35 @@ export default function RegistrationScreen({ navigation }) {
       
   };
   return (
-    <View style={styles.container}>
+  
+
       <KeyboardAwareScrollView
-        style={{ flex: 1, width: "100%" }}
+        style={styles.container}
         keyboardShouldPersistTaps="always"
       >
+
+        <View style={styles.mainView}> 
+        {/* 
+
+        <View style={styles.TopView}>
+                    <Image source={TextLogo} style={styles.image}/>
+        </View>
+        
+        */}
+        
+        <Text style={styles.Heading}>  إنشاء حساب مستثمر </Text>
+        <ScrollView style={styles.BottomView}>
+
+        
         <Text style={styles.warning}>*جميـع الحقول مطلوبـــة</Text>
+
+        <View style={styles.FormView}>
+
+        
         <TextInput
-          style={styles.input}
+          style={styles.TextInput}
           placeholder="*الأسم الكامل"
-          placeholderTextColor="#aaaaaa"
+          placeholderTextColor={"#fff"} 
           onChangeText={(text) => setFullName(text)}
           value={FullName}
           underlineColorAndroid="transparent"
@@ -273,9 +295,9 @@ export default function RegistrationScreen({ navigation }) {
         />
 
         <TextInput
-          style={styles.input}
+         style={styles.TextInput}
           placeholder="*رقم الجوال : 05xxxxxxxx"
-          placeholderTextColor="#aaaaaa"
+          placeholderTextColor={"#fff"} 
           onChangeText={(text) => setPhone(text)}
           value={phone}
           underlineColorAndroid="transparent"
@@ -283,9 +305,9 @@ export default function RegistrationScreen({ navigation }) {
         />
 
         <TextInput
-          style={styles.input}
+          style={styles.TextInput}
           placeholder="*البريد الالكتروني"
-          placeholderTextColor="#aaaaaa"
+          placeholderTextColor={"#fff"} 
           onChangeText={(text) => setEmail(text)}
           value={Email}
           underlineColorAndroid="transparent"
@@ -298,12 +320,12 @@ export default function RegistrationScreen({ navigation }) {
               style={styles.searchIcon}
               name="alert-circle-outline"
               size={25}
-              color={"#022B3A"}
+              color={"#fff"}
             />
-            <View>
+            <View >
               <TextInput
                 style={styles.pass}
-                placeholderTextColor="#aaaaaa"
+                placeholderTextColor={"#fff"} 
                 placeholder="*كلمة المرور"
                 onChangeText={(text) => setPassword(text)}
                 value={password}
@@ -337,17 +359,17 @@ export default function RegistrationScreen({ navigation }) {
         />
 
         <TextInput
-          style={styles.input}
-          placeholderTextColor="#aaaaaa"
+         style={styles.TextInput}
+          placeholderTextColor={"#fff"} 
           placeholder="*تأكيد كلمة المرور"
           onChangeText={(text) => setConfirmPassword(text)}
           value={confirmPassword}
           secureTextEntry={true}
         />
         <TextInput
-          style={styles.dec}
+          style={styles.TextInputDoc}
           placeholder="*وصف المستثمر او وصف الشركة المستثمرة"
-          placeholderTextColor="#aaaaaa"
+          placeholderTextColor={"#fff"} 
           onChangeText={(text) => setDescribtion(text)}
           value={Describtion}
           underlineColorAndroid="transparent"
@@ -363,21 +385,247 @@ export default function RegistrationScreen({ navigation }) {
           </Text>
         </Text>
         <TouchableOpacity
-          style={styles.button}
+          style={styles.Button} 
           onPress={() => onRegisterPress()}
         >
-          <Text style={styles.buttonTitle}>إنشاء حساب </Text>
+          <Text style={styles.ButtonText}>إنشاء حساب </Text>
         </TouchableOpacity>
-        <View style={styles.footerView}>
-          <Text style={styles.footerText}>
+        <View style={styles.TextButton}>
+          <Text style={styles.SignUpText}>
             هل لديك حساب مسبق؟{" "}
-            <Text onPress={onFooterLinkPress} style={styles.footerLink}>
+            <Text onPress={onFooterLinkPress} style={styles.TextButton}>
               تسجيل دخول
             </Text>
           </Text>
         </View>
-      </KeyboardAwareScrollView>
 
-    </View>
+
+                   </View>
+
+               </ScrollView>
+
+        </View>
+      </KeyboardAwareScrollView>
+     
+
+
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+   // backgroundColor: '#002B3E',
+
+  },
+
+  ///////// NEW DESIGN ///////////
+  mainView:{
+     //marginTop:100,
+     flex:1,
+     flexDirection:'column',
+     justifyContent:'center',
+     alignItems:'center',
+     backgroundColor:'#fff',
+     
+   },
+   TopView:{
+     width:"100%",
+     height:"20%",
+     backgroundColor:'#fff',
+     display:'flex',
+     justifyContent:'center',
+     alignItems:'center',
+   
+   },
+   BottomView:{
+     width:"100%",
+     height:"70%",
+     backgroundColor:'#002B3E',
+     borderTopLeftRadius:30,
+     borderTopRightRadius:30,
+ 
+   },
+   image:{
+       width:"50%",
+       resizeMode:'contain',
+
+
+   },
+   Heading:{
+      color:"#002B3E",
+      fontFamily: 'AJannatLTBold',
+      fontSize:24,
+      fontWeight:'bold',
+      textAlign: 'right',
+      marginRight:30,
+      margin:30,
+
+   },
+
+   TextInput:{
+       width:'90%',
+       borderWidth:1,
+       borderColor:"#fff",
+       height:52,
+       borderRadius:10,
+       fontFamily: 'AJannatLT',
+       fontSize:18,
+       textAlign: 'right',
+       paddingRight:5,
+       marginTop:20,
+       color:"#fff",
+
+   },
+
+   FormView:{
+       width:'100%',
+       display:'flex',
+       flexDirection:'column',
+       justifyContent:'center',
+       alignItems:'center',
+       marginTop:40,
+     
+   },
+
+   Button:{
+     width:"90%",
+     color:"#002B3E",
+     height:52,
+     backgroundColor:"#fff",
+     borderRadius:10,
+     marginTop:20,
+     display:'flex',
+     justifyContent:'center',
+     alignItems:'center',
+ 
+
+   },
+   ButtonText:{
+     fontFamily: 'AJannatLT',
+     fontSize:18,
+     fontWeight:'bold',
+
+
+   },
+
+   TextButton:{
+       width:'100%',
+       display:'flex',
+      alignItems:'center',
+      marginTop:20,
+      fontWeight:'bold',
+      marginBottom:30,
+
+
+   },
+
+   SignUpText:{
+       color:"#CEE5F2",
+       fontSize:14,
+   },
+
+   warning:{
+    marginTop:10,
+    color:"#fff",
+    fontFamily: 'AJannatLTBold',
+    fontSize:16,
+    fontWeight:'bold',
+    textAlign: 'right',
+    marginRight: 30,
+   
+   },
+   TextInputDoc:{
+    height: 130,
+    overflow: "hidden",
+    marginLeft: 30,
+    marginRight: 30,
+    paddingRight: 10,
+    paddingBottom:90, 
+    width:'90%',
+    borderWidth:1,
+    borderColor:"#fff",
+    borderRadius:10,
+    fontFamily: 'AJannatLT',
+    fontSize:18,
+    textAlign: 'right',
+    paddingRight:5,
+    marginTop:20,
+    color:"#fff",
+   },
+
+   pass:{
+      //height: 48,
+      //borderRadius: 5,
+      // paddingRight: 15,
+      //textAlign: 'right',
+       flex: 1 ,
+      //width:255,
+
+
+
+       width:'90%',
+       borderWidth:1,
+       borderColor:"#fff",
+       height:52,
+       borderRadius:10,
+       fontFamily: 'AJannatLT',
+       fontSize:18,
+       textAlign: 'right',
+       paddingRight:5,
+       marginTop:20,
+       color:"#fff",
+    },
+
+    condtions:{
+      height: 48,
+      borderRadius: 5,
+      overflow: "hidden",
+      marginTop: 5,
+      marginBottom: 10,
+      marginLeft: 30,
+      marginRight: 30,
+      paddingRight: 16,
+      textAlign: 'right',
+      fontSize: 14,
+      color:"#fff",
+    },
+    agree:{
+      color: "#7C98B3",
+      fontWeight: "bold",
+      fontSize: 14,
+    },
+    searchIcon:{
+      
+      marginTop: 10,
+      marginBottom: 10,
+      marginLeft: 20,
+      marginRight: 30,
+      width:"auto"
+    },
+    SectionStyle: {
+      flexDirection: 'row',
+      //backgroundColor: '#fff',
+      //borderRadius: 5,
+      //marginTop: 10,
+      //marginBottom: 10,
+      marginLeft: 30,
+      //marginRight: 30,
+
+       width:'90%',
+       borderWidth:1,
+       borderColor:"#fff",
+       height:52,
+       borderRadius:10,
+       fontFamily: 'AJannatLT',
+       fontSize:18,
+       textAlign: 'right',
+       paddingRight:5,
+       marginTop:20,
+       color:"#fff",
+
+    
+    },
+
+
+});
