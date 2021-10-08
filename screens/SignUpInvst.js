@@ -292,6 +292,7 @@ export default function RegistrationScreen({ navigation }) {
           value={FullName}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          color="black"
         />
 
         <TextInput
@@ -302,6 +303,9 @@ export default function RegistrationScreen({ navigation }) {
           value={phone}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          color="black"
+          
+        
         />
 
         <TextInput
@@ -312,6 +316,7 @@ export default function RegistrationScreen({ navigation }) {
           value={Email}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          color="black"
         />
 
         <Tip title="تنبية" body={Message}>
@@ -332,6 +337,7 @@ export default function RegistrationScreen({ navigation }) {
                 underlineColorAndroid="transparent"
                 autoCapitalize="none"
                 secureTextEntry={true}
+                color="black"
               />
           
           </View>
@@ -365,6 +371,7 @@ export default function RegistrationScreen({ navigation }) {
           onChangeText={(text) => setConfirmPassword(text)}
           value={confirmPassword}
           secureTextEntry={true}
+          color="black"
         />
         <TextInput
           style={styles.TextInputDoc}
@@ -374,6 +381,7 @@ export default function RegistrationScreen({ navigation }) {
           value={Describtion}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          color="black"
         />
 
 
@@ -453,13 +461,13 @@ const styles = StyleSheet.create({
 
    },
    Heading:{
-      color:"#002B3E",
-      fontFamily: 'AJannatLTBold',
-      fontSize:24,
-      fontWeight:'bold',
-      textAlign: 'right',
-      marginRight:30,
-      margin:30,
+    color:"#002B3E",
+    fontFamily: 'AJannatLTBold',
+    fontSize:20,
+    fontWeight:'bold',
+    textAlign: 'right',
+    marginRight:30,
+    margin:15,
 
    },
 
@@ -479,44 +487,45 @@ const styles = StyleSheet.create({
    },
 
    FormView:{
-       width:'100%',
-       display:'flex',
-       flexDirection:'column',
-       justifyContent:'center',
-       alignItems:'center',
-       marginTop:20,
+    width:'100%',
+    display:'flex',
+    flexDirection:'column',
+    justifyContent:'center',
+    alignItems:'center',
+    marginTop:-10,
      
    },
 
    Button:{
-     width:"90%",
-     color:"#002B3E",
-     height:52,
-     backgroundColor:"#fff",
-     borderRadius:10,
-     marginTop:20,
-     display:'flex',
-     justifyContent:'center',
-     alignItems:'center',
+    width:"90%",
+    color:"#002B3E",
+    height:52,
+    backgroundColor:"#fff",
+    borderRadius:10,
+    marginTop:-10,
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+   
  
 
    },
    ButtonText:{
-     fontFamily: 'AJannatLT',
-     fontSize:18,
-     fontWeight:'bold',
-     color:"#002B3E",
+    fontFamily: 'AJannatLT',
+    fontSize:18,
+    color:"#002B3E",
+    fontWeight:'bold',
 
 
    },
 
    TextButton:{
-       width:'100%',
-       display:'flex',
-      alignItems:'center',
-      marginTop:20,
-      fontWeight:'bold',
-      marginBottom:30,
+    width:'100%',
+    display:'flex',
+   alignItems:'center',
+   marginTop:10,
+   fontWeight:'bold',
+   marginBottom:20,
 
 
    },
@@ -528,13 +537,12 @@ const styles = StyleSheet.create({
 
    warning:{
     marginTop:10,
-    color:"#963a43",
+    color:"#7d3d47",
     fontFamily: 'AJannatLTBold',
-    fontSize:16,
+    fontSize:15,
     fontWeight:'bold',
     textAlign: 'right',
     marginRight: 30,
-    textDecorationLine:'underline',
    },
    TextInputDoc:{
     height: 130,
@@ -562,9 +570,6 @@ const styles = StyleSheet.create({
       //textAlign: 'right',
        flex: 1 ,
       //width:255,
-
-
-
       // width:'90%',
        //borderWidth:1,
        borderColor:"#fff",
@@ -585,8 +590,8 @@ const styles = StyleSheet.create({
       marginTop: 5,
       marginBottom: 10,
       marginLeft: 30,
-      marginRight: 30,
-      paddingRight: 16,
+      marginRight:10,
+      paddingRight: 10,
       textAlign: 'right',
       fontSize: 14,
       color:"#002B3E",
@@ -595,7 +600,7 @@ const styles = StyleSheet.create({
     agree:{
       color:"#002B3E",
       fontWeight: "bold",
-      fontSize: 14,
+      fontSize: 12,
       textDecorationLine:'underline',
     },
     searchIcon:{
