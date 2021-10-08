@@ -126,8 +126,8 @@ export default function PublishIdea({ navigation }) {
         ]);
         return
       }
-      if(Title.length > 30){
-        Alert.alert("تنبيه", "حقل العنوان يجب ألا يتجاوز ٣٠ حرف ", [
+      if(Title.replace(/\s+/g,'').length > 30 || Title.replace(/\s+/g,'').length < 3){
+        Alert.alert("تنبيه", "حقل العنوان يجب ألا يقل عن ٣ أحرف وألا يتجاوز ٣٠ حرف ", [
           {
             text: "حسنًا",
             style: "cancel",
@@ -135,8 +135,8 @@ export default function PublishIdea({ navigation }) {
         ]);
         return
       }
-      if(ProductDescription.length > 250){
-        Alert.alert("تنبيه", "حقل وصف المشروع يجب ألا يتجاوز ٢٥٠ حرف ", [
+      if(ProductDescription.replace(/\s+/g,'').length > 250 || ProductDescription.replace(/\s+/g,'').length < 10){
+        Alert.alert("تنبيه", "حقل وصف المشروع يجب ألا يقل عن ١٠ أحرف وألا يتجاوز ٢٥٠ حرف ", [
           {
             text: "حسنًا",
             style: "cancel",
@@ -144,8 +144,8 @@ export default function PublishIdea({ navigation }) {
         ]);
         return
       }
-      if(investorsSpec.length > 250){
-        Alert.alert("تنبيه", "حقل وصف المستثمرين يجب ألا يتجاوز ٢٥٠ حرف ", [
+      if(investorsSpec.replace(/\s+/g,'').length > 250 || investorsSpec.replace(/\s+/g,'').length < 10){
+        Alert.alert("تنبيه", "حقل وصف المستثمرين يجب ألا يقل عن ١٠ أحرف وألا يتجاوز ٢٥٠ حرف ", [
           {
             text: "حسنًا ",
             style: "cancel",
