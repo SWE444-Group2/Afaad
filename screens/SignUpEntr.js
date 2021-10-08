@@ -318,7 +318,7 @@ export default function RegistrationScreen({ navigation }) {
 
         <View style={styles.mainView}> 
 
-        <Text style={styles.Heading}>  إنشاء حساب رائد أعمال </Text>
+        <Text style={styles.Heading}>  انشاء حساب رائد أعمال </Text>
 
         <ScrollView style={styles.BottomView}>
 
@@ -334,6 +334,7 @@ export default function RegistrationScreen({ navigation }) {
           value={FirstName}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          color="black"
         />
 
         <TextInput
@@ -344,30 +345,48 @@ export default function RegistrationScreen({ navigation }) {
           value={LastName}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          color="black"
         />
         <DropDownPicker
           textStyle={{
             textAlign: "right",
             fontFamily: 'AJannatLT',
             fontSize: 18,
-            color: "#FFF",
+            color:"black"
+            
+           
             //backgroundColor:'#7C98B3',
             
           }}
           containerStyle={{
             marginTop: 20,
-            marginBottom: 10,
             marginLeft: 30,
             marginRight: 30,
             width:'90%',
             
+          
+            
             //backgroundColor:'#7C98B3',
           }}
 
-          dropDownContainerStyle={{
-            backgroundColor:'#7C98B3',
+          dropDownContainerStyle={{//to style inside dropDown
+          backgroundColor:'#7C98B3',
             borderColor: "#FFF",
+            
+      
           }}
+     
+          labelStyle={{
+            fontSize: 16,
+            textAlign: 'right',
+          
+        }}
+      placeholderStyle={{
+        fontWeight: 'bold',
+        textAlign: 'right',
+      color:"white"
+       
+    }}
           style={{ borderColor: "#FFF", flexDirection: "row-reverse" ,borderWidth:1, backgroundColor:'#7C98B3'}}
           open={open}
           value={gender}
@@ -376,8 +395,9 @@ export default function RegistrationScreen({ navigation }) {
           setValue={setGender}
           setItems={setItems}
           placeholder="*الجنـس"
-          placeholderTextColor={"#fff"} 
+       
           onChangeValue={(value) => setGender(value)}
+      
         />
         <TextInput
          style={styles.TextInput}
@@ -387,6 +407,7 @@ export default function RegistrationScreen({ navigation }) {
           value={phone}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          color="black"
         />
         <TextInput
           style={styles.TextInput}
@@ -396,6 +417,7 @@ export default function RegistrationScreen({ navigation }) {
           value={Email}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          color="black"
         />
 
         
@@ -416,6 +438,7 @@ export default function RegistrationScreen({ navigation }) {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
             secureTextEntry={true}
+            color="black"
           />
        
         
@@ -426,6 +449,7 @@ export default function RegistrationScreen({ navigation }) {
        
         <TipProvider
                     overlayOpacity={0.7}
+                    
                     titleStyle={{
                         fontWeight: 'bold',
                         fontSize: 15,
@@ -443,9 +467,10 @@ export default function RegistrationScreen({ navigation }) {
                     tipContainerStyle={{
                         padding: 12,
                         borderRadius: 20,
-                        maxWidth: 300,
+                        maxWidth: 350,
                     
                     }}
+
                 
                     
                 />
@@ -458,20 +483,21 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
           secureTextEntry={true}
+          color="black"
         />
 
         <Text onPress={condtions}  style={styles.condtions  }>
-          *بالضغط على إنشاء حساب، فإنك توافق {""}
+          *بالضغط على انشاء حساب، فإنك توافق {""}
           <Text style={styles.agree}>
             {""}على الشروط {""}وقد قرأت سياسية الإفصاح
           </Text>
         </Text>
 
         <TouchableOpacity
-          style={styles. Button}
+          style={styles.Button}
           onPress={() => onRegisterPress()}
         >
-         <Text style={styles.ButtonText}>إنشاء حساب </Text>
+         <Text style={styles.ButtonText}>انشاء حساب </Text>
         </TouchableOpacity>
         <View style={styles.TextButton}>
           <Text style={styles.SignUpText}>
@@ -538,11 +564,11 @@ const styles = StyleSheet.create({
    Heading:{
       color:"#002B3E",
       fontFamily: 'AJannatLTBold',
-      fontSize:24,
+      fontSize:20,
       fontWeight:'bold',
       textAlign: 'right',
       marginRight:30,
-      margin:30,
+      margin:15,
 
    },
 
@@ -567,7 +593,7 @@ const styles = StyleSheet.create({
        flexDirection:'column',
        justifyContent:'center',
        alignItems:'center',
-       marginTop:20,
+       marginTop:-10,
      
    },
 
@@ -577,18 +603,20 @@ const styles = StyleSheet.create({
      height:52,
      backgroundColor:"#fff",
      borderRadius:10,
-     marginTop:20,
+     marginTop:-10,
      display:'flex',
      justifyContent:'center',
      alignItems:'center',
+    
  
 
    },
    ButtonText:{
      fontFamily: 'AJannatLT',
      fontSize:18,
-     fontWeight:'bold',
      color:"#002B3E",
+     fontWeight:'bold',
+   
 
 
    },
@@ -597,10 +625,11 @@ const styles = StyleSheet.create({
        width:'100%',
        display:'flex',
       alignItems:'center',
-      marginTop:20,
+      marginTop:10,
       fontWeight:'bold',
-      marginBottom:30,
-
+      marginBottom:20,
+     
+    
 
    },
 
@@ -611,13 +640,13 @@ const styles = StyleSheet.create({
 
    warning:{
     marginTop:10,
-    color:"#963a43",
+    color:"#7d3d47",
     fontFamily: 'AJannatLTBold',
-    fontSize:16,
+    fontSize:15,
     fontWeight:'bold',
     textAlign: 'right',
     marginRight: 30,
-    textDecorationLine:'underline',
+    
    
    },
    TextInputDoc:{
@@ -669,8 +698,8 @@ const styles = StyleSheet.create({
       marginTop: 5,
       marginBottom: 10,
       marginLeft: 30,
-      marginRight: 30,
-      paddingRight: 16,
+      marginRight:10,
+      paddingRight: 10,
       textAlign: 'right',
       fontSize: 14,
       color:"#002B3E",
@@ -678,7 +707,7 @@ const styles = StyleSheet.create({
     agree:{
       color:"#002B3E",
       fontWeight: "bold",
-      fontSize: 14,
+      fontSize: 12,
       textDecorationLine:'underline',
     },
     searchIcon:{
