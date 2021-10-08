@@ -190,9 +190,15 @@ export default function Login({ navigation }) {
                      <Text style={styles.ButtonText} >تسجيل دخول</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity  style={styles.TextButton} onPress={onFooterLinkPress}>
-                     <Text style={styles.SignUpText}> إنشاء حساب</Text>
-             </TouchableOpacity>
+            <View style={styles.TextButton}>
+          <Text style={styles.SignUpText}>
+            ليس لديك حساب مسبق؟{" "}
+            <Text onPress={onFooterLinkPress}  style={styles.TextButton}>
+            إنشاء حساب             
+            </Text>
+          </Text>
+
+        </View>
 
               </View>
 
@@ -210,7 +216,7 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#002B3E',
+    backgroundColor: '#7C98B3',
 
   },
   /*
@@ -275,7 +281,7 @@ const styles = StyleSheet.create({
    BottomView:{
      width:"100%",
      height:"70%",
-     backgroundColor:'#002B3E',
+     backgroundColor:'#7C98B3',
      borderTopLeftRadius:30,
      borderTopRightRadius:30,
  
@@ -289,9 +295,9 @@ const styles = StyleSheet.create({
    Heading:{
       color:"#fff",
       fontFamily: 'AJannatLTBold',
-      fontSize:24,
+      fontSize:28,
       fontWeight:'bold',
-      textAlign: 'right',
+      textAlign: 'center',
       marginRight:30,
       margin:30,
 
@@ -318,7 +324,7 @@ const styles = StyleSheet.create({
        flexDirection:'column',
        justifyContent:'center',
        alignItems:'center',
-       marginTop:40,
+       marginTop:10,
      
    },
 
@@ -339,6 +345,7 @@ const styles = StyleSheet.create({
      fontFamily: 'AJannatLT',
      fontSize:18,
      fontWeight:'bold',
+     color:"#002B3E",
 
 
    },
@@ -348,13 +355,15 @@ const styles = StyleSheet.create({
        display:'flex',
       alignItems:'center',
       marginTop:20,
+      fontWeight:'bold',
 
 
    },
 
    SignUpText:{
-       color:"#CEE5F2",
+       color:"#002B3E",
        fontSize:14,
-       fontWeight:'bold',
+      // fontWeight:'bold',
    }
 });
+
