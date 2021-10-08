@@ -122,6 +122,18 @@ export default function Login({ navigation }) {
                 ]
               );
               break;
+            case "auth/wrong-password":
+              Alert.alert(
+                "تنبيه",
+                "الإيميل أو كلمة المرور خاطئة",
+                [
+                  {
+                    text: "حسناً",
+                    style: "cancel",
+                  },
+                ]
+              );
+              break;
           }
         });
     } else {
