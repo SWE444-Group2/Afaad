@@ -350,7 +350,7 @@ export default function RegistrationScreen({ navigation }) {
             textAlign: "right",
             fontFamily: 'AJannatLT',
             fontSize: 18,
-            color: "#637081",
+            color: "#FFF",
             //backgroundColor:'#7C98B3',
             
           }}
@@ -360,13 +360,15 @@ export default function RegistrationScreen({ navigation }) {
             marginLeft: 30,
             marginRight: 30,
             width:'90%',
+            
             //backgroundColor:'#7C98B3',
           }}
 
           dropDownContainerStyle={{
             backgroundColor:'#7C98B3',
+            borderColor: "#FFF",
           }}
-          style={{ borderColor: "#fff", flexDirection: "row-reverse" }}
+          style={{ borderColor: "#FFF", flexDirection: "row-reverse" ,borderWidth:1, backgroundColor:'#7C98B3'}}
           open={open}
           value={gender}
           items={items}
@@ -565,7 +567,7 @@ const styles = StyleSheet.create({
        flexDirection:'column',
        justifyContent:'center',
        alignItems:'center',
-       marginTop:40,
+       marginTop:20,
      
    },
 
@@ -609,12 +611,13 @@ const styles = StyleSheet.create({
 
    warning:{
     marginTop:10,
-    color:"#fff",
+    color:"#963a43",
     fontFamily: 'AJannatLTBold',
     fontSize:16,
     fontWeight:'bold',
     textAlign: 'right',
     marginRight: 30,
+    textDecorationLine:'underline',
    
    },
    TextInputDoc:{

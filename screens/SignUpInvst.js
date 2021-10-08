@@ -484,7 +484,7 @@ const styles = StyleSheet.create({
        flexDirection:'column',
        justifyContent:'center',
        alignItems:'center',
-       marginTop:40,
+       marginTop:20,
      
    },
 
@@ -528,13 +528,13 @@ const styles = StyleSheet.create({
 
    warning:{
     marginTop:10,
-    color:"#fff",
+    color:"#963a43",
     fontFamily: 'AJannatLTBold',
     fontSize:16,
     fontWeight:'bold',
     textAlign: 'right',
     marginRight: 30,
-   
+    textDecorationLine:'underline',
    },
    TextInputDoc:{
     height: 130,
