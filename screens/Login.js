@@ -164,25 +164,27 @@ export default function Login({ navigation }) {
    
               <TextInput
                 style={styles.TextInput}
-                placeholder="ادخل عنوان بريدك الإلكتروني"
+                placeholder=" عنوان بريدك الإلكتروني"
                 placeholderTextColor={"#fff"} 
                 onChangeText={(text) => setEmail(text)}
                 value={email}
                 underlineColorAndroid="transparent"
                 textContentType='emailAddress'
                 clearButtonMode='while-editing'
+                color="balck"
               />
 
               <TextInput
                 style={styles.TextInput}
                 placeholderTextColor={"#fff"} 
-                placeholder="ادخل كلمة السر"
+                placeholder=" كلمة السر"
                 onChangeText={(text) => setPassword(text)}
                 value={password}
                 underlineColorAndroid="transparent"
                 secureTextEntry={true}
                 textContentType='password'
                 clearButtonMode='while-editing'
+                color="balck"
               />
 
 
@@ -194,7 +196,7 @@ export default function Login({ navigation }) {
           <Text style={styles.SignUpText}>
             ليس لديك حساب مسبق؟{" "}
             <Text onPress={onFooterLinkPress}  style={styles.TextButton}>
-            إنشاء حساب             
+            انشاء حساب             
             </Text>
           </Text>
 
@@ -295,11 +297,12 @@ const styles = StyleSheet.create({
    Heading:{
       color:"#fff",
       fontFamily: 'AJannatLTBold',
-      fontSize:28,
+      fontSize:34,
       fontWeight:'bold',
       textAlign: 'center',
       marginRight:30,
       margin:30,
+      marginTop:30
 
    },
 
@@ -324,7 +327,7 @@ const styles = StyleSheet.create({
        flexDirection:'column',
        justifyContent:'center',
        alignItems:'center',
-       marginTop:10,
+       marginTop:-12,
      
    },
 
@@ -354,7 +357,7 @@ const styles = StyleSheet.create({
        width:'100%',
        display:'flex',
       alignItems:'center',
-      marginTop:20,
+      marginTop:10,
       fontWeight:'bold',
 
 
