@@ -101,7 +101,7 @@ export default function RegistrationScreen({ navigation }) {
       ]);
       return;
     }
-    if (4> FullName.length > 30) {
+    if (FullName.length > 30||FullName.length <4) {
       Alert.alert(
         "تنبيه",
         " اسم المستخدم يجب ان لايقل عن ٤ احرف ولا يتجاوز ٣٠ حرف",
@@ -162,7 +162,7 @@ export default function RegistrationScreen({ navigation }) {
       );
       return;
     }
-    if (10>Describtion.length>250 ||!Describtion.replace(/\s+/g, '').length) {
+    if (Describtion.length>250 ||Describtion.length<10 ||!Describtion.replace(/\s+/g, '').length) {
       Alert.alert(
         "تنبيه",
         "حقل وصف المستثمر يجب الا يقل عن ١٠ ولا يتجاوز ٢٥٠ حرف",
@@ -320,7 +320,10 @@ export default function RegistrationScreen({ navigation }) {
           color="black"
         />
 
-        <Tip title="تنبية" body={Message}>
+<Tip style={{paddingBottom:20,maxWidth:"100%"}}
+            title="تنبية"
+            body={Message}
+        >
           <View style={styles.SectionStyle}>
             <Icon
               style={styles.searchIcon}
@@ -366,7 +369,7 @@ export default function RegistrationScreen({ navigation }) {
         />
 
         <TextInput
-         style={styles.TextInput}
+         style={styles.TextInput2}
           placeholderTextColor={"#fff"} 
           placeholder="*تأكيد كلمة المرور"
           onChangeText={(text) => setConfirmPassword(text)}
@@ -486,6 +489,20 @@ const styles = StyleSheet.create({
        color:"#fff",
 
    },
+   TextInput2:{
+    width:'90%',
+    borderWidth:1,
+    borderColor:"#fff",
+    height:52,
+    borderRadius:10,
+    fontFamily: 'AJannatLT',
+    fontSize:18,
+    textAlign: 'right',
+    paddingRight:5,
+    marginTop:1,
+    color:"#fff",
+
+},
 
    FormView:{
     width:'100%',
@@ -619,7 +636,7 @@ const styles = StyleSheet.create({
       //marginTop: 10,
       //marginBottom: 10,
        marginLeft: 20,
-      //marginRight: 30,
+      marginRight:20,
 
        width:'90%',
        borderWidth:1,

@@ -423,7 +423,7 @@ export default function RegistrationScreen({ navigation }) {
         />
 
         
-        <Tip 
+        <Tip style={{paddingBottom:20,maxWidth:"100%"}}
             title="تنبية"
             body={Message}
         >
@@ -477,7 +477,7 @@ export default function RegistrationScreen({ navigation }) {
                     
                 />
         <TextInput
-          style={styles.TextInput}
+          style={styles.TextInput2}
           placeholderTextColor="#fff"
           placeholder="*تأكيد كلمة المرور"
           onChangeText={(text) => setConfirmPassword(text)}
@@ -588,7 +588,20 @@ const styles = StyleSheet.create({
        color:"#fff",
 
    },
+   TextInput2:{
+    width:'90%',
+    borderWidth:1,
+    borderColor:"#fff",
+    height:52,
+    borderRadius:10,
+    fontFamily: 'AJannatLT',
+    fontSize:18,
+    textAlign: 'right',
+    paddingRight:5,
+    marginTop:2,
+    color:"#fff",
 
+},
    FormView:{
        width:'100%',
        display:'flex',
@@ -691,6 +704,7 @@ const styles = StyleSheet.create({
        paddingRight:5,
       // marginTop:20,
        color:"#fff",
+       marginLeft: 30,
     },
 
     condtions:{
@@ -727,17 +741,16 @@ const styles = StyleSheet.create({
       //marginTop: 10,
       //marginBottom: 10,
        marginLeft: 20,
-      //marginRight: 30,
-
-       width:'90%',
+      marginRight: 20,
+       width:"90%",
        borderWidth:1,
        borderColor:"#fff",
        height:52,
        borderRadius:10,
        fontFamily: 'AJannatLT',
        fontSize:18,
-       textAlign: 'right',
        paddingRight:5,
+       
        marginTop:20,
        color:"#fff",
 
