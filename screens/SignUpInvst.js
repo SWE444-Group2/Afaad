@@ -91,7 +91,7 @@ export default function RegistrationScreen({ navigation }) {
       ]);
       return;
     }
-    if (IsValidName(FullName) == false || !FullName.replace(/\s/g, '').length) {
+    if (IsValidName(FullName) == false||!FullName.replace(/\s/g, '').length) {
       Alert.alert("تنبيه ", "الاسم الكامل يجب ان يحتوي على حروف فقط", [
         {
           text: "حسنًا",
@@ -101,7 +101,7 @@ export default function RegistrationScreen({ navigation }) {
       ]);
       return;
     }
-    if (FullName.length > 30||FullName.length <4) {
+    if (FullName.replace(/\s+/g, '').length > 30 || FullName.replace(/\s+/g, '').length < 4 ){
       Alert.alert(
         "تنبيه",
         " اسم المستخدم يجب ان لايقل عن ٤ احرف ولا يتجاوز ٣٠ حرف",
@@ -162,7 +162,7 @@ export default function RegistrationScreen({ navigation }) {
       );
       return;
     }
-    if (Describtion.length>250 ||Describtion.length<10 ||!Describtion.replace(/\s+/g, '').length) {
+    if (Describtion.replace(/\s+/g, '').length>250 || !Describtion.replace(/\s+/g, '').length || Describtion.replace(/\s+/g, '').length < 10) {
       Alert.alert(
         "تنبيه",
         "حقل وصف المستثمر يجب الا يقل عن ١٠ ولا يتجاوز ٢٥٠ حرف",

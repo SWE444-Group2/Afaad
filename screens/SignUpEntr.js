@@ -144,7 +144,7 @@ export default function RegistrationScreen({ navigation }) {
       ]);
       return;
     }
-    if (FirstName.length > 20 ||FirstName.length <2) {
+    if (FirstName.replace(/\s+/g, '').length > 20 || FirstName.replace(/\s+/g, '').length < 2) {
       Alert.alert(
         "تنبيه",
         "حقل الاسم الاول يجب ان يتكون من حرفين على الاقل حتى ٢٠ حرف ",
@@ -159,7 +159,7 @@ export default function RegistrationScreen({ navigation }) {
       );
       return;
     }
-    if (LastName.length > 20 ||LastName.length <2 ) {
+    if (LastName.replace(/\s+/g, '').length > 20 || LastName.replace(/\s+/g, '').length < 2 ) {
       Alert.alert(
         "تنبيه",
         "حقل الاسم الاخير يجب ان يتكون من حرفين على الاقل حتى ٢٠ حرف ",
