@@ -37,40 +37,40 @@ export default function PublishIdea({ navigation }) {
     const [costEstimation, setCostEstimation] = useState('');
     const radioButtonsData = [{
       id: '1', 
-      label: '١ ألف - ١٠ آلاف',
-      value: '١ ألف - ١٠ آلاف',
+      label: '١ ألف - أقل من ١٠ آلاف',
+      value: '١ ألف - أقل من ١٠ آلاف',
       containerStyle: {flexDirection: 'row-reverse', marginTop:5},
       labelStyle: styles.radioLabel,
       size: 20,
       color: '#7c98b3'
     }, {
       id: '2',
-      label: '١٠ آلاف - ٥٠ ألف',
-      value: '١٠ آلاف - ٥٠ ألف',
+      label: '١٠ آلاف - أقل من ٥٠ ألف',
+      value: '١٠ آلاف - أقل من ٥٠ ألف',
       containerStyle: {flexDirection: 'row-reverse', marginTop:5},
       labelStyle: styles.radioLabel,
       size: 20,
       color: '#7c98b3'
     },{
       id: '3',
-      label: '٥٠ ألف - ١٠٠ ألف',
-      value: '٥٠ ألف - ١٠٠ ألف',
+      label: '٥٠ ألف - أقل من ١٠٠ ألف',
+      value: '٥٠ ألف -  أقل من ١٠٠ ألف',
       containerStyle: {flexDirection: 'row-reverse', marginTop:5},
       labelStyle: styles.radioLabel,
       size: 20,
       color: '#7c98b3'
     },{
       id: '4',
-      label: '١٠٠ ألف - ٥٠٠ ألف',
-      value: '١٠٠ ألف - ٥٠٠ ألف',
+      label: '١٠٠ ألف - أقل من ٥٠٠ ألف',
+      value: '١٠٠ ألف - أقل من ٥٠٠ ألف',
       containerStyle: {flexDirection: 'row-reverse', marginTop:5},
       labelStyle: styles.radioLabel,
       size: 20,
       color: '#7c98b3'
     },{
       id: '5',
-      label: '٥٠٠ ألف - ١ مليون',
-      value: '٥٠٠ ألف - ١ مليون',
+      label: '٥٠٠ ألف - أقل من ١ مليون',
+      value: '٥٠٠ ألف - أقل من ١ مليون',
       containerStyle: {flexDirection: 'row-reverse', marginTop:5},
       labelStyle: styles.radioLabel,
       size: 20,
