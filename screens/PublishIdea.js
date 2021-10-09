@@ -85,6 +85,9 @@ export default function PublishIdea({ navigation }) {
       for(let radioButton in radioButtons){
         if(radioButtons[radioButton].selected == true){
           selectedCost = radioButtons[radioButton].value ; 
+          radioButtons[radioButton].containerStyle = [radioButtons[radioButton].containerStyle, {backgroundColor: '#fafafa',borderRadius: 10}] ;
+        }else{
+          radioButtons[radioButton].containerStyle = {flexDirection: 'row-reverse', marginTop:5}
         }
       }
          setCostEstimation(selectedCost) ;
@@ -206,7 +209,6 @@ export default function PublishIdea({ navigation }) {
             <Text style={styles.labelText}>عنوان المشروع<Text style={styles.warning}>*</Text></Text>
             <TextInput
               style={styles.input}
-              placeholder="ادخل عنوان المشروع"
               onChangeText={(text) => setTitle(text)}
               value={Title}
               underlineColorAndroid="transparent"
@@ -217,13 +219,15 @@ export default function PublishIdea({ navigation }) {
               style={styles.dropDownStyle}
               textStyle={styles.categoryText}
               containerStyle={{ marginBottom: 15 }}
+              dropDownContainerStyle={{borderColor: '#C7C7CD'}}
+              placeholderStyle={{color: '#C7C7CD'}}
               open={open}
               value={categoryValue}
               items={items}
               setOpen={setOpen}
               setValue={setCategoryValue}
               setItems={setItems}
-              placeholder='اختر فئة المشروع'
+              placeholder='- اختر فئة -'
               onChangeValue={value => setCategory(value)}
             />
 
