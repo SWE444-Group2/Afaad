@@ -134,7 +134,7 @@ export default function RegistrationScreen({ navigation }) {
       ]);
       return;
     }
-    if (IsValidName(FirstName) == false ||!FullName.replace(/\s/g, '').length) {
+    if (IsValidName(FirstName) == false ||!FirstName.replace(/\s/g, '').length) {
       Alert.alert("تنبيه ", "الاسم يجب ان يحتوي على حروف فقط", [
         {
           text: "حسنًا",
@@ -192,7 +192,7 @@ export default function RegistrationScreen({ navigation }) {
     if (IsValidPhoneStart(phone) == false) {
       Alert.alert(
         "تنبيه",
-        " يجب ان يبدأ الرقم بمفتاح الدولة السعودي ",
+        " يجب ان يتكون الرقم من ١٠ خانات ويبدأ بمفتاح الدولة السعودي",
 
         [
           {
@@ -220,7 +220,7 @@ export default function RegistrationScreen({ navigation }) {
       );
       return;
     }
-    if (IsValidName(LastName) == false) {
+    if (IsValidName(LastName) == false ||!LastName.replace(/\s/g, '').length) {
       Alert.alert("تنبيه ", "الاسم يجب ان يحتوي على حروف فقط", [
         {
           text: "حسنًا",
@@ -231,6 +231,7 @@ export default function RegistrationScreen({ navigation }) {
       return;
     }
   
+
     AfaadFirebase.auth()
       .createUserWithEmailAndPassword(Email, password)
       .then((response) => {
@@ -265,7 +266,7 @@ export default function RegistrationScreen({ navigation }) {
           case "auth/network-request-failed":
             Alert.alert(
               "تنبيه",
-              "الرجاد التحقق من الأتصال بالانترنت",
+              "الرجاء التحقق من الأتصال بالانترنت",
 
               [
                 {

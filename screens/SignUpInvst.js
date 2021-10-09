@@ -101,10 +101,10 @@ export default function RegistrationScreen({ navigation }) {
       ]);
       return;
     }
-    if (FullName.length > 30) {
+    if (4> FullName.length > 30) {
       Alert.alert(
         "تنبيه",
-        " اسم المستخدم يجب ان لا يتجاوز ٣٠ حرف",
+        " اسم المستخدم يجب ان لايقل عن ٤ احرف ولا يتجاوز ٣٠ حرف",
 
         [
           {
@@ -162,10 +162,10 @@ export default function RegistrationScreen({ navigation }) {
       );
       return;
     }
-    if (Describtion.length > 250) {
+    if (10>Describtion.length>250 ||!Describtion.replace(/\s+/g, '').length) {
       Alert.alert(
         "تنبيه",
-        "حقل وصف المستثمر يجب الا يتجاوز ٢٥٠ حرف",
+        "حقل وصف المستثمر يجب الا يقل عن ١٠ ولا يتجاوز ٢٥٠ حرف",
 
         [
           {
@@ -211,7 +211,7 @@ export default function RegistrationScreen({ navigation }) {
           case "auth/network-request-failed":
             Alert.alert(
               "تنبيه",
-              "الرجاد التحقق من الأتصال بالانترنت",
+              "الرجاء التحقق من الأتصال بالانترنت",
 
               [
                 {

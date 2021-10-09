@@ -88,7 +88,7 @@ export default function Login({ navigation }) {
             case "auth/network-request-failed":
               Alert.alert(
                 "تنبيه",
-                "الرجاد التحقق من الأتصال بالانترنت",
+                "الرجاء التحقق من الأتصال بالانترنت",
                 [
                   {
                     text: "حسناً",
