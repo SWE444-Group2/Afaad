@@ -100,7 +100,7 @@ export default function RegistrationScreen({ navigation }) {
   };
 
   const IsValidPhoneStart = (phone) => {
-    var regex = new RegExp(/^(009665|9665|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/);
+    var regex = new RegExp(/^(05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/);
     return regex.test(phone);
   };
 
@@ -192,7 +192,7 @@ export default function RegistrationScreen({ navigation }) {
     if (IsValidPhoneStart(phone) == false) {
       Alert.alert(
         "تنبيه",
-        " يجب ان يتكون الرقم من ١٠ خانات ويبدأ بمفتاح الدولة السعودي",
+        " يجب أن يبدأ الرقم بـ 05 ويتبعه 8 خانات فقط",
 
         [
           {
