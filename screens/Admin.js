@@ -11,7 +11,7 @@ import accountLogo from '../assets/images/account.png';
 import SignOut from '../assets/images/SignOut.png';
 import Background from '../assets/images/Background.jpg';
 
-
+//sprint 2 here 
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
 
