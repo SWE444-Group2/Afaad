@@ -1,9 +1,10 @@
 
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View , Button , TouchableOpacity , Alert ,Image } from 'react-native';
+import { StyleSheet, Text, View , Button , TouchableOpacity , Alert ,Image, Modal } from 'react-native';
 import TitleStyles from './TitleStyles';
 import AfaadLogo from '../assets/images/LOGO.jpeg';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 import AfaadFirebase from "./firebaseConfig";
@@ -21,6 +22,7 @@ export default function productIdea({navigation , route}) {
     const [costEstimation, setcostEstimation] = useState('');
     const [invested, setInvested] = useState('');
     const [investorsSpec, setinvestorsSpec] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
 
 
     const productIdeaRef = AfaadFirebase.database().ref(ProductPath)
@@ -82,6 +84,26 @@ export default function productIdea({navigation , route}) {
         <View style={styles.container}>
         <ScrollView >
         <View style={[TitleStyles.containerDetails ]}>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+            >
+              <View style={styles.modalContent}>
+                <Icon
+                  name="close"
+                  size={20}
+                  style={{marginBottom:30, width: 20}}
+                  onPress={() => setModalVisible(!modalVisible)} />
+                <Text style={[TitleStyles.subTitle]}>عند الضغط على زر أرسل طلب الإستثمار فإنك تقر بصدق نيتك في الاستثمار وأن فريق أفاد يخلي مسؤوليته عن أي أمر يحدث بينك وبين رائد الأعمال</Text>
+                <Text style={[TitleStyles.subTitle]}> سيتم إرسال كافة بياناتك لرائد الأعمال وستتلقى تنبيه عندما يتحقق من طلبك</Text>
+                <TouchableOpacity
+                  style={styles.investButton}
+                  onPress={() => { }}>
+                  <Text style={[TitleStyles.subTitle, { color: 'white', fontSize: 20 }]}>أرسل طلب الاستثمار</Text>
+                </TouchableOpacity>
+              </View>
+            </Modal>
             <Image source={AfaadLogo} style={{ width: 150, height: 150 }}/>
            <Text style={[TitleStyles.ProjectName ]}>{Title}</Text> 
               <View style={TitleStyles.square}>
@@ -131,7 +153,8 @@ export default function productIdea({navigation , route}) {
 
                  { userType== 'Investor' &&
                    <TouchableOpacity
-                   style={TitleStyles.investButton}>
+                   style={TitleStyles.investButton}
+                onPress={() => setModalVisible(true)}>
                    <Text style={TitleStyles.AcceptDetailsBtn}>استثمر</Text>
                 </TouchableOpacity>  }   
 
@@ -154,16 +177,44 @@ export default function productIdea({navigation , route}) {
 
 
 const styles = StyleSheet.create({
-    
-    inner: {
-        padding: 24,
-        justifyContent: 'space-evenly'
 
+  inner: {
+    padding: 24,
+    justifyContent: 'space-evenly'
+  },
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  modalContent: {
+    height: '50%',
+    margin: 20,
+    marginBottom: 'auto',
+    marginTop: 'auto',
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
     },
-    container: {
-        flex: 1,
-        backgroundColor: 'white',
-    }
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  investButton: {
+    width: 213,
+    height: 52,
+    borderRadius: 6,
+    marginTop: 40,
+    alignSelf: 'center',
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: '#002B3E',
+    backgroundColor: '#002B3E'
+  }
 });
 
 
