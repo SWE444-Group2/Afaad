@@ -16,6 +16,7 @@ import { default as SignUpInvst } from './screens/SignUpInvst' ;
 import { default as PublishIdea } from './screens/PublishIdea' ;
 import { default as MainScreen } from './screens/MainScreen' ;
 import { default as SignupOption } from './screens/SignupOption' ;
+import { default as ResetPass } from './screens/ResetPass' ;
 import { default as PendingPage } from './screens/PendingPage' ;
 import { default as conditionsPage } from './screens/conditionsPage' ;
 import {useFonts} from 'expo-font';
@@ -52,6 +53,7 @@ if(!isLoaded){
         <Stack.Screen name="Investor" component={Investor} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false }}/>
         <Stack.Screen name="EntrepreneurAndInvestor" component={EntrepreneurAndInvestor} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
         <Stack.Screen name="SignupOption" component={SignupOption} options={{ headerTitle: ""}}/>
+        <Stack.Screen name="ResetPass" component={ResetPass} options={{ headerTitle: "إعادة تعيين كلمة المرور"}}/>
         <Stack.Screen name="PendingPage" component={PendingPage} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
         
       </Stack.Navigator>

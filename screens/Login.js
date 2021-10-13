@@ -186,7 +186,12 @@ export default function Login({ navigation }) {
                 clearButtonMode='while-editing'
                 color="balck"
               />
-
+            <Text style={styles.ResetText}>
+            {" "}
+            <Text onPress={() => navigation.navigate('ResetPass')}  style={styles.TextButton}>
+            نسيت كلمة المرور             
+            </Text>
+            </Text>
 
             <TouchableOpacity  style={styles.Button}   onPress={onLogin}>
                      <Text style={styles.ButtonText} >تسجيل دخول</Text>
@@ -195,7 +200,7 @@ export default function Login({ navigation }) {
             <View style={styles.TextButton}>
           <Text style={styles.SignUpText}>
             ليس لديك حساب مسبق؟{" "}
-            <Text onPress={onFooterLinkPress}  style={styles.TextButton}>
+            <Text onPress={onFooterLinkPress}  style={styles.resetButton}>
             انشاء حساب             
             </Text>
           </Text>
@@ -367,6 +372,13 @@ const styles = StyleSheet.create({
        color:"#002B3E",
        fontSize:14,
       // fontWeight:'bold',
-   }
+   },
+   resetButton:{
+    width:'100%',
+    display:'flex',
+   alignItems:'stretch',
+   marginTop:10,
+   fontWeight:'bold',
+  }
 });
 
