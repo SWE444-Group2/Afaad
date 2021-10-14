@@ -206,7 +206,13 @@ export default function productIdea({navigation , route}) {
                    <TouchableOpacity
                    style={TitleStyles.investButton}>
                    <Text style={TitleStyles.AcceptDetailsBtn}>ادعم</Text>
-                </TouchableOpacity>  }        
+                </TouchableOpacity>  }       
+
+                  { userType== 'Entrepreneur' &&
+                   <TouchableOpacity
+                   style={styles.ButtonText}>
+                   <Text style={styles.ButtonText}> قائمه المستثمرين</Text>
+                </TouchableOpacity>  }    
          </View>  
         </View>
 
@@ -258,7 +264,37 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#002B3E',
     backgroundColor: '#002B3E'
+  },
+
+  SuppButton:{
+    borderColor: '#002B3E',
+    backgroundColor: '#002B3E',
+    borderRadius: 6,
+    width: 213,
+    //marginTop: 7,
+    alignSelf: 'center',
+    alignItems: "center",
+    justifyContent: "center",
+
+
+  },
+  ButtonText:{
+    fontFamily: 'AJannatLT',
+    fontSize:18,
+    color:"#fff",
+    fontWeight:'bold',
+    borderColor: '#002B3E',
+    backgroundColor: '#002B3E',
+    borderRadius: 6,
+    width: 213,
+    alignSelf: 'center',
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign:'center',
+    height: 40,
+    borderRadius: 6,
   }
+
 });
 
 
