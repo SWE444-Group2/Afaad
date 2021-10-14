@@ -23,6 +23,11 @@ export default function productIdea({navigation , route}) {
     const [invested, setInvested] = useState('');
     const [investorsSpec, setinvestorsSpec] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
+    const [userInfo , setUserInfo]= useState('');
+    const [userName , setUserName]=useState('');
+    //const [userGender , setUserGender]=useState('');
+    const [userEmail , setUserEmail]=useState('');
+    const [userPhone , setUserPhone]=useState('');
 
 
     const productIdeaRef = AfaadFirebase.database().ref(ProductPath)
@@ -39,8 +44,17 @@ export default function productIdea({navigation , route}) {
         setcategory(snapshot.child("category").val());
         setcostEstimation(snapshot.child("costEstimation").val());
         setinvestorsSpec(snapshot.child("investorsSpec").val());
+        setUserInfo(snapshot.child('userID').val());
        });
   
+
+       const UserInfoRef=AfaadFirebase.database().ref('Entrepreneur/'+userInfo)
+       UserInfoRef.once('value').then(function(snapshot){
+        setUserName(snapshot.child('FirstName').val()+' '+snapshot.child('Lastname').val());
+        setUserEmail(snapshot.child('email').val());
+        setUserPhone(snapshot.child('phone').val());
+      });
+
         
        
 
@@ -127,6 +141,36 @@ export default function productIdea({navigation , route}) {
                     }
                     { userType== 'Entrepreneur' &&
                      <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{status}</Text> }
+
+                      { userType== 'Investor' &&
+                     <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}> رائد الاعمال</Text> } 
+
+                     { userType== 'Investor' &&
+                     <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:'50%'}}/>
+                    }  
+                      { userType== 'Investor' &&
+                     <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{userName}</Text> }
+                      { userType== 'Investor' &&
+                     <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{userEmail}</Text> }
+                     { userType== 'Investor' &&
+                     <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{userPhone}</Text> }
+
+
+
+                    { userType== 'Admin' &&
+                     <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}> رائد الاعمال</Text> } 
+                     { userType== 'Admin' &&
+                     <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:'50%'}}/>}  
+                      { userType== 'Admin' &&
+                     <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{userName}</Text> }
+                      { userType== 'Admin' &&
+                     <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{userEmail}</Text> }
+                     { userType== 'Admin' &&
+                     <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{userPhone}</Text> }
+
+
+
+
                </View>
 
 
