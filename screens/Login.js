@@ -186,12 +186,12 @@ export default function Login({ navigation }) {
                 clearButtonMode='while-editing'
                 color="balck"
               />
-            <Text style={styles.ResetText}>
-            {" "}
-            <Text onPress={() => navigation.navigate('ResetPass')}  style={styles.TextButton}>
-            نسيت كلمة المرور             
+
+
+            <Text onPress={() => navigation.navigate('ResetPass')}  style={[styles.TextButton, {textAlign: 'right'}, {paddingRight:25, color:"#002B3E", textDecorationLine:'underline', }]}>
+            هل نسيت كلمة المرور؟            
             </Text>
-            </Text>
+
 
             <TouchableOpacity  style={styles.Button}   onPress={onLogin}>
                      <Text style={styles.ButtonText} >تسجيل دخول</Text>

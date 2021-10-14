@@ -38,7 +38,7 @@ export default function productIdea({navigation , route}) {
         if(snapshot.child("status").val()=='Accepted')
         setStatus('مقبول');
         if(snapshot.child("status").val()=='Rejected')
-        setStatus('مرفوض');
+        setStatus('مرفوض'); 
         if(snapshot.child("status").val()=='Pending')
         setStatus('في حالة المراجعة');
         setcategory(snapshot.child("category").val());
