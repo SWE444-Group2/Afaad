@@ -76,7 +76,7 @@ export default function ViewAccount({ navigation }) {
                 titleProps={{}}
                 color='#247ba0'
             />
-             <Text style={Titlestyles.subTitle} >{item.email} </Text>
+             <Text style={Titlestyles.subTitle} >{item.FullName} </Text>
              
            
              </View>

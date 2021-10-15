@@ -3,11 +3,12 @@ import Constants from 'expo-constants';
 import ViewIdea from './ViewIdea';
 import { StatusBar } from 'expo-status-bar';
 import React ,{useEffect , useState , setState} from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image , Icon } from 'react-native';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image } from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 import Titlestyles from './TitleStyles';
 import SignOut from '../assets/images/SignOut.png';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import PlusIcon from '../assets/images/plusIcon.png';
 import Background from '../assets/images/Background.jpg';
 import ClickedHomeIcon from '../assets/images/ClickedHomeIcon.png';
@@ -157,42 +158,66 @@ export default function Entrepreneur({ navigation }) {
       
       <View style={styles.BottomBar}> 
 
-      { userType== 'Entrepreneur' && <TouchableOpacity  
-             style={styles.addIcon} onPress={() => navigation.navigate('PublishIdea')}>
-             <Image source={PlusIcon} style={{ width: 20, height: 20 }}/>
-            </TouchableOpacity>}
-
             { userType== 'Entrepreneur' &&  
-              <Image source={ProfileIcon} style={{ width: 30, height: 30  , marginLeft:30, marginTop:10} }/> }
-              { userType== 'Entrepreneur' &&
-              <TouchableOpacity onPress={() => navigation.navigate('Notifications')} >
-              <Image source={NotificationIcon} style={{ width: 30, height: 30  , marginLeft:105,marginTop:-28} }/>  
-              </TouchableOpacity>} 
-              { userType== 'Entrepreneur' && 
-              <Image source={SearchIcon} style={{ width: 30, height: 30  , marginLeft:253, marginTop:-30} }/> }
-              { userType== 'Entrepreneur' &&
-              <TouchableOpacity style={[{marginLeft:290 , backgroundColor:'#cee5f2'}]}>
-              <Image source={ClickedHomeIcon} style={{ width: 30, height: 30  , marginLeft:30 , marginTop:-30 , backgroundColor:'#cee5f2' } }/> 
-              </TouchableOpacity>}
+              <TouchableOpacity >
+                <Icon name="account-box-outline" style={{ marginLeft:'5%' , marginTop:10} } size={40} color={"#fff"}/> 
+              </TouchableOpacity>
+            }
 
+            { userType== 'Entrepreneur' &&
+              <TouchableOpacity onPress={() => navigation.navigate('Notifications')} >
+                <Icon name="bell-outline" style={{ marginLeft:'25%' , marginTop:-40} } size={40} color={"#fff"}/> 
+              </TouchableOpacity>
+            } 
+
+            { userType== 'Entrepreneur' && 
+              <TouchableOpacity  onPress={() => navigation.navigate('PublishIdea')}>
+                <Icon name="plus-circle-outline" style={{ marginLeft:'45%' , marginTop:-40} } size={40} color={"#fff"}/>
+              </TouchableOpacity>
+            }
+            
+            { userType== 'Entrepreneur' && 
+              <TouchableOpacity>
+                <Icon name="feature-search-outline" style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={"#fff"}/> 
+              </TouchableOpacity>
+            }
+            
+            { userType== 'Entrepreneur' &&
+              <TouchableOpacity>
+                <Icon name="home-circle" style={{ marginLeft:'82%' , marginTop:-43 } } size={43} color={"#fff"}/> 
+              </TouchableOpacity>
+            }
 
 
               { userType== 'Investor' &&  
-              <Image source={ProfileIcon} style={{ width: 30, height: 30  , marginLeft:40, marginTop:10} }/> }
+                 <TouchableOpacity >
+                   <Icon name="account-box-outline" style={{ marginLeft:'5%' , marginTop:10} } size={40} color={"#fff"}/> 
+                 </TouchableOpacity>
+              }
+
               { userType== 'Investor' &&
-              <TouchableOpacity onPress={() => navigation.navigate('Notifications')} >
-              <Image source={NotificationIcon} style={{ width: 30, height: 30  , marginLeft:125,marginTop:-28} }/>  
-              </TouchableOpacity>}  
+                  <TouchableOpacity onPress={() => navigation.navigate('Notifications')} >
+                   <Icon name="bell-outline" style={{ marginLeft:'25%' , marginTop:-40} } size={40} color={"#fff"}/> 
+                  </TouchableOpacity>
+              } 
+
               { userType== 'Investor' && 
-              <Image source={SearchIcon} style={{ width: 30, height: 30  , marginLeft:225, marginTop:-30} }/> }
+                   <TouchableOpacity>
+                     <Icon name="lightbulb-on-outline" style={{ marginLeft:'45%' , marginTop:-43} } size={40} color={"#fff"}/> 
+                   </TouchableOpacity>
+              }
+
+              { userType== 'Investor' && 
+                   <TouchableOpacity>
+                     <Icon name="feature-search-outline" style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={"#fff"}/> 
+                   </TouchableOpacity>
+              }
+
               { userType== 'Investor' &&
-               <TouchableOpacity style={[{marginLeft:290 , backgroundColor:'#cee5f2'}]}>
-               <Image source={ClickedHomeIcon} style={{ width: 30, height: 30  , marginLeft:30 , marginTop:-30 , backgroundColor:'#cee5f2' } }/> 
-               </TouchableOpacity>}
-
-
-
-
+              <TouchableOpacity>
+              <Icon name="home-circle" style={{ marginLeft:'82%' , marginTop:-43 } } size={43} color={"#fff"}/> 
+              </TouchableOpacity>
+              }
 
             </View>
             <StatusBar style="auto" />
@@ -207,18 +232,6 @@ export default function Entrepreneur({ navigation }) {
 
 
 const styles = StyleSheet.create({
-  addIcon: {
-    position:'absolute',
-    bottom:'47%',
-    left:'46%',
-    borderRadius:10,
-    backgroundColor:'#536b78',
-    justifyContent:'center',
-    alignItems:'center',
-    width:30,
-    height:30
-   
-},
 
 BottomBar:{
     position:'absolute',
