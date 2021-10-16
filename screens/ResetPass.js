@@ -19,7 +19,28 @@ export default function ResetPass({ navigation }) {
 
   //when submit button is pressed perform this
   const onSubmit = () => {
-    
+    if (email !== ""){
+        auth.auth().sendPasswordResetEmail(email).then(function() {
+            // Password reset email sent.
+            Alert.alert(('تنبيه', 'تم إرسال رابط إعادة تعيين كلمة المرور، يرجى التحقق من بريدك الإلكتروني', [
+                {
+                  text: "حسنًا",
+                  style: "cancel",
+                },
+              ]))
+          })
+          .catch(function(error) {
+            // Error occurred. Inspect error.code.
+          });
+
+    } else {
+        Alert.alert('تنبيه', 'الرجاء تعبئة البريد الإلكتروني', [
+            {
+              text: "حسنًا",
+              style: "cancel",
+            },
+          ])
+    }
   };
 
   return (
@@ -35,6 +56,7 @@ export default function ResetPass({ navigation }) {
             <View style={styles.BottomView}>
 
             <Text style={styles.Heading}>  إعادة تعيين كلمة المرور </Text>
+            <Text style={styles.inform}>يرجى إعادة تعيين كلمة المرور عن طريق إدخال بريدك الإلكتروني أدناه. سيتم إرسال رسالة إلى بريدك الإلكتروني تحتوي على رابط إعادة تعيين كلمة المرور.</Text>
 
             <View style={styles.FormView}>
    
@@ -51,7 +73,7 @@ export default function ResetPass({ navigation }) {
               />
 
     
-            <TouchableOpacity  style={styles.Button}   onPress={onSubmit}>
+            <TouchableOpacity  style={styles.Button} onPress={onSubmit}>
                      <Text style={styles.ButtonText} >إرسال</Text>
             </TouchableOpacity>
 
@@ -180,6 +202,16 @@ const styles = StyleSheet.create({
        color:"#002B3E",
        fontSize:14,
       // fontWeight:'bold',
+   },
+
+   inform:{
+    color:"#002B3E",
+    fontSize:12.5,
+   fontWeight:'100',
+   marginTop:-30,
+   paddingRight:10,
+   marginBottom:20,
+   textAlign:'right'
    }
 });
 
