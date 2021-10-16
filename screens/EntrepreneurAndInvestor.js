@@ -165,7 +165,7 @@ export default function Entrepreneur({ navigation }) {
             }
 
             { userType== 'Entrepreneur' &&
-              <TouchableOpacity onPress={() => navigation.navigate('Notifications')} >
+              <TouchableOpacity onPress={() => navigation.navigate('NotificationsNav')} >
                 <Icon name="bell-outline" style={{ marginLeft:'25%' , marginTop:-40} } size={40} color={"#fff"}/> 
               </TouchableOpacity>
             } 
@@ -175,7 +175,7 @@ export default function Entrepreneur({ navigation }) {
                 <Icon name="plus-circle-outline" style={{ marginLeft:'45%' , marginTop:-40} } size={40} color={"#fff"}/>
               </TouchableOpacity>
             }
-            
+
             { userType== 'Entrepreneur' && 
               <TouchableOpacity>
                 <Icon name="feature-search-outline" style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={"#fff"}/> 
@@ -196,7 +196,7 @@ export default function Entrepreneur({ navigation }) {
               }
 
               { userType== 'Investor' &&
-                  <TouchableOpacity onPress={() => navigation.navigate('Notifications')} >
+                  <TouchableOpacity onPress={() => navigation.navigate('NotificationsNav')} >
                    <Icon name="bell-outline" style={{ marginLeft:'25%' , marginTop:-40} } size={40} color={"#fff"}/> 
                   </TouchableOpacity>
               } 
@@ -215,7 +215,7 @@ export default function Entrepreneur({ navigation }) {
 
               { userType== 'Investor' &&
               <TouchableOpacity>
-              <Icon name="home-circle" style={{ marginLeft:'82%' , marginTop:-43 } } size={43} color={"#fff"}/> 
+              <Icon name="home-circle" style={{ marginLeft:'83%' , marginTop:-43 } } size={43} color={"#fff"}/> 
               </TouchableOpacity>
               }
 

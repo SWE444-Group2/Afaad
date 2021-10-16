@@ -2,17 +2,27 @@ import * as React from 'react';
 import { Text, View, StyleSheet,Image,TouchableOpacity} from 'react-native';
 //import styles from './styles';
 import { StatusBar } from 'expo-status-bar';
+import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import PlusIcon from '../assets/images/plusIcon.png';
-import HomeIcon from '../assets/images/HomeIcon.png';
-import SearchIcon from '../assets/images/SearchIcon.png';
-import ClickedNotificationIcon from '../assets/images/ClickedNotificationIcon.png'
-import ProfileIcon from '../assets/images/ProfileIcon.png'
 import Titlestyles from './TitleStyles';
-import AfaadFirebase from '../screens/firebaseConfig';
-export default function Notifications({ navigation }) {
+import AfaadFirebase from './firebaseConfig';
+export default function NotificationsNav({ navigation }) {
 
-    let user = AfaadFirebase.auth().currentUser ;
+  const registerForPushNotifications = async () => { 
+    try {
+       const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+       if (!permission.granted) return;
+       const token = await Notifications.getExpoPushTokenAsync();
+    console.log(token);
+    } catch (error) {
+      console.log('Error getting a token', error);
+    }
+  }
+
+  
+
+  let user = AfaadFirebase.auth().currentUser ;
   let userID, userType , userName;
 
   if(user){
@@ -80,7 +90,7 @@ export default function Notifications({ navigation }) {
 
       { userType== 'Investor' &&
           <TouchableOpacity  >
-             <Icon name="bell" style={{ marginLeft:'25%' , marginTop:-38} } size={35} color={"#fff"}/> 
+             <Icon name="bell" style={{ marginLeft:'25%' , marginTop:-40} } size={37} color={"#fff"}/> 
           </TouchableOpacity>
       } 
 
