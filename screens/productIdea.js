@@ -63,7 +63,6 @@ export default function productIdea({navigation , route}) {
       const InvestorRequest = AfaadFirebase.database().ref(ProductPath + '/InvestorsList/' + user.uid);
       InvestorRequest.once('value', (snapshot) => {
         if (snapshot.exists()) {
-          console.log('inside exists')
           Alert.alert("تنبيه", "عزيزي المستثمر، لديك طلب استثمار مسبق لهذه الفكرة", [
             {
               text: "حسنًا",
@@ -73,7 +72,7 @@ export default function productIdea({navigation , route}) {
           return
         } else {
           setModalVisible(!modalVisible)
-          navigation.navigate('InvestorRequest', { Product_id: route.params.Product_id })
+          navigation.navigate('InvestorRequest', { Product_id: route.params.Product_id, user_Name:route.params.user_Name })
         }
       })
     }
@@ -230,7 +229,7 @@ export default function productIdea({navigation , route}) {
                 </TouchableOpacity>  }       
 
                   { userType== 'Entrepreneur' &&
-                   <TouchableOpacity
+                   <TouchableOpacity   onPress={() => navigation.navigate('OffersList', {Product_id: route.params.Product_id})}
                    style={styles.ButtonText}>
                    <Text style={styles.ButtonText}> قائمه المستثمرين</Text>
                 </TouchableOpacity>  }    

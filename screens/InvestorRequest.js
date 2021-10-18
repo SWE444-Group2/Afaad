@@ -20,6 +20,7 @@ export default function InvestorRequest({navigation , route}) {
         if (user){
         const RequestRef = AfaadFirebase.database().ref('/ProductIdea/'+route.params.Product_id+'/InvestorsList/'+user.uid);
         const RequestData = {
+            Investorname: route.params.user_Name,
             SuggestedCost,
             EntMessage,
             status: 'Pending',

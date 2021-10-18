@@ -119,11 +119,11 @@ export default function Entrepreneur({ navigation }) {
         data={PendingProductList}
         keyExtractor={(item, index)=>index.toString()}
         renderItem={({ item })=>(
-          <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType})}>   
+          <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType , user_Name:userName})}>   
           <View style={Titlestyles.item}>
           <Button 
                 style={Titlestyles.DetailsBtn}
-                onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType})}
+                onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
                 title="عرض التفاصيل"
                 titleProps={{}}
                 //titleStyle={{ marginHorizontal: 1 }}
