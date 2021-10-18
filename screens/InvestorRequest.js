@@ -9,12 +9,52 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 
 
+
 export default function InvestorRequest({navigation , route}) {
 
     const [SuggestedCost, setSuggested]= useState('');
     const [EntMessage , setEntMessage]=useState('');
-
+    const [EntrepreneurToken, setEntrepreneurToken]=useState('');
     const user = AfaadFirebase.auth().currentUser ;
+
+    const SendNotification= async (Token) =>{
+
+      return fetch('https://exp.host/--/api/v2/push/send', {
+        body: JSON.stringify({
+          to: Token,
+          title: 'تنبيه',
+          body: 'يوجد لديك طلب استثمار جديد',
+          data: { message: `${title} - ${body}` },
+          sound: "default",
+          icon: "/assets/images/lionIcon180-180.png",
+          android:{
+              icon: "/assets/images/lionIcon180-180.png",
+              sound:"default"
+          }
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      });
+    }
+    const getEntreToken =()=>{
+      let id='';
+      const UserRef = AfaadFirebase.database().ref('/ProductIdea/'+route.params.Product_id);
+      UserRef.once('value').then(function(snapshot){
+         id= snapshot.child('UserID').val();
+      });
+
+      const EntreRef = AfaadFirebase.database().ref('/Entrepreneur/'+id);
+      EntreRef.once('value').then(function(snapshot){
+        setEntrepreneurToken(snapshot.child('Token').val())   
+     });
+
+      if(!EntrepreneurToken){
+         return ; 
+      }
+      SendNotification(EntrepreneurToken)
+    }
 
     const submit = () => {
         if (user){
@@ -26,11 +66,12 @@ export default function InvestorRequest({navigation , route}) {
             status: 'Pending',
         };
         RequestRef.set(RequestData).then(() => {
+          () => getEntreToken();
             Alert.alert("نجاح", "تم إرسال طلبك إلى رائد الأعمال", [
               {
                 text: "حسنًا",
                 onPress: () => {
-                  navigation.pop()
+                  navigation.pop();
                 },
                 style: "cancel",
               },
