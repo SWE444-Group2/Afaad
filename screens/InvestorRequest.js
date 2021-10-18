@@ -15,41 +15,42 @@ export default function InvestorRequest({navigation , route}) {
     const [SuggestedCost, setSuggested]= useState('');
     const [EntMessage , setEntMessage]=useState('');
     const [EntrepreneurToken, setEntrepreneurToken]=useState('');
+    const [id, setID]=useState('')
     const user = AfaadFirebase.auth().currentUser ;
 
-    const SendNotification= async (Token) =>{
-
-      return fetch('https://exp.host/--/api/v2/push/send', {
-        body: JSON.stringify({
-          to: Token,
-          title: 'تنبيه',
-          body: 'يوجد لديك طلب استثمار جديد',
-          data: { message: `${title} - ${body}` },
-          sound: "default",
-          icon: "/assets/images/lionIcon180-180.png",
-          android:{
-              icon: "/assets/images/lionIcon180-180.png",
-              sound:"default"
-          }
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-      });
-    }
-    const getEntreToken =()=>{
-      let id='';
-      const UserRef = AfaadFirebase.database().ref('/ProductIdea/'+route.params.Product_id);
+    // The Token reference for the product idea entrepruneur so we can send them the nothification 
+    const UserRef = AfaadFirebase.database().ref('ProductIdea/'+route.params.Product_id);
       UserRef.once('value').then(function(snapshot){
-         id= snapshot.child('UserID').val();
+         setID(snapshot.child("userID").val());
+         
       });
-
-      const EntreRef = AfaadFirebase.database().ref('/Entrepreneur/'+id);
+      const EntreRef = AfaadFirebase.database().ref('Entrepreneur/'+id);
       EntreRef.once('value').then(function(snapshot){
         setEntrepreneurToken(snapshot.child('Token').val())   
      });
 
+     // Send notfication by token 
+    const SendNotification= async (Token) =>{
+     let response = fetch('https://exp.host/--/api/v2/push/send' , {
+       method: 'POST',
+       headers:{
+         Accept: 'application/json',
+         'Content-Type':'application/json'
+       },
+       body:JSON.stringify({
+         to: Token,
+         sound: 'default',
+         title:'تنبيه',
+         body: 'يوجد لديك طلب استثمار جديد',
+
+
+       })
+     });
+     console.log(Token)
+    }
+
+    //Just to make sure the entrepruner has a token and send the notification 
+    const getEntreToken =()=>{
       if(!EntrepreneurToken){
          return ; 
       }
@@ -66,11 +67,11 @@ export default function InvestorRequest({navigation , route}) {
             status: 'Pending',
         };
         RequestRef.set(RequestData).then(() => {
-          () => getEntreToken();
             Alert.alert("نجاح", "تم إرسال طلبك إلى رائد الأعمال", [
               {
                 text: "حسنًا",
                 onPress: () => {
+                  getEntreToken();
                   navigation.pop();
                 },
                 style: "cancel",
@@ -79,7 +80,11 @@ export default function InvestorRequest({navigation , route}) {
         });
 
     }
+
+   
 }
+
+
 
     return(
 <KeyboardAwareScrollView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
