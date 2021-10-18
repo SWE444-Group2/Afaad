@@ -153,6 +153,7 @@ export default function productIdea({navigation , route}) {
                     <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>المستثمر المراد</Text>
                     <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:'50%'}}/>
                     <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{investorsSpec}</Text>
+                    
                     { userType== 'Entrepreneur' &&
                     <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>حالة المشروع</Text> 
                     }

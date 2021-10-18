@@ -22,6 +22,7 @@ import { default as conditionsPage } from './screens/conditionsPage' ;
 import { default as NotificationsNav } from './screens/NotificationsNav' ;
 import { default as InvestorRequest } from './screens/InvestorRequest' ;
 import { default as OffersList } from './screens/OffersList' ;
+import { default as profile } from './screens/profile' ;
 
 import {useFonts} from 'expo-font';
 
@@ -62,6 +63,7 @@ if(!isLoaded){
         <Stack.Screen name="NotificationsNav" component={NotificationsNav} options={{ headerTitle:'الاشعارات',headerBackVisible: false ,gestureEnabled: false}}/>
         <Stack.Screen name="InvestorRequest" component={InvestorRequest} options={{ headerTitle:'طلب الاستثمار'}}/>
         <Stack.Screen name="OffersList" component={OffersList} options={{ headerTitle: "عروض الإستثمار"}}/>
+        <Stack.Screen name="profile" component={profile} options={{ headerTitle: "الملف الشخصي"}}/>
 
       </Stack.Navigator>
     </NavigationContainer>
