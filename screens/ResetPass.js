@@ -20,15 +20,20 @@ export default function ResetPass({ navigation }) {
   //when submit button is pressed perform this
   const onSubmit = () => {
     if (email !== ""){
-        auth.auth().sendPasswordResetEmail(email).then(function() {
-            // Password reset email sent.
-            Alert.alert(('تنبيه', 'تم إرسال رابط إعادة تعيين كلمة المرور، يرجى التحقق من بريدك الإلكتروني', [
-                {
-                  text: "حسنًا",
-                  style: "cancel",
-                },
-              ]))
+      AfaadFirebase
+          .auth()
+  
+          .sendPasswordResetEmail(email)
+  
+          .then(function () {
+            Alert.alert('تنبيه', 'تم إرسال رابط إعادة تعيين كلمة المرور، يرجى التحقق من بريدك الإلكتروني', [
+              {
+                text: "حسنًا",
+                style: "cancel",
+              },
+            ])
           })
+  
           .catch(function(error) {
             // Error occurred. Inspect error.code.
           });
