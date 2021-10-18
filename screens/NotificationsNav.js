@@ -2,26 +2,12 @@ import * as React from 'react';
 import { Text, View, StyleSheet,Image,TouchableOpacity} from 'react-native';
 //import styles from './styles';
 import { StatusBar } from 'expo-status-bar';
-import { Notifications } from 'expo';
-import * as Permissions from 'expo-permissions';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Titlestyles from './TitleStyles';
 import AfaadFirebase from './firebaseConfig';
 export default function NotificationsNav({ navigation }) {
 
-  const registerForPushNotifications = async () => { 
-    try {
-       const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-       if (!permission.granted) return;
-       const token = await Notifications.getExpoPushTokenAsync();
-    console.log(token);
-    } catch (error) {
-      console.log('Error getting a token', error);
-    }
-  }
-
   
-
   let user = AfaadFirebase.auth().currentUser ;
   let userID, userType , userName;
 
@@ -44,6 +30,7 @@ export default function NotificationsNav({ navigation }) {
       }
     })
   }
+
 
     return(
         <View style={Titlestyles.container}>

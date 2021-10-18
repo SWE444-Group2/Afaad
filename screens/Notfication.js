@@ -20,12 +20,17 @@ const Notfication = async() => {
           return;
         }
         const token = (await Notifications.getExpoPushTokenAsync()).data;
-        console.log(token);
         this.setState({ expoPushToken: token });
       } else {
         alert('Must use physical device for Push Notifications');
       }
     
+      if(token){
+        const userToken= await AfaadFirebase.database().ref(userType+'/'+user.uid);
+         userToken.update({
+           Token : token
+         })
+      }
       if (Platform.OS === 'android') {
         Notifications.setNotificationChannelAsync('default', {
           name: 'default',
@@ -34,7 +39,9 @@ const Notfication = async() => {
           lightColor: '#FF231F7C',
         });
       }
-
+      useEffect(() => {
+        registerForPushNotificationsAsync();
+      });
 
 };
 
