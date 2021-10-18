@@ -15,6 +15,7 @@ import ClickedHomeIcon from '../assets/images/ClickedHomeIcon.png';
 import SearchIcon from '../assets/images/SearchIcon.png';
 import NotificationIcon from '../assets/images/NotificationIcon.png'
 import ProfileIcon from '../assets/images/ProfileIcon.png'
+import  {Notfication}  from './Notfication';
 import { ScrollView } from 'react-native-gesture-handler';
 
 let user = AfaadFirebase.auth().currentUser;
@@ -33,6 +34,7 @@ export default function Entrepreneur({ navigation }) {
 
   let user = AfaadFirebase.auth().currentUser ;
   let userID, userType , userName;
+  let NotificationAllowed=Notfication();
 
   if(user){
     userID = user.uid ;
