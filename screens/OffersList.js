@@ -95,13 +95,27 @@ export default function OffersList({ navigation, route }) {
                           style={{marginBottom:30, width: 20}}
                           onPress={() => setModalVisible(!modalVisible)} />
 
-                          <Text style={[Titlestyles.subTitle]}> هنا معلومات العرض + القبول والرفض </Text> 
+                          <Text style={styles.TextCenter}> معلومات دعم المستثمر  </Text> 
+                          <Text style={styles.TextCenter}> اسم المستثمر :  {item.Investorname} </Text> 
+                          <Text style={styles.TextCenter}> وصف دعم المستثمر:  {item.EntMessage} </Text> 
+                          <Text style={styles.TextCenter}>  المبلغ المقترح للدعم :  {item.SuggestedCost} </Text> 
+
+
+
                           <TouchableOpacity
-                            style={styles.investButton}
-                            //onPress={SendRequest}
+                           // style={Titlestyles.Acceptbutton}
+                            //onPress={() => AcceptIdea()}
                             >
-                            <Text style={[Titlestyles.subTitle, { color: 'white', fontSize: 20 }]}>قبول العرض</Text>
-                          </TouchableOpacity>
+                            <Text > قبول</Text>
+                          </TouchableOpacity>  
+
+
+                          <TouchableOpacity
+                             // style={Titlestyles.Rejectbutton}
+                              //onPress={() => RejectIdea()}
+                              >
+                              <Text >رفض</Text>
+                          </TouchableOpacity> 
     
                           </View>
                         </Modal>
@@ -189,6 +203,16 @@ modalContent: {
     width: 0,
     height: 2,
   },
+},
+
+
+TextCenter:{
+  fontFamily:'AJannatLTBold',
+  fontSize:18,
+  color:'#1d2d44',
+  textAlign: 'center',
+  paddingTop:-10,
+
 
 }
 
