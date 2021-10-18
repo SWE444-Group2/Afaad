@@ -5,6 +5,7 @@ import { StyleSheet, Text, View , Button , TouchableOpacity , Alert ,Image, Moda
 import TitleStyles from './TitleStyles';
 import AfaadLogo from '../assets/images/LOGO.jpeg';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import 'firebase/auth';
 
 
 import AfaadFirebase from "./firebaseConfig";
@@ -56,7 +57,27 @@ export default function productIdea({navigation , route}) {
       });
 
         
-       
+  const SendRequest = () => {
+    const user = AfaadFirebase.auth().currentUser;
+    if (user) {
+      const InvestorRequest = AfaadFirebase.database().ref(ProductPath + '/InvestorsList/' + user.uid);
+      InvestorRequest.once('value', (snapshot) => {
+        if (snapshot.exists()) {
+          console.log('inside exists')
+          Alert.alert("تنبيه", "عزيزي المستثمر، لديك طلب استثمار مسبق لهذه الفكرة", [
+            {
+              text: "حسنًا",
+              style: "cancel",
+            },
+          ]);
+          return
+        } else {
+          setModalVisible(!modalVisible)
+          navigation.navigate('InvestorRequest', { Product_id: route.params.Product_id })
+        }
+      })
+    }
+  }
 
     const AcceptIdea=()=>{
         Alert.alert(
@@ -113,7 +134,7 @@ export default function productIdea({navigation , route}) {
                 <Text style={[TitleStyles.subTitle]}> سيتم إرسال كافة بياناتك لرائد الأعمال وستتلقى تنبيه عندما يتحقق من طلبك</Text>
                 <TouchableOpacity
                   style={styles.investButton}
-                  onPress={() => { }}>
+                  onPress={SendRequest}>
                   <Text style={[TitleStyles.subTitle, { color: 'white', fontSize: 20 }]}>أرسل طلب الاستثمار</Text>
                 </TouchableOpacity>
               </View>

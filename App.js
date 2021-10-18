@@ -20,6 +20,7 @@ import { default as ResetPass } from './screens/ResetPass' ;
 import { default as PendingPage } from './screens/PendingPage' ;
 import { default as conditionsPage } from './screens/conditionsPage' ;
 import { default as NotificationsNav } from './screens/NotificationsNav' ;
+import { default as InvestorRequest } from './screens/InvestorRequest' ;
 
 import {useFonts} from 'expo-font';
 
@@ -58,7 +59,8 @@ if(!isLoaded){
         <Stack.Screen name="ResetPass" component={ResetPass} options={{ headerTitle: "إعادة تعيين كلمة المرور"}}/>
         <Stack.Screen name="PendingPage" component={PendingPage} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
         <Stack.Screen name="NotificationsNav" component={NotificationsNav} options={{ headerTitle:'الاشعارات',headerBackVisible: false ,gestureEnabled: false}}/>
-        
+        <Stack.Screen name="InvestorRequest" component={InvestorRequest} options={{ headerTitle:'طلب الاستثمار'}}/>
+
       </Stack.Navigator>
     </NavigationContainer>
   );
