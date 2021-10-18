@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 import ViewIdea from './ViewIdea';
 import { StatusBar } from 'expo-status-bar';
 import React ,{useEffect , useState , setState} from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image } from 'react-native';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image,Modal } from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 import Titlestyles from './TitleStyles';
@@ -15,15 +15,19 @@ import SearchIcon from '../assets/images/SearchIcon.png';
 import NotificationIcon from '../assets/images/NotificationIcon.png'
 import ProfileIcon from '../assets/images/ProfileIcon.png'
 import { ScrollView } from 'react-native-gesture-handler';
+//import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
 
 
 export default function OffersList({ navigation, route }) {
+  //Create model for pop up window 
+    const [modalVisible, setModalVisible] = useState(false);
 
     const offersPath='ProductIdea/'+route.params.Product_id+'/InvestorsList/' ;
-    
+
     const [offersList , setOffersList]= useState();
    
     useEffect(() => {
@@ -53,36 +57,68 @@ export default function OffersList({ navigation, route }) {
 
         <Image source={Background} style={{ flex: 1,width:'100%',height:'13%', opacity:1, position:'absolute' ,transform: [{ rotate: '180deg'}] }}/>
      
-       <View style={Titlestyles.tasksWrapper}>
-      <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:36 , marginTop:35}]}>عروض الإستثمار</Text>
+          <View style={Titlestyles.tasksWrapper}>
+          <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:36 , marginTop:35}]}>عروض الإستثمار</Text>
     
-      <View style={Titlestyles.items}>
-        <FlatList style={{height:'85%'}}
-        data={offersList}
-        keyExtractor={(item, index)=>index.toString()}
-        renderItem={({ item })=>(
-          <TouchableOpacity // onPress={() => navigation.navigate('TODO', {Product_id:item.productID})}
-          >   
-          <View style={Titlestyles.item}>
-          <Button 
-                style={Titlestyles.DetailsBtn}
-                //onPress={() => navigation.navigate('TODO', {Product_id:item.productID})}
-                title="عرض التفاصيل"
-                titleProps={{}}
-                color='#247ba0'
-            />
-            <Text style={Titlestyles.subTitle}>{item.Investorname}</Text>
-            
-          </View>
-          </TouchableOpacity>
-        )}
+              <View style={Titlestyles.items}>
+                  <FlatList style={{height:'85%'}}
+                    data={offersList}
+                    keyExtractor={(item, index)=>index.toString()}
+        
+                    renderItem={({ item })=>(
 
-        /> 
+                      <TouchableOpacity // onPress={() => navigation.navigate('TODO', {Product_id:item.productID})}
+                      onPress={() => setModalVisible(true)}
+                      >   
+                      <View style={Titlestyles.item}>
+                      <Button 
+                            style={Titlestyles.DetailsBtn}
+                            //onPress={() => navigation.navigate('TODO', {Product_id:item.productID})}
+                            onPress={() => setModalVisible(true)}
+                            title="عرض التفاصيل"
+                            titleProps={{}}
+                            color='#247ba0'
+                        />
+                     
+                        <Text style={Titlestyles.subTitle}>{item.Investorname}</Text>
+
+                        <Modal
+                          animationType="slide"
+                          transparent={true}
+                          visible={modalVisible} >
+
+                          <View style={styles.modalContent}>
+
+                          <Icon
+                          name="close"
+                          size={20}
+                          style={{marginBottom:30, width: 20}}
+                          onPress={() => setModalVisible(!modalVisible)} />
+
+                          <Text style={[Titlestyles.subTitle]}> هنا معلومات العرض + القبول والرفض </Text> 
+                          <TouchableOpacity
+                            style={styles.investButton}
+                            //onPress={SendRequest}
+                            >
+                            <Text style={[Titlestyles.subTitle, { color: 'white', fontSize: 20 }]}>قبول العرض</Text>
+                          </TouchableOpacity>
+    
+                          </View>
+                        </Modal>
+                       
+
+
+                      </View>
+                      </TouchableOpacity>
+
+                    )}
+
+                   /> 
        
-        </View>
+             </View>
         
        
-      </View> 
+           </View> 
 
      
      
@@ -113,7 +149,7 @@ export default function OffersList({ navigation, route }) {
                 <Icon name="home-circle" style={{ marginLeft:'82%' , marginTop:-43 } } size={43} color={"#fff"}/> 
               </TouchableOpacity>
 
-            </View>
+        </View>
             <StatusBar style="auto" />
     </View>
 
@@ -133,6 +169,26 @@ BottomBar:{
     bottom:0,
     width:'100%',
     backgroundColor:'#7c98b3'
+
+},
+
+modalContent: {
+  height: '50%',
+  margin: 20,
+  marginBottom: 'auto',
+  marginTop: 'auto',
+  backgroundColor: "white",
+  borderColor:"#eeeeee",
+  borderWidth:1,
+  borderRadius: 20,
+  padding: 35,
+  shadowColor: "#000",
+  shadowOpacity: 0.25,
+  shadowRadius: 3.84,
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
 
 }
 
