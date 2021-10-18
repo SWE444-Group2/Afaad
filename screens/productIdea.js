@@ -5,6 +5,7 @@ import { StyleSheet, Text, View , Button , TouchableOpacity , Alert ,Image, Moda
 import TitleStyles from './TitleStyles';
 import AfaadLogo from '../assets/images/LOGO.jpeg';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Linking } from 'react-native'
 import 'firebase/auth';
 
 
@@ -163,7 +164,7 @@ export default function productIdea({navigation , route}) {
                      <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{status}</Text> }
 
                       { userType== 'Investor' &&
-                     <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}> رائد الاعمال</Text> } 
+                     <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}> للتواصل مع رائد الاعمال</Text> } 
 
                      { userType== 'Investor' &&
                      <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:'50%'}}/>
@@ -171,9 +172,13 @@ export default function productIdea({navigation , route}) {
                       { userType== 'Investor' &&
                      <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{userName}</Text> }
                       { userType== 'Investor' &&
-                     <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{userEmail}</Text> }
+                      <TouchableOpacity   onPress={() => Linking.openURL('mailto:'+userEmail) }>
+                     <Text style={[TitleStyles.subTitle , TitleStyles.DescText , {color:'#1F7A8C'}]} >{userEmail}</Text> 
+                     </TouchableOpacity>}
                      { userType== 'Investor' &&
-                     <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{userPhone}</Text> }
+                     <TouchableOpacity   onPress={() => Linking.openURL('tel:$'+userPhone) }>
+                     <Text style={[TitleStyles.subTitle , TitleStyles.DescText , {color:'#1F7A8C'}]}>{userPhone}</Text>
+                     </TouchableOpacity> }
 
 
 
