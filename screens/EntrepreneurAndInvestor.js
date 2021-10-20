@@ -204,8 +204,8 @@ export default function Entrepreneur({ navigation }) {
               } 
 
               { userType== 'Investor' && 
-                   <TouchableOpacity>
-                     <Icon name="lightbulb-on-outline" style={{ marginLeft:'45%' , marginTop:-43} } size={40} color={"#fff"}/> 
+                   <TouchableOpacity onPress={() => navigation.navigate('InvestedProductIdea')}>
+                     <Icon name="head-lightbulb-outline" style={{ marginLeft:'45%' , marginTop:-40} } size={37} color={"#fff"}/> 
                    </TouchableOpacity>
               }
 
