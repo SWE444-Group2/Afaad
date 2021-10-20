@@ -8,8 +8,8 @@ import AfaadFirebase from './firebaseConfig';
 
 const Notfication = async() => { 
 
-let user = AfaadFirebase.auth().currentUser;
-const auth = AfaadFirebase.auth();
+  let user = AfaadFirebase.auth().currentUser ;
+  let userID, userType , userName;
 
 if(user){
   userID = user.uid ;
@@ -30,6 +30,16 @@ if(user){
     }
   })
 }
+
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+    _displayInForeground: true
+  }),
+});
 //Asked for permitions
 // check if it is real device?
   let token;
@@ -38,10 +48,12 @@ if(user){
     let finalStatus = existingStatus;
     if (existingStatus !== 'granted') {
       const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
+      if(status=='granted')
+      finalStatus='granted';
+      //final=status
     }
     if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
+      alert('يرجى تفعيل الاشعارات');
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
@@ -55,7 +67,7 @@ if(user){
        Token : token
      })
   
-     isAllowed=true;
+ 
   }
 
   if (Platform.OS === 'android') {
@@ -66,6 +78,10 @@ if(user){
       lightColor: '#FF231F7C',
     });
   }
+
+
+  
+
 
   return token;
 }

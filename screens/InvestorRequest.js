@@ -42,11 +42,13 @@ export default function InvestorRequest({navigation , route}) {
          sound: 'default',
          title:'تنبيه',
          body: 'يوجد لديك طلب استثمار جديد',
+         displayInForeground: true 
 
 
        })
      });
-     console.log(Token)
+
+     console.log(Token + 'Is sent')
     }
 
     //Just to make sure the entrepruner has a token and send the notification 
