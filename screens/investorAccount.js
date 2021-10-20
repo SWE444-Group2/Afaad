@@ -62,6 +62,7 @@ export default function invstorsAccount({navigation , route}) {
               { text: "إلغاء"}
             ]
           ); }
+          
     // console.log(pIdea);
     return(
         <View style={[TitleStyles.containerDetails]}>

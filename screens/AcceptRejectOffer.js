@@ -22,11 +22,18 @@ const auth = AfaadFirebase.auth();
 export default function OffersList({ navigation, route }) {
 
     const InvestorOfferPath='ProductIdea'+route.params.InvestorOffer_id;
+
+    //const offersPath='ProductIdea/'+route.params.Product_id+'/InvestorsList/' ;
+
+
     const [InvestorName, setInvestorName] = useState('');
     const [Desc, setDesc] = useState('');
+    const [InvestorToken, setEntrepreneurToken]=useState('');
     const [SuggCost, setSuggCost] = useState('');
-
     const [modalVisible, setModalVisible] = useState(false);
+
+
+
     
     const invstorsOffetRef = AfaadFirebase.database().ref(InvestorOfferPath);
     invstorsOffetRef.once('value').then(function(snapshot){
@@ -36,8 +43,8 @@ export default function OffersList({ navigation, route }) {
         setDesc(snapshot.child("EntMessage").val());
         setSuggCost(snapshot.child("SuggestedCost").val());
     });
-    
-
+    //
+   
     const AcceptIdea=()=>{
 
         Alert.alert(
@@ -48,7 +55,7 @@ export default function OffersList({ navigation, route }) {
             
               {
                 text: "نعم", onPress: () => { 
-                    
+                  getInvestorToken();
                     dataref.update({status : 'Accepted' } )
                     Alert.alert(
                         "رائع!",
@@ -67,7 +74,7 @@ export default function OffersList({ navigation, route }) {
               { text: "إلغاء"},
               {
                 text: "نعم", onPress: () => { 
-
+                  getInvestorToken();
                      dataref.update({status : 'Rejected' } )
                     Alert.alert(
                         "رائع!",
@@ -77,7 +84,8 @@ export default function OffersList({ navigation, route }) {
              
             ]
           ); }
-
+   
+ 
 
           return(
               <View>

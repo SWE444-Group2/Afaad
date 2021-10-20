@@ -29,13 +29,18 @@ export default function OffersList({ navigation, route }) {
     const [offersList , setOffersList]= useState();
     const dataref=AfaadFirebase.database().ref(offersPath);
 
+
+
+
+
     ////////////Wroge Refrence/////////////////
 
     const InvestorOfferPath='ProductIdea/'+route.params.Product_id+'/InvestorsList/' ;
     const [InvestorName, setInvestorName] = useState('');
     const [Message, setMessage] = useState('');
     const [SuggCost, setSuggCost] = useState('');
-
+    const [InvestorToken, setInvestorToken]=useState('');
+    const [InvestorStat, setInvestorStat]=useState('');
     const invstorsOffetRef = AfaadFirebase.database().ref(InvestorOfferPath);
 
     ///////////////////////////
@@ -49,6 +54,7 @@ export default function OffersList({ navigation, route }) {
           const offers= snapshot.val();  
           for (let offerID in offers){
             offersList.push({offerID,...offers[offerID]});
+
           } 
           if(!isUnmounted){
           setOffersList(offersList);}
@@ -59,12 +65,13 @@ export default function OffersList({ navigation, route }) {
         isUnmounted=true;
 
        };
+     
 
     }, [])
 
-
-          const AcceptIdea=()=>{
-
+    console.log(offersList)
+          const AcceptIdea=(offer)=>{
+            getInvestorToken(offer)
             Alert.alert(
                 "تنبيه!",
                 "هل أنت متأكد من قبول عرض/دعم المستمثر ؟",
@@ -72,9 +79,9 @@ export default function OffersList({ navigation, route }) {
                   { text: "إلغاء"},
                 
                   {
-                    text: "نعم", onPress: () => { 
-                        
-                        dataref.update({status : 'Accepted' } )  
+                    text: "نعم", onPress: (offer) => { 
+                      getInvestorToken(offer)
+                        dataref.update({status :'Accepted' } )  
                         Alert.alert(
                             "رائع!",
                             //"تم قبول عرض/دعم المستثمر بنجاح",[{text: "العودة لقائمه عرض / دعم المستثمرين" ,onPress: () => {navigation.navigate('ViewAccount')}}]
@@ -84,7 +91,7 @@ export default function OffersList({ navigation, route }) {
                 ]
               ); }
 
-        const RejectIdea=()=>{
+        const RejectIdea=(offer)=>{
             Alert.alert(
                 "تنبيه!",
                 "هل أنت متأكد من رفض عرض/دعم المستمثر ؟",
@@ -92,7 +99,7 @@ export default function OffersList({ navigation, route }) {
                   { text: "إلغاء"},
                   {
                     text: "نعم", onPress: () => { 
-
+                      getInvestorToken(offer)
                          dataref.update({status : 'Rejected' } )
                         Alert.alert(
                             "رائع!",
@@ -124,6 +131,71 @@ export default function OffersList({ navigation, route }) {
             }
 */
 
+  // Send notfication by token 
+  const SendNotification= async (Token,stat) =>{
+
+  
+
+    if (stat=='Accepted'){
+
+
+     response = fetch('https://exp.host/--/api/v2/push/send' , {
+      method: 'POST',
+      headers:{
+        Accept: 'application/json',
+        'Content-Type':'application/json'
+      },
+
+      body:JSON.stringify({
+        to: Token,
+        sound: 'default',
+        title:'تهانينا',
+        body: 'لقد تم قبول طلب إستثمارك ',
+
+
+      })
+    });
+    }
+  
+  if (stat=='Rejected' )
+     response = fetch('https://exp.host/--/api/v2/push/send' , {
+      method: 'POST',
+      headers:{
+        Accept: 'application/json',
+        'Content-Type':'application/json'
+      },
+  
+      body:JSON.stringify({
+        to: Token,
+        sound: 'default',
+        title:'عذرًا',
+        body: 'لقد تم رفض طلب إستثمارك ',
+
+
+      })
+    });
+
+  
+    console.log(Token)
+   }
+//InvestorStat(snapshot.child("Token").val());
+   //Just to make sure the entrepruner has a token and send the notification 
+   const getInvestorToken =(offer,Stat)=>{
+
+   const InRef= AfaadFirebase.database().ref("Investor/"+offer)
+
+   InRef.once('value').then(function(snapshot){
+     
+    setInvestorToken(snapshot.child("Token").val());
+  
+   });
+
+    if(!InvestorToken){
+        return ; 
+     }
+     SendNotification(InvestorToken,Stat)
+   }
+
 
 
     return (
@@ -141,7 +213,8 @@ export default function OffersList({ navigation, route }) {
                     keyExtractor={(item, index)=>index.toString()}
         
                     renderItem={({ item })=>(
-
+                 
+                    
                       <TouchableOpacity  //onPress={() => navigation.navigate('AcceptRejectOffer', {InvestorOffer_id:item.offerID})}
                       onPress={() => {setModalVisible(true) }}  //send id to method, {InvestorID:item.offerID}
                       //onPress={() => _onPress(item.offerID)}
@@ -179,13 +252,13 @@ export default function OffersList({ navigation, route }) {
 
                         <TouchableOpacity
                             //style={TitleStyles.Acceptbutton}
-                            onPress={() => AcceptIdea()}>
+                            onPress={() => AcceptIdea(item.offerID,"Accepted")}>
                             <Text >قبول</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                           // style={TitleStyles.Rejectbutton}
-                            onPress={() => RejectIdea()}>
+                            onPress={() => RejectIdea(item.offerID,"Rejected")}>
                             <Text>رفض</Text>
                         </TouchableOpacity>
 

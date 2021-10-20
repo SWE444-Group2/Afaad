@@ -78,14 +78,7 @@ Notifications.setNotificationHandler({
       lightColor: '#FF231F7C',
     });
   }
-
-
-  
-
-
   return token;
 }
-
-
 export {Notfication};
 

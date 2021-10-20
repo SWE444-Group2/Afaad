@@ -31,6 +31,9 @@ export default function InvestorRequest({navigation , route}) {
 
      // Send notfication by token 
     const SendNotification= async (Token) =>{
+
+
+      
      let response = fetch('https://exp.host/--/api/v2/push/send' , {
        method: 'POST',
        headers:{

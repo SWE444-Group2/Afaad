@@ -5,7 +5,6 @@ import { default as splash } from './screens/splash' ;
 import { default as ViewIdea } from './screens/ViewIdea' ;
 import {default as ViewAccount} from './screens/ViewAccount';
 import { default as Admin } from './screens/Admin' ;
-import { default as Investor } from './screens/Investor' ;
 import { default as EntrepreneurAndInvestor } from './screens/EntrepreneurAndInvestor' ;
 import { default as productIdea } from './screens/productIdea' ;
 import {default as investorAccount} from './screens/investorAccount';
@@ -57,7 +56,7 @@ if(!isLoaded){
         <Stack.Screen name="SignUpInvst" component={SignUpInvst} options={{ headerTitle: "إنشاء حساب "}} />
         <Stack.Screen name="PublishIdea" component={PublishIdea} options={{ headerTitle: "نشر مشروع جديد"}}/>
         <Stack.Screen name="Admin" component={Admin} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false , gestureEnabled: false }}/>
-        <Stack.Screen name="Investor" component={Investor} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false }}/>
+
         <Stack.Screen name="EntrepreneurAndInvestor" component={EntrepreneurAndInvestor} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
         <Stack.Screen name="SignupOption" component={SignupOption} options={{ headerTitle: ""}}/>
         <Stack.Screen name="ResetPass" component={ResetPass} options={{ headerTitle: "إعادة تعيين كلمة المرور"}}/>
