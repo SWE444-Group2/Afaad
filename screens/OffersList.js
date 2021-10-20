@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 import ViewIdea from './ViewIdea';
 import { StatusBar } from 'expo-status-bar';
 import React ,{useEffect , useState , setState} from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image,Modal } from 'react-native';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image,Modal,Alert} from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 import Titlestyles from './TitleStyles';
@@ -25,14 +25,24 @@ const auth = AfaadFirebase.auth();
 export default function OffersList({ navigation, route }) {
   //Create model for pop up window 
     const [modalVisible, setModalVisible] = useState(false);
-
     const offersPath='ProductIdea/'+route.params.Product_id+'/InvestorsList/' ;
-
     const [offersList , setOffersList]= useState();
-   
+    const dataref=AfaadFirebase.database().ref(offersPath);
+
+    ////////////Wroge Refrence/////////////////
+
+    const InvestorOfferPath='ProductIdea/'+route.params.Product_id+'/InvestorsList/' ;
+    const [InvestorName, setInvestorName] = useState('');
+    const [Message, setMessage] = useState('');
+    const [SuggCost, setSuggCost] = useState('');
+
+    const invstorsOffetRef = AfaadFirebase.database().ref(InvestorOfferPath);
+
+    ///////////////////////////
+
     useEffect(() => {
         let isUnmounted=false;
-       const dataref=AfaadFirebase.database().ref(offersPath)
+       //const dataref=AfaadFirebase.database().ref(offersPath)
     
        dataref.on('value',(snapshot) =>{
           const offersList=[] // empty list
@@ -51,6 +61,71 @@ export default function OffersList({ navigation, route }) {
        };
 
     }, [])
+
+
+          const AcceptIdea=()=>{
+
+            Alert.alert(
+                "تنبيه!",
+                "هل أنت متأكد من قبول عرض/دعم المستمثر ؟",
+                [
+                  { text: "إلغاء"},
+                
+                  {
+                    text: "نعم", onPress: () => { 
+                        
+                        dataref.update({status : 'Accepted' } )  
+                        Alert.alert(
+                            "رائع!",
+                            //"تم قبول عرض/دعم المستثمر بنجاح",[{text: "العودة لقائمه عرض / دعم المستثمرين" ,onPress: () => {navigation.navigate('ViewAccount')}}]
+                            );                         }
+                  },
+                  
+                ]
+              ); }
+
+        const RejectIdea=()=>{
+            Alert.alert(
+                "تنبيه!",
+                "هل أنت متأكد من رفض عرض/دعم المستمثر ؟",
+                [
+                  { text: "إلغاء"},
+                  {
+                    text: "نعم", onPress: () => { 
+
+                         dataref.update({status : 'Rejected' } )
+                        Alert.alert(
+                            "رائع!",
+                            //"تم رفض المستثمر بنجاح",[{text: "العودة لقائمه المستثمرين" ,onPress: () => {navigation.navigate('ViewAccount')}}]
+                            );                         }
+                  }
+                 
+                ]
+              ); 
+            
+
+             
+            
+            
+            }
+/*
+            const _onPress=(Id)=>{
+                
+
+              invstorsOffetRef.once('value').then(function(snapshot){
+                      
+                  setInvestorName(snapshot.child("Investorname").val());
+                  setDesc(snapshot.child("EntMessage").val());
+                  setSuggCost(snapshot.child("SuggestedCost").val());
+                  setModalVisible(true);
+
+              });
+
+            }
+*/
+
+
+
     return (
 
       <View style={Titlestyles.container}>
@@ -67,60 +142,55 @@ export default function OffersList({ navigation, route }) {
         
                     renderItem={({ item })=>(
 
-                      <TouchableOpacity // onPress={() => navigation.navigate('TODO', {Product_id:item.productID})}
-                      onPress={() => setModalVisible(true)}
+                      <TouchableOpacity  //onPress={() => navigation.navigate('AcceptRejectOffer', {InvestorOffer_id:item.offerID})}
+                      onPress={() => {setModalVisible(true) }}  //send id to method, {InvestorID:item.offerID}
+                      //onPress={() => _onPress(item.offerID)}
                       >   
                       <View style={Titlestyles.item}>
                       <Button 
                             style={Titlestyles.DetailsBtn}
-                            //onPress={() => navigation.navigate('TODO', {Product_id:item.productID})}
-                            onPress={() => setModalVisible(true)}
+                           // onPress={() => navigation.navigate('AcceptRejectOffer', {Product_id:item.productID})}
+                           onPress={() => {setModalVisible(true)}}
                             title="عرض التفاصيل"
                             titleProps={{}}
                             color='#247ba0'
                         />
                      
                         <Text style={Titlestyles.subTitle}>{item.Investorname}</Text>
-
+                        
                         <Modal
-                          animationType="slide"
-                          transparent={true}
-                          visible={modalVisible} >
+                        animationType="slide"
+                        transparent={true}
+                        visible={modalVisible} >
 
-                          <View style={styles.modalContent}>
+                        <View style={styles.modalContent}>
 
-                          <Icon
-                          name="close"
-                          size={20}
-                          style={{marginBottom:30, width: 20}}
-                          onPress={() => setModalVisible(!modalVisible)} />
+                        <Icon
+                        name="close"
+                        size={20}
+                        style={{marginBottom:30, width: 20}}
+                        onPress={() => setModalVisible(!modalVisible)} />
 
-                          <Text style={styles.TextCenter}> معلومات دعم المستثمر  </Text> 
-                          <Text style={styles.TextCenter}> اسم المستثمر :  {item.Investorname} </Text> 
-                          <Text style={styles.TextCenter}> وصف دعم المستثمر:  {item.EntMessage} </Text> 
-                          <Text style={styles.TextCenter}>  المبلغ المقترح للدعم :  {item.SuggestedCost} </Text> 
-
-
-
-                          <TouchableOpacity
-                           // style={Titlestyles.Acceptbutton}
-                            //onPress={() => AcceptIdea()}
-                            >
-                            <Text > قبول</Text>
-                          </TouchableOpacity>  
+                        <Text style={styles.TextCenter}> معلومات دعم المستثمر  </Text> 
+                        <Text style={styles.TextCenter}> اسم المستثمر :  {item.Investorname} </Text>  
+                        <Text style={styles.TextCenter}> وصف دعم المستثمر:  {item.EntMessage} </Text> 
+                        <Text style={styles.TextCenter}>  المبلغ المقترح للدعم :  {item.SuggestedCost} </Text> 
 
 
-                          <TouchableOpacity
-                             // style={Titlestyles.Rejectbutton}
-                              //onPress={() => RejectIdea()}
-                              >
-                              <Text >رفض</Text>
-                          </TouchableOpacity> 
-    
-                          </View>
+                        <TouchableOpacity
+                            //style={TitleStyles.Acceptbutton}
+                            onPress={() => AcceptIdea()}>
+                            <Text >قبول</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                          // style={TitleStyles.Rejectbutton}
+                            onPress={() => RejectIdea()}>
+                            <Text>رفض</Text>
+                        </TouchableOpacity>
+
+                        </View>
                         </Modal>
-                       
-
 
                       </View>
                       </TouchableOpacity>
@@ -135,8 +205,6 @@ export default function OffersList({ navigation, route }) {
            </View> 
 
      
-     
-      
       <View style={styles.BottomBar}> 
 
               <TouchableOpacity >
