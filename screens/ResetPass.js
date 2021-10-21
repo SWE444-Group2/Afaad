@@ -36,6 +36,23 @@ export default function ResetPass({ navigation }) {
   
           .catch(function(error) {
             // Error occurred. Inspect error.code.
+            if(error.code == 'auth/invalid-email'){
+              Alert.alert('تنبيه', 'الرجاء إدخال البريد الإلكتروني بالشكل الصحيح ', [
+                {
+                  text: "حسنًا",
+                  style: "cancel",
+                },
+              ])
+            }
+
+            if(error.code == 'auth/user-not-found'){
+              Alert.alert('تنبيه', 'لا يوجد مستخدم بهذا البريد الإلكتروني', [
+                {
+                  text: "حسنًا",
+                  style: "cancel",
+                },
+              ])
+            }
           });
 
     } else {
