@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 import ViewIdea from './ViewIdea';
 import { StatusBar } from 'expo-status-bar';
 import React ,{useEffect , useState , setState} from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image,Modal,Alert} from 'react-native';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image,Modal,Alert,TextArea} from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 import Titlestyles from './TitleStyles';
@@ -15,7 +15,6 @@ import SearchIcon from '../assets/images/SearchIcon.png';
 import NotificationIcon from '../assets/images/NotificationIcon.png'
 import ProfileIcon from '../assets/images/ProfileIcon.png'
 import { ScrollView } from 'react-native-gesture-handler';
-//import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 let user = AfaadFirebase.auth().currentUser;
@@ -25,25 +24,14 @@ const auth = AfaadFirebase.auth();
 export default function OffersList({ navigation, route }) {
   //Create model for pop up window 
     const [modalVisible, setModalVisible] = useState(false);
+    const offerroute=route;
     const offersPath='ProductIdea/'+route.params.Product_id+'/InvestorsList/' ;
     const [offersList , setOffersList]= useState();
     const dataref=AfaadFirebase.database().ref(offersPath);
 
-
-
-
-
-    ////////////Wroge Refrence/////////////////
-
-    const InvestorOfferPath='ProductIdea/'+route.params.Product_id+'/InvestorsList/' ;
-    const [InvestorName, setInvestorName] = useState('');
-    const [Message, setMessage] = useState('');
-    const [SuggCost, setSuggCost] = useState('');
     const [InvestorToken, setInvestorToken]=useState('');
     const [InvestorStat, setInvestorStat]=useState('');
-    const invstorsOffetRef = AfaadFirebase.database().ref(InvestorOfferPath);
 
-    ///////////////////////////
 
     useEffect(() => {
         let isUnmounted=false;
@@ -69,9 +57,11 @@ export default function OffersList({ navigation, route }) {
 
     }, [])
 
-    console.log(offersList)
-          const AcceptIdea=(offer)=>{
-            getInvestorToken(offer)
+
+   //console.log(offersList)
+
+          const AcceptIdea=()=>{
+            //getInvestorToken(offer)
             Alert.alert(
                 "تنبيه!",
                 "هل أنت متأكد من قبول عرض/دعم المستمثر ؟",
@@ -80,8 +70,8 @@ export default function OffersList({ navigation, route }) {
                 
                   {
                     text: "نعم", onPress: (offer) => { 
-                      getInvestorToken(offer)
-                        dataref.update({status :'Accepted' } )  
+                     // getInvestorToken(offer)
+                      invstorsOfferRef.update({status :'Accepted' } )  
                         Alert.alert(
                             "رائع!",
                             //"تم قبول عرض/دعم المستثمر بنجاح",[{text: "العودة لقائمه عرض / دعم المستثمرين" ,onPress: () => {navigation.navigate('ViewAccount')}}]
@@ -91,7 +81,7 @@ export default function OffersList({ navigation, route }) {
                 ]
               ); }
 
-        const RejectIdea=(offer)=>{
+        const RejectIdea=()=>{
             Alert.alert(
                 "تنبيه!",
                 "هل أنت متأكد من رفض عرض/دعم المستمثر ؟",
@@ -99,37 +89,39 @@ export default function OffersList({ navigation, route }) {
                   { text: "إلغاء"},
                   {
                     text: "نعم", onPress: () => { 
-                      getInvestorToken(offer)
-                         dataref.update({status : 'Rejected' } )
+                      //getInvestorToken(offer)
+                      invstorsOfferRef.update({status : 'Rejected' } )
                         Alert.alert(
                             "رائع!",
-                            //"تم رفض المستثمر بنجاح",[{text: "العودة لقائمه المستثمرين" ,onPress: () => {navigation.navigate('ViewAccount')}}]
-                            );                         }
+                            //"تم رفض المستثمر بنجاح",[{text: "العودة لقائمه المستثمرين" ,onPress: () => {setModalVisible(!modalVisible)}}]
+                            );                        
+                          
+                          }
                   }
-                 
                 ]
-              ); 
-            
-
-             
-            
-            
+              );   
             }
-/*
-            const _onPress=(Id)=>{
-                
 
-              invstorsOffetRef.once('value').then(function(snapshot){
+            const [InvestorName, setInvestorName] = useState('');
+            const [Message, setMessage] = useState('');
+            const [SuggCost, setSuggCost] = useState('');
+       
+            const _onPress=(investorID)=>{
+
+            global.InvestorOfferPath=offersPath+investorID+"/";   //ADD ID FROM ROUTE route.params.ID
+            global.invstorsOfferRef = AfaadFirebase.database().ref(InvestorOfferPath);
+
+              invstorsOfferRef.once('value').then(function(snapshot){
                       
                   setInvestorName(snapshot.child("Investorname").val());
-                  setDesc(snapshot.child("EntMessage").val());
+                  setMessage(snapshot.child("EntMessage").val());
                   setSuggCost(snapshot.child("SuggestedCost").val());
                   setModalVisible(true);
 
               });
 
             }
-*/
+
 
   // Send notfication by token 
   const SendNotification= async (Token,stat) =>{
@@ -178,8 +170,11 @@ export default function OffersList({ navigation, route }) {
   
     console.log(Token)
    }
-//InvestorStat(snapshot.child("Token").val());
+
+
+   //InvestorStat(snapshot.child("Token").val());
    //Just to make sure the entrepruner has a token and send the notification 
+
    const getInvestorToken =(offer,Stat)=>{
 
    const InRef= AfaadFirebase.database().ref("Investor/"+offer)
@@ -213,64 +208,75 @@ export default function OffersList({ navigation, route }) {
                     keyExtractor={(item, index)=>index.toString()}
         
                     renderItem={({ item })=>(
-                 
-                    
-                      <TouchableOpacity  //onPress={() => navigation.navigate('AcceptRejectOffer', {InvestorOffer_id:item.offerID})}
-                      onPress={() => {setModalVisible(true) }}  //send id to method, {InvestorID:item.offerID}
-                      //onPress={() => _onPress(item.offerID)}
-                      >   
+                                   
+                      <TouchableOpacity onPress={() => _onPress(item.offerID)}>   
+
                       <View style={Titlestyles.item}>
                       <Button 
                             style={Titlestyles.DetailsBtn}
-                           // onPress={() => navigation.navigate('AcceptRejectOffer', {Product_id:item.productID})}
-                           onPress={() => {setModalVisible(true)}}
+                            onPress={() => _onPress(item.offerID)}
                             title="عرض التفاصيل"
                             titleProps={{}}
                             color='#247ba0'
                         />
-                     
+        
                         <Text style={Titlestyles.subTitle}>{item.Investorname}</Text>
-                        
-                        <Modal
-                        animationType="slide"
-                        transparent={true}
-                        visible={modalVisible} >
-
-                        <View style={styles.modalContent}>
-
-                        <Icon
-                        name="close"
-                        size={20}
-                        style={{marginBottom:30, width: 20}}
-                        onPress={() => setModalVisible(!modalVisible)} />
-
-                        <Text style={styles.TextCenter}> معلومات دعم المستثمر  </Text> 
-                        <Text style={styles.TextCenter}> اسم المستثمر :  {item.Investorname} </Text>  
-                        <Text style={styles.TextCenter}> وصف دعم المستثمر:  {item.EntMessage} </Text> 
-                        <Text style={styles.TextCenter}>  المبلغ المقترح للدعم :  {item.SuggestedCost} </Text> 
-
-
-                        <TouchableOpacity
-                            //style={TitleStyles.Acceptbutton}
-                            onPress={() => AcceptIdea(item.offerID,"Accepted")}>
-                            <Text >قبول</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                          // style={TitleStyles.Rejectbutton}
-                            onPress={() => RejectIdea(item.offerID,"Rejected")}>
-                            <Text>رفض</Text>
-                        </TouchableOpacity>
-
-                        </View>
-                        </Modal>
-
+                      
                       </View>
                       </TouchableOpacity>
 
                     )}
 
                    /> 
+
+                          <Modal
+                          animationType="slide"
+                          transparent={true}
+                          visible={modalVisible} >
+
+                          <View style={styles.modalContent}>
+
+                          <Icon
+                          name="close"
+                          size={20}
+                          style={{marginBottom:30, width: 20, paddingTop:25,}}
+                          onPress={() => setModalVisible(!modalVisible)} />
+
+                       
+                          <Text style={styles.TextCenter}> معلومات دعم المستثمر  </Text> 
+                          <View>
+                          <Text style={styles.DetailsText}> اسم المستثمر </Text> 
+                   
+                          <Text style={styles.OfferDetails}> {InvestorName} </Text> 
+
+                          <Text style={styles.DetailsText}>  المبلغ المقترح للدعم</Text> 
+
+                          <Text style={styles.OfferDetails}>  {SuggCost}  </Text>
+
+                           <Text style={styles.DetailsText} > وصف دعم المستثمر </Text> 
+                    
+                          <Text style={styles.OfferDetails}>  {Message}  </Text>
+                      
+
+                          
+                          <View style={{flexDirection:'row', paddingLeft:35,paddingTop:70,alignContent:"center"}}>
+                          
+                          <TouchableOpacity style={styles.RejectOffer}
+                            // style={TitleStyles.Rejectbutton}
+                              onPress={() => RejectIdea()}>
+                              <Text style={styles.RejectDetailsBtn}  >رفض</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity style={styles.AcceptOffer}
+                              //style={TitleStyles.Acceptbutton}
+                              onPress={() => AcceptIdea()}>
+                              <Text style={styles.AcceptDetailsBtn} >قبول</Text>
+                          </TouchableOpacity>
+                          </View> 
+                          </View>
+
+
+                          </View>
+                          </Modal>
        
              </View>
         
@@ -328,7 +334,7 @@ BottomBar:{
 },
 
 modalContent: {
-  height: '50%',
+  height: '60%',
   margin: 20,
   marginBottom: 'auto',
   marginTop: 'auto',
@@ -337,13 +343,16 @@ modalContent: {
   borderWidth:1,
   borderRadius: 20,
   padding: 35,
+  paddingTop:5,
   shadowColor: "#000",
   shadowOpacity: 0.25,
   shadowRadius: 3.84,
   shadowOffset: {
     width: 0,
     height: 2,
+
   },
+  
 },
 
 
@@ -352,9 +361,82 @@ TextCenter:{
   fontSize:18,
   color:'#1d2d44',
   textAlign: 'center',
-  paddingTop:-10,
+  marginTop:-15,
 
+},
 
-}
+DetailsText:{
+textAlign:"right",
+fontFamily: 'AJannatLTBold',
+marginTop: 10,
+color:'#536b78',
+fontSize:17,
+//width:'90%',
+//paddingRight:0,
+},
 
+OfferDetails:{
+
+textAlign:"right",
+fontFamily: 'AJannatLT',
+fontSize:17,
+color:'#637081',
+backgroundColor:"#eeeeee",
+width:'100%',
+height:35,
+paddingRight:10,
+borderColor:"#eeeeee",
+borderWidth:1,
+borderRadius:6,
+
+},
+
+AcceptDetailsBtn:{
+  fontFamily:'AJannatLT',
+  color:'#fff',
+  textAlign:'center',
+  padding:3,
+  fontSize: 18, 
+  //position:'relative',
+  
+  
+},
+RejectDetailsBtn:{
+  fontFamily:'AJannatLT',
+  color:'#7c98b3',
+  textAlign:'center',
+  padding:3,
+  fontSize: 18, 
+  //position:'relative',
+},
+
+AcceptOffer:{
+  //position:'relative',
+  marginBottom:'5%',
+  marginRight:'5%',
+  width:100,
+  backgroundColor:'#7c98b3',
+  borderRadius:6,
+},
+RejectOffer:{
+  //position:'relative',
+  marginBottom:'5%',
+  marginRight:'5%',
+  width:100,
+  backgroundColor:'#fff',
+  borderWidth:1,
+  borderColor:"#7c98b3",
+  borderRadius:6,
+},
+
+square:{
+  marginTop:20,
+  
+  alignItems:'flex-end',
+  backgroundColor:'#eeeeee',
+  borderRadius:10,
+  width:'100%', 
+  height:350,
+  marginBottom:'5%'
+},
 });

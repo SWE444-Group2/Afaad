@@ -22,7 +22,6 @@ import { default as NotificationsNav } from './screens/NotificationsNav' ;
 import { default as InvestorRequest } from './screens/InvestorRequest' ;
 import { default as OffersList } from './screens/OffersList' ;
 import { default as profile } from './screens/profile' ;
-import { default as AcceptRejectOffer } from './screens/AcceptRejectOffer';
 import {default as InvestedProductIdea} from './screens/InvestedProductIdea'
 
 import {useFonts} from 'expo-font';
@@ -66,7 +65,7 @@ if(!isLoaded){
         <Stack.Screen name="OffersList" component={OffersList} options={{ headerTitle: "عروض الإستثمار"}}/>
         <Stack.Screen name="InvestedProductIdea" component={InvestedProductIdea} options={{ headerTitle: "المشاريع المستثمرة" , headerBackVisible: false ,gestureEnabled: false}}/>
         <Stack.Screen name="profile" component={profile} options={{ headerTitle: "الملف الشخصي"}}/>
-        <Stack.Screen name="AcceptRejectOffer" component={AcceptRejectOffer} options={{ headerTitle: ""}}/>
+        
 
 
       </Stack.Navigator>
