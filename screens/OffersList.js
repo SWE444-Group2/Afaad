@@ -15,7 +15,7 @@ import SearchIcon from '../assets/images/SearchIcon.png';
 import NotificationIcon from '../assets/images/NotificationIcon.png'
 import ProfileIcon from '../assets/images/ProfileIcon.png'
 import { ScrollView } from 'react-native-gesture-handler';
-
+import InvestorLogo from '../assets/images/business-and-finance.png';
 
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
@@ -241,6 +241,7 @@ export default function OffersList({ navigation, route }) {
                           size={20}
                           style={{marginBottom:30, width: 20, paddingTop:25,}}
                           onPress={() => setModalVisible(!modalVisible)} />
+                          <Image source={InvestorLogo} style={styles.icons} />
 
                        
                           <Text style={styles.TextCenter}> معلومات دعم المستثمر  </Text> 
@@ -359,9 +360,9 @@ modalContent: {
 TextCenter:{
   fontFamily:'AJannatLTBold',
   fontSize:18,
-  color:'#1d2d44',
+  color:'#637081',
   textAlign: 'center',
-  marginTop:-15,
+  marginTop:-10,
 
 },
 
@@ -403,7 +404,7 @@ AcceptDetailsBtn:{
 },
 RejectDetailsBtn:{
   fontFamily:'AJannatLT',
-  color:'#7c98b3',
+  color:'#002B3E',
   textAlign:'center',
   padding:3,
   fontSize: 18, 
@@ -415,7 +416,7 @@ AcceptOffer:{
   marginBottom:'5%',
   marginRight:'5%',
   width:100,
-  backgroundColor:'#7c98b3',
+  backgroundColor:'#002B3E',
   borderRadius:6,
 },
 RejectOffer:{
@@ -425,7 +426,7 @@ RejectOffer:{
   width:100,
   backgroundColor:'#fff',
   borderWidth:1,
-  borderColor:"#7c98b3",
+  borderColor:"#002B3E",
   borderRadius:6,
 },
 
@@ -438,5 +439,13 @@ square:{
   width:'100%', 
   height:350,
   marginBottom:'5%'
+},
+
+icons:{
+  marginTop:-45,
+  alignSelf:"center",
+  //width:10,
+  
+
 },
 });
