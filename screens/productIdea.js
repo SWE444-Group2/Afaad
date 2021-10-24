@@ -237,7 +237,7 @@ export default function productIdea({navigation , route}) {
                   { userType== 'Entrepreneur' &&
                    <TouchableOpacity   onPress={() => navigation.navigate('OffersList', {Product_id: route.params.Product_id})}
                    style={styles.ButtonText}>
-                   <Text style={styles.investors}> قائمه المستثمرين</Text>
+                   <Text style={styles.ButtonText}> قائمه عروض المستثمرين</Text>
                 </TouchableOpacity>  }    
          </View>  
         </View>

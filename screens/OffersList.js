@@ -232,7 +232,7 @@ export default function OffersList({ navigation, route }) {
     
               <View style={Titlestyles.items}>
               <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:15 , marginTop:10}]}> العروض المقبولة</Text>
-              <FlatList style={{height:'20%'}}
+              <FlatList style={{height:'21%'}}
                     data={acceptedOffers}
                     keyExtractor={(item, index)=>index.toString()}
         
