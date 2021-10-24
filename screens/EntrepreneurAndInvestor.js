@@ -144,24 +144,15 @@ export default function Entrepreneur({ navigation }) {
        
       </View> 
 
-     
-     { userType=='Investor' && <TouchableOpacity  
-           style={Titlestyles.SignOutbutton} onPress={onSignout}>
-          <Image source={SignOut} style={{ width: 25, height: 25 }}/>
-          </TouchableOpacity>}
+  
           
-      { userType=='Entrepreneur' && <TouchableOpacity  
-           style={Titlestyles.SignOutbutton} onPress={onSignout}>
-          <Image source={SignOut} style={{ width: 25, height: 25 }}/>
-        </TouchableOpacity>
-}
-           
+      
 
       
       <View style={styles.BottomBar}> 
 
             { userType== 'Entrepreneur' &&  
-              <TouchableOpacity  onPress={() => navigation.navigate('profile')}>
+              <TouchableOpacity  onPress={() => navigation.navigate('profile',{userType: userType})}>
                 <Icon name="account-box-outline" style={{ marginLeft:'5%' , marginTop:10} } size={40} color={"#fff"}/> 
               </TouchableOpacity>
             }
