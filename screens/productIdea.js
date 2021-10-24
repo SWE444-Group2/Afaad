@@ -237,7 +237,7 @@ export default function productIdea({navigation , route}) {
                   { userType== 'Entrepreneur' &&
                    <TouchableOpacity   onPress={() => navigation.navigate('OffersList', {Product_id: route.params.Product_id})}
                    style={styles.ButtonText}>
-                   <Text style={styles.ButtonText}> قائمه المستثمرين</Text>
+                   <Text style={styles.investors}> قائمه المستثمرين</Text>
                 </TouchableOpacity>  }    
          </View>  
         </View>
@@ -319,6 +319,18 @@ const styles = StyleSheet.create({
     textAlign:'center',
     height: 40,
     borderRadius: 6,
+  },
+
+  investors:{
+    fontFamily: 'AJannatLT',
+    fontSize:18,
+    color:"#fff",
+    fontWeight:'bold',
+    borderColor: '#002B3E',
+    borderRadius: 20,
+    width: 213,
+    textAlign:'center',
+    height: 40,
   }
 
 });

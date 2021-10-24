@@ -27,6 +27,8 @@ export default function OffersList({ navigation, route }) {
     const offerroute=route;
     const offersPath='ProductIdea/'+route.params.Product_id+'/InvestorsList/' ;
     const [offersList , setOffersList]= useState();
+    const [acceptedOffers , setAcceptedOffers] = useState();
+    const [pendingOffers , setPendingOffers] = useState();
     const dataref=AfaadFirebase.database().ref(offersPath);
 
     const [InvestorToken, setInvestorToken]=useState('');
@@ -40,12 +42,34 @@ export default function OffersList({ navigation, route }) {
        dataref.on('value',(snapshot) =>{
           const offersList=[] // empty list
           const offers= snapshot.val();  
-          for (let offerID in offers){
-            offersList.push({offerID,...offers[offerID]});
+          for (let offerID in offers) {
+            offersList.push({offerID,...offers[offerID]
+            }
+              );
 
           } 
+
+          if( !isUnmounted){
+          setOffersList(offersList);
+        }
+
+        const acceptedOffers=[]
+        for(let status in offersList){
+          if (offersList[status].status == 'Accepted') {
+            acceptedOffers.push(offersList[status])
+          }}
+
           if(!isUnmounted){
-          setOffersList(offersList);}
+            setAcceptedOffers(acceptedOffers) ;}
+
+            const pendingOffers=[]
+            for(let status in offersList){
+              if (offersList[status].status == 'Pending') {
+                pendingOffers.push(offersList[status])
+              }}
+    
+              if(!isUnmounted){
+                setPendingOffers(pendingOffers) ;}
 
        });
 
@@ -102,9 +126,12 @@ export default function OffersList({ navigation, route }) {
               );   
             }
 
-            const [InvestorName, setInvestorName] = useState('');
-            const [Message, setMessage] = useState('');
-            const [SuggCost, setSuggCost] = useState('');
+            
+
+            const  [InvestorName, setInvestorName] = useState('') ;
+            const  [Message, setMessage] = useState('') ;
+            const  [SuggCost, setSuggCost] = useState('') ;
+            const  [status, setStatus] = useState('') ;
        
             const _onPress=(investorID)=>{
 
@@ -116,6 +143,7 @@ export default function OffersList({ navigation, route }) {
                   setInvestorName(snapshot.child("Investorname").val());
                   setMessage(snapshot.child("EntMessage").val());
                   setSuggCost(snapshot.child("SuggestedCost").val());
+                  setStatus(snapshot.child("status").val());
                   setModalVisible(true);
 
               });
@@ -196,21 +224,22 @@ export default function OffersList({ navigation, route }) {
     return (
 
       <View style={Titlestyles.container}>
-
         <Image source={Background} style={{ flex: 1,width:'100%',height:'13%', opacity:1, position:'absolute' ,transform: [{ rotate: '180deg'}] }}/>
      
           <View style={Titlestyles.tasksWrapper}>
+            
           <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:36 , marginTop:35}]}>عروض الإستثمار</Text>
     
               <View style={Titlestyles.items}>
-                  <FlatList style={{height:'85%'}}
-                    data={offersList}
+              <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:15 , marginTop:10}]}> العروض المقبولة</Text>
+              <FlatList style={{height:'20%'}}
+                    data={acceptedOffers}
                     keyExtractor={(item, index)=>index.toString()}
         
                     renderItem={({ item })=>(
                                    
                       <TouchableOpacity onPress={() => _onPress(item.offerID)}>   
-
+                      <View>
                       <View style={Titlestyles.item}>
                       <Button 
                             style={Titlestyles.DetailsBtn}
@@ -219,16 +248,48 @@ export default function OffersList({ navigation, route }) {
                             titleProps={{}}
                             color='#247ba0'
                         />
-        
+                        
                         <Text style={Titlestyles.subTitle}>{item.Investorname}</Text>
-                      
+                       </View>
+                       
                       </View>
                       </TouchableOpacity>
-
+                    
                     )}
 
-                   /> 
+                    
 
+                   /> 
+                  <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:15 , marginTop:35}]}>عروض في قيد الإنتظار</Text>
+
+                  <FlatList style={{height:'50%'}}
+                    data={pendingOffers}
+                    keyExtractor={(item, index)=>index.toString()}
+        
+                    renderItem={({ item })=>(
+                                   
+                      <TouchableOpacity onPress={() => _onPress(item.offerID)}>   
+                      <View>
+                      <View style={Titlestyles.item}>
+                      <Button 
+                            style={Titlestyles.DetailsBtn}
+                            onPress={() => _onPress(item.offerID)}
+                            title="عرض التفاصيل"
+                            titleProps={{}}
+                            color='#247ba0'
+                        />
+                        
+                        <Text style={Titlestyles.subTitle}>{item.Investorname}</Text>
+                       </View>
+                       
+                      </View>
+                      </TouchableOpacity>
+                    
+                    )}
+
+                    
+
+                   /> 
                           <Modal
                           animationType="slide"
                           transparent={true}
@@ -246,32 +307,35 @@ export default function OffersList({ navigation, route }) {
                        
                           <Text style={styles.TextCenter}> معلومات دعم المستثمر  </Text> 
                           <View>
-                          <Text style={styles.DetailsText}> اسم المستثمر </Text> 
+                          <Text style={styles.OfferDetails}> اسم المستثمر: </Text> 
                    
-                          <Text style={styles.OfferDetails}> {InvestorName} </Text> 
+                          <Text style={styles.DetailsText}> {InvestorName} </Text> 
 
-                          <Text style={styles.DetailsText}>  المبلغ المقترح للدعم</Text> 
+                          <Text style={styles.OfferDetails}> المبلغ المقترح للدعم:</Text> 
 
-                          <Text style={styles.OfferDetails}>  {SuggCost}  </Text>
+                          <Text style={styles.DetailsText}>  {SuggCost}  </Text>
 
-                           <Text style={styles.DetailsText} > وصف دعم المستثمر </Text> 
+                           <Text style={styles.OfferDetails} > وصف دعم المستثمر: </Text> 
                     
-                          <Text style={styles.OfferDetails}>  {Message}  </Text>
+                          <Text style={styles.DetailsText}>  {Message}  </Text>
                       
 
                           
                           <View style={{flexDirection:'row', paddingLeft:35,paddingTop:70,alignContent:"center"}}>
                           
+                         { status=='Pending' &&
                           <TouchableOpacity style={styles.RejectOffer}
                             // style={TitleStyles.Rejectbutton}
                               onPress={() => RejectIdea()}>
                               <Text style={styles.RejectDetailsBtn}  >رفض</Text>
-                          </TouchableOpacity>
+                          </TouchableOpacity> }
+                          { status=='Pending' &&
                           <TouchableOpacity style={styles.AcceptOffer}
                               //style={TitleStyles.Acceptbutton}
                               onPress={() => AcceptIdea()}>
                               <Text style={styles.AcceptDetailsBtn} >قبول</Text>
-                          </TouchableOpacity>
+                          </TouchableOpacity> }
+
                           </View> 
                           </View>
 
@@ -283,6 +347,7 @@ export default function OffersList({ navigation, route }) {
         
        
            </View> 
+           
 
      
       <View style={styles.BottomBar}> 
@@ -312,6 +377,7 @@ export default function OffersList({ navigation, route }) {
               </TouchableOpacity>
 
         </View>
+
             <StatusBar style="auto" />
     </View>
 
@@ -371,24 +437,18 @@ textAlign:"right",
 fontFamily: 'AJannatLTBold',
 marginTop: 10,
 color:'#536b78',
-fontSize:17,
+marginRight:10,
+fontSize:18,
 //width:'90%',
 //paddingRight:0,
 },
 
 OfferDetails:{
-
 textAlign:"right",
 fontFamily: 'AJannatLT',
-fontSize:17,
-color:'#637081',
-backgroundColor:"#eeeeee",
-width:'100%',
-height:35,
-paddingRight:10,
-borderColor:"#eeeeee",
-borderWidth:1,
-borderRadius:6,
+marginTop: 10,
+color:'#536b78',
+fontSize:16,
 
 },
 
