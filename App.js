@@ -56,12 +56,15 @@ if(!isLoaded){
         <Stack.Screen name="PublishIdea" component={PublishIdea} options={{ headerTitle: "نشر مشروع جديد"}}/>
         <Stack.Screen name="Admin" component={Admin} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false , gestureEnabled: false }}/>
 
-        <Stack.Screen name="EntrepreneurAndInvestor" component={EntrepreneurAndInvestor} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
+        <Stack.Screen name="EntrepreneurAndInvestor" component={EntrepreneurAndInvestor} 
+          options={{ headerTitle:'الصفحة الرئيسية', headerBackVisible: false, gestureEnabled: false, 
+          headerTintColor: 'white', headerStyle: { backgroundColor: '#7c98b3' },}}/>        
         <Stack.Screen name="SignupOption" component={SignupOption} options={{ headerTitle: ""}}/>
         <Stack.Screen name="ResetPass" component={ResetPass} options={{ headerTitle: "إعادة تعيين كلمة المرور"}}/>
         <Stack.Screen name="PendingPage" component={PendingPage} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
         <Stack.Screen name="NotificationsNav" component={NotificationsNav} options={{ headerTitle:'الاشعارات',headerBackVisible: false ,gestureEnabled: false}}/>
-        <Stack.Screen name="InvestorRequest" component={InvestorRequest} options={{ headerTitle:'طلب الاستثمار'}}/>
+        <Stack.Screen name="InvestorRequest" component={InvestorRequest} options={{ headerTitle:'',
+        headerStyle: { backgroundColor: '#7c98b3'},headerBackVisible: false }}/>
         <Stack.Screen name="OffersList" component={OffersList} options={{ headerTitle: "عروض الإستثمار"}}/>
         <Stack.Screen name="InvestedProductIdea" component={InvestedProductIdea} options={{ headerTitle: "المشاريع المستثمرة" , headerBackVisible: false ,gestureEnabled: false}}/>
         <Stack.Screen name="profile" component={profile} options={{ headerTitle: "الملف الشخصي"}}/>

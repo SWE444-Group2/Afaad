@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useState } from 'react';
-import { StyleSheet, TextInput, Text, Keyboard, TouchableWithoutFeedback, ScrollView, Alert} from 'react-native';
+import { StyleSheet, TextInput,View , Text, Keyboard, TouchableWithoutFeedback, ScrollView, Alert} from 'react-native';
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
 import { Button } from 'react-native-elements';
@@ -63,6 +63,40 @@ export default function InvestorRequest({navigation , route}) {
     }
 
     const submit = () => {
+
+      if (
+        SuggestedCost == "" || 
+        EntMessage == ""
+
+      ) {
+        Alert.alert("تنبيه ", "جميع الحقول مطلوبة", [
+          {
+            text: "حسناً",
+            style: "cancel",
+          },
+        ]);
+  
+        return
+      }
+      if(SuggestedCost.length > 30 || SuggestedCost.length < 7){
+        Alert.alert("تنبيه", "مبلغ الاستثمار المقترح يجب ألا يقل عن ٣ خانات وألا يتجاوز ٧ خانات ", [
+          {
+            text: "حسنًا",
+            style: "cancel",
+          },
+        ]);
+        return
+      }
+      if(EntMessage.replace(/\s+/g,'').length > 250 || EntMessage.replace(/\s+/g,'').length < 10){
+        Alert.alert("تنبيه", "حقل رسالة رائد الأعمال يجب ألا تقل عن ١٠ أحرف وألا تتجاوز ٢٥٠ حرف ", [
+          {
+            text: "حسنًا",
+            style: "cancel",
+          },
+        ]);
+        return
+      }
+
         if (user){
         const RequestRef = AfaadFirebase.database().ref('/ProductIdea/'+route.params.Product_id+'/InvestorsList/'+user.uid);
         const RequestData = {
@@ -95,6 +129,15 @@ export default function InvestorRequest({navigation , route}) {
 <KeyboardAwareScrollView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView contentContainerStyle={styles.inner}>
+
+            <View style={{backgroundColor:"#7C98B3", height: '30%', borderBottomStartRadius: 20,borderBottomEndRadius: 20}}>
+            <Text style={styles.title}>
+              طلب الاستثمار
+            </Text>
+            </View>
+            
+            <View style={{backgroundColor:"white", padding: 24, height:'70%'}}>
+
             <Text style={styles.warning}>
               *جميـع الحقول مطلوبـــة
             </Text>
@@ -105,6 +148,7 @@ export default function InvestorRequest({navigation , route}) {
               onChangeText={(text) => setSuggested(text)}
               value={SuggestedCost}
               underlineColorAndroid="transparent"
+              keyboardType='numeric'
             />
 
             <Text style={styles.labelText}>رسالة لرائد الأعمال<Text style={styles.warning}>*</Text></Text>
@@ -123,6 +167,7 @@ export default function InvestorRequest({navigation , route}) {
               titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT' }}
             />
 
+</View>
             <StatusBar style="auto" />
           </ScrollView>
         </TouchableWithoutFeedback>
@@ -134,11 +179,10 @@ export default function InvestorRequest({navigation , route}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: 'white'
       },
     inner: {
-        padding: 24,
         justifyContent: "space-around",
-
     },
     button: {
       width: 150,
@@ -164,7 +208,7 @@ const styles = StyleSheet.create({
       height: 48,
       borderRadius: 10,
       overflow: "hidden",
-      backgroundColor: "white",
+      backgroundColor: "rgba(124, 152, 179, 0.1)",
       marginBottom: 10,
       paddingRight: 15,
       textAlign: 'right',
@@ -178,4 +222,14 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       backgroundColor: '#022B3A',
     },
+    title: {
+      fontFamily: 'AJannatLTBold',
+      fontSize:40,
+      fontWeight:'bold',
+      textAlign: 'right',
+      color:'white' ,
+      paddingTop: 55,
+      paddingRight:20,
+    },
+    
   });

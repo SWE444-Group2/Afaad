@@ -120,15 +120,16 @@ export default function productIdea({navigation , route}) {
         <ScrollView >
         <View style={[TitleStyles.containerDetails ]}>
             <Modal
-              animationType="slide"
+              animationType="fade"
               transparent={true}
               visible={modalVisible}
             >
+              <View style={{backgroundColor:'rgba(52, 52, 52, 0.5)', height: '100%'}}>
               <View style={styles.modalContent}>
                 <Icon
                   name="close"
-                  size={20}
-                  style={{marginBottom:30, width: 20}}
+                  size={30}
+                  style={{marginBottom:30, width: 30}}
                   onPress={() => setModalVisible(!modalVisible)} />
                 <Text style={[TitleStyles.subTitle]}>عند الضغط على زر أرسل طلب الإستثمار فإنك تقر بصدق نيتك في الاستثمار وأن فريق أفاد يخلي مسؤوليته عن أي أمر يحدث بينك وبين رائد الأعمال</Text>
                 <Text style={[TitleStyles.subTitle]}> سيتم إرسال كافة بياناتك لرائد الأعمال وستتلقى تنبيه عندما يتحقق من طلبك</Text>
@@ -137,6 +138,7 @@ export default function productIdea({navigation , route}) {
                   onPress={SendRequest}>
                   <Text style={[TitleStyles.subTitle, { color: 'white', fontSize: 20 }]}>أرسل طلب الاستثمار</Text>
                 </TouchableOpacity>
+              </View>
               </View>
             </Modal>
             <Image source={AfaadLogo} style={{ width: 150, height: 150 }}/>
