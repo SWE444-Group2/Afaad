@@ -54,9 +54,12 @@ export default function OffersList({ navigation, route }) {
         }
 
         const acceptedOffers=[]
+        global.CountAccepted=0;
         for(let status in offersList){
           if (offersList[status].status == 'Accepted') {
             acceptedOffers.push(offersList[status])
+            CountAccepted++;
+            console.log(CountAccepted);
           }}
 
           if(!isUnmounted){
@@ -86,24 +89,36 @@ export default function OffersList({ navigation, route }) {
 
           const AcceptIdea=()=>{
             //getInvestorToken(offer)
-            Alert.alert(
+            if(CountAccepted==3){
+
+              Alert.alert(
                 "تنبيه!",
-                "هل أنت متأكد من قبول عرض/دعم المستمثر ؟",
-                [
-                  { text: "إلغاء"},
+                "لقد تجاوزدت الحد المسموح لقبول عروض المستثمرين",           
+                  { text: "حسناً"},
+              );
+
+            }
+            if(CountAccepted!=3){
+              
+             Alert.alert(
+              "تنبيه!",
+              "هل أنت متأكد من قبول عرض/دعم المستمثر ؟",
+              [
+                { text: "إلغاء"},
+              
+                {
+                  text: "نعم", onPress: (offer) => { 
+                   // getInvestorToken(offer)
+                    invstorsOfferRef.update({status :'Accepted' } )  
+                      Alert.alert(
+                          "رائع!",
+                          //"تم قبول عرض/دعم المستثمر بنجاح",[{text: "العودة لقائمه عرض / دعم المستثمرين" ,onPress: () => {navigation.navigate('ViewAccount')}}]
+                          );                         }
+                },
                 
-                  {
-                    text: "نعم", onPress: (offer) => { 
-                     // getInvestorToken(offer)
-                      invstorsOfferRef.update({status :'Accepted' } )  
-                        Alert.alert(
-                            "رائع!",
-                            //"تم قبول عرض/دعم المستثمر بنجاح",[{text: "العودة لقائمه عرض / دعم المستثمرين" ,onPress: () => {navigation.navigate('ViewAccount')}}]
-                            );                         }
-                  },
-                  
-                ]
-              ); }
+              ]
+            ); }}
+
 
         const RejectIdea=()=>{
             Alert.alert(
