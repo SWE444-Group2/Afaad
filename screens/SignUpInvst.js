@@ -188,6 +188,7 @@ export default function RegistrationScreen({ navigation }) {
             email: Email,
             Describetion: Describtion,
             Verified: "Pending",
+            status:"not granted",
           }); //Set */
       })
       .then(() => navigation.navigate("PendingPage"))
