@@ -152,7 +152,7 @@ export default function Entrepreneur({ navigation }) {
       <View style={styles.BottomBar}> 
 
             { userType== 'Entrepreneur' &&  
-              <TouchableOpacity  onPress={() => navigation.navigate('profile',{userType: userType})}>
+              <TouchableOpacity  onPress={() => navigation.navigate('profile',{userType: userType,userID:userID})}>
                 <Icon name="account-box-outline" style={{ marginLeft:'5%' , marginTop:10} } size={40} color={"#fff"}/> 
               </TouchableOpacity>
             }

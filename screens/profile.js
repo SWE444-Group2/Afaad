@@ -29,14 +29,20 @@ let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
 
 export default function Profile({ navigation, route }) {
-  let userID = user.uid;
+
  
   const [userLastName, setLastName] = useState("");
   const [userFirstName, setFirstName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPhone, setUserPhone] = useState("");
   const [gennder, setgennder] = useState("");
+  
+ 
+
   const userType = route.params.userType;
+
+  const userID = route.params.userID;
+  
   const UserInfoRef = AfaadFirebase.database().ref("Entrepreneur/" +userID);
   UserInfoRef.once("value").then(function (snapshot) {
     setFirstName(snapshot.child("FirstName").val());
@@ -54,6 +60,12 @@ export default function Profile({ navigation, route }) {
       routes: [{ name: "MainScreen" }],
     });
   };
+
+  
+console.log("here type >>>> "+userType);
+console.log("here ID"+userID);
+
+
   return (
     <View style={styles.container}>
       <View style={styles.header}></View>
@@ -126,6 +138,7 @@ export default function Profile({ navigation, route }) {
             />
           </View>
         )}
+
   <TouchableOpacity style={styles.Button} onPress={onSignout}>
                 <Text style={styles.ButtonText}>تسجيل الخروج</Text>
               </TouchableOpacity>
