@@ -93,8 +93,11 @@ export default function OffersList({ navigation, route }) {
 
               Alert.alert(
                 "تنبيه!",
-                "لقد تجاوزدت الحد المسموح لقبول عروض المستثمرين",           
-                  { text: "حسناً"},
+                "لقد تجاوزدت الحد المسموح لقبول عروض المستثمرين",   [
+                  
+                  { text: "حسناً", onPress:()=>{setModalVisible(!modalVisible);}}
+                ]        
+                  
               );
 
             }
@@ -109,7 +112,7 @@ export default function OffersList({ navigation, route }) {
                 {
                   text: "نعم", onPress: (offer) => { 
                    // getInvestorToken(offer)
-                    invstorsOfferRef.update({status :'Accepted' } )  
+                    invstorsOfferRef.update({status :'Accepted' } ,setModalVisible(!modalVisible))  
                       Alert.alert(
                           "رائع!",
                           //"تم قبول عرض/دعم المستثمر بنجاح",[{text: "العودة لقائمه عرض / دعم المستثمرين" ,onPress: () => {navigation.navigate('ViewAccount')}}]
@@ -117,7 +120,9 @@ export default function OffersList({ navigation, route }) {
                 },
                 
               ]
-            ); }}
+            ); }
+            
+          }
 
 
         const RejectIdea=()=>{
@@ -129,7 +134,7 @@ export default function OffersList({ navigation, route }) {
                   {
                     text: "نعم", onPress: () => { 
                       //getInvestorToken(offer)
-                      invstorsOfferRef.update({status : 'Rejected' } )
+                      invstorsOfferRef.update({status : 'Rejected' }, setModalVisible(!modalVisible) )
                         Alert.alert(
                             "رائع!",
                             //"تم رفض المستثمر بنجاح",[{text: "العودة لقائمه المستثمرين" ,onPress: () => {setModalVisible(!modalVisible)}}]
@@ -138,7 +143,8 @@ export default function OffersList({ navigation, route }) {
                           }
                   }
                 ]
-              );   
+              );  
+             
             }
 
             
