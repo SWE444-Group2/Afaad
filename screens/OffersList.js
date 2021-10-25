@@ -94,7 +94,7 @@ export default function OffersList({ navigation, route }) {
               Alert.alert(
                 "تنبيه!",
                 "لقد تجاوزدت الحد المسموح لقبول عروض المستثمرين",   [
-                  
+
                   { text: "حسناً", onPress:()=>{setModalVisible(!modalVisible);}}
                 ]        
                   
@@ -422,7 +422,7 @@ BottomBar:{
 },
 
 modalContent: {
-  height: '60%',
+  //height: '60%', // to be fixebale with the offer content details
   margin: 20,
   marginBottom: 'auto',
   marginTop: 'auto',
