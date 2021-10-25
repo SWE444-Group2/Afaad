@@ -54,6 +54,13 @@ export default StyleSheet.create({
          overflow:'scroll'
     
     },
+    items:{
+        height:'75%'
+
+
+    },
+
+
     Accounts:{
          fontSize:18,
          fontWeight:'bold',

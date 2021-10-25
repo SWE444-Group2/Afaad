@@ -6,33 +6,35 @@ import { Text, View, Button, Platform } from 'react-native';
 import AfaadFirebase from './firebaseConfig';
 
 
-const Notfication = async() => { 
 
+const Notfication = async() => { 
+  
   let user = AfaadFirebase.auth().currentUser ;
   let userID, userType , userName;
 
-if(user){
-  userID = user.uid ;
-  AfaadFirebase.database().ref('/Admin/'+userID).on('value', (snapshot) => {
-    if (snapshot.exists()) {
-      userType = 'Admin' ;
-    }})
-  AfaadFirebase.database().ref('/Entrepreneur/'+userID).on('value', (snapshot) => {
-    if (snapshot.exists()) {
-      userType = 'Entrepreneur' ;
-      userName = snapshot.child('FirstName').val()
-    }
-  })
-  AfaadFirebase.database().ref('/Investor/'+userID).on('value', (snapshot) => {
-    if (snapshot.exists()) {
-      userType = 'Investor' ;
-      userName = snapshot.child('FullName').val()
-    }
-  })
-}
 
-
-Notifications.setNotificationHandler({
+  if(user){
+    userID = user.uid ;
+    AfaadFirebase.database().ref('/Admin/'+userID).on('value', (snapshot) => {
+      if (snapshot.exists()) {
+        userType = 'Admin' ;
+      }})
+    AfaadFirebase.database().ref('/Entrepreneur/'+userID).on('value', (snapshot) => {
+      if (snapshot.exists()) {
+        userType = 'Entrepreneur' ;
+        userName = snapshot.child('FirstName').val()
+      }
+    })
+    AfaadFirebase.database().ref('/Investor/'+userID).on('value', (snapshot) => {
+      if (snapshot.exists()) {
+        userType = 'Investor' ;
+        userName = snapshot.child('FullName').val()
+      }
+    })
+  }
+  
+  
+  Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: true,
@@ -43,32 +45,38 @@ Notifications.setNotificationHandler({
 //Asked for permitions
 // check if it is real device?
   let token;
+  let finalStatus;
+  const userToken= await AfaadFirebase.database().ref(userType+'/'+user.uid);
   if (Constants.isDevice) {
     const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
+    finalStatus = existingStatus;
+    
     if (existingStatus !== 'granted') {
       const { status } = await Notifications.requestPermissionsAsync();
-      if(status=='granted')
-      finalStatus='granted';
-      //final=status
+      finalStatus=status;  
     }
+    
     if (finalStatus !== 'granted') {
-      alert('يرجى تفعيل الاشعارات');
+      userToken.update({
+        Token : 'not granted'
+      })
+      alert('للاستفادة من التطبيق بشكل كامل يرجى تفعيل الاشعارات');
       return;
     }
+    
     token = (await Notifications.getExpoPushTokenAsync()).data;
   } else {
     alert('Must use physical device for Push Notifications');
-  }
+  }  
 
-  if(token){
-    const userToken= await AfaadFirebase.database().ref(userType+'/'+user.uid);
+  console.log(finalStatus);
+
+  if(finalStatus=='granted'){
      userToken.update({
        Token : token
      })
-  
- 
   }
+
 
   if (Platform.OS === 'android') {
     Notifications.setNotificationChannelAsync('default', {
@@ -78,7 +86,7 @@ Notifications.setNotificationHandler({
       lightColor: '#FF231F7C',
     });
   }
-  return token;
+  return true;
 }
 export {Notfication};
 

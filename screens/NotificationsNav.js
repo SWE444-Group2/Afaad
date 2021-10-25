@@ -1,10 +1,16 @@
-import * as React from 'react';
-import { Text, View, StyleSheet,Image,TouchableOpacity} from 'react-native';
+
+import React ,{useEffect , useState , setState} from 'react';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image} from 'react-native';
 //import styles from './styles';
 import { StatusBar } from 'expo-status-bar';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Titlestyles from './TitleStyles';
 import AfaadFirebase from './firebaseConfig';
+
+
+let user = AfaadFirebase.auth().currentUser;
+const auth = AfaadFirebase.auth();
+
 export default function NotificationsNav({ navigation }) {
 
   
@@ -31,10 +37,102 @@ export default function NotificationsNav({ navigation }) {
     })
   }
 
+  const [productsList , setproductsList]= useState();
+  const[PendingProductList ,setPendingproductsList ]=useState();
+  const [Status , setStatus]=useState();
+
+  useEffect(() => {
+    let isUnmounted=false;
+     const dataref=AfaadFirebase.database().ref('ProductIdea')
+  
+     dataref.on('value',(snapshot) =>{
+        const productsList=[] // empty list
+        const products= snapshot.val();  
+        for (let productID in products){
+             productsList.push({productID,...products[productID]});
+        } 
+
+        if(!isUnmounted){
+        setproductsList(productsList);}
+      
+
+        const PendingProductList=[]
+        for(let productID in productsList){
+          if (userType === 'Admin' && productsList[productID].status == 'Pending') {
+            PendingProductList.push(productsList[productID])
+          }
+          else if (userType === 'Investor' && productsList[productID]&& productsList[productID].InvestorsList==userID ) {
+            PendingProductList.push(productsList[productID])
+           
+     }
+          else if (userType === 'Entrepreneur' && productsList[productID].userID == userID && productsList[productID].InvestorsList!=null ) {
+            PendingProductList.push(productsList[productID])
+            console.log(productsList[productID].InvestorsList)
+          }
+        }
+
+        if(!isUnmounted){
+         setPendingproductsList(PendingProductList) ;}
+
+        
+     });
+
+
+     
+     return()=>{
+      isUnmounted=true;
+
+     };
+
+  }, [])
+
 
     return(
-        <View style={Titlestyles.container}>
+        <View style={styles.container}>
 
+<StatusBar style="auto" />  
+        
+      <View style={styles.tasksWrapper}>
+
+      <View style={styles.items}>
+        <FlatList style={{height:'85%'}}
+        data={PendingProductList}
+        keyExtractor={(item, index)=>index.toString()}
+        renderItem={({ item })=>(
+          <TouchableOpacity  onPress={() => navigation.navigate('OffersList', {Product_id:item.productID, userType: userType})}>   
+          
+        
+          {userType== 'Entrepreneur' &&  (
+            <View style={styles.item}>
+            <Text style={[Titlestyles.subTitle , Titlestyles.DescText]}>يوجد لديك طلب استثمار جديد في : {item.Title}</Text>
+             <Icon name="exclamation" style={{ marginLeft:-10 , marginRight:-15} } size={40} color={"black"}
+             />
+             </View> )}
+
+             {userType== 'Investor' && item.InvestorsList.userID.status=='Accepted' && (
+            <View style={styles.item}>
+            <Text style={[Titlestyles.subTitle , Titlestyles.DescText]}>تم قبول طلب اسثمارك في : {item.Title}</Text>
+             <Icon name="exclamation" style={{ marginLeft:-10 , marginRight:-15} } size={40} color={"black"}
+             />
+             </View> )}
+
+
+             {userType== 'Investor' && item.InvestorsList.userID.status=='Rejected' && (
+            <View style={styles.item}>
+            <Text style={[Titlestyles.subTitle , Titlestyles.DescText]}>تم رفض طلب اسثمارك في : {item.Title}</Text>
+             <Icon name="exclamation" style={{ marginLeft:-10 , marginRight:-15} } size={40} color={"black"}
+             />
+             </View> )}
+          
+          </TouchableOpacity>
+        )}
+
+        /> 
+       
+        </View>
+        
+       
+      </View>
 <View style={styles.BottomBar}> 
 
 
@@ -118,5 +216,31 @@ const styles = StyleSheet.create({
     width:'100%',
     backgroundColor:'#7c98b3'
   
-  }
+  },
+
+  container: {
+    flex: 1,
+     backgroundColor: 'white',
+    
+     
+},
+tasksWrapper:{
+     flex:1,
+     paddingHorizontal:20,
+     
+     
+}, 
+item:{ 
+    flex: 1,
+     padding:10,
+     backgroundColor:'#eeeeee',
+     borderRadius:10,
+     flexDirection:'row',
+     alignItems:'center',
+     justifyContent:'flex-end',
+     marginBottom:5, 
+     marginTop:10,
+     overflow:'scroll'
+
+},
   });
