@@ -105,17 +105,17 @@ export default function OffersList({ navigation, route }) {
               
              Alert.alert(
               "تنبيه!",
-              "هل أنت متأكد من قبول عرض/دعم المستمثر ؟",
+              "هل أنت متأكد من قبول عرض المستمثر ؟",
               [
                 { text: "إلغاء"},
               
                 {
                   text: "نعم", onPress: (offer) => { 
                    // getInvestorToken(offer)
-                    invstorsOfferRef.update({status :'Accepted' } ,setModalVisible(!modalVisible))  
+                    invstorsOfferRef.update({status :'Accepted' })  
                       Alert.alert(
                           "رائع!",
-                          //"تم قبول عرض/دعم المستثمر بنجاح",[{text: "العودة لقائمه عرض / دعم المستثمرين" ,onPress: () => {navigation.navigate('ViewAccount')}}]
+                          "تم قبول عرض المستثمر بنجاح",[{text: "العودة لقائمه عرض المستثمرين" ,onPress: () => {setModalVisible(!modalVisible)}}]
                           );                         }
                 },
                 
@@ -128,16 +128,16 @@ export default function OffersList({ navigation, route }) {
         const RejectIdea=()=>{
             Alert.alert(
                 "تنبيه!",
-                "هل أنت متأكد من رفض عرض/دعم المستمثر ؟",
+                "هل أنت متأكد من رفض عرض المستمثر ؟",
                 [
                   { text: "إلغاء"},
                   {
                     text: "نعم", onPress: () => { 
                       //getInvestorToken(offer)
-                      invstorsOfferRef.update({status : 'Rejected' }, setModalVisible(!modalVisible) )
+                      invstorsOfferRef.update({status : 'Rejected' })
                         Alert.alert(
-                            "رائع!",
-                            //"تم رفض المستثمر بنجاح",[{text: "العودة لقائمه المستثمرين" ,onPress: () => {setModalVisible(!modalVisible)}}]
+                            "تنبيه!",
+                            "تم رفض المستثمر بنجاح",[{text: "العودة لقائمه العروض" ,onPress: () => {setModalVisible(!modalVisible)}}]
                             );                        
                           
                           }
