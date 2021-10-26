@@ -2,7 +2,7 @@ import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, Button, Platform } from 'react-native';
+import { Text, View, Button, Platform , Alert } from 'react-native';
 import AfaadFirebase from './firebaseConfig';
 
 
@@ -60,7 +60,14 @@ const Notfication = async() => {
       userToken.update({
         Token : 'not granted'
       })
-      alert('للاستفادة من التطبيق بشكل كامل يرجى تفعيل الاشعارات');
+
+     /* Alert.alert("تنبيه",
+      "للاستفادة من تطبيق افاد بشكل كامل ، يرجى تفعيل التنبيهات ", [
+        {
+          text: "حسنًا",
+          style: "cancel",
+        },
+      ]);*/
       return;
     }
     

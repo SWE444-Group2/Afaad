@@ -78,7 +78,7 @@ export default function InvestorRequest({navigation , route}) {
   
         return
       }
-      if(SuggestedCost.length > 30 || SuggestedCost.length < 7){
+      if(SuggestedCost.length < 3 || SuggestedCost.length > 7){
         Alert.alert("تنبيه", "مبلغ الاستثمار المقترح يجب ألا يقل عن ٣ خانات وألا يتجاوز ٧ خانات ", [
           {
             text: "حسنًا",
