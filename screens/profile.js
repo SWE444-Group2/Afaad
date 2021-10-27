@@ -24,6 +24,7 @@ import NotificationIcon from "../assets/images/NotificationIcon.png";
 import ProfileIcon from "../assets/images/ProfileIcon.png";
 import { Notfication } from "./Notfication";
 import { ScrollView } from "react-native-gesture-handler";
+import { Avatar } from 'react-native-elements';
 
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
@@ -52,6 +53,10 @@ export default function Profile({ navigation, route }) {
     setgennder(snapshot.child("Gender").val());
   });
 
+  const fs = userFirstName.charAt(0)
+  const lt = userLastName.charAt(0)
+  const fullname= fs+" "+lt
+
   //signout function
   const onSignout = () => {
     auth.signOut();
@@ -61,22 +66,21 @@ export default function Profile({ navigation, route }) {
     });
   };
 
-  
+
+
 console.log("here type >>>> "+userType);
 console.log("here ID"+userID);
-
 
   return (
     <View style={styles.container}>
       <View style={styles.header}></View>
-
-      <Image
-        style={styles.avatar}
-        source={{
-          uri: "http://stcollegekatihar.com/sites/default/files/default_images/User_ring.png",
-        }}
-      />
-
+      <Avatar style={styles.avatar}
+      size="large"
+      rounded 
+      overlayContainerStyle={{backgroundColor: '#7c98b3',borderRadius:100}}
+      title={fullname}
+        />
+        
       {userType == "Entrepreneur" && (
         <View style={styles.UserName}>
           <Text
