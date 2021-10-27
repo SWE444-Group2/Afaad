@@ -24,28 +24,41 @@ import NotificationIcon from "../assets/images/NotificationIcon.png";
 import ProfileIcon from "../assets/images/ProfileIcon.png";
 import { Notfication } from "./Notfication";
 import { ScrollView } from "react-native-gesture-handler";
-import { Avatar } from 'react-native-elements';
+import { Avatar } from "react-native-elements";
 
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
 
 export default function Profile({ navigation, route }) {
-
- 
   const [userLastName, setLastName] = useState("");
   const [userFirstName, setFirstName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPhone, setUserPhone] = useState("");
   const [gennder, setgennder] = useState("");
-  
- 
+
+
+  const [userEmailInv, setUserEmailInv] = useState("");
+  const [userPhoneInv, setUserPhoneInv] = useState("");
+  const [userFullName, setFullName] = useState("");
+  const [userDecr, setuserDecr] = useState("");
 
   const userType = route.params.userType;
-
   const userID = route.params.userID;
-  
-  const UserInfoRef = AfaadFirebase.database().ref("Entrepreneur/" +userID);
+
+  const UserInfoRef = AfaadFirebase.database().ref("Investor/" + userID);
   UserInfoRef.once("value").then(function (snapshot) {
+    setFullName(snapshot.child("FullName").val());
+    setLastName(snapshot.child("Lastname").val());
+    setUserEmailInv(snapshot.child("email").val());
+    setUserPhoneInv(snapshot.child("phone").val());
+    setuserDecr(snapshot.child("Describetion").vall());
+
+
+  });
+
+  
+  const UserInfoRefInvestor = AfaadFirebase.database().ref("Entrepreneur/" + userID);
+  UserInfoRefInvestor.once("value").then(function (snapshot) {
     setFirstName(snapshot.child("FirstName").val());
     setLastName(snapshot.child("Lastname").val());
     setUserEmail(snapshot.child("email").val());
@@ -53,9 +66,7 @@ export default function Profile({ navigation, route }) {
     setgennder(snapshot.child("Gender").val());
   });
 
-  const fs = userFirstName.charAt(0)
-  const lt = userLastName.charAt(0)
-  const fullname= fs+" "+lt
+
 
   //signout function
   const onSignout = () => {
@@ -63,24 +74,22 @@ export default function Profile({ navigation, route }) {
     navigation.reset({
       index: 0,
       routes: [{ name: "MainScreen" }],
-    });
+    })
   };
 
-
-
-console.log("here type >>>> "+userType);
-console.log("here ID"+userID);
+  console.log("here type >>>> " + userType);
+  console.log("here ID" + userID);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}></View>
-      <Avatar style={styles.avatar}
-      size="large"
-      rounded 
-      overlayContainerStyle={{backgroundColor: '#7c98b3',borderRadius:100}}
-      title={fullname}
-        />
-        
+      <Image
+        style={styles.avatar}
+        source={{
+          uri: "http://stcollegekatihar.com/sites/default/files/default_images/User_ring.png",
+        }}
+      />
+
       {userType == "Entrepreneur" && (
         <View style={styles.UserName}>
           <Text
@@ -92,21 +101,20 @@ console.log("here ID"+userID);
               fontWeight: "bold",
             }}
           >
-            {userFirstName}{" "}{userLastName}
-      
-            
+            {userFirstName} {userLastName}
           </Text>
+          
           <Icon
-              name="pencil"
-              style={{ marginRight: "55%", marginTop: -30}}
-              size={25}
-              color={"#9ca1a6"}
-            />
-
+            name="pencil"
+            style={{ marginRight: "55%", marginTop: -30 }}
+            size={25}
+            color={"#9ca1a6"}
+          />
         </View>
       )}
 
       <View style={styles.TopView}>
+        
         {userType == "Entrepreneur" && (
           <View style={styles.fields}>
             <Text style={styles.Tex}>{userEmail}</Text>
@@ -131,7 +139,7 @@ console.log("here ID"+userID);
           </View>
         )}
 
-{userType == "Entrepreneur" && (
+        {userType == "Entrepreneur" && (
           <View style={styles.fields}>
             <Text style={styles.Tex}>{gennder}</Text>
             <Icon
@@ -143,10 +151,77 @@ console.log("here ID"+userID);
           </View>
         )}
 
-  <TouchableOpacity style={styles.Button} onPress={onSignout}>
-                <Text style={styles.ButtonText}>تسجيل الخروج</Text>
-              </TouchableOpacity>
 
+{userType == "Entrepreneur" && (
+        <View style={styles.UserName}>
+          <Text
+            style={{
+              fontFamily: "AJannatLT",
+              fontSize: 30,
+              textAlign: "center",
+              color: "#2e4963",
+              fontWeight: "bold",
+            }}
+          >
+            {userFullName}
+          </Text>
+          
+          <Icon
+            name="pencil"
+            style={{ marginRight: "55%", marginTop: -30 }}
+            size={25}
+            color={"#9ca1a6"}
+          />
+        </View>
+      )}
+{userType == "Investor" && (
+          <View style={styles.fields}>
+            <Text style={styles.Tex}>{userPhoneInv}</Text>
+            <Icon
+              name="pencil"
+              style={{ marginRight: "90%", marginTop: -25 }}
+              size={20}
+              color={"#9ca1a6"}
+            />
+          </View>
+        )}
+{userType == "Investor" && (
+          <View style={styles.fields}>
+            <Text style={styles.Tex}>{userEmailInv}</Text>
+            <Icon
+              name="pencil"
+              style={{ marginRight: "90%", marginTop: -25 }}
+              size={20}
+              color={"#9ca1a6"}
+            />
+          </View>
+        )}
+{userType == "Investor" && (
+          <View style={styles.fields}>
+            <Text style={styles.Tex}>{userDecr}</Text>
+            <Icon
+              name="pencil"
+              style={{ marginRight: "90%", marginTop: -25 }}
+              size={20}
+              color={"#9ca1a6"}
+            />
+          </View>
+        )}
+
+
+
+
+
+
+
+
+
+
+
+
+        <TouchableOpacity style={styles.Button} onPress={onSignout}>
+          <Text style={styles.ButtonText}>تسجيل الخروج</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.BottomBar}>
@@ -272,13 +347,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
 
-   // backgroundColor: '#002B3E',
-
+    // backgroundColor: '#002B3E',
   },
   header: {
     backgroundColor: "#aec2d6",
     height: 150,
-    
   },
   avatar: {
     width: 130,
@@ -290,9 +363,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     position: "absolute",
     marginTop: 70,
-    
   },
- 
+
   BottomBar: {
     position: "absolute",
     height: 80,
@@ -300,51 +372,43 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#7c98b3",
   },
-  fields:{
-width:"90%",
-height:"12%",
+  fields: {
+    width: "90%",
+    height: "12%",
 
-      borderWidth:1,
-      borderColor:"#CCCCCC",
-      borderRadius:8,
-     
-      backgroundColor:"white",
- 
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      elevation: 5,
-      alignItems:'flex-end',
-      borderStyle: 'solid',
-      paddingRight:10,
-      paddingTop:6,
-      marginTop:20,
+    borderWidth: 1,
+    borderColor: "#CCCCCC",
+    borderRadius: 8,
 
+    backgroundColor: "white",
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    alignItems: "flex-end",
+    borderStyle: "solid",
+    paddingRight: 10,
+    paddingTop: 6,
+    marginTop: 20,
   },
 
-  UserName:{
-  
-alignItems:"center",
-    marginTop:"15%",
-
+  UserName: {
+    alignItems: "center",
+    marginTop: "15%",
   },
-Tex:{
-  fontSize:18,
-  fontFamily: 'AJannatLT',
-},
-  TopView:{
- 
-
-    alignItems:'flex-end',
-    paddingRight:25,
-paddingBottom:70,
-
-
+  Tex: {
+    fontSize: 18,
+    fontFamily: "AJannatLT",
+  },
+  TopView: {
+    alignItems: "flex-end",
+    paddingRight: 25,
+    paddingBottom: 70,
   },
   Button: {
     width: "90%",
@@ -363,5 +427,4 @@ paddingBottom:70,
     fontWeight: "bold",
     color: "#002B3E",
   },
-
 });
