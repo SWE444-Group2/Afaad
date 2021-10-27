@@ -130,13 +130,13 @@ export default function InvestorRequest({navigation , route}) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView contentContainerStyle={styles.inner}>
 
-            <View style={{backgroundColor:"#7C98B3", height: '30%', borderBottomStartRadius: 20,borderBottomEndRadius: 20}}>
+            <View style={{backgroundColor:"#7C98B3", height: 200, borderBottomStartRadius: 20,borderBottomEndRadius: 20}}>
             <Text style={styles.title}>
               طلب الاستثمار
             </Text>
             </View>
             
-            <View style={{backgroundColor:"white", padding: 24, height:'70%'}}>
+            <View style={{backgroundColor:"white", padding: 24}}>
 
             <Text style={styles.warning}>
               *جميـع الحقول مطلوبـــة

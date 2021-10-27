@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useState } from 'react';
-import { StyleSheet, TextInput, Text, Keyboard, TouchableWithoutFeedback, ScrollView, Alert} from 'react-native';
+import { StyleSheet, TextInput, Text, Keyboard, TouchableWithoutFeedback, ScrollView, Alert, View} from 'react-native';
 import { Button } from 'react-native-elements';
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
@@ -201,7 +201,18 @@ export default function PublishIdea({ navigation }) {
     return (
       <KeyboardAwareScrollView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <ScrollView contentContainerStyle={styles.inner}>
+        <ScrollView contentContainerStyle={styles.inner}>
+        <View style={{
+          backgroundColor:"#7C98B3",
+          height: 200, 
+          borderBottomStartRadius: 20,
+          borderBottomEndRadius: 20,
+          }}>
+            <Text style={styles.title}>
+              طرح فكرة جديدة
+            </Text>
+            </View>
+            <View style={{backgroundColor:"white", padding: 24}}>
             <Text style={styles.warning}>
               *جميـع الحقول مطلوبـــة
             </Text>
@@ -218,8 +229,8 @@ export default function PublishIdea({ navigation }) {
             <DropDownPicker
               style={styles.dropDownStyle}
               textStyle={styles.categoryText}
-              containerStyle={{ marginBottom: 15 }}
-              dropDownContainerStyle={{borderColor: '#C7C7CD'}}
+              containerStyle={{ marginBottom: 15}}
+              dropDownContainerStyle={{borderColor: '#C7C7CD', backgroundColor:'#f2f4f7'}}
               placeholderStyle={{color: '#C7C7CD'}}
               open={open}
               value={categoryValue}
@@ -266,6 +277,7 @@ export default function PublishIdea({ navigation }) {
             />
 
             <StatusBar style="auto" />
+          </View>
           </ScrollView>
         </TouchableWithoutFeedback>
       </KeyboardAwareScrollView>
@@ -277,7 +289,6 @@ export default function PublishIdea({ navigation }) {
         flex: 1,
       },
     inner: {
-        padding: 24,
         justifyContent: "space-around",
 
     },
@@ -305,7 +316,7 @@ export default function PublishIdea({ navigation }) {
       height: 48,
       borderRadius: 10,
       overflow: "hidden",
-      backgroundColor: "white",
+      backgroundColor: "rgba(124, 152, 179, 0.1)",
       marginBottom: 10,
       paddingRight: 15,
       textAlign: 'right',
@@ -326,11 +337,23 @@ export default function PublishIdea({ navigation }) {
       color: '#022B3A'
     },
     dropDownStyle: {
-      borderColor: "white", flexDirection: 'row-reverse'
+      borderColor: "white",
+      flexDirection: 'row-reverse',
+      backgroundColor: '#f2f4f7',
+
     },
     categoryText: {
       textAlign: 'right',
       fontFamily: 'AJannatLT',
       fontSize: 14,
-    }
+    },
+    title: {
+      fontFamily: 'AJannatLTBold',
+      fontSize:40,
+      fontWeight:'bold',
+      textAlign: 'right',
+      color:'white' ,
+      paddingTop: 55,
+      paddingRight:20,
+    },
   });

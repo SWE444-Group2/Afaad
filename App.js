@@ -53,7 +53,8 @@ if(!isLoaded){
         <Stack.Screen name="SignUpEntr" component={SignUpEntr} options={{ headerTitle: "إنشاء حساب "}}/>
         <Stack.Screen name="conditionsPage" component={conditionsPage} options={{ headerTitle: "الشروط وسياسة الإفصاح "}}/>
         <Stack.Screen name="SignUpInvst" component={SignUpInvst} options={{ headerTitle: "إنشاء حساب "}} />
-        <Stack.Screen name="PublishIdea" component={PublishIdea} options={{ headerTitle: "نشر مشروع جديد"}}/>
+        <Stack.Screen name="PublishIdea" component={PublishIdea} options={{ headerTitle:'',
+        headerStyle: { backgroundColor: '#7c98b3'},headerBackVisible: false }}/>
         <Stack.Screen name="Admin" component={Admin} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false , gestureEnabled: false }}/>
 
         <Stack.Screen name="EntrepreneurAndInvestor" component={EntrepreneurAndInvestor} 
