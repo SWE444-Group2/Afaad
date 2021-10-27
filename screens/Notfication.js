@@ -56,6 +56,22 @@ const Notfication = async() => {
       finalStatus=status;  
     }
     
+   
+    
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+
+   
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }  
+
+  console.log(finalStatus);
+
+  if(finalStatus=='granted'){
+     userToken.update({
+       Token : token
+     })
+  } else{
     if (finalStatus !== 'granted') {
       userToken.update({
         Token : 'not granted'
@@ -70,18 +86,6 @@ const Notfication = async() => {
       ]);*/
       return;
     }
-    
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-  } else {
-    alert('Must use physical device for Push Notifications');
-  }  
-
-  console.log(finalStatus);
-
-  if(finalStatus=='granted'){
-     userToken.update({
-       Token : token
-     })
   }
 
 

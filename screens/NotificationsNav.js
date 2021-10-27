@@ -39,7 +39,6 @@ export default function NotificationsNav({ navigation }) {
 
   const [productsList , setproductsList]= useState();
   const[PendingProductList ,setPendingproductsList ]=useState();
-  const [Status , setStatus]=useState();
 
   useEffect(() => {
     let isUnmounted=false;
@@ -55,19 +54,23 @@ export default function NotificationsNav({ navigation }) {
         if(!isUnmounted){
         setproductsList(productsList);}
       
+        
 
         const PendingProductList=[]
         for(let productID in productsList){
+  
           if (userType === 'Admin' && productsList[productID].status == 'Pending') {
             PendingProductList.push(productsList[productID])
           }
-          else if (userType === 'Investor' && productsList[productID]&& productsList[productID].InvestorsList==userID ) {
-            PendingProductList.push(productsList[productID])
+          else if (userType === 'Investor' && productsList[productID].status == 'Accepted' && productsList[productID].InvestorsList!=null) {
+            let inv= Object.keys(productsList[productID].InvestorsList)
+            for(let i in inv){
+              if(inv[i]==userID)
+            PendingProductList.push(productsList[productID])}
            
      }
           else if (userType === 'Entrepreneur' && productsList[productID].userID == userID && productsList[productID].InvestorsList!=null ) {
             PendingProductList.push(productsList[productID])
-            console.log(productsList[productID].InvestorsList)
           }
         }
 
@@ -78,6 +81,7 @@ export default function NotificationsNav({ navigation }) {
      });
 
 
+     console.log(PendingProductList)
      
      return()=>{
       isUnmounted=true;
@@ -99,30 +103,24 @@ export default function NotificationsNav({ navigation }) {
         data={PendingProductList}
         keyExtractor={(item, index)=>index.toString()}
         renderItem={({ item })=>(
-          <TouchableOpacity  onPress={() => navigation.navigate('OffersList', {Product_id:item.productID, userType: userType})}>   
+          <TouchableOpacity >   
           
         
           {userType== 'Entrepreneur' &&  (
-            <View style={styles.item}>
+            <View style={styles.item} onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType})}>       
             <Text style={[Titlestyles.subTitle , Titlestyles.DescText]}>يوجد لديك طلب استثمار جديد في : {item.Title}</Text>
              <Icon name="exclamation" style={{ marginLeft:-10 , marginRight:-15} } size={40} color={"black"}
              />
              </View> )}
 
-             {userType== 'Investor' && item.InvestorsList.userID.status=='Accepted' && (
-            <View style={styles.item}>
-            <Text style={[Titlestyles.subTitle , Titlestyles.DescText]}>تم قبول طلب اسثمارك في : {item.Title}</Text>
+             {userType== 'Investor' && (
+            <View style={styles.item} onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType})} >
+            <Text style={[Titlestyles.subTitle , Titlestyles.DescText]}> تم تحديث حالة طلب اسثمارك في مشروع: {item.Title}</Text>
              <Icon name="exclamation" style={{ marginLeft:-10 , marginRight:-15} } size={40} color={"black"}
              />
              </View> )}
 
 
-             {userType== 'Investor' && item.InvestorsList.userID.status=='Rejected' && (
-            <View style={styles.item}>
-            <Text style={[Titlestyles.subTitle , Titlestyles.DescText]}>تم رفض طلب اسثمارك في : {item.Title}</Text>
-             <Icon name="exclamation" style={{ marginLeft:-10 , marginRight:-15} } size={40} color={"black"}
-             />
-             </View> )}
           
           </TouchableOpacity>
         )}
