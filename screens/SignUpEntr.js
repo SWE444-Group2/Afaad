@@ -243,7 +243,7 @@ export default function RegistrationScreen({ navigation }) {
             Gender: gender,
             phone: phone,
             email: Email,
-            status:"not granted",
+            Token:"not granted",
           }); //Set */
       })
       .then(() => navigation.navigate("EntrepreneurAndInvestor"))

@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Button,
   Image,
+  TextInput
 } from "react-native";
 import AfaadFirebase from "../screens/firebaseConfig";
 import "firebase/auth";
@@ -45,20 +46,22 @@ export default function Profile({ navigation, route }) {
   const userType = route.params.userType;
   const userID = route.params.userID;
 
+if (userType=="Investor"){
+
   const UserInfoRef = AfaadFirebase.database().ref("Investor/" + userID);
   UserInfoRef.once("value").then(function (snapshot) {
     setFullName(snapshot.child("FullName").val());
     setLastName(snapshot.child("Lastname").val());
     setUserEmailInv(snapshot.child("email").val());
     setUserPhoneInv(snapshot.child("phone").val());
-    setuserDecr(snapshot.child("Describetion").vall());
+    setuserDecr(snapshot.child("Describetion").val());
 
 
   });
 
-  
-  const UserInfoRefInvestor = AfaadFirebase.database().ref("Entrepreneur/" + userID);
-  UserInfoRefInvestor.once("value").then(function (snapshot) {
+}else{
+  const UserInfoRefEntr = AfaadFirebase.database().ref("Entrepreneur/" + userID);
+  UserInfoRefEntr.once("value").then(function (snapshot) {
     setFirstName(snapshot.child("FirstName").val());
     setLastName(snapshot.child("Lastname").val());
     setUserEmail(snapshot.child("email").val());
@@ -66,7 +69,7 @@ export default function Profile({ navigation, route }) {
     setgennder(snapshot.child("Gender").val());
   });
 
-
+}
 
   //signout function
   const onSignout = () => {
@@ -106,7 +109,7 @@ export default function Profile({ navigation, route }) {
           
           <Icon
             name="pencil"
-            style={{ marginRight: "55%", marginTop: -30 }}
+            style={{ marginLeft:"13%",marginTop: -30 }}
             size={25}
             color={"#9ca1a6"}
           />
@@ -135,6 +138,7 @@ export default function Profile({ navigation, route }) {
               style={{ marginRight: "90%", marginTop: -25 }}
               size={20}
               color={"#9ca1a6"}
+             
             />
           </View>
         )}
@@ -152,7 +156,7 @@ export default function Profile({ navigation, route }) {
         )}
 
 
-{userType == "Entrepreneur" && (
+{userType == "Investor" && (
         <View style={styles.UserName}>
           <Text
             style={{
@@ -168,42 +172,48 @@ export default function Profile({ navigation, route }) {
           
           <Icon
             name="pencil"
-            style={{ marginRight: "55%", marginTop: -30 }}
+            style={{ paddingRight: "80%", marginTop: -30 }}
             size={25}
             color={"#9ca1a6"}
           />
         </View>
       )}
 {userType == "Investor" && (
-          <View style={styles.fields}>
+          <View style={styles.fieldsInv}>
             <Text style={styles.Tex}>{userPhoneInv}</Text>
+
             <Icon
               name="pencil"
-              style={{ marginRight: "90%", marginTop: -25 }}
+              style={{ marginRight: "90%", marginTop: -30 }}
               size={20}
               color={"#9ca1a6"}
+           
             />
           </View>
         )}
 {userType == "Investor" && (
-          <View style={styles.fields}>
+          <View style={styles.fieldsInv}>
             <Text style={styles.Tex}>{userEmailInv}</Text>
             <Icon
               name="pencil"
-              style={{ marginRight: "90%", marginTop: -25 }}
+              style={{ marginRight: "90%", marginTop: -30 }}
               size={20}
               color={"#9ca1a6"}
             />
           </View>
         )}
-{userType == "Investor" && (
-          <View style={styles.fields}>
+       {userType == "Investor" && (
+          <View style={styles.decfield}>
+            <View style={styles.inside}>
             <Text style={styles.Tex}>{userDecr}</Text>
-            <Icon
+          
+          </View>
+          <Icon
               name="pencil"
-              style={{ marginRight: "90%", marginTop: -25 }}
+              style={{ marginRight: "90%", marginTop:-70 }}
               size={20}
               color={"#9ca1a6"}
+              position='absolute'
             />
           </View>
         )}
@@ -396,14 +406,39 @@ const styles = StyleSheet.create({
     paddingTop: 6,
     marginTop: 20,
   },
+  fieldsInv: {
+    width: "90%",
+    height: "8%",
+
+    borderWidth: 1,
+    borderColor: "#CCCCCC",
+    borderRadius: 8,
+
+    backgroundColor: "white",
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    alignItems: "flex-end",
+    borderStyle: "solid",
+    paddingRight: 10,
+    paddingTop: 6,
+    marginTop: 20,
+  },
 
   UserName: {
-    alignItems: "center",
+ overflow:"hidden",
     marginTop: "15%",
   },
   Tex: {
     fontSize: 18,
     fontFamily: "AJannatLT",
+    textAlign:"right"
   },
   TopView: {
     alignItems: "flex-end",
@@ -427,4 +462,33 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#002B3E",
   },
+  decfield:{
+    width: "90%",
+    height: "20%",
+
+    borderWidth: 1,
+    borderColor: "#CCCCCC",
+    borderRadius: 8,
+
+    backgroundColor: "white",
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    alignItems: "flex-end",
+    borderStyle: "solid",
+    paddingRight: 10,
+    paddingTop: 6,
+    marginTop: 20,
+    
+  },
+  inside:{
+height:"70%",
+width:"90%"
+  }
 });
