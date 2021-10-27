@@ -275,34 +275,74 @@ export default function OffersList({ navigation, route }) {
     
               <View style={Titlestyles.items}>
               <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:15 , marginTop:10}]}> العروض المقبولة</Text>
-              <FlatList style={{height:'21%'}}
-                    data={acceptedOffers}
-                    keyExtractor={(item, index)=>index.toString()}
-        
-                    renderItem={({ item })=>(
-                                   
-                      <TouchableOpacity onPress={() => _onPress(item.offerID)}>   
-                      <View>
-                      <View style={Titlestyles.item}>
-                      <Button 
-                            style={Titlestyles.DetailsBtn}
-                            onPress={() => _onPress(item.offerID)}
-                            title="عرض التفاصيل"
-                            titleProps={{}}
-                            color='#247ba0'
-                        />
-                        
-                        <Text style={Titlestyles.subTitle}>{item.Investorname}</Text>
-                       </View>
-                       
-                      </View>
-                      </TouchableOpacity>
-                    
-                    )}
 
+{
+                CountAccepted==0 &&
+                <Text style={[Titlestyles.subTitle ,{fontSize:15 , marginBottom:15 , marginTop:10, marginRight:100}]}>لا يوجد عروض مقبولة</Text>
+              }
+              {
+                CountAccepted==0 &&
+                <FlatList style={{height:'0%'}}
+                data={acceptedOffers}
+                keyExtractor={(item, index)=>index.toString()}
+    
+                renderItem={({ item })=>(
+                               
+                  <TouchableOpacity onPress={() => _onPress(item.offerID)}>   
+                  <View>
+                  <View style={Titlestyles.item}>
+                  <Button 
+                        style={Titlestyles.DetailsBtn}
+                        onPress={() => _onPress(item.offerID)}
+                        title="عرض التفاصيل"
+                        titleProps={{}}
+                        color='#247ba0'
+                    />
                     
+                    <Text style={Titlestyles.subTitle}>{item.Investorname}</Text>
+                   </View>
+                   
+                  </View>
+                  </TouchableOpacity>
+                
+                )}
 
-                   /> 
+                
+
+               />               }
+
+{
+                CountAccepted!=0 &&
+                <FlatList style={{height:'53%'}}
+                data={acceptedOffers}
+                keyExtractor={(item, index)=>index.toString()}
+    
+                renderItem={({ item })=>(
+                               
+                  <TouchableOpacity onPress={() => _onPress(item.offerID)}>   
+                  <View>
+                  <View style={Titlestyles.item}>
+                  <Button 
+                        style={Titlestyles.DetailsBtn}
+                        onPress={() => _onPress(item.offerID)}
+                        title="عرض التفاصيل"
+                        titleProps={{}}
+                        color='#247ba0'
+                    />
+                    
+                    <Text style={Titlestyles.subTitle}>{item.Investorname}</Text>
+                   </View>
+                   
+                  </View>
+                  </TouchableOpacity>
+                
+                )}
+
+                
+
+               />               }
+               
+               
                   <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:15 , marginTop:35}]}>عروض في قيد الإنتظار</Text>
 
                   <FlatList style={{height:'50%'}}
