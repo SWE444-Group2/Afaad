@@ -101,7 +101,29 @@ export default function OffersList({ navigation, route }) {
               );
 
             }
-            if(CountAccepted!=3){
+            if(CountAccepted==2){
+              
+              Alert.alert(
+               "تنبيه!",
+               "فرصتك الاخيره لقبول عرض المستثمر هل أنت متأكد من قبول العرض؟",
+               [
+                 { text: "إلغاء"},
+               
+                 {
+                   text: "نعم", onPress: (offer) => { 
+                    // getInvestorToken(offer)
+                     invstorsOfferRef.update({status :'Accepted' })  
+                       Alert.alert(
+                           "رائع!",
+                           "تم قبول عرض المستثمر بنجاح",[{text: "العودة لقائمه عرض المستثمرين" ,onPress: () => {setModalVisible(!modalVisible)}}]
+                           );                         }
+                 },
+                 
+               ]
+             ); }
+
+             else if(CountAccepted!=3)
+            {
               
              Alert.alert(
               "تنبيه!",
