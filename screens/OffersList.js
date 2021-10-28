@@ -59,7 +59,7 @@ export default function OffersList({ navigation, route }) {
           if (offersList[status].status == 'Accepted') {
             acceptedOffers.push(offersList[status])
             CountAccepted++;
-            console.log(CountAccepted);
+            setCounter(counter+1);
           }}
 
           if(!isUnmounted){
@@ -175,6 +175,7 @@ export default function OffersList({ navigation, route }) {
             const  [Message, setMessage] = useState('') ;
             const  [SuggCost, setSuggCost] = useState('') ;
             const  [status, setStatus] = useState('') ;
+            const  [counter, setCounter] = useState(0) ;
        
             const _onPress=(investorID)=>{
 
@@ -277,11 +278,11 @@ export default function OffersList({ navigation, route }) {
               <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:15 , marginTop:10}]}> العروض المقبولة</Text>
 
 {
-                CountAccepted==0 &&
+                counter==0 &&
                 <Text style={[Titlestyles.subTitle ,{fontSize:15 , marginBottom:15 , marginTop:10, marginRight:100}]}>لا يوجد عروض مقبولة</Text>
               }
               {
-                CountAccepted==0 &&
+                counter==0 &&
                 <FlatList style={{height:'0%'}}
                 data={acceptedOffers}
                 keyExtractor={(item, index)=>index.toString()}
@@ -312,7 +313,7 @@ export default function OffersList({ navigation, route }) {
                />               }
 
 {
-                CountAccepted!=0 &&
+                counter!=0 &&
                 <FlatList style={{height:'53%'}}
                 data={acceptedOffers}
                 keyExtractor={(item, index)=>index.toString()}
