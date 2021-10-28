@@ -20,7 +20,6 @@ import InvestorLogo from '../assets/images/business-and-finance.png';
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
 
-
 export default function OffersList({ navigation, route }) {
   //Create model for pop up window 
     const [modalVisible, setModalVisible] = useState(false);
@@ -33,6 +32,7 @@ export default function OffersList({ navigation, route }) {
 
     const [InvestorToken, setInvestorToken]=useState('');
     const [InvestorStat, setInvestorStat]=useState('');
+
 
 
     useEffect(() => {
@@ -59,7 +59,7 @@ export default function OffersList({ navigation, route }) {
           if (offersList[status].status == 'Accepted') {
             acceptedOffers.push(offersList[status])
             CountAccepted++;
-            console.log(CountAccepted);
+            //console.log(CountAccepted);
           }}
 
           if(!isUnmounted){
@@ -85,10 +85,10 @@ export default function OffersList({ navigation, route }) {
     }, [])
 
 
-   //console.log(offersList)
+   console.log(offersList)
 
           const AcceptIdea=()=>{
-            //getInvestorToken(offer)
+          
             if(CountAccepted==3){
 
               Alert.alert(
@@ -102,7 +102,7 @@ export default function OffersList({ navigation, route }) {
 
             }
             if(CountAccepted==2){
-              
+              //getInvestorToken(investorID)
               Alert.alert(
                "تنبيه!",
                "فرصتك الاخيره لقبول عرض المستثمر هل أنت متأكد من قبول العرض؟",
@@ -111,7 +111,7 @@ export default function OffersList({ navigation, route }) {
                
                  {
                    text: "نعم", onPress: (offer) => { 
-                    // getInvestorToken(offer)
+                    getInvestorToken(offer)
                      invstorsOfferRef.update({status :'Accepted' })  
                        Alert.alert(
                            "رائع!",
@@ -124,7 +124,7 @@ export default function OffersList({ navigation, route }) {
 
              else if(CountAccepted!=3)
             {
-              
+            //getInvestorToken(investorID,"Accepted")
              Alert.alert(
               "تنبيه!",
               "هل أنت متأكد من قبول عرض المستمثر ؟",
@@ -133,7 +133,7 @@ export default function OffersList({ navigation, route }) {
               
                 {
                   text: "نعم", onPress: (offer) => { 
-                   // getInvestorToken(offer)
+                   //getInvestorToken(investorID,"Accepted")
                     invstorsOfferRef.update({status :'Accepted' })  
                       Alert.alert(
                           "رائع!",
@@ -155,7 +155,7 @@ export default function OffersList({ navigation, route }) {
                   { text: "إلغاء"},
                   {
                     text: "نعم", onPress: () => { 
-                      //getInvestorToken(offer)
+                      //getInvestorToken(investorID,'Rejected')
                       invstorsOfferRef.update({status : 'Rejected' })
                         Alert.alert(
                             "تنبيه!",
@@ -177,7 +177,7 @@ export default function OffersList({ navigation, route }) {
             const  [status, setStatus] = useState('') ;
        
             const _onPress=(investorID)=>{
-
+            global.investorID=investorID;
             global.InvestorOfferPath=offersPath+investorID+"/";   //ADD ID FROM ROUTE route.params.ID
             global.invstorsOfferRef = AfaadFirebase.database().ref(InvestorOfferPath);
 
@@ -246,7 +246,7 @@ export default function OffersList({ navigation, route }) {
    //InvestorStat(snapshot.child("Token").val());
    //Just to make sure the entrepruner has a token and send the notification 
 
-   const getInvestorToken =(offer,Stat)=>{
+   const getInvestorToken =(investorID,Stat)=>{
 
    const InRef= AfaadFirebase.database().ref("Investor/"+offer)
 
