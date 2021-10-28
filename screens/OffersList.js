@@ -16,6 +16,7 @@ import NotificationIcon from '../assets/images/NotificationIcon.png'
 import ProfileIcon from '../assets/images/ProfileIcon.png'
 import { ScrollView } from 'react-native-gesture-handler';
 import InvestorLogo from '../assets/images/business-and-finance.png';
+import { NavigationBar } from './NavigationBar';
 
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
@@ -433,36 +434,7 @@ export default function OffersList({ navigation, route }) {
         
        
            </View> 
-           
-
-     
-      <View style={styles.BottomBar}> 
-
-              <TouchableOpacity >
-                <Icon name="account-box-outline" style={{ marginLeft:'5%' , marginTop:10} } size={40} color={"#fff"}/> 
-              </TouchableOpacity>
-            
-
-              <TouchableOpacity onPress={() => navigation.navigate('NotificationsNav')} >
-                <Icon name="bell-outline" style={{ marginLeft:'25%' , marginTop:-40} } size={40} color={"#fff"}/> 
-              </TouchableOpacity>
-            
-
-              <TouchableOpacity  onPress={() => navigation.navigate('PublishIdea')}>
-                <Icon name="plus-circle-outline" style={{ marginLeft:'45%' , marginTop:-40} } size={40} color={"#fff"}/>
-              </TouchableOpacity>
-            
-
-              <TouchableOpacity>
-                <Icon name="feature-search-outline" style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={"#fff"}/> 
-              </TouchableOpacity>
-            
-            
-              <TouchableOpacity onPress={() => navigation.navigate('EntrepreneurAndInvestor')}>
-                <Icon name="home-circle" style={{ marginLeft:'82%' , marginTop:-43 } } size={43} color={"#fff"}/> 
-              </TouchableOpacity>
-
-        </View>
+        {NavigationBar({navigation})}
 
             <StatusBar style="auto" />
     </View>
