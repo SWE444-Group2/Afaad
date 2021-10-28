@@ -102,7 +102,7 @@ export default function OffersList({ navigation, route }) {
 
             }
             if(CountAccepted==2){
-              //getInvestorToken(investorID)
+              
               Alert.alert(
                "تنبيه!",
                "فرصتك الاخيره لقبول عرض المستثمر هل أنت متأكد من قبول العرض؟",
@@ -111,7 +111,7 @@ export default function OffersList({ navigation, route }) {
                
                  {
                    text: "نعم", onPress: (offer) => { 
-                    getInvestorToken(offer)
+                    getInvestorToken(GlobalinvestorID , 'Accepted')
                      invstorsOfferRef.update({status :'Accepted' })  
                        Alert.alert(
                            "رائع!",
@@ -133,7 +133,7 @@ export default function OffersList({ navigation, route }) {
               
                 {
                   text: "نعم", onPress: (offer) => { 
-                   //getInvestorToken(investorID,"Accepted")
+                   getInvestorToken(GlobalinvestorID,"Accepted")
                     invstorsOfferRef.update({status :'Accepted' })  
                       Alert.alert(
                           "رائع!",
@@ -155,7 +155,7 @@ export default function OffersList({ navigation, route }) {
                   { text: "إلغاء"},
                   {
                     text: "نعم", onPress: () => { 
-                      //getInvestorToken(investorID,'Rejected')
+                      getInvestorToken(GlobalinvestorID,'Rejected')
                       invstorsOfferRef.update({status : 'Rejected' })
                         Alert.alert(
                             "تنبيه!",
@@ -178,7 +178,7 @@ export default function OffersList({ navigation, route }) {
             const  [counter, setCounter] = useState(0) ;
        
             const _onPress=(investorID)=>{
-            global.investorID=investorID;
+            global.GlobalinvestorID=investorID;
             global.InvestorOfferPath=offersPath+investorID+"/";   //ADD ID FROM ROUTE route.params.ID
             global.invstorsOfferRef = AfaadFirebase.database().ref(InvestorOfferPath);
 
@@ -203,7 +203,7 @@ export default function OffersList({ navigation, route }) {
     if (stat=='Accepted'){
 
 
-     response = fetch('https://exp.host/--/api/v2/push/send' , {
+    let response = fetch('https://exp.host/--/api/v2/push/send' , {
       method: 'POST',
       headers:{
         Accept: 'application/json',
@@ -221,8 +221,8 @@ export default function OffersList({ navigation, route }) {
     });
     }
   
-  if (stat=='Rejected' )
-     response = fetch('https://exp.host/--/api/v2/push/send' , {
+  if (stat=='Rejected' ){
+     let response = fetch('https://exp.host/--/api/v2/push/send' , {
       method: 'POST',
       headers:{
         Accept: 'application/json',
@@ -238,9 +238,9 @@ export default function OffersList({ navigation, route }) {
 
       })
     });
-
+  }
   
-    console.log(Token)
+    console.log(Token+ 'is sent!')
    }
 
 
@@ -249,7 +249,7 @@ export default function OffersList({ navigation, route }) {
 
    const getInvestorToken =(investorID,Stat)=>{
 
-   const InRef= AfaadFirebase.database().ref("Investor/"+offer)
+   const InRef= AfaadFirebase.database().ref("Investor/"+investorID)
 
    InRef.once('value').then(function(snapshot){
      
@@ -257,9 +257,11 @@ export default function OffersList({ navigation, route }) {
   
    });
 
-    if(!InvestorToken){
+    if(InvestorToken=='not granted'){
         return ; 
      }
+
+     console.log('Sending '+InvestorToken+' to sendNotifcation')
      SendNotification(InvestorToken,Stat)
    }
 

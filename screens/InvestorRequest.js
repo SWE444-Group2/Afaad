@@ -56,7 +56,7 @@ export default function InvestorRequest({navigation , route}) {
 
     //Just to make sure the entrepruner has a token and send the notification 
     const getEntreToken =()=>{
-      if(!EntrepreneurToken){
+      if(EntrepreneurToken=='not granted'){
          return ; 
       }
       SendNotification(EntrepreneurToken)
