@@ -151,10 +151,10 @@ export default function InvestorRequest({navigation , route}) {
               keyboardType='numeric'
             />
 
-            <Text style={styles.labelText}>رسالة لرائد الأعمال<Text style={styles.warning}>*</Text></Text>
+            <Text style={styles.labelText}>عرض الاستثمار المقترح<Text style={styles.warning}>*</Text></Text>
             <TextInput
               style={[styles.input, { height: 150 }]}
-              placeholder="(حد أقصى:٢٥٠ حرف)"
+              placeholder="مثل: نسبة الشراكة وتوزيع الإدارة..إلخ (حد أقصى:٢٥٠ حرف)"
               onChangeText={(text) => setEntMessage(text)}
               value={EntMessage}
               underlineColorAndroid="transparent"

@@ -22,7 +22,7 @@ import { default as NotificationsNav } from './screens/NotificationsNav' ;
 import { default as InvestorRequest } from './screens/InvestorRequest' ;
 import { default as OffersList } from './screens/OffersList' ;
 import { default as profile } from './screens/profile' ;
-import {default as InvestedProductIdea} from './screens/InvestedProductIdea'
+import {default as InvestedProductIdea} from './screens/InvestedProductIdea' ;
 
 import {useFonts} from 'expo-font';
 
@@ -43,35 +43,59 @@ if(!isLoaded){
     <NavigationContainer>
       <Stack.Navigator initialRouteName="MainScreen">
       <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerTitle: "ابدأ"}}/> 
+
       <Stack.Screen name="splash" component={splash} />  
-        <Stack.Screen name="welcome" component={welcome} options={{ headerTitle:'الصفحة الرئيسية', headerBackVisible: false, gestureEnabled: false, }}/>
-        <Stack.Screen name="ViewIdea" component={ViewIdea} options={{ headerTitle: "قائمة المشاريع" }} />  
-        <Stack.Screen name="ViewAccount" component={ViewAccount} options={{ headerTitle: "قائمة الحسابات"}} />
-        <Stack.Screen name="productIdea" component={productIdea} options={{ headerTitle: "تفاصيل المشروع"}} />
-        <Stack.Screen name="investorAccount" component={investorAccount} options={{ headerTitle: "تفاصيل الحساب"}}/>         
-        <Stack.Screen name="Login" component={Login} options={{ headerTitle: "تسجيل الدخول"}} />
-        <Stack.Screen name="SignUpEntr" component={SignUpEntr} options={{ headerTitle: "إنشاء حساب "}}/>
-        <Stack.Screen name="conditionsPage" component={conditionsPage} options={{ headerTitle: "الشروط وسياسة الإفصاح "}}/>
-        <Stack.Screen name="SignUpInvst" component={SignUpInvst} options={{ headerTitle: "إنشاء حساب "}} />
-        <Stack.Screen name="PublishIdea" component={PublishIdea} options={{ headerTitle:'',
-        headerStyle: { backgroundColor: '#7c98b3'},headerBackVisible: false }}/>
-        <Stack.Screen name="Admin" component={Admin} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false , gestureEnabled: false }}/>
 
-        <Stack.Screen name="EntrepreneurAndInvestor" component={EntrepreneurAndInvestor} 
-          options={{ headerTitle:'الصفحة الرئيسية', headerBackVisible: false, gestureEnabled: false, 
-          headerTintColor: 'white', headerStyle: { backgroundColor: '#7c98b3' },}}/>        
-        <Stack.Screen name="SignupOption" component={SignupOption} options={{ headerTitle: ""}}/>
-        <Stack.Screen name="ResetPass" component={ResetPass} options={{ headerTitle: "إعادة تعيين كلمة المرور"}}/>
-        <Stack.Screen name="PendingPage" component={PendingPage} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
-        <Stack.Screen name="NotificationsNav" component={NotificationsNav} options={{ headerTitle:'الاشعارات',headerBackVisible: false ,gestureEnabled: false}}/>
-        <Stack.Screen name="InvestorRequest" component={InvestorRequest} options={{ headerTitle:'',
-        headerStyle: { backgroundColor: '#7c98b3'},headerBackVisible: false }}/>
-        <Stack.Screen name="OffersList" component={OffersList} options={{ headerTitle: "عروض الإستثمار"}}/>
-        <Stack.Screen name="InvestedProductIdea" component={InvestedProductIdea} options={{ headerTitle: "المشاريع المستثمرة" , headerBackVisible: false ,gestureEnabled: false}}/>
-        <Stack.Screen name="profile" component={profile} options={{ headerTitle: "الملف الشخصي"}}/>
+      <Stack.Screen name="welcome" component={welcome} options={{ headerTitle:'الصفحة الرئيسية', headerBackVisible: false, gestureEnabled: false, }}/>
+      
+      <Stack.Screen name="ViewIdea" component={ViewIdea} options={{ headerTitle: "قائمة المشاريع",
+        headerStyle: { backgroundColor: '#7c98b3' }, headerBackTitleVisible: false, headerTintColor: 'white' }} />  
+      
+      <Stack.Screen name="ViewAccount" component={ViewAccount} options={{ headerTitle: "قائمة الحسابات", 
+        headerStyle: { backgroundColor: '#7c98b3' }, headerBackTitleVisible: false, headerTintColor: 'white'}} />
+      
+      <Stack.Screen name="productIdea" component={productIdea} options={{ headerTitle: "تفاصيل المشروع",
+        headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white'}} />
+      
+      <Stack.Screen name="investorAccount" component={investorAccount} options={{ headerTitle: "تفاصيل الحساب"}}/>         
+      
+      <Stack.Screen name="Login" component={Login} options={{ headerTitle: "تسجيل الدخول"}} />
+      
+      <Stack.Screen name="SignUpEntr" component={SignUpEntr} options={{ headerTitle: "إنشاء حساب "}}/>
+      
+      <Stack.Screen name="conditionsPage" component={conditionsPage} options={{ headerTitle: "الشروط وسياسة الإفصاح "}}/>
+      
+      <Stack.Screen name="SignUpInvst" component={SignUpInvst} options={{ headerTitle: "إنشاء حساب "}} />
+      
+      <Stack.Screen name="PublishIdea" component={PublishIdea} options={{ headerTitle:'',
+        headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white' }}/>
+      
+      <Stack.Screen name="Admin" component={Admin} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false , gestureEnabled: false,
+        headerTintColor: 'white', headerStyle: { backgroundColor: '#7c98b3' } }}/>
+
+      <Stack.Screen name="EntrepreneurAndInvestor" component={EntrepreneurAndInvestor} 
+        options={{ headerTitle:'الصفحة الرئيسية', headerBackVisible: false, gestureEnabled: false, 
+        headerTintColor: 'white', headerStyle: { backgroundColor: '#7c98b3' },}}/>        
+      
+      <Stack.Screen name="SignupOption" component={SignupOption} options={{ headerTitle: ""}}/>
+      
+      <Stack.Screen name="ResetPass" component={ResetPass} options={{ headerTitle: "إعادة تعيين كلمة المرور"}}/>
+      
+      <Stack.Screen name="PendingPage" component={PendingPage} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
+      
+      <Stack.Screen name="NotificationsNav" component={NotificationsNav} options={{ headerTitle:'الاشعارات',headerBackVisible: false ,gestureEnabled: false}}/>
+      
+      <Stack.Screen name="InvestorRequest" component={InvestorRequest} options={{ headerTitle:'',
+        headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white'}}/>
+      
+      <Stack.Screen name="OffersList" component={OffersList} options={{ headerTitle: "عروض الإستثمار",
+        headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white'}}/>
+      
+      <Stack.Screen name="InvestedProductIdea" component={InvestedProductIdea} options={{ headerTitle: "المشاريع المستثمرة" , headerBackVisible: false ,gestureEnabled: false}}/>
+      
+      <Stack.Screen name="profile" component={profile} options={{ headerTitle: "الملف الشخصي",
+        headerStyle: { backgroundColor: '#7c98b3'}, headerBackVisible: false, headerTintColor: 'white', gestureEnabled: false}}/>
         
-
-
       </Stack.Navigator>
     </NavigationContainer>
   );
