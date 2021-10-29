@@ -31,6 +31,7 @@ export default function productIdea({navigation , route}) {
     const [userEmail , setUserEmail]=useState('');
     const [userPhone , setUserPhone]=useState('');
 
+    const InvestorsListNode = AfaadFirebase.database().ref(ProductPath+'/InvestorsList/');
 
     const productIdeaRef = AfaadFirebase.database().ref(ProductPath)
     productIdeaRef.once('value').then(function(snapshot){
@@ -59,24 +60,54 @@ export default function productIdea({navigation , route}) {
 
         
   const SendRequest = () => {
-    const user = AfaadFirebase.auth().currentUser;
-    if (user) {
-      const InvestorRequest = AfaadFirebase.database().ref(ProductPath + '/InvestorsList/' + user.uid);
-      InvestorRequest.once('value', (snapshot) => {
-        if (snapshot.exists()) {
-          Alert.alert("تنبيه", "عزيزي المستثمر، لديك طلب استثمار مسبق لهذه الفكرة", [
-            {
-              text: "حسنًا",
-              style: "cancel",
-            },
-          ]);
-          return
-        } else {
-          setModalVisible(!modalVisible)
-          navigation.navigate('InvestorRequest', { Product_id: route.params.Product_id, user_Name:route.params.user_Name })
+
+    const user = AfaadFirebase.auth().currentUser ;
+
+     InvestorsListNode.once('value',(snapshot) =>{
+        const offersList=[] // empty list
+        const offers= snapshot.val();  
+        for (let offerID in offers) {
+          offersList.push({offerID,...offers[offerID]});
+        } 
+
+       let CountAccepted = 0;
+       for (let status in offersList) {
+         if (offersList[status].status == 'Accepted') {
+           CountAccepted++;
+         }
+       }
+
+       if (CountAccepted == 3) {
+         Alert.alert("تنبيه", "نعتذر، وصلت الفكرة الحد الأعلى لاستقبال طلبات الاستثمار", [
+           {
+             text: "حسنًا",
+             style: "cancel",
+           },
+         ]);
+         return
+
+       } else {
+        if (user) {
+
+          const InvestorRequest = AfaadFirebase.database().ref(ProductPath + '/InvestorsList/' + user.uid);
+
+          InvestorRequest.once('value', (snapshot) => {
+            if (snapshot.exists()) {
+              Alert.alert("تنبيه", "عزيزي المستثمر، لديك طلب استثمار مسبق لهذه الفكرة", [
+                {
+                  text: "حسنًا",
+                  style: "cancel",
+                },
+              ]);
+              return
+            } else {
+              setModalVisible(!modalVisible)
+              navigation.navigate('InvestorRequest', { Product_id: route.params.Product_id, user_Name:route.params.user_Name })
+            }
+          })
         }
-      })
-    }
+       }
+     });
   }
 
     const AcceptIdea=()=>{
@@ -265,7 +296,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   modalContent: {
-    height: '50%',
     margin: 20,
     marginBottom: 'auto',
     marginTop: 'auto',
