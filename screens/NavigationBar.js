@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View , TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 
 
-export function NavigationBar ({navigation}) {
-
+export function NavigationBar ({navigation, ScreenName}) {
   let user = AfaadFirebase.auth().currentUser;
   let userID, userType , userName;
   
@@ -30,68 +29,89 @@ export function NavigationBar ({navigation}) {
     })
   }
 
-  console.log(userType);
+  //default is they are all outlined 
+  const [home, setHome] = useState("home-circle-outline") ;
+  const [search, setSearch] = useState("feature-search-outline") ;
+  const [plusIdea, setPlusIdea] = useState("plus-circle-outline") ;
+  const [invested, setInvested] = useState("head-lightbulb-outline") ;
+  const [notification, setNotification] = useState("bell-outline") ;
+  const [profile, setProfile] = useState("account-box-outline") ;
+
+  //except when the screen name matches the name passed then remove outline
+  useEffect(() => {
+    switch(ScreenName){
+      case 'home':  setHome('home-circle') ; return ;
+      case 'offers':  setHome('home-circle') ; return ;
+      case 'search':  setSearch('feature-search') ; return;
+      case 'plus':  setPlusIdea('plus-circle'); return ;
+      case 'invested': setInvested('head-lightbulb') ; return ;
+      case 'notification': setNotification('bell') ; return ;
+      case 'profile': setProfile('account-box'); return ;
+    }
+  }, [])
+
+
     return (
         <View style={styles.BottomBar}> 
 
             { userType== 'Entrepreneur' &&  
               <TouchableOpacity  onPress={() => navigation.navigate('profile',{userType: userType,userID:userID})}>
-                <Icon name="account-box-outline" style={{ marginLeft:'5%' , marginTop:10} } size={40} color={"#fff"}/> 
+                <Icon name={profile} style={{ marginLeft:'5%' , marginTop:10} } size={40} color={"#fff"}/> 
               </TouchableOpacity>
             }
 
             { userType== 'Entrepreneur' &&
               <TouchableOpacity onPress={() => navigation.navigate('NotificationsNav')} >
-                <Icon name="bell-outline" style={{ marginLeft:'25%' , marginTop:-40} } size={40} color={"#fff"}/> 
+                <Icon name={notification} style={{ marginLeft:'25%' , marginTop:-40} } size={40} color={"#fff"}/> 
               </TouchableOpacity>
             } 
 
             { userType== 'Entrepreneur' && 
               <TouchableOpacity  onPress={() => navigation.navigate('PublishIdea')}>
-                <Icon name="plus-circle-outline" style={{ marginLeft:'45%' , marginTop:-40} } size={40} color={"#fff"}/>
+                <Icon name={plusIdea} style={{ marginLeft:'45%' , marginTop:-40} } size={40} color={"#fff"}/>
               </TouchableOpacity>
             }
 
             { userType== 'Entrepreneur' && 
               <TouchableOpacity>
-                <Icon name="feature-search-outline" style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={"#fff"}/> 
+                <Icon name={search} style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={"#fff"}/> 
               </TouchableOpacity>
             }
             
             { userType== 'Entrepreneur' &&
-              <TouchableOpacity>
-                <Icon name="home-circle" style={{ marginLeft:'82%' , marginTop:-43 } } size={43} color={"#fff"}/> 
+              <TouchableOpacity onPress={() => navigation.navigate("EntrepreneurAndInvestor")}>
+                <Icon name={home} style={{ marginLeft:'82%' , marginTop:-43 } } size={43} color={"#fff"}/> 
               </TouchableOpacity>
             }
 
 
               { userType== 'Investor' &&  
-                 <TouchableOpacity onPress={() => navigation.navigate('profile')} >
-                   <Icon name="account-box-outline" style={{ marginLeft:'5%' , marginTop:10} } size={40} color={"#fff"}/> 
+                 <TouchableOpacity onPress={() => navigation.navigate('profile',{userType: userType,userID:userID})}>
+                   <Icon name={profile} style={{ marginLeft:'5%' , marginTop:10} } size={40} color={"#fff"}/> 
                  </TouchableOpacity>
               }
 
               { userType== 'Investor' &&
                   <TouchableOpacity onPress={() => navigation.navigate('NotificationsNav')} >
-                   <Icon name="bell-outline" style={{ marginLeft:'25%' , marginTop:-40} } size={40} color={"#fff"}/> 
+                   <Icon name={notification} style={{ marginLeft:'25%' , marginTop:-40} } size={40} color={"#fff"}/> 
                   </TouchableOpacity>
               } 
 
               { userType== 'Investor' && 
                    <TouchableOpacity onPress={() => navigation.navigate('InvestedProductIdea')}>
-                     <Icon name="head-lightbulb-outline" style={{ marginLeft:'45%' , marginTop:-40} } size={37} color={"#fff"}/> 
+                     <Icon name={invested} style={{ marginLeft:'45%' , marginTop:-40} } size={37} color={"#fff"}/> 
                    </TouchableOpacity>
               }
 
               { userType== 'Investor' && 
                    <TouchableOpacity>
-                     <Icon name="feature-search-outline" style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={"#fff"}/> 
+                     <Icon name={search} style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={"#fff"}/> 
                    </TouchableOpacity>
               }
 
               { userType== 'Investor' &&
-              <TouchableOpacity>
-              <Icon name="home-circle" style={{ marginLeft:'83%' , marginTop:-43 } } size={43} color={"#fff"}/> 
+              <TouchableOpacity onPress={() => navigation.navigate("EntrepreneurAndInvestor")}>
+              <Icon name={home} style={{ marginLeft:'83%' , marginTop:-43 } } size={43} color={"#fff"}/> 
               </TouchableOpacity>
               }
 

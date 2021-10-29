@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Titlestyles from './TitleStyles';
 import AfaadFirebase from './firebaseConfig';
+import { NavigationBar } from './NavigationBar';
 
 export default function InvestedProductIdea({ navigation }) {
 
@@ -36,41 +37,8 @@ export default function InvestedProductIdea({ navigation }) {
     return(
         <View style={Titlestyles.container}>
 
-<View style={styles.BottomBar}> 
+      {NavigationBar({navigation, ScreenName: 'invested'})}
 
-  
-
-
-      { userType== 'Investor' &&  
-          <TouchableOpacity  onPress={() => navigation.navigate('profile')}>
-            <Icon name="account-box-outline" style={{ marginLeft:'5%' , marginTop:10} } size={40} color={"#fff"}/> 
-          </TouchableOpacity>
-      }
-
-      { userType== 'Investor' &&
-          <TouchableOpacity  onPress={() => navigation.navigate('NotificationsNav')}>
-             <Icon name="bell-outline" style={{ marginLeft:'25%' , marginTop:-40} } size={37} color={"#fff"}/> 
-          </TouchableOpacity>
-      } 
-
-      { userType== 'Investor' && 
-          <TouchableOpacity onPress={() => navigation.navigate('InvestedProductIdea')}>
-              <Icon name="head-lightbulb" style={{ marginLeft:'44%' , marginTop:-45} } size={46} color={"#fff"}/> 
-          </TouchableOpacity>
-              }
-
-      { userType== 'Investor' && 
-        <TouchableOpacity>
-             <Icon name="feature-search-outline" style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={"#fff"}/> 
-        </TouchableOpacity>
-      }
-
-      { userType== 'Investor' &&
-        <TouchableOpacity onPress={() => navigation.navigate('EntrepreneurAndInvestor')}>
-              <Icon name="home-circle-outline" style={{ marginLeft:'83%' , marginTop:-43 } } size={43} color={"#fff"}/> 
-        </TouchableOpacity>
-      }
-      </View>
       <StatusBar style="auto" />
         </View>
     );

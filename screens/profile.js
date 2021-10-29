@@ -26,6 +26,7 @@ import ProfileIcon from "../assets/images/ProfileIcon.png";
 import { Notfication } from "./Notfication";
 import { ScrollView } from "react-native-gesture-handler";
 import { Avatar } from "react-native-elements";
+import { NavigationBar } from './NavigationBar';
 
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
@@ -234,120 +235,8 @@ if (userType=="Investor"){
         </TouchableOpacity>
       </View>
 
-      <View style={styles.BottomBar}>
-        {userType == "Entrepreneur" && (
-          <TouchableOpacity>
-            <Icon
-              name="account-box"
-              style={{ marginLeft: "5%", marginTop: 10 }}
-              size={40}
-              color={"#fff"}
-            />
-          </TouchableOpacity>
-        )}
+      {NavigationBar({navigation, ScreenName: 'profile'})}
 
-        {userType == "Entrepreneur" && (
-          <TouchableOpacity>
-            <Icon
-              name="bell"
-              style={{ marginLeft: "25%", marginTop: -38 }}
-              size={35}
-              color={"#fff"}
-            />
-          </TouchableOpacity>
-        )}
-
-        {userType == "Entrepreneur" && (
-          <TouchableOpacity onPress={() => navigation.navigate("PublishIdea")}>
-            <Icon
-              name="plus-circle-outline"
-              style={{ marginLeft: "45%", marginTop: -40 }}
-              size={40}
-              color={"#fff"}
-            />
-          </TouchableOpacity>
-        )}
-
-        {userType == "Entrepreneur" && (
-          <TouchableOpacity>
-            <Icon
-              name="feature-search-outline"
-              style={{ marginLeft: "65%", marginTop: -43 }}
-              size={40}
-              color={"#fff"}
-            />
-          </TouchableOpacity>
-        )}
-        {userType == "Entrepreneur" && (
-          <TouchableOpacity
-            onPress={() => navigation.navigate("EntrepreneurAndInvestor")}
-          >
-            <Icon
-              name="home-circle-outline"
-              style={{ marginLeft: "83%", marginTop: -43 }}
-              size={43}
-              color={"#fff"}
-            />
-          </TouchableOpacity>
-        )}
-
-        {userType == "Investor" && (
-          <TouchableOpacity>
-            <Icon
-              name="account-box"
-              style={{ marginLeft: "5%", marginTop: 10 }}
-              size={40}
-              color={"#fff"}
-            />
-          </TouchableOpacity>
-        )}
-
-        {userType == "Investor" && (
-          <TouchableOpacity>
-            <Icon
-              name="bell-outline"
-              style={{ marginLeft: "25%", marginTop: -40 }}
-              size={37}
-              color={"#fff"}
-            />
-          </TouchableOpacity>
-        )}
-
-        {userType == "Investor" && (
-          <TouchableOpacity>
-            <Icon
-              name="lightbulb-on-outline"
-              style={{ marginLeft: "45%", marginTop: -43 }}
-              size={40}
-              color={"#fff"}
-            />
-          </TouchableOpacity>
-        )}
-
-        {userType == "Investor" && (
-          <TouchableOpacity>
-            <Icon
-              name="feature-search-outline"
-              style={{ marginLeft: "65%", marginTop: -43 }}
-              size={40}
-              color={"#fff"}
-            />
-          </TouchableOpacity>
-        )}
-
-        {userType == "Investor" && (
-          <TouchableOpacity
-            onPress={() => navigation.navigate("EntrepreneurAndInvestor")}
-          >
-            <Icon
-              name="home-circle-outline"
-              style={{ marginLeft: "83%", marginTop: -43 }}
-              size={43}
-              color={"#fff"}
-            />
-          </TouchableOpacity>
-        )}
-      </View>
       <StatusBar style="auto" />
     </View>
   );

@@ -445,7 +445,7 @@ export default function OffersList({ navigation, route }) {
         
        
            </View> 
-        {NavigationBar({navigation})}
+        {NavigationBar({navigation, ScreenName: 'offers'})}
 
             <StatusBar style="auto" />
     </View>
