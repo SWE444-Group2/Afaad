@@ -69,8 +69,19 @@ export default function OffersList({ navigation, route }) {
             const pendingOffers=[]
             for(let status in offersList){
               if (offersList[status].status == 'Pending') {
-                pendingOffers.push(offersList[status])
-              }}
+                if (CountAccepted==3){
+                  // getInvestorToken(GlobalinvestorID,'Rejected')
+                 // dataref+"/"+offersList[status].offerID.update({status : 'Rejected' })
+                 const pendingIdeaRef = AfaadFirebase.database().ref(offersPath+"/"+offersList[status].offerID);
+                 console.log(pendingIdeaRef.once('value').then(function(snapshot){
+                  pendingIdeaRef.update({status : 'Rejected' })
+                 }))
+                }
+              else{ 
+                 pendingOffers.push(offersList[status])
+              }
+              }
+            }
     
               if(!isUnmounted){
                 setPendingOffers(pendingOffers) ;}
@@ -86,7 +97,7 @@ export default function OffersList({ navigation, route }) {
     }, [])
 
 
-   console.log(offersList)
+ //  console.log(offersList)
 
           const AcceptIdea=()=>{
           
@@ -241,7 +252,7 @@ export default function OffersList({ navigation, route }) {
     });
   }
   
-    console.log(Token+ 'is sent!')
+  //  console.log(Token+ 'is sent!')
    }
 
 
@@ -262,7 +273,7 @@ export default function OffersList({ navigation, route }) {
         return ; 
      }
 
-     console.log('Sending '+InvestorToken+' to sendNotifcation')
+   //  console.log('Sending '+InvestorToken+' to sendNotifcation')
      SendNotification(InvestorToken,Stat)
    }
 
