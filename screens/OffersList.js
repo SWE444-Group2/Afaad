@@ -83,6 +83,8 @@ export default function OffersList({ navigation, route }) {
           });
           const GInvst=InvestorToken;
           
+          SendNotification(GInvst,'Rejected');
+
                 }
               else{ 
                  pendingOffers.push(offersList[status])
