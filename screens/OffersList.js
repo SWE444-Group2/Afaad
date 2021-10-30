@@ -75,7 +75,14 @@ export default function OffersList({ navigation, route }) {
                  const pendingIdeaRef = AfaadFirebase.database().ref(offersPath+"/"+offersList[status].offerID);
                  console.log(pendingIdeaRef.once('value').then(function(snapshot){
                   pendingIdeaRef.update({status : 'Rejected' })
-                 }))
+                 }
+                 ))
+                 console.log(offersList[status].offerID);
+                 AfaadFirebase.database().ref("Investor/"+offersList[status].offerID).once('value').then(function(snapshot) {
+                  setInvestorToken(snapshot.child('Token').val());
+          });
+          const GInvst=InvestorToken;
+          
                 }
               else{ 
                  pendingOffers.push(offersList[status])
@@ -123,7 +130,7 @@ export default function OffersList({ navigation, route }) {
                
                  {
                    text: "نعم", onPress: (offer) => { 
-                    getInvestorToken(GlobalinvestorID , 'Accepted')
+                    SendNotification(InvestorToken , 'Accepted')
                      invstorsOfferRef.update({status :'Accepted' })  
                        Alert.alert(
                            "رائع!",
@@ -145,7 +152,7 @@ export default function OffersList({ navigation, route }) {
               
                 {
                   text: "نعم", onPress: (offer) => { 
-                   getInvestorToken(GlobalinvestorID,"Accepted")
+                   SendNotification(InvestorToken,"Accepted")
                     invstorsOfferRef.update({status :'Accepted' })  
                       Alert.alert(
                           "رائع!",
@@ -167,7 +174,7 @@ export default function OffersList({ navigation, route }) {
                   { text: "إلغاء"},
                   {
                     text: "نعم", onPress: () => { 
-                      getInvestorToken(GlobalinvestorID,'Rejected')
+                      SendNotification(InvestorToken,'Rejected')
                       invstorsOfferRef.update({status : 'Rejected' })
                         Alert.alert(
                             "تنبيه!",
@@ -190,7 +197,11 @@ export default function OffersList({ navigation, route }) {
             const  [counter, setCounter] = useState(0) ;
        
             const _onPress=(investorID)=>{
-            global.GlobalinvestorID=investorID;
+            global.InRef= AfaadFirebase.database().ref("Investor/"+investorID)
+            InRef.on('value',(snapshot) =>{
+              setInvestorToken(snapshot.child('Token').val());
+              
+        });
             global.InvestorOfferPath=offersPath+investorID+"/";   //ADD ID FROM ROUTE route.params.ID
             global.invstorsOfferRef = AfaadFirebase.database().ref(InvestorOfferPath);
 
@@ -210,7 +221,11 @@ export default function OffersList({ navigation, route }) {
   // Send notfication by token 
   const SendNotification= async (Token,stat) =>{
 
-  
+    console.log(Token+' ANND '+InvestorToken)
+
+    if(InvestorToken=='not granted'){
+        return ; 
+     }
 
     if (stat=='Accepted'){
 
@@ -259,23 +274,7 @@ export default function OffersList({ navigation, route }) {
    //InvestorStat(snapshot.child("Token").val());
    //Just to make sure the entrepruner has a token and send the notification 
 
-   const getInvestorToken =(investorID,Stat)=>{
-
-   const InRef= AfaadFirebase.database().ref("Investor/"+investorID)
-
-   InRef.once('value').then(function(snapshot){
-     
-    setInvestorToken(snapshot.child("Token").val());
-  
-   });
-
-    if(InvestorToken=='not granted'){
-        return ; 
-     }
-
-   //  console.log('Sending '+InvestorToken+' to sendNotifcation')
-     SendNotification(InvestorToken,Stat)
-   }
+    
 
 
 
