@@ -73,7 +73,7 @@ export function NavigationBar ({navigation, ScreenName}) {
             }
 
             { userType== 'Entrepreneur' && 
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Search')}>
                 <Icon name={search} style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={"#fff"}/> 
               </TouchableOpacity>
             }
@@ -104,7 +104,7 @@ export function NavigationBar ({navigation, ScreenName}) {
               }
 
               { userType== 'Investor' && 
-                   <TouchableOpacity>
+                   <TouchableOpacity onPress={() => navigation.navigate('Search')}>
                      <Icon name={search} style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={"#fff"}/> 
                    </TouchableOpacity>
               }

@@ -23,6 +23,7 @@ import { default as InvestorRequest } from './screens/InvestorRequest' ;
 import { default as OffersList } from './screens/OffersList' ;
 import { default as profile } from './screens/profile' ;
 import {default as InvestedProductIdea} from './screens/InvestedProductIdea' ;
+import {default as Search} from './screens/Search';
 
 import {useFonts} from 'expo-font';
 
@@ -94,6 +95,9 @@ if(!isLoaded){
       <Stack.Screen name="InvestedProductIdea" component={InvestedProductIdea} options={{ headerTitle: "المشاريع المستثمرة" , headerBackVisible: false ,gestureEnabled: false}}/>
       
       <Stack.Screen name="profile" component={profile} options={{ headerTitle: "الملف الشخصي",
+        headerStyle: { backgroundColor: '#7c98b3'}, headerBackVisible: false, headerTintColor: 'white', gestureEnabled: false}}/>
+
+      <Stack.Screen name="Search" component={Search} options={{ headerTitle: "البحث",
         headerStyle: { backgroundColor: '#7c98b3'}, headerBackVisible: false, headerTintColor: 'white', gestureEnabled: false}}/>
         
       </Stack.Navigator>
