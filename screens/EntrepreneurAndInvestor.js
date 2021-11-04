@@ -18,6 +18,7 @@ import ProfileIcon from '../assets/images/ProfileIcon.png'
 import  {Notfication}  from './Notfication';
 import { ScrollView } from 'react-native-gesture-handler';
 import { NavigationBar } from './NavigationBar';
+import { color } from 'react-native-reanimated';
 
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
@@ -103,18 +104,18 @@ export default function Entrepreneur({ navigation }) {
 
       <View style={Titlestyles.container}>
 
-    <Image source={Background} style={{ flex: 1,width:'100%',height:'13%', opacity:1, position:'absolute' ,transform: [{ rotate: '180deg'}] }}/>
+    <View style={{ flex: 1,width:'100%',height:'13%', opacity:1, position:'absolute' ,transform: [{ rotate: '180deg'}] , backgroundColor:'#7c98b3' , borderTopRightRadius:500}}/>
 
 
        { userType=='Entrepreneur'&&
-      <Text style={[Titlestyles.sectionTitle ,{marginTop:'5%' , right:'5%'}] }> مرحبا، {userName}</Text>}
+      <Text style={[Titlestyles.sectionTitle ,{marginTop:'5%' , right:'5%' , color:'white' , fontSize:30}] }> مرحبا، {userName}</Text>}
         { userType=='Investor'&&
-      <Text style={[Titlestyles.sectionTitle ,{marginTop:'5%'}] }> مرحبا، {userName}</Text>}
+      <Text style={[Titlestyles.sectionTitle ,{marginTop:'5%' , color:'white' , fontSize:30}] }> مرحبا، {userName}</Text>}
      
        <View style={Titlestyles.tasksWrapper}>
       <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:5 , marginTop:35}]}>عرض الافكار</Text>
     
-         
+     
 
      
       <View style={Titlestyles.items}>
@@ -124,14 +125,46 @@ export default function Entrepreneur({ navigation }) {
         renderItem={({ item })=>(
           <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType , user_Name:userName})}>   
           <View style={Titlestyles.item}>
-          <Button 
+
+          
+            <View style={{borderTopRightRadius:15}}>
+          {/*if user is an entrepreuner*/}
+           {userType=='Entrepreneur' &&  (    
+           <Text style={{     
+            backgroundColor: item.status=='Accepted' ? 
+            //Accepted
+            '#87c38f' : 
+           item.status=='Rejected' ? 
+            //Rejected
+            '#c75146':
+            //Pending
+            '#7c98b3' , 
+
+            color:'white',
+            textAlign:'center',
+            width:80,
+            marginTop:-10,
+            marginLeft:-10,
+            overflow:'hidden',
+            fontFamily: 'AJannatLT',
+            } }>  
+            { item.status=='Accepted' ? 
+                'مقبول': 
+                 item.status=='Rejected' ? 
+                'مرفوض' :
+                'قيد المراجعة' 
+                 } 
+            </Text>)}
+
+           {/*if user is an Investor*/}
+            {userType=='Investor'&&( <Button 
                 style={Titlestyles.DetailsBtn}
                 onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
                 title="عرض التفاصيل"
                 titleProps={{}}
                 //titleStyle={{ marginHorizontal: 1 }}
-                color='#247ba0'
-            />
+                color='#247ba0'/>)}
+            </View>
             <Text style={Titlestyles.subTitle}>{item.Title}</Text>
             
           </View>
