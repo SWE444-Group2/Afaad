@@ -6,6 +6,8 @@ import TitleStyles from './TitleStyles';
 import AfaadLogo from '../assets/images/LOGO.jpeg';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Linking } from 'react-native'
+import { WebView } from 'react-native-webview';
+import Constants from 'expo-constants';
 import 'firebase/auth';
 
 
@@ -25,6 +27,7 @@ export default function productIdea({navigation , route}) {
     const [invested, setInvested] = useState('');
     const [investorsSpec, setinvestorsSpec] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
+    const [paymentModalVisible, setPaymentModalVisible] = useState(false);
     const [userInfo , setUserInfo]= useState('');
     const [userName , setUserName]=useState('');
     //const [userGender , setUserGender]=useState('');
@@ -233,7 +236,14 @@ export default function productIdea({navigation , route}) {
                </View>
 
 
-
+               <Modal
+                    visible={paymentModalVisible}
+                    onRequestClose={setPaymentModalVisible(!paymentModalVisible)}
+                >
+                    <WebView style={{flex: 1, marginTop: Constants.statusBarHeight }}
+                        source={require('./paypal.html')}
+                    />
+                </Modal>
                
 
             
@@ -263,7 +273,9 @@ export default function productIdea({navigation , route}) {
 
                  { userType== 'Investor' &&
                    <TouchableOpacity
-                   style={TitleStyles.investButton}>
+                   style={TitleStyles.investButton}
+                   onPress={() => setPaymentModalVisible(true) }
+                   >
                    <Text style={TitleStyles.AcceptDetailsBtn}>ادعم</Text>
                 </TouchableOpacity>  }       
 
