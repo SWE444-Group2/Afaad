@@ -238,8 +238,15 @@ export default function productIdea({navigation , route}) {
 
                <Modal
                     visible={paymentModalVisible}
-                    onRequestClose={setPaymentModalVisible(!paymentModalVisible)}
+                   onRequestClose={() => setPaymentModalVisible(!paymentModalVisible)} 
+                
                 >
+                   <Icon
+                  name="close"
+                  size={30}
+                  style={{marginTop:70, width: 30 , marginLeft:30}}
+                  onPress={() => setPaymentModalVisible(!paymentModalVisible)} />
+
                     <WebView style={{flex: 1, marginTop: Constants.statusBarHeight }}
                         source={require('./paypal.html')}
                     />

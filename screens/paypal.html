@@ -1,23 +1,32 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 
 <head>
     <!-- Add meta tags for mobile and IE -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
     <title> PayPal Checkout Integration | Client Demo </title>
 </head>
 
 <body>
     <!-- Set up a container element for the button -->
-    <div id="paypal-button-container"></div>
+
+    <div>
+         <p dir="rtl" lang="ar" id ="PropMessage" style="font-size:30px; margin-top:20px"> الرجاء ادخال المبلغ المطلوب</p>
+         <form method='POST'> 
+            <input type="number" id="amount" name="amount" pattern="\d*"/ min="1" max="100" style="margin-top:10%; margin-left:10% ;height:70px; width:70%; font-size:50px">
+         </from>
+    </div>
+
+    <div id="paypal-button-container" style="margin-top:10%;"></div>
+
 
     <script>
 
     </script>
     <!-- Include the PayPal JavaScript SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=AQoC3MN7W5m0994uOk4sQh9gNm6kqeim1Ua411b53QPABkbQ3aPLYelj2nFgU9rSv058S4iW9sw8aJ2G&currency=SR"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AQKT0A3NWcXovIunH0cJYu6tVL-wQ7ccnL2BxL8ZLELH-fonk2y3uGAl9-LfMgqIHmeF_YXPbVSuelff&currency=USD"></script>
 
     <script>
         // Render the PayPal button into #paypal-button-container
@@ -28,7 +37,7 @@
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: '50'
+                            value: document.getElementById('amount').value
                         }
                     }]
                 });
@@ -40,7 +49,7 @@
                     // Successful capture! For demo purposes:
                     console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
                     var transaction = orderData.purchase_units[0].payments.captures[0];
-                    alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+                    alert('تم تحويل المبلغ بنجاح');
 
                     // Replace the above to show a success message within this page, e.g.
                     // const element = document.getElementById('paypal-button-container');
