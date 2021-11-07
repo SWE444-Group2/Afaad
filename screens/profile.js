@@ -1,33 +1,20 @@
-import Constants from "expo-constants";
-import ViewIdea from "./ViewIdea";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState, setState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  FlatList,
   TouchableOpacity,
   Button,
   Image,
-  TextInput
+  TextInput,
 } from "react-native";
 import AfaadFirebase from "../screens/firebaseConfig";
 import "firebase/auth";
-import Titlestyles from "./TitleStyles";
-import SignOut from "../assets/images/SignOut.png";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import PlusIcon from "../assets/images/plusIcon.png";
-import Background from "../assets/images/Background.jpg";
-import ClickedHomeIcon from "../assets/images/ClickedHomeIcon.png";
-import SearchIcon from "../assets/images/SearchIcon.png";
-import NotificationIcon from "../assets/images/NotificationIcon.png";
-import ProfileIcon from "../assets/images/ProfileIcon.png";
-import { Notfication } from "./Notfication";
-import { ScrollView } from "react-native-gesture-handler";
-import { Avatar } from "react-native-elements";
+import SvgUri from 'react-native-svg-uri';
 import { NavigationBar } from './NavigationBar';
-
+import { default as shape } from '/Users/munira./Documents/GitHub/Afaad/assets/images/shape.svg';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
 
@@ -85,16 +72,13 @@ if (userType=="Investor"){
   console.log("here ID" + userID);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}></View>
-      <Image
-        style={styles.avatar}
-        source={{
-          uri: "http://stcollegekatihar.com/sites/default/files/default_images/User_ring.png",
-        }}
-      />
+<View>
 
-      {userType == "Entrepreneur" && (
+<View style={styles.SVG}>
+    <SvgUri  source={require('/Users/munira./Documents/GitHub/Afaad/assets/images/shapes.svg')} />  
+    </View>
+ 
+    {userType == "Entrepreneur" && (
         <View style={styles.UserName}>
           <Text
             style={{
@@ -107,13 +91,7 @@ if (userType=="Investor"){
           >
             {userFirstName} {userLastName}
           </Text>
-          
-          <Icon
-            name="pencil"
-            style={{ marginLeft:"13%",marginTop: -30 }}
-            size={25}
-            color={"#9ca1a6"}
-          />
+        
         </View>
       )}
 
@@ -122,37 +100,21 @@ if (userType=="Investor"){
         {userType == "Entrepreneur" && (
           <View style={styles.fields}>
             <Text style={styles.Tex}>{userEmail}</Text>
-            <Icon
-              name="pencil"
-              style={{ marginRight: "90%", marginTop: -25 }}
-              size={20}
-              color={"#9ca1a6"}
-            />
+            
           </View>
         )}
 
         {userType == "Entrepreneur" && (
           <View style={styles.fields}>
             <Text style={styles.Tex}>{userPhone}</Text>
-            <Icon
-              name="pencil"
-              style={{ marginRight: "90%", marginTop: -25 }}
-              size={20}
-              color={"#9ca1a6"}
-             
-            />
+          
           </View>
         )}
 
         {userType == "Entrepreneur" && (
           <View style={styles.fields}>
             <Text style={styles.Tex}>{gennder}</Text>
-            <Icon
-              name="pencil"
-              style={{ marginRight: "90%", marginTop: -25 }}
-              size={20}
-              color={"#9ca1a6"}
-            />
+           
           </View>
         )}
 
@@ -171,36 +133,20 @@ if (userType=="Investor"){
             {userFullName}
           </Text>
           
-          <Icon
-            name="pencil"
-            style={{ paddingRight: "80%", marginTop: -30 }}
-            size={25}
-            color={"#9ca1a6"}
-          />
+          
         </View>
       )}
 {userType == "Investor" && (
           <View style={styles.fieldsInv}>
             <Text style={styles.Tex}>{userPhoneInv}</Text>
 
-            <Icon
-              name="pencil"
-              style={{ marginRight: "90%", marginTop: -30 }}
-              size={20}
-              color={"#9ca1a6"}
            
-            />
           </View>
         )}
 {userType == "Investor" && (
           <View style={styles.fieldsInv}>
             <Text style={styles.Tex}>{userEmailInv}</Text>
-            <Icon
-              name="pencil"
-              style={{ marginRight: "90%", marginTop: -30 }}
-              size={20}
-              color={"#9ca1a6"}
-            />
+            
           </View>
         )}
        {userType == "Investor" && (
@@ -209,13 +155,7 @@ if (userType=="Investor"){
             <Text style={styles.Tex}>{userDecr}</Text>
           
           </View>
-          <Icon
-              name="pencil"
-              style={{ marginRight: "90%", marginTop:-70 }}
-              size={20}
-              color={"#9ca1a6"}
-              position='absolute'
-            />
+         
           </View>
         )}
 
@@ -238,6 +178,10 @@ if (userType=="Investor"){
       {NavigationBar({navigation, ScreenName: 'profile'})}
 
       <StatusBar style="auto" />
+ 
+
+
+
     </View>
   );
 }
@@ -247,29 +191,6 @@ const styles = StyleSheet.create({
     flex: 1,
 
     // backgroundColor: '#002B3E',
-  },
-  header: {
-    backgroundColor: "#aec2d6",
-    height: 150,
-  },
-  avatar: {
-    width: 130,
-    height: 130,
-    borderRadius: 63,
-
-    borderColor: "white",
-    marginBottom: 10,
-    alignSelf: "center",
-    position: "absolute",
-    marginTop: 70,
-  },
-
-  BottomBar: {
-    position: "absolute",
-    height: 80,
-    bottom: 0,
-    width: "100%",
-    backgroundColor: "#7c98b3",
   },
   fields: {
     width: "90%",
@@ -322,7 +243,7 @@ const styles = StyleSheet.create({
 
   UserName: {
  overflow:"hidden",
-    marginTop: "15%",
+    marginTop: "50%",
   },
   Tex: {
     fontSize: 18,
@@ -379,5 +300,19 @@ const styles = StyleSheet.create({
   inside:{
 height:"70%",
 width:"90%"
-  }
+  },
+
+SVG:{
+  alignItems: "center",
+  position: 'absolute',
+
+},
+bottomLayer:{
+
+
+
+},
+bar:{
+  marginTop:"133.7%"
+}
 });
