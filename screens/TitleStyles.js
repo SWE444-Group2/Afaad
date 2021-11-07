@@ -174,4 +174,27 @@ export default StyleSheet.create({
         
         },
 
+        categoriesContainer:{
+            justifyContent: 'center'
+
+        },
+
+    categories: {
+        height: 150,
+        width: 150,
+        paddingTop:50,
+        //flex: 1,
+        backgroundColor:'#eeeeee',
+        padding:10,
+        borderRadius:10,
+        flexDirection:'column',
+        alignItems:'center',
+        alignContent:'center',
+        justifyContent:"space-between",
+        margin:15,
+       // borderBottomLeftRadius:30,
+       // overflow:'scroll'
+
+        }
+
 })
