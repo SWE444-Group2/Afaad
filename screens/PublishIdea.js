@@ -1,13 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useState } from 'react';
-import { StyleSheet, TextInput, Text, Keyboard, TouchableWithoutFeedback, ScrollView, Alert, View} from 'react-native';
-import { Button } from 'react-native-elements';
+import { StyleSheet, TextInput, Text, Keyboard, TouchableWithoutFeedback, ScrollView, Alert, View,TouchableOpacity, Platform} from 'react-native';
+import { Button, normalize } from 'react-native-elements';
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import DropDownPicker from 'react-native-dropdown-picker';
 import RadioGroup from 'react-native-radio-buttons-group';
+
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import * as DocumentPicker from 'expo-document-picker';
+import * as FileSystem from 'expo-file-system';
+import * as ImagePicker from 'expo-image-picker';
+import { mdiSignatureImage } from '@mdi/js';
+//import storage from '@react-native-firebase/storage';
+//import RNFetchBlob from 'rn-fetch-blob';
 
 //fix VirtualizedLists should never be nested inside plain ScrollViews warnning
 DropDownPicker.setListMode("SCROLLVIEW");
@@ -21,6 +29,12 @@ export default function PublishIdea({ navigation }) {
     const [category, setCategory] = useState('');
     const [open, setOpen] = useState(false);
     const [categoryValue, setCategoryValue] = useState(null);
+
+    //const[File,setfile]=useState(null);
+    //const[FileName,setfileName]=useState(null);
+    //const[uri,seturi]=useState(null);
+    const [image,setImage]=useState(null);
+
     const [items, setItems] = useState([
       {label: 'اعلام ونشر وتوزيع', value: 'اعلام ونشر وتوزيع'},
       {label: 'تجارة', value: 'تجارة'},
@@ -98,7 +112,6 @@ export default function PublishIdea({ navigation }) {
       return RegxOfNames.test(field);
     };
 
-  
     //when submit button is pressed perform this
     const submit = () => {
 
@@ -197,7 +210,67 @@ export default function PublishIdea({ navigation }) {
     });
   }
     };
-  
+
+    const ChooseFile=async()=>{
+            // Pick a single file
+            try {
+              const res = await DocumentPicker.pick({
+                type: [DocumentPicker.types.pdf],  //Uploud PDF ,can be changed to other type if
+              })
+              console.log(
+                res.uri,
+                res.type, // mime type
+                res.name,
+                res.size,
+              )
+            } catch (err) {
+              if (DocumentPicker.isCancel(err)) {
+                // User cancelled the picker, exit any dialogs or menus and move on
+              } else {
+                throw err
+              }
+            }
+    }
+
+    const pickDocument = async () => {
+
+      const file = await DocumentPicker.getDocumentAsync({type: "application/pdf"});
+     // console.log(file.uri);
+      const path= await normalizePath(file.uri); 
+      console.log(path); //check after removing prefix
+      //const result=await RNFetchBlob.fs.readFile(path,'base64');
+      //console.log(file); //check
+
+    };
+  // The file prefix should be removed from the path URL
+  const normalizePath = async(path)=>{
+        if(Platform.OS==='ios' || Platform.OS==='android'){
+          const filePrefix='file://'  //To  file:/// to remove the third slash 
+          if(path.startsWith(filePrefix)){
+            path=path.substring(filePrefix.length); //to remove 
+            try{
+              path=decodeURI(path);
+            }
+            catch(e){
+
+            }
+          }
+        }
+        return path;  
+    }
+/*
+    const choosePhoto=()=>{
+      ImagePicker.openPicker({
+        with:200,
+        height:200,
+        croopint:true,
+      }).then((image)=>{
+        console.log(image);
+        const imageUri=Platform.OS==='ios'? image.sourceURL : image.path;
+        setImage(imageUri);
+      });
+    };*/
+
     return (
       <KeyboardAwareScrollView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -270,6 +343,22 @@ export default function PublishIdea({ navigation }) {
               multiline={true}
             />
 
+           
+            <Text style={styles.labelText}>ملف دراسه الجدوى للفكره </Text>
+            <View style={styles.uploudIcon}>
+            <TouchableOpacity onPress={pickDocument}>
+            <Icon  name="file-upload-outline" style={{ marginLeft:'30%'} } size={40} color={"#536b78"}/> 
+            </TouchableOpacity>
+            </View>
+      
+            {/*
+            <Text style={styles.labelText}>صور لفكرتك   </Text>
+            <View style={styles.uploudIcon}>
+            <TouchableOpacity>
+            <Icon  name="image-plus" style={{ marginLeft:'65%'} } size={30} color={"#536b78"}/> 
+            </TouchableOpacity>
+            </View>
+           */ }
             <Button buttonStyle={styles.button}
               onPress={submit}
               title="إرسال"
@@ -356,4 +445,9 @@ export default function PublishIdea({ navigation }) {
       paddingTop: 55,
       paddingRight:20,
     },
+    uploudIcon:{
+      marginTop:-30,
+
+    },
+
   });
