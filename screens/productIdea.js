@@ -248,8 +248,8 @@ export default function productIdea({navigation , route}) {
                   onPress={() => setPaymentModalVisible(!paymentModalVisible)} />
 
                     <WebView style={{flex: 1, marginTop: Constants.statusBarHeight }}
-                        source={require('./paypal.html')}
-                    />
+                        source={{ uri: 'https://www.sandbox.paypal.com/donate/?business=TS65E7J5RZ2QE&no_recurring=1&currency_code=USD' }}
+                        />
                 </Modal>
                
 
