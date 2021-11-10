@@ -5,10 +5,13 @@ import { StyleSheet, Text, View , Button , TouchableOpacity , Alert ,Image, Moda
 import TitleStyles from './TitleStyles';
 import AfaadLogo from '../assets/images/LOGO.jpeg';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Linking } from 'react-native'
 import { WebView } from 'react-native-webview';
 import Constants from 'expo-constants';
 import 'firebase/auth';
+import { MenuProvider } from 'react-native-popup-menu';
+import { Menu, MenuOptions, MenuOption, MenuTrigger, renderers } from 'react-native-popup-menu';
 
 
 import AfaadFirebase from "./firebaseConfig";
@@ -63,6 +66,15 @@ export default function productIdea({navigation , route}) {
         setUserPhone(snapshot.child('phone').val());
       });
 
+      //check if there is investors interested in the idea
+      let deleteIdea ;
+      InvestorsListNode.once('value', (snapshot) => {
+        if (snapshot.exists()) {
+          deleteIdea = false  ;
+        }else{
+          deleteIdea = true ;
+        }
+      })
         
   const SendRequest = () => {
 
@@ -151,8 +163,33 @@ export default function productIdea({navigation , route}) {
             ]
           ); }
     // console.log(pIdea);
+  const deleteProductIdea = () => {
+
+    Alert.alert(
+      "تنبيه",
+      "هل أنت متأكد من حذف الفكرة؟",
+      [
+        {
+          text: "نعم", onPress: () => {
+            navigation.navigate('EntrepreneurAndInvestor')
+            AfaadFirebase.database().ref(ProductPath).remove()
+              .then(function () {
+                console.log("Remove succeeded.")
+              })
+              .catch(function (error) {
+                console.log("Remove failed: " + error.message)
+              });
+          }
+        },
+        { text: "إلغاء" }
+      ]
+    );
+
+  }
+
     return(
         <View style={styles.container}>
+        <MenuProvider>
         <ScrollView >
         <View style={[TitleStyles.containerDetails ]}>
             <Modal
@@ -180,7 +217,28 @@ export default function productIdea({navigation , route}) {
             <Image source={AfaadLogo} style={{ width: 150, height: 150 }}/>
            <Text style={[TitleStyles.ProjectName ]}>{Title}</Text> 
               <View style={TitleStyles.square}>
+
+                  <View style={{ flexDirection: 'row', paddingLeft: 30 }}>
+                  { userType== 'Entrepreneur' &&
+                  <Menu renderer={renderers.Popover} rendererProps={{ placement: 'top' }}>
+                    <MenuTrigger >
+                      <MaterialIcons name="more-vert" style={{ marginTop:10}} size={50} color={"black"}/>
+                    </MenuTrigger>
+                    <MenuOptions customStyles ={optionsStyles}>
+                      <MenuOption onSelect={() => navigation.navigate('OffersList', {Product_id: route.params.Product_id})}>
+                        <Text style={{textAlign: 'right', fontFamily: 'AJannatLT', fontSize:18 }}>قائمة عروض المستثمرين</Text>
+                      </MenuOption>
+                    { deleteIdea == true &&
+                      <MenuOption onSelect={() => deleteProductIdea()} >
+                       <Text style={{ color: 'red', textAlign: 'right', fontFamily: 'AJannatLT', fontSize: 18 }}>حذف الفكرة</Text>
+                     </MenuOption>
+                    }
+                    </MenuOptions>
+                  </Menu>
+                  }
+
                     <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>فكرة المشروع</Text>
+                    </View>
                     <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:'50%'}}/>
                     <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{Description}</Text> 
                     <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>القيمة التقديرية</Text>
@@ -288,15 +346,12 @@ export default function productIdea({navigation , route}) {
                    <Text style={TitleStyles.AcceptDetailsBtn}>ادعم</Text>
                 </TouchableOpacity>  }       
 
-                  { userType== 'Entrepreneur' &&
-                   <TouchableOpacity   onPress={() => navigation.navigate('OffersList', {Product_id: route.params.Product_id})}
-                   style={styles.ButtonText}>
-                   <Text style={styles.ButtonText}> قائمه عروض المستثمرين</Text>
-                </TouchableOpacity>  }    
+                 
          </View>  
         </View>
 
         </ScrollView>
+        </MenuProvider>
 
         <StatusBar style="auto" />
         </View>
@@ -305,6 +360,11 @@ export default function productIdea({navigation , route}) {
     )
 }
 
+const optionsStyles = {
+  optionsContainer: {
+    padding: 5,
+  }
+};
 
 const styles = StyleSheet.create({
 

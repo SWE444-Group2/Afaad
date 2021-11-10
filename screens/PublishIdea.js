@@ -241,7 +241,6 @@ export default function PublishIdea({ navigation }) {
             text: "حسنًا",
             onPress: () => {
               navigation.pop()
-              navigation.push('EntrepreneurAndInvestor');
             },
             style: "cancel",
           },
