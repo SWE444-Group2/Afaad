@@ -26,6 +26,7 @@ export default function productIdea({navigation , route}) {
     const [costEstimation, setcostEstimation] = useState('');
     const [invested, setInvested] = useState('');
     const [investorsSpec, setinvestorsSpec] = useState('');
+    const[Donation , setDonation]=useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [paymentModalVisible, setPaymentModalVisible] = useState(false);
     const [userInfo , setUserInfo]= useState('');
@@ -48,6 +49,7 @@ export default function productIdea({navigation , route}) {
         if(snapshot.child("status").val()=='Pending')
         setStatus('في حالة المراجعة');
         setcategory(snapshot.child("category").val());
+        setDonation(snapshot.child("donation").val());
         setcostEstimation(snapshot.child("costEstimation").val());
         setinvestorsSpec(snapshot.child("investorsSpec").val());
         setUserInfo(snapshot.child('userID').val());
@@ -248,7 +250,7 @@ export default function productIdea({navigation , route}) {
                   onPress={() => setPaymentModalVisible(!paymentModalVisible)} />
 
                     <WebView style={{flex: 1, marginTop: Constants.statusBarHeight }}
-                        source={{ uri: 'https://www.sandbox.paypal.com/donate/?business=TS65E7J5RZ2QE&no_recurring=1&currency_code=USD' }}
+                        source={{ uri: 'https://www.sandbox.paypal.com/donate/?business='+userEmail+'&no_recurring=1&currency_code=USD' }}
                         />
                 </Modal>
                
@@ -278,7 +280,7 @@ export default function productIdea({navigation , route}) {
                    <Text style={TitleStyles.AcceptDetailsBtn}>استثمر</Text>
                 </TouchableOpacity>  }   
 
-                 { userType== 'Investor' &&
+                 { userType== 'Investor' && Donation==true &&
                    <TouchableOpacity
                    style={TitleStyles.investButton}
                    onPress={() => setPaymentModalVisible(true) }

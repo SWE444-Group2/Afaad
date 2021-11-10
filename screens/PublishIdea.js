@@ -49,6 +49,7 @@ export default function PublishIdea({ navigation }) {
     ]);
     const [ProductDescription, setProductDescription] = useState('');
     const [costEstimation, setCostEstimation] = useState('');
+    const [donation , setDonation]=useState('');
     const radioButtonsData = [{
       id: '1', 
       label: '١ ألف - أقل من ١٠ آلاف',
@@ -93,6 +94,41 @@ export default function PublishIdea({ navigation }) {
     const [radioButtons, setRadioButtons] = useState(radioButtonsData)
     const [investorsSpec, setInvestorsSpec] = useState('');
 
+    // Donation 
+    const DonationradioButtonsData = [{
+      id: '1', 
+      label: 'نعم',
+      value: true,
+      containerStyle: {flexDirection: 'row-reverse', marginTop:5},
+      labelStyle: styles.radioLabel,
+      size: 20,
+      color: '#7c98b3'
+    }, {
+      id: '2',
+      label: 'لا',
+      value: false,
+      containerStyle: {flexDirection: 'row-reverse', marginTop:5},
+      labelStyle: styles.radioLabel,
+      size: 20,
+      color: '#7c98b3'
+    }]
+
+    const [DonationradioButtons, setDonationradioButtons] = useState(DonationradioButtonsData)
+
+    function onPressDonationRadioButton(radioButtonsArray) {
+      setDonationradioButtons(radioButtonsArray) ;
+      let selectedOption ; 
+      for(let radioButton in DonationradioButtons){
+        if(DonationradioButtons[radioButton].selected == true){
+          selectedOption = DonationradioButtons[radioButton].value ; 
+          DonationradioButtons[radioButton].containerStyle = [DonationradioButtons[radioButton].containerStyle, {backgroundColor: '#fafafa',borderRadius: 10}] ;
+        }else{
+          DonationradioButtons[radioButton].containerStyle = {flexDirection: 'row-reverse', marginTop:5}
+        }
+      }
+         setDonation(selectedOption) ;
+    }
+    //end 
     function onPressRadioButton(radioButtonsArray) {
       setRadioButtons(radioButtonsArray) ;
       let selectedCost ; 
@@ -182,6 +218,7 @@ export default function PublishIdea({ navigation }) {
         ProductDescription,
         costEstimation,
         investorsSpec,
+        donation,
         status: 'Pending',
         userID: user.uid,
         date: createDate,
@@ -343,6 +380,13 @@ export default function PublishIdea({ navigation }) {
               multiline={true}
             />
 
+            <Text style={styles.labelText}>هل تريد استقبال الدعم المالي على البريد الالكتروني عن طريق باي بال؟<Text style={styles.warning}>*</Text></Text>
+            <RadioGroup
+              radioButtons={DonationradioButtons}
+              onPress={onPressDonationRadioButton}
+              containerStyle={{ alignItems: 'flex-end', marginBottom: 10 }}
+              layout='col'
+            />
            
             <Text style={styles.labelText}>ملف دراسه الجدوى للفكره </Text>
             <View style={styles.uploudIcon}>
