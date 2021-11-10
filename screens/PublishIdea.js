@@ -14,13 +14,24 @@ import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
 import { mdiSignatureImage } from '@mdi/js';
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+
+//import storage from '@react-native-firebase/storage';
 //import storage from '@react-native-firebase/storage';
 //import RNFetchBlob from 'rn-fetch-blob';
 
 //fix VirtualizedLists should never be nested inside plain ScrollViews warnning
+
 DropDownPicker.setListMode("SCROLLVIEW");
 
 export default function PublishIdea({ navigation }) {
+
+  //const storage = AfaadFirebase.storage();
+  //const storageRef = ref(storage, 'PDF');
+ 
+
+  const[uploading,setUploading]= useState(false);
+
 
   const user = AfaadFirebase.auth().currentUser ;
 
@@ -271,10 +282,30 @@ export default function PublishIdea({ navigation }) {
 
     const pickDocument = async () => {
 
-      const file = await DocumentPicker.getDocumentAsync({type: "application/pdf"});
+      global.file = await DocumentPicker.getDocumentAsync({type: "application/pdf"});
      // console.log(file.uri);
+     if (file != null) {
+      const r = await fetch(file.uri);
+      const b = await r.blob();
+      console.log(JSON.stringify(b));
+      console.log(file);
+    }
+
+    uploadFile();
+
+    
+    /*
+    uploadBytes(storageRef, file).then((snapshot) => {
+      console.log('Uploaded a blob or file!');
+    });
       const path= await normalizePath(file.uri); 
       console.log(path); //check after removing prefix
+      console.log(
+        file.uri,
+        file.type, // mime type
+        file.name,
+        file.size,
+      )*/
       //const result=await RNFetchBlob.fs.readFile(path,'base64');
       //console.log(file); //check
 
@@ -295,6 +326,49 @@ export default function PublishIdea({ navigation }) {
         }
         return path;  
     }
+
+    const uploadFile =async ()=>{
+
+      const blob = await new Promise((resolve,reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload=function(){
+        resolve(xhr,response);
+      };
+
+      xhr.onerror=function(){
+        reject(new TypeError("Network request failed"));
+      
+      };
+
+      xhr.responseType='blob';
+      xhr.open('GET',file,true);
+      xhr.send(null);
+
+      });
+
+      const ref = AfaadFirebase.storage().ref().child('PDF')
+      const snapshot = ref.put(blob)
+
+      snapshot.on(AfaadFirebase.storage.TaskEvent.STATE_CHANGE,()=>{
+        setUploading(true)
+      },
+      (error)=>{
+        setUploading(false)
+        console.log(error)
+        blob.close();
+        return;
+      },
+      ()=>{
+        snapshot.snapshot.ref.getDownloadURL().then((url)=>{
+          setUploading(false)
+          console.log("download url",url)
+          blob.close();
+          return url;
+
+          });
+        }
+      );
+  };
 /*
     const choosePhoto=()=>{
       ImagePicker.openPicker({
