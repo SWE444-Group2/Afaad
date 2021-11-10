@@ -4,16 +4,14 @@ import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image ,
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 import Titlestyles from './TitleStyles';
-import SignOut from '../assets/images/SignOut.png';
-import PlusIcon from '../assets/images/plusIcon.png';
-import Background from '../assets/images/Background.jpg';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
-let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
 
-export default function ViewIdea({ navigation , route}) {
+
+export default function SearchResult({ navigation , route}) {
+
 
   let user = AfaadFirebase.auth().currentUser ;
   let userID, userType , userName;
@@ -37,17 +35,27 @@ export default function ViewIdea({ navigation , route}) {
           if(!isUnmounted){
             setResultList(ResultList);}
 
-
+            global.counter = 0;
             const categoryList=[]
-            for(let productID in ResultList){
+            if ( route.params.searchKey !== undefined){
+                for(let productID in ResultList){
+                    if (ResultList[productID].Title == route.params.searchKey) {
+                        categoryList.push(ResultList[productID])
+                        counter++;
+                    }
+                  }
+            }
+            else {for(let productID in ResultList){
             if (ResultList[productID].category == route.params.category) {
                 categoryList.push(ResultList[productID])
+                counter++;
             }
-          }
+          }}
 
           if(!isUnmounted){
            setCategoryList(categoryList) ;}
 
+        //   console.log(counter)
           
        });
 
@@ -57,6 +65,7 @@ export default function ViewIdea({ navigation , route}) {
        };
 
     }, [])
+  //  console.log(userType)
   return (
 
     
@@ -73,6 +82,8 @@ export default function ViewIdea({ navigation , route}) {
 
      
       <View style={Titlestyles.items}>
+      { global.counter == 0 && <Text style = {Titlestyles.subTitle}>لا توجد مشاريع لهذه الفئة</Text>}
+
         <FlatList style={{height:'85%'}}
         data={categoryList}
         keyExtractor={(item, index)=>index.toString()}
@@ -94,7 +105,7 @@ export default function ViewIdea({ navigation , route}) {
         )}
 
         /> 
-       
+
         </View>
         
        

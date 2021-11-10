@@ -195,6 +195,18 @@ export default StyleSheet.create({
        // borderBottomLeftRadius:30,
        // overflow:'scroll'
 
-        }
+        },
+        input: {
+            height: 38,
+            width:300,
+            alignSelf:'flex-end',
+            marginBottom:-25,
+            marginTop:-35,
+            backgroundColor:'white',
+            borderRadius:20,
+            borderColor:'black',
+            paddingRight:10,
+            textAlign:'right'
+          },
 
 })
