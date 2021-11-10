@@ -13,7 +13,7 @@ import AfaadFirebase from "../screens/firebaseConfig";
 import "firebase/auth";
 import SvgUri from 'react-native-svg-uri';
 import { NavigationBar } from './NavigationBar';
-import { default as shape } from '/Users/munira./Documents/GitHub/Afaad/assets/images/shape.svg';
+//import  {shape}  from '../assets/images/shape.svg';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
@@ -75,7 +75,7 @@ if (userType=="Investor"){
 <View>
 
 <View style={styles.SVG}>
-    <SvgUri  source={require('/Users/munira./Documents/GitHub/Afaad/assets/images/shapes.svg')} />  
+    <SvgUri  source={require('../assets/images/shapes.svg')} />  
     </View>
  
     {userType == "Entrepreneur" && (
