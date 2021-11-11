@@ -11,10 +11,11 @@ import {
 } from "react-native";
 import AfaadFirebase from "../screens/firebaseConfig";
 import "firebase/auth";
-import SvgUri from 'react-native-svg-uri';
+import SvgUri from "expo-svg-uri";
 import { NavigationBar } from './NavigationBar';
 //import  {shape}  from '../assets/images/shape.svg';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import UploadImage from './UploadImage';
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
 
@@ -72,119 +73,46 @@ if (userType=="Investor"){
   console.log("here ID" + userID);
 
   return (
-<View>
+  <View style={{ height:"100%"}}>
+    <View style={styles.SVG}>
+  <SvgUri  source={require('../assets/images/shapes.svg')} /> 
+  </View>
 
-<View style={styles.SVG}>
-    <SvgUri  source={require('../assets/images/shapes.svg')} />  
+    <View style={styles.containers}>
+      <UploadImage/>
     </View>
- 
-    {userType == "Entrepreneur" && (
-        <View style={styles.UserName}>
-          <Text
-            style={{
-              fontFamily: "AJannatLT",
-              fontSize: 30,
-              textAlign: "center",
-              color: "#2e4963",
-              fontWeight: "bold",
-            }}
-          >
-            {userFirstName} {userLastName}
-          </Text>
+    <TouchableOpacity
+   style={styles.roundButton1}>
+     <Icon name="pencil" style={{ marginLeft:'25%' , marginTop:16} } size={30} color={"#fff"}/> 
+ </TouchableOpacity> 
+ <View style={styles.TopView}>
+
+{/* 
+ {userType == "Entrepreneur" && (
+       <View style={{flexDirection:"row"}}>
+                    <View style={{textAlign:"Right"}}  style={styles.fields}>
+                    <Text style={styles.TextProps} > {userEmail}</Text>
+                    </View>
+                    <View>
+                        <Text style={styles.TextProps}> البريد الإلكتروني :</Text>
+                    </View>
+                </View>
         
-        </View>
-      )}
-
-      <View style={styles.TopView}>
-        
-        {userType == "Entrepreneur" && (
-          <View style={styles.fields}>
-            <Text style={styles.Tex}>{userEmail}</Text>
-            
-          </View>
         )}
+        */}
 
-        {userType == "Entrepreneur" && (
-          <View style={styles.fields}>
-            <Text style={styles.Tex}>{userPhone}</Text>
-          
-          </View>
-        )}
-
-        {userType == "Entrepreneur" && (
-          <View style={styles.fields}>
-            <Text style={styles.Tex}>{gennder}</Text>
-           
-          </View>
-        )}
-
-
-{userType == "Investor" && (
-        <View style={styles.UserName}>
-          <Text
-            style={{
-              fontFamily: "AJannatLT",
-              fontSize: 30,
-              textAlign: "center",
-              color: "#2e4963",
-              fontWeight: "bold",
-            }}
-          >
-            {userFullName}
-          </Text>
-          
-          
-        </View>
-      )}
-{userType == "Investor" && (
-          <View style={styles.fieldsInv}>
-            <Text style={styles.Tex}>{userPhoneInv}</Text>
-
-           
-          </View>
-        )}
-{userType == "Investor" && (
-          <View style={styles.fieldsInv}>
-            <Text style={styles.Tex}>{userEmailInv}</Text>
-            
-          </View>
-        )}
-       {userType == "Investor" && (
-          <View style={styles.decfield}>
-            <View style={styles.inside}>
-            <Text style={styles.Tex}>{userDecr}</Text>
-          
-          </View>
-         
-          </View>
-        )}
-
-
-
-
-
-
-
-
-
-
-
-
-        <TouchableOpacity style={styles.Button} onPress={onSignout}>
+<TouchableOpacity style={styles.Button} onPress={onSignout}>
           <Text style={styles.ButtonText}>تسجيل الخروج</Text>
         </TouchableOpacity>
       </View>
-
-      {NavigationBar({navigation, ScreenName: 'profile'})}
-
+    
+      {NavigationBar({navigation, ScreenName:'profile'})}
       <StatusBar style="auto" />
- 
 
+      </View>
+    );
+  }
 
-
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -193,52 +121,11 @@ const styles = StyleSheet.create({
     // backgroundColor: '#002B3E',
   },
   fields: {
-    width: "90%",
-    height: "12%",
-
-    borderWidth: 1,
+    backgroundColor:"#D8DDE1",
+borderRadius: 9,
+    marginRight:10,
     borderColor: "#CCCCCC",
-    borderRadius: 8,
 
-    backgroundColor: "white",
-
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    alignItems: "flex-end",
-    borderStyle: "solid",
-    paddingRight: 10,
-    paddingTop: 6,
-    marginTop: 20,
-  },
-  fieldsInv: {
-    width: "90%",
-    height: "8%",
-
-    borderWidth: 1,
-    borderColor: "#CCCCCC",
-    borderRadius: 8,
-
-    backgroundColor: "white",
-
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    alignItems: "flex-end",
-    borderStyle: "solid",
-    paddingRight: 10,
-    paddingTop: 6,
-    marginTop: 20,
   },
 
   UserName: {
@@ -251,9 +138,10 @@ const styles = StyleSheet.create({
     textAlign:"right"
   },
   TopView: {
-    alignItems: "flex-end",
-    paddingRight: 25,
-    paddingBottom: 70,
+    alignItems: "center",
+    width:"90%",
+    marginLeft:"5%",
+    marginTop:"60%",
   },
   Button: {
     width: "90%",
@@ -272,31 +160,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#002B3E",
   },
-  decfield:{
-    width: "90%",
-    height: "20%",
-
-    borderWidth: 1,
-    borderColor: "#CCCCCC",
-    borderRadius: 8,
-
-    backgroundColor: "white",
-
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    alignItems: "flex-end",
-    borderStyle: "solid",
-    paddingRight: 10,
-    paddingTop: 6,
-    marginTop: 20,
-    
-  },
   inside:{
 height:"70%",
 width:"90%"
@@ -307,12 +170,35 @@ SVG:{
   position: 'absolute',
 
 },
-bottomLayer:{
-
-
-
-},
 bar:{
   marginTop:"133.7%"
-}
+},
+containers: {
+
+  alignItems: 'flex-start',
+  marginTop:"25%",
+  marginLeft:"4%"
+
+},
+TextProps:{
+  fontFamily: "AJannatLT",
+  fontSize: 18,
+  fontWeight: "bold",
+  color: "#002B3E",
+},
+roundButton1: {
+  width: 60,
+  height: 60,
+  borderRadius: 100,
+  backgroundColor: '#AEC3D7',
+  position: 'absolute',
+  marginTop:135,
+  marginLeft:285,
+  shadowColor: 'rgba(1,0,0, .4)', // IOS
+  shadowOffset: { height: 2, width: 2}, // IOS
+  shadowOpacity: 2, // IOS
+  shadowRadius:2, //IOS
+  elevation: 2, // Android
+
+},
 });
