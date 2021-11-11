@@ -15,7 +15,7 @@ import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
 import { mdiSignatureImage } from '@mdi/js';
 import { getStorage, ref, uploadBytes } from "firebase/storage";
-
+import SvgUri from "expo-svg-uri";
 //import storage from '@react-native-firebase/storage';
 //import storage from '@react-native-firebase/storage';
 //import RNFetchBlob from 'rn-fetch-blob';
@@ -385,17 +385,14 @@ export default function PublishIdea({ navigation }) {
       <KeyboardAwareScrollView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView contentContainerStyle={styles.inner}>
-        <View style={{
-          backgroundColor:"#7C98B3",
-          height: 200, 
-          borderBottomStartRadius: 20,
-          borderBottomEndRadius: 20,
-          }}>
+        <View style={styles.SVG}>
+  <SvgUri  source={require('../assets/images/Frame.svg')} /> 
+  </View>
             <Text style={styles.title}>
               طرح فكرة جديدة
             </Text>
-            </View>
-            <View style={{backgroundColor:"white", padding: 24}}>
+          
+            <View style={{backgroundColor:"white", padding: 24,marginTop:"10%"}}>
             <Text style={styles.warning}>
               *جميـع الحقول مطلوبـــة
             </Text>
@@ -493,9 +490,12 @@ export default function PublishIdea({ navigation }) {
   const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: 'white',
+      
       },
     inner: {
         justifyContent: "space-around",
+        
 
     },
     button: {
@@ -565,6 +565,11 @@ export default function PublishIdea({ navigation }) {
     uploudIcon:{
       marginTop:-30,
 
+    },
+    SVG:{
+      alignItems: "center",
+      position: 'absolute',
+    
     },
 
   });

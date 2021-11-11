@@ -20,6 +20,7 @@ export default function UploadImage() {
       setImage(_image.uri);
     }
   };
+{/* 
   const  checkForCameraRollPermission=async()=>{
     const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
@@ -32,6 +33,9 @@ export default function UploadImage() {
 useEffect(() => {
     checkForCameraRollPermission()
   }, []);
+*/}
+
+
   return (
             <View style={imageUploaderStyles.container}>
                 {
