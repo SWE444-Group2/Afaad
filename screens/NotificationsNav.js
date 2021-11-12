@@ -105,18 +105,18 @@ export default function NotificationsNav({ navigation }) {
         data={PendingProductList}
         keyExtractor={(item, index)=>index.toString()}
         renderItem={({ item })=>(
-          <TouchableOpacity >   
+          <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType})} >   
           
         
           {userType== 'Entrepreneur' &&  (
-            <View style={styles.item} onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType})}>       
+            <View style={styles.item}>       
             <Text style={[Titlestyles.subTitle , Titlestyles.DescText , {fontSize:17}]}>يوجد لديك طلب استثمار جديد في : {item.Title}</Text>
              <Icon name="checkbox-blank-circle-outline"  size={20} color={"#022B3A"}
              />
              </View> )}
 
              {userType== 'Investor'  && item.InvestorsList[userID].status!='Pending'&&(
-            <View style={styles.item} onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType})} >
+            <View style={styles.item}  >
               <Text style={{     
             backgroundColor: item.InvestorsList[userID].status=='Accepted' ? 
             //Accepted
