@@ -187,10 +187,8 @@ export default StyleSheet.create({
         backgroundColor:'#eeeeee',
         padding:10,
         borderRadius:10,
-        flexDirection:'column',
         alignItems:'center',
-        alignContent:'center',
-        justifyContent:"space-between",
+        justifyContent:"space-evenly",
         margin:15,
        // borderBottomLeftRadius:30,
        // overflow:'scroll'

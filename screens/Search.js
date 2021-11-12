@@ -15,7 +15,7 @@ const auth = AfaadFirebase.auth();
 export default function Search({ navigation, route }) { 
 
     const categories = 
-       ['اعلام ونشر وتوزيع',
+       ['اعلام ونشر',
         'تجارة',
         'ترفيه وفنون', 
         'تعليم', 
@@ -25,6 +25,29 @@ export default function Search({ navigation, route }) {
         'عقار ومقاولات', 
         'مطاعم ومقاهي', 
         'آخرى']
+
+    global.dict = 
+        [{name : 'تجارة',
+            logo : 'domain'},
+        {name : 'اعلام ونشر',
+            logo : 'play-network-outline'},
+        {name : 'ترفيه وفنون',
+            logo : 'palette'},
+        {name : 'تعليم',
+            logo : 'school-outline'},
+        {name : 'تقنية معلومات',
+            logo : 'xml'},
+        {name : 'زراعة',
+            logo : 'sprout-outline'},
+        {name : 'صناعة',
+            logo : 'robot-industrial'},
+        {name : 'عقار ومقاولات',
+            logo : 'home-group'},
+        {name : 'مطاعم ومقاهي',
+            logo : 'silverware'},
+        {name : 'آخرى',
+            logo : 'dots-horizontal'}
+]
 
         const[keyword ,setKeyword ]=useState('');
 
@@ -54,17 +77,18 @@ export default function Search({ navigation, route }) {
 
             <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:36 ,color:'white', marginTop:24}]}>أو اختار فئة المشروع</Text>
       
-                <View style={Titlestyles.categoriesContainer}>                
-                <FlatList style={{height:'85%'}}
-                data={categories}
+                <View style={Titlestyles.categoriesContainer}>  
+
+                <FlatList style={{height:'72%'}}
+                data={dict}
                 keyExtractor={(item, index)=>index.toString()}
                 numColumns= {2}
                 renderItem={({ item })=>(
                  <TouchableOpacity  onPress={() => navigation.navigate('SearchResult', {category:item})}  >   
                  <View style={Titlestyles.categories}>
-               
-            <Text style={Titlestyles.subTitle}>{item}</Text>
-            
+                 <Icon name={item.logo} style={{ marginTop:-30} } size={70} color={"#7c98b3"} />
+ 
+            <Text style={Titlestyles.subTitle}>{item.name}</Text>
           </View>
           </TouchableOpacity>
         )}

@@ -46,7 +46,7 @@ export default function SearchResult({ navigation , route}) {
                   }
             }
             else {for(let productID in ResultList){
-            if (ResultList[productID].category == route.params.category) {
+            if (ResultList[productID].category == route.params.category.name) {
                 categoryList.push(ResultList[productID])
                 counter++;
             }
