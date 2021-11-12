@@ -29,7 +29,7 @@ export function NavigationBar ({navigation, ScreenName}) {
     })
   }
 
-  //default is they are all outlined 
+  //default is they are all outlined and white
   const [home, setHome] = useState("home-circle-outline") ;
   const [search, setSearch] = useState("feature-search-outline") ;
   const [plusIdea, setPlusIdea] = useState("plus-circle-outline") ;
@@ -37,16 +37,24 @@ export function NavigationBar ({navigation, ScreenName}) {
   const [notification, setNotification] = useState("bell-outline") ;
   const [profile, setProfile] = useState("account-box-outline") ;
 
-  //except when the screen name matches the name passed then remove outline
+  const [homeColro, setHomeColro] = useState("#fff") ;
+  const [SearchColro, setSearchColro] = useState("#fff") ;
+  const [plusIdeaColro, setPlusIdeaColro] = useState("#fff") ;
+  const [investedColro, setInvestedColro] = useState("#fff") ;
+  const [notificationColro, setNotificationColro] = useState("#fff") ;
+  const [profileColro, setProfileColro] = useState("#fff") ;
+
+
+  //except when the screen name matches the name passed then remove outline and change the color
   useEffect(() => {
     switch(ScreenName){
-      case 'home':  setHome('home-circle') ; return ;
-      case 'offers':  setHome('home-circle') ; return ;
-      case 'search':  setSearch('feature-search') ; return;
-      case 'plus':  setPlusIdea('plus-circle'); return ;
-      case 'invested': setInvested('head-lightbulb') ; return ;
-      case 'notification': setNotification('bell') ; return ;
-      case 'profile': setProfile('account-box'); return ;
+      case 'home':  setHome('home-circle'), setHomeColro("#022B3A") ; return ;
+      case 'offers':  setHome('home-circle'), setHomeColro("#022B3A")  ; return ;
+      case 'search':  setSearch('feature-search') ,setSearchColro("#022B3A"); return;
+      case 'plus':  setPlusIdea('plus-circle'),setPlusIdeaColro("#022B3A"); return ;
+      case 'invested': setInvested('head-lightbulb') ,setInvestedColro("#022B3A"); return ;
+      case 'notification': setNotification('bell') ,setNotificationColro("#022B3A"); return ;
+      case 'profile': setProfile('account-box'),setProfileColro("#022B3A"); return ;
     }
   }, [])
 
@@ -56,62 +64,62 @@ export function NavigationBar ({navigation, ScreenName}) {
 
             { userType== 'Entrepreneur' &&  
               <TouchableOpacity  onPress={() => navigation.navigate('profile',{userType: userType,userID:userID})}>
-                <Icon name={profile} style={{ marginLeft:'5%' , marginTop:10} } size={40} color={"#fff"}/> 
+                <Icon name={profile} style={{ marginLeft:'5%' , marginTop:10} } size={40} color={profileColro}/> 
               </TouchableOpacity>
             }
 
             { userType== 'Entrepreneur' &&
               <TouchableOpacity onPress={() => navigation.navigate('NotificationsNav')} >
-                <Icon name={notification} style={{ marginLeft:'25%' , marginTop:-40} } size={40} color={"#fff"}/> 
+                <Icon name={notification} style={{ marginLeft:'25%' , marginTop:-40} } size={40} color={notificationColro}/> 
               </TouchableOpacity>
             } 
 
             { userType== 'Entrepreneur' && 
               <TouchableOpacity  onPress={() => navigation.navigate('PublishIdea')}>
-                <Icon name={plusIdea} style={{ marginLeft:'45%' , marginTop:-40} } size={40} color={"#fff"}/>
+                <Icon name={plusIdea} style={{ marginLeft:'45%' , marginTop:-40} } size={40} color={plusIdeaColro}/>
               </TouchableOpacity>
             }
 
             { userType== 'Entrepreneur' && 
               <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-                <Icon name={search} style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={"#fff"}/> 
+                <Icon name={search} style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={SearchColro}/> 
               </TouchableOpacity>
             }
             
             { userType== 'Entrepreneur' &&
               <TouchableOpacity onPress={() => navigation.navigate("EntrepreneurAndInvestor")}>
-                <Icon name={home} style={{ marginLeft:'82%' , marginTop:-43 } } size={43} color={"#fff"}/> 
+                <Icon name={home} style={{ marginLeft:'82%' , marginTop:-43 } } size={43} color={homeColro}/> 
               </TouchableOpacity>
             }
 
 
               { userType== 'Investor' &&  
                  <TouchableOpacity onPress={() => navigation.navigate('profile',{userType: userType,userID:userID})}>
-                   <Icon name={profile} style={{ marginLeft:'5%' , marginTop:10} } size={40} color={"#fff"}/> 
+                   <Icon name={profile} style={{ marginLeft:'5%' , marginTop:10} } size={40} color={profileColro}/> 
                  </TouchableOpacity>
               }
 
               { userType== 'Investor' &&
                   <TouchableOpacity onPress={() => navigation.navigate('NotificationsNav')} >
-                   <Icon name={notification} style={{ marginLeft:'25%' , marginTop:-40} } size={40} color={"#fff"}/> 
+                   <Icon name={notification} style={{ marginLeft:'25%' , marginTop:-40} } size={40} color={notificationColro}/> 
                   </TouchableOpacity>
               } 
 
               { userType== 'Investor' && 
                    <TouchableOpacity onPress={() => navigation.navigate('InvestedProductIdea')}>
-                     <Icon name={invested} style={{ marginLeft:'45%' , marginTop:-40} } size={37} color={"#fff"}/> 
+                     <Icon name={invested} style={{ marginLeft:'45%' , marginTop:-40} } size={37} color={investedColro}/> 
                    </TouchableOpacity>
               }
 
               { userType== 'Investor' && 
                    <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-                     <Icon name={search} style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={"#fff"}/> 
+                     <Icon name={search} style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={SearchColro}/> 
                    </TouchableOpacity>
               }
 
               { userType== 'Investor' &&
               <TouchableOpacity onPress={() => navigation.navigate("EntrepreneurAndInvestor")}>
-              <Icon name={home} style={{ marginLeft:'83%' , marginTop:-43 } } size={43} color={"#fff"}/> 
+              <Icon name={home} style={{ marginLeft:'83%' , marginTop:-43 } } size={43} color={homeColro}/> 
               </TouchableOpacity>
               }
 
