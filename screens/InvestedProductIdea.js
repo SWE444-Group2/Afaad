@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Titlestyles from './TitleStyles';
 import AfaadFirebase from './firebaseConfig';
 import { NavigationBar } from './NavigationBar';
-
+import SvgUri from "expo-svg-uri";
 export default function InvestedProductIdea({ navigation }) {
 
   
@@ -39,6 +39,15 @@ export default function InvestedProductIdea({ navigation }) {
 
       {NavigationBar({navigation, ScreenName: 'invested'})}
 
+      <View style={styles.SVG}>
+      <SvgUri  source={require('../assets/images/Frame.svg')} /> 
+      </View>
+
+      <Text style={styles.title}>الأفكار المستثمره</Text>
+
+      
+  
+
       <StatusBar style="auto" />
         </View>
     );
@@ -58,5 +67,19 @@ const styles = StyleSheet.create({
     width:'100%',
     backgroundColor:'#7c98b3'
   
-  }
+  },
+  SVG:{
+    alignItems: "center",
+    position: 'absolute',
+  
+  },
+  title: {
+    fontFamily: 'AJannatLTBold',
+    fontSize:40,
+    fontWeight:'bold',
+    textAlign: 'right',
+    color:'white' ,
+    paddingTop: 55,
+    paddingRight:20,
+  },
   });
