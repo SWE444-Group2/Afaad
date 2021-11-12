@@ -7,6 +7,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Titlestyles from './TitleStyles';
 import AfaadFirebase from './firebaseConfig';
 import { NavigationBar } from './NavigationBar';
+import { mdiBorderColor } from '@mdi/js';
 
 
 
@@ -61,14 +62,13 @@ export default function NotificationsNav({ navigation }) {
         const PendingProductList=[]
         for(let productID in productsList){
   
-          if (userType === 'Admin' && productsList[productID].status == 'Pending') {
-            PendingProductList.push(productsList[productID])
-          }
-          else if (userType === 'Investor' && productsList[productID].status == 'Accepted' && productsList[productID].InvestorsList!=null) {
+         if (userType === 'Investor' && productsList[productID].status == 'Accepted' && productsList[productID].InvestorsList!=null) {
             let inv= Object.keys(productsList[productID].InvestorsList)
             for(let i in inv){
-              if(inv[i]==userID)
-            PendingProductList.push(productsList[productID])}
+              if(inv[i]==userID){
+                 PendingProductList.push(productsList[productID])
+                }
+          }
            
      }
           else if (userType === 'Entrepreneur' && productsList[productID].userID == userID && productsList[productID].InvestorsList!=null ) {
@@ -100,7 +100,7 @@ export default function NotificationsNav({ navigation }) {
         
       <View style={styles.tasksWrapper}>
 
-      <View style={styles.items}>
+      <View>
         <FlatList style={{height:'85%'}}
         data={PendingProductList}
         keyExtractor={(item, index)=>index.toString()}
@@ -110,17 +110,34 @@ export default function NotificationsNav({ navigation }) {
         
           {userType== 'Entrepreneur' &&  (
             <View style={styles.item} onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType})}>       
-            <Text style={[Titlestyles.subTitle , Titlestyles.DescText]}>يوجد لديك طلب استثمار جديد في : {item.Title}</Text>
-             <Icon name="exclamation" style={{ marginLeft:-10 , marginRight:-15} } size={40} color={"black"}
+            <Text style={[Titlestyles.subTitle , Titlestyles.DescText , {fontSize:17}]}>يوجد لديك طلب استثمار جديد في : {item.Title}</Text>
+             <Icon name="checkbox-blank-circle-outline"  size={20} color={"#022B3A"}
              />
              </View> )}
 
-             {userType== 'Investor' && (
+             {userType== 'Investor'  && item.InvestorsList[userID].status!='Pending'&&(
             <View style={styles.item} onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType})} >
-            <Text style={[Titlestyles.subTitle , Titlestyles.DescText]}> تم تحديث حالة طلب اسثمارك في مشروع: {item.Title}</Text>
-             <Icon name="exclamation" style={{ marginLeft:-10 , marginRight:-15} } size={40} color={"black"}
-             />
+              <Text style={{     
+            backgroundColor: item.InvestorsList[userID].status=='Accepted' ? 
+            //Accepted
+            '#87c38f' :  
+            //Rejected
+            '#c75146', 
+            color:'white',
+            textAlign:'center',
+            width:60,
+            borderRadius:10,
+            overflow:'hidden',
+            fontFamily: 'AJannatLT',          
+            } }>  
+            { item.InvestorsList[userID].status=='Accepted' ?
+            'مقبول' :
+            'مرفوض'} 
+            </Text>
+            <Text style={[Titlestyles.subTitle , Titlestyles.DescText ,{fontSize:17 , width:'70%'}]}>حالة طلب اسثمارك في {item.Title}</Text> 
+            <Icon name='checkbox-blank-circle-outline' size={20} color='#022B3A'/> 
              </View> )}
+            
 
 
           
@@ -169,15 +186,15 @@ tasksWrapper:{
 }, 
 item:{ 
     flex: 1,
-     padding:10,
-     backgroundColor:'#eeeeee',
-     borderRadius:10,
      flexDirection:'row',
      alignItems:'center',
      justifyContent:'flex-end',
      marginBottom:5, 
-     marginTop:10,
-     overflow:'scroll'
+     marginTop:50,
+     overflow:'scroll',
+     borderBottomWidth:1,
+     borderBottomColor:'#eeeeee',
+    
 
 },
   });
