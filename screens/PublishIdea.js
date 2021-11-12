@@ -26,10 +26,6 @@ DropDownPicker.setListMode("SCROLLVIEW");
 
 export default function PublishIdea({ navigation }) {
 
-  //const storage = AfaadFirebase.storage();
-  //const storageRef = ref(storage, 'PDF');
- 
-
   const[uploading,setUploading]= useState(false);
 
 
@@ -41,10 +37,6 @@ export default function PublishIdea({ navigation }) {
     const [open, setOpen] = useState(false);
     const [categoryValue, setCategoryValue] = useState(null);
 
-    //const[File,setfile]=useState(null);
-    //const[FileName,setfileName]=useState(null);
-    //const[uri,seturi]=useState(null);
-    const [image,setImage]=useState(null);
 
     const [items, setItems] = useState([
       {label: 'اعلام ونشر وتوزيع', value: 'اعلام ونشر وتوزيع'},
@@ -258,129 +250,6 @@ export default function PublishIdea({ navigation }) {
   }
     };
 
-    const ChooseFile=async()=>{
-            // Pick a single file
-            try {
-              const res = await DocumentPicker.pick({
-                type: [DocumentPicker.types.pdf],  //Uploud PDF ,can be changed to other type if
-              })
-              console.log(
-                res.uri,
-                res.type, // mime type
-                res.name,
-                res.size,
-              )
-            } catch (err) {
-              if (DocumentPicker.isCancel(err)) {
-                // User cancelled the picker, exit any dialogs or menus and move on
-              } else {
-                throw err
-              }
-            }
-    }
-
-    const pickDocument = async () => {
-
-      global.file = await DocumentPicker.getDocumentAsync({type: "application/pdf"});
-     // console.log(file.uri);
-     if (file != null) {
-      const r = await fetch(file.uri);
-      const b = await r.blob();
-      console.log(JSON.stringify(b));
-      console.log(file);
-    }
-
-    uploadFile();
-
-    
-    /*
-    uploadBytes(storageRef, file).then((snapshot) => {
-      console.log('Uploaded a blob or file!');
-    });
-      const path= await normalizePath(file.uri); 
-      console.log(path); //check after removing prefix
-      console.log(
-        file.uri,
-        file.type, // mime type
-        file.name,
-        file.size,
-      )*/
-      //const result=await RNFetchBlob.fs.readFile(path,'base64');
-      //console.log(file); //check
-
-    };
-  // The file prefix should be removed from the path URL
-  const normalizePath = async(path)=>{
-        if(Platform.OS==='ios' || Platform.OS==='android'){
-          const filePrefix='file://'  //To  file:/// to remove the third slash 
-          if(path.startsWith(filePrefix)){
-            path=path.substring(filePrefix.length); //to remove 
-            try{
-              path=decodeURI(path);
-            }
-            catch(e){
-
-            }
-          }
-        }
-        return path;  
-    }
-
-    const uploadFile =async ()=>{
-
-      const blob = await new Promise((resolve,reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload=function(){
-        resolve(xhr,response);
-      };
-
-      xhr.onerror=function(){
-        reject(new TypeError("Network request failed"));
-      
-      };
-
-      xhr.responseType='blob';
-      xhr.open('GET',file,true);
-      xhr.send(null);
-
-      });
-
-      const ref = AfaadFirebase.storage().ref().child('PDF')
-      const snapshot = ref.put(blob)
-
-      snapshot.on(AfaadFirebase.storage.TaskEvent.STATE_CHANGE,()=>{
-        setUploading(true)
-      },
-      (error)=>{
-        setUploading(false)
-        console.log(error)
-        blob.close();
-        return;
-      },
-      ()=>{
-        snapshot.snapshot.ref.getDownloadURL().then((url)=>{
-          setUploading(false)
-          console.log("download url",url)
-          blob.close();
-          return url;
-
-          });
-        }
-      );
-  };
-/*
-    const choosePhoto=()=>{
-      ImagePicker.openPicker({
-        with:200,
-        height:200,
-        croopint:true,
-      }).then((image)=>{
-        console.log(image);
-        const imageUri=Platform.OS==='ios'? image.sourceURL : image.path;
-        setImage(imageUri);
-      });
-    };*/
-
     return (
       <KeyboardAwareScrollView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -457,22 +326,7 @@ export default function PublishIdea({ navigation }) {
               containerStyle={{ alignItems: 'flex-end', marginBottom: 10 }}
               layout='col'
             />
-           
-            <Text style={styles.labelText}>ملف دراسه الجدوى للفكره </Text>
-            <View style={styles.uploudIcon}>
-            <TouchableOpacity onPress={pickDocument}>
-            <Icon  name="file-upload-outline" style={{ marginLeft:'30%'} } size={40} color={"#536b78"}/> 
-            </TouchableOpacity>
-            </View>
       
-            {/*
-            <Text style={styles.labelText}>صور لفكرتك   </Text>
-            <View style={styles.uploudIcon}>
-            <TouchableOpacity>
-            <Icon  name="image-plus" style={{ marginLeft:'65%'} } size={30} color={"#536b78"}/> 
-            </TouchableOpacity>
-            </View>
-           */ }
             <Button buttonStyle={styles.button}
               onPress={submit}
               title="إرسال"

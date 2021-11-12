@@ -15,6 +15,7 @@ export default function InvestorRequest({navigation , route}) {
     const [SuggestedCost, setSuggested]= useState('');
     const [EntMessage , setEntMessage]=useState('');
     const [EntrepreneurToken, setEntrepreneurToken]=useState('');
+    const[investorEmail,setInvestorEmail]=useState('');
     const [id, setID]=useState('')
     const user = AfaadFirebase.auth().currentUser ;
 
@@ -29,6 +30,14 @@ export default function InvestorRequest({navigation , route}) {
         setEntrepreneurToken(snapshot.child('Token').val())   
      });
 
+     const InvestorEmailRef=AfaadFirebase.database().ref('/Investor/'+user.uid);
+     InvestorEmailRef.once('value').then(function(snapshot){
+      setInvestorEmail(snapshot.child("email").val());
+      });
+
+    
+   
+    
      // Send notfication by token 
     const SendNotification= async (Token) =>{
 
@@ -104,7 +113,9 @@ export default function InvestorRequest({navigation , route}) {
             SuggestedCost,
             EntMessage,
             status: 'Pending',
+            InvestorEmail:investorEmail,
         };
+       
         RequestRef.set(RequestData).then(() => {
             Alert.alert("نجاح", "تم إرسال طلبك إلى رائد الأعمال", [
               {

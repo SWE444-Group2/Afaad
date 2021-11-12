@@ -22,7 +22,6 @@ export default function productIdea({navigation , route}) {
     const userType = route.params.userType;
     const [date, setdate] = useState('');
     const [Description, setDescription] = useState('');
-    //const [FeasibilityAnalysis, setFeasibilityAnalysis] = useState('');
     const [status, setStatus] = useState('');
     const [Title, setTitle] = useState('');
     const [category, setcategory] = useState('');
@@ -119,7 +118,7 @@ export default function productIdea({navigation , route}) {
               return
             } else {
               setModalVisible(!modalVisible)
-              navigation.navigate('InvestorRequest', { Product_id: route.params.Product_id, user_Name:route.params.user_Name })
+              navigation.navigate('InvestorRequest', { Product_id: route.params.Product_id, user_Name:route.params.user_Name, investor_Email:route.params.investor_Email  })
             }
           })
         }

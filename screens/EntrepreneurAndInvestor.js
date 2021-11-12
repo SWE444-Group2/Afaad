@@ -37,6 +37,7 @@ export default function Entrepreneur({ navigation }) {
   let user = AfaadFirebase.auth().currentUser ;
   let userID, userType , userName;
   let NotificationAllowed=Notfication();
+  let investorEmail ;
 
   if(user){
     userID = user.uid ;
@@ -54,6 +55,7 @@ export default function Entrepreneur({ navigation }) {
       if (snapshot.exists()) {
         userType = 'Investor' ;
         userName = snapshot.child('FullName').val()
+        investorEmail=snapshot.child('email').val()
       }
     })
   }
@@ -123,7 +125,7 @@ export default function Entrepreneur({ navigation }) {
         data={PendingProductList}
         keyExtractor={(item, index)=>index.toString()}
         renderItem={({ item })=>(
-          <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType , user_Name:userName})}>   
+          <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType , user_Name:userName, investor_Email:investorEmail})}>   
           <View style={Titlestyles.item}>
 
           

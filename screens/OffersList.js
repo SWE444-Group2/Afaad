@@ -17,6 +17,8 @@ import ProfileIcon from '../assets/images/ProfileIcon.png'
 import { ScrollView } from 'react-native-gesture-handler';
 import InvestorLogo from '../assets/images/business-and-finance.png';
 import { NavigationBar } from './NavigationBar';
+import { Linking } from 'react-native'
+//import * as MailComposer from 'expo-mail-composer';
 
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
@@ -196,6 +198,7 @@ export default function OffersList({ navigation, route }) {
             const  [Message, setMessage] = useState('') ;
             const  [SuggCost, setSuggCost] = useState('') ;
             const  [status, setStatus] = useState('') ;
+            const [investorEmail,setInvestorEmail]=useState("");
             const  [counter, setCounter] = useState(0) ;
        
             const _onPress=(investorID)=>{
@@ -213,6 +216,7 @@ export default function OffersList({ navigation, route }) {
                   setMessage(snapshot.child("EntMessage").val());
                   setSuggCost(snapshot.child("SuggestedCost").val());
                   setStatus(snapshot.child("status").val());
+                  setInvestorEmail(snapshot.child("InvestorEmail").val())
                   setModalVisible(true);
 
               });
@@ -276,10 +280,7 @@ export default function OffersList({ navigation, route }) {
    //InvestorStat(snapshot.child("Token").val());
    //Just to make sure the entrepruner has a token and send the notification 
 
-    
-
-
-
+  
     return (
 
       <View style={Titlestyles.container}>
@@ -417,7 +418,12 @@ export default function OffersList({ navigation, route }) {
                            <Text style={styles.OfferDetails} > وصف دعم المستثمر: </Text> 
                     
                           <Text style={styles.DetailsText}>  {Message}  </Text>
-                      
+                          { status=='Accepted' &&
+                          <TouchableOpacity 
+                          onPress={() => Linking.openURL('mailto:'+investorEmail)}>
+                              <Text style={styles.OfferDetails}>إرسال ملف دراسة الجدوى للمستثمر</Text>
+                              <Icon name="email-send"  style={{ marginTop:-27}} size={30} color={'#002B3E'}></Icon>
+                          </TouchableOpacity> }
 
                           
                           <View style={{flexDirection:'row', paddingLeft:35,paddingTop:70,alignContent:"center"}}>
