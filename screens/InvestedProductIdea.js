@@ -7,11 +7,40 @@ import Titlestyles from './TitleStyles';
 import AfaadFirebase from './firebaseConfig';
 import { NavigationBar } from './NavigationBar';
 import SvgUri from "expo-svg-uri";
+import { useState } from 'react';
+import {useEffect } from 'react';
+
+
 export default function InvestedProductIdea({ navigation }) {
 
   
   let user = AfaadFirebase.auth().currentUser ;
   let userID, userType , userName;
+ 
+ 
+//Array to save all the product idea 
+//i want ot store un the aaray only the product id but in thus array all the content is saved
+//then in each idea id the investor list should be save in ither array
+    const [productList,setProductList] = useState([]);
+      
+    useEffect(()=>{
+    AfaadFirebase
+    .database()
+    .ref("ProductIdea")
+    .on("value", (snapshot) =>{
+      let data = [];
+      snapshot.forEach((child)=>{
+        data.push(child);
+      })
+     setProductList(data);
+    });
+
+    },[])
+
+    console.log(productList)
+
+
+
 
   if(user){
     userID = user.uid ;
@@ -45,7 +74,7 @@ export default function InvestedProductIdea({ navigation }) {
 
       <Text style={styles.title}>الأفكار المستثمره</Text>
 
-      
+
   
 
       <StatusBar style="auto" />
