@@ -16,13 +16,14 @@ export default function InvestedProductIdea({ navigation }) {
   
   let user = AfaadFirebase.auth().currentUser ;
   let userID, userType , userName;
+  let InvestedIdeaList=[];
  
- 
-//Array to save all the product idea 
-//i want ot store un the aaray only the product id but in thus array all the content is saved
-//then in each idea id the investor list should be save in ither array
+
     const [productList,setProductList] = useState([]);
-      
+    const [idList,setidList] = useState([]);
+    //const[InvestedIdeaList,setInvestedList]=useState([]);
+
+    //Loop and save all the produbt id in array
     useEffect(()=>{
     AfaadFirebase
     .database()
@@ -36,6 +37,41 @@ export default function InvestedProductIdea({ navigation }) {
     });
 
     },[])
+    console.log(productList)
+  
+   
+
+    useEffect(()=>{
+      for(let i=0; i<=productList.length;i++){
+
+      AfaadFirebase
+      .database()
+      .ref("ProductIdea/"+""+productList[i]+""+"/InvestorsList/")
+      .on("value", (snapshot) =>{
+        let data = [];
+        snapshot.forEach((child)=>{
+          data.push(child.key);
+        })
+       setidList(data);
+
+       for(let j=0; j<=idList.length;j++){
+
+        if(idList[j]==userID){    
+          InvestedIdeaList.push(productList[i])
+          break;
+          }
+
+        }
+
+        });
+
+      }
+
+},[])
+console.log(idList)//empty
+console.log(InvestedIdeaList)//empty
+    
+
 /*
     for(let i=0 ; i<= productList.length; i++){
       useEffect(()=>{
