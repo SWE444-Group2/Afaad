@@ -134,8 +134,8 @@ export default function NotificationsNav({ navigation }) {
             'مقبول' :
             'مرفوض'} 
             </Text>
-            <Text style={[Titlestyles.subTitle , Titlestyles.DescText ,{fontSize:17 , width:'70%'}]}>حالة طلب اسثمارك في {item.Title}</Text> 
-            <Icon name='checkbox-blank-circle-outline' size={20} color='#022B3A'/> 
+            <Text style={[Titlestyles.subTitle , Titlestyles.DescText ,{fontSize:17 , width:'65%'}]}>حالة طلب اسثمارك في {item.Title}</Text> 
+            <Icon name='checkbox-blank-circle-outline' size={20} color='#6A687A'/> 
              </View> )}
             
 
@@ -163,14 +163,7 @@ export default function NotificationsNav({ navigation }) {
 
 const styles = StyleSheet.create({
     
-  BottomBar:{ 
-    position:'absolute',
-    height:80,
-    bottom:0,
-    width:'100%',
-    backgroundColor:'#7c98b3'
-  
-  },
+
 
   container: {
     flex: 1,
@@ -181,6 +174,7 @@ const styles = StyleSheet.create({
 tasksWrapper:{
      flex:1,
      paddingHorizontal:20,
+     marginTop:30
      
      
 }, 
@@ -189,11 +183,13 @@ item:{
      flexDirection:'row',
      alignItems:'center',
      justifyContent:'flex-end',
-     marginBottom:5, 
-     marginTop:50,
+     marginTop:10,
+     height:80,
      overflow:'scroll',
      borderBottomWidth:1,
-     borderBottomColor:'#eeeeee',
+     borderBottomColor:'#A2ABB5',
+     borderRadius:5,
+     backgroundColor:'#eeeeee',
     
 
 },
