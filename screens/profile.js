@@ -33,6 +33,8 @@ export default function Profile({ navigation, route }) {
   const [userFullName, setFullName] = useState("");
   const [userDecr, setuserDecr] = useState("");
 const full = userFirstName+" "+userLastName;
+
+
   const userType = route.params.userType;
   const userID = route.params.userID;
 
@@ -86,186 +88,378 @@ const full = userFirstName+" "+userLastName;
      <Icon name="pencil" style={{ marginLeft:'25%' , marginTop:16} } size={30} color={"#fff"}/> 
  </TouchableOpacity> 
 
-<View style={{ padding: 50,marginTop:150}}>
+ 
+{ userType=='Entrepreneur'&&<View style={{ padding: 50,marginTop:150}}>
 
-      <FloatingLabelInput 
-        label="الاسم"
-        value={full}
-        staticLabel
-        hintTextColor={'#aaa'}
-        caretHidden={true}
-        editable={false} 
-         selectTextOnFocus={false} 
-        
-        containerStyles={{
-          borderWidth: 0.76,
-          paddingHorizontal: 8,
-          bottom:-3,
-          textAlign:"right",
-          borderColor: 'gray',
-          borderRadius: 8,
-          height:50
-        }}
-        customLabelStyles={{
-          colorFocused: 'black',
-          fontSizeFocused: 12,
-
-        }}
-        labelStyles={{
-          backgroundColor: '#f2f2f2',
-          paddingHorizontal: 5,
-         marginLeft:225,
-         fontFamily: "AJannatLT",
-        }}
-        inputStyles={{
-          color: 'black',
-          paddingHorizontal: 10,
-          fontFamily: "AJannatLT",
-          fontSize: 14,
-       color: "#002B3E",
-       textAlign:"right",
-       fontWeight: "bold",
-        }}
-        
-      
-      />
-      <View style={{marginTop:25}} >
+    
 <FloatingLabelInput 
-        label="البريد الالكتروني"
-        value={userEmail}
-        staticLabel
-        hintTextColor={'#aaa'}
-        caretHidden={true}
-        editable={false} 
+       label="الاسم"
+       value={full}
+       staticLabel
+       hintTextColor={'#aaa'}
+       caretHidden={true}
+       editable={false} 
         selectTextOnFocus={false} 
-  
-        containerStyles={{
-          borderWidth: 0.76,
-          paddingHorizontal: 8,
-          bottom:-3,
-          textAlign:"right",
-          borderColor: 'gray',
-          borderRadius: 8,
-          height:50
-        }}
-        customLabelStyles={{
-          colorFocused: 'black',
-          fontSizeFocused: 12,
+       
+       containerStyles={{
+         borderWidth: 0.76,
+         paddingHorizontal: 8,
+         bottom:-3,
+         textAlign:"right",
+         borderColor: 'gray',
+         borderRadius: 8,
+         height:50
+       }}
+       customLabelStyles={{
+         colorFocused: 'black',
+         fontSizeFocused: 12,
 
-        }}
-        labelStyles={{
-          backgroundColor: '#f2f2f2',
-          paddingHorizontal: 5,
-         marginLeft:190,
+       }}
+       labelStyles={{
+         backgroundColor: '#f2f2f2',
+         paddingHorizontal: 5,
+        marginLeft:225,
+        fontFamily: "AJannatLT",
+       }}
+       inputStyles={{
+         color: 'black',
+         paddingHorizontal: 10,
          fontFamily: "AJannatLT",
-        }}
-        inputStyles={{
-          color: 'black',
-          paddingHorizontal: 10,
-          fontFamily: "AJannatLT",
-          fontSize: 14,
-       color: "#002B3E",
-       textAlign:"right",
-       fontWeight: "bold",
-        }}
-        
-      
-      />
-         </View>{/* second field*/}
+         fontSize: 14,
+      color: "#002B3E",
+      textAlign:"right",
+      fontWeight: "bold",
+       }}
+       
+    
+     />
 
-      
-         <View style={{marginTop:25}} >
+     <View style={{marginTop:25}} >
 <FloatingLabelInput 
-        label="الجنس"
-        value={gennder}
-        staticLabel
-        hintTextColor={'#aaa'}
-        caretHidden={true}
-        editable={false} 
-        selectTextOnFocus={false} 
-  
-        containerStyles={{
-          borderWidth: 0.76,
-          paddingHorizontal: 8,
-          bottom:-3,
-          textAlign:"right",
-          borderColor: 'gray',
-          borderRadius: 8,
-          height:50
-        }}
-        customLabelStyles={{
-          colorFocused: 'black',
-          fontSizeFocused: 12,
+       label="البريد الالكتروني"
+       value={userEmail}
+       staticLabel
+       hintTextColor={'#aaa'}
+       caretHidden={true}
+       editable={false} 
+       selectTextOnFocus={false} 
+ 
+       containerStyles={{
+         borderWidth: 0.76,
+         paddingHorizontal: 8,
+         bottom:-3,
+         textAlign:"right",
+         borderColor: 'gray',
+         borderRadius: 8,
+         height:50
+       }}
+       customLabelStyles={{
+         colorFocused: 'black',
+         fontSizeFocused: 12,
 
-        }}
-        labelStyles={{
-          backgroundColor: '#f2f2f2',
-          paddingHorizontal: 5,
-         marginLeft:235,
+       }}
+       labelStyles={{
+         backgroundColor: '#f2f2f2',
+         paddingHorizontal: 5,
+        marginLeft:190,
+        fontFamily: "AJannatLT",
+       }}
+       inputStyles={{
+         color: 'black',
+         paddingHorizontal: 10,
          fontFamily: "AJannatLT",
-        }}
-        inputStyles={{
-          color: 'black',
-          paddingHorizontal: 10,
-          fontFamily: "AJannatLT",
-          fontSize: 14,
-       color: "#002B3E",
-       textAlign:"right",
-       fontWeight: "bold",
-        }}
-        
-      
-      />
-         </View>{/* fourth field*/}
-         <View style={{marginTop:25}} >
+         fontSize: 14,
+      color: "#002B3E",
+      textAlign:"right",
+      fontWeight: "bold",
+       }}
+       
+     
+     />
+        </View>{/* second field*/}
+
+     
+        <View style={{marginTop:25}} >
 <FloatingLabelInput 
-        label="رقم الجوال"
-        value={userPhone}
-        staticLabel
-        hintTextColor={'#aaa'}
-        caretHidden={true}
-        editable={false} 
-        selectTextOnFocus={false} 
-  
-        containerStyles={{
-          borderWidth: 0.76,
-          paddingHorizontal: 8,
-          bottom:-3,
-          textAlign:"right",
-          borderColor: 'gray',
-          borderRadius: 8,
-          height:50
-        }}
-        customLabelStyles={{
-          colorFocused: 'black',
-          fontSizeFocused: 12,
+       label="الجنس"
+       value={gennder}
+       staticLabel
+       hintTextColor={'#aaa'}
+       caretHidden={true}
+       editable={false} 
+       selectTextOnFocus={false} 
+ 
+       containerStyles={{
+         borderWidth: 0.76,
+         paddingHorizontal: 8,
+         bottom:-3,
+         textAlign:"right",
+         borderColor: 'gray',
+         borderRadius: 8,
+         height:50
+       }}
+       customLabelStyles={{
+         colorFocused: 'black',
+         fontSizeFocused: 12,
 
-        }}
-        labelStyles={{
-          backgroundColor: '#f2f2f2',
-          paddingHorizontal: 5,
-          marginLeft:215,
+       }}
+       labelStyles={{
+         backgroundColor: '#f2f2f2',
+         paddingHorizontal: 5,
+        marginLeft:235,
+        fontFamily: "AJannatLT",
+       }}
+       inputStyles={{
+         color: 'black',
+         paddingHorizontal: 10,
          fontFamily: "AJannatLT",
-        }}
-        inputStyles={{
-          color: 'black',
-          paddingHorizontal: 10,
-          fontFamily: "AJannatLT",
-          fontSize: 14,
-       color: "#002B3E",
-       textAlign:"right",
-       fontWeight: "bold",
-        }}
-        
-      
-      />
-         </View>{/* fifth field*/}
+         fontSize: 14,
+      color: "#002B3E",
+      textAlign:"right",
+      fontWeight: "bold",
+       }}
+       
+     
+     />
+        </View>{/* fourth field*/}
+        <View style={{marginTop:25}} >
+<FloatingLabelInput 
+       label="رقم الجوال"
+       value={userPhone}
+       staticLabel
+       hintTextColor={'#aaa'}
+       caretHidden={true}
+       editable={false} 
+       selectTextOnFocus={false} 
+ 
+       containerStyles={{
+         borderWidth: 0.76,
+         paddingHorizontal: 8,
+         bottom:-3,
+         textAlign:"right",
+         borderColor: 'gray',
+         borderRadius: 8,
+         height:50
+       }}
+       customLabelStyles={{
+         colorFocused: 'black',
+         fontSizeFocused: 12,
 
+       }}
+       labelStyles={{
+         backgroundColor: '#f2f2f2',
+         paddingHorizontal: 5,
+         marginLeft:215,
+        fontFamily: "AJannatLT",
+       }}
+       inputStyles={{
+         color: 'black',
+         paddingHorizontal: 10,
+         fontFamily: "AJannatLT",
+         fontSize: 14,
+      color: "#002B3E",
+      textAlign:"right",
+      fontWeight: "bold",
+       }}
+       
+     
+     />
+        </View>{/* fifth field*/}
 
-         <TouchableOpacity style={styles.Button} onPress={onSignout}>
+<TouchableOpacity style={styles.Button} onPress={onSignout}>
           <Text style={styles.ButtonText}>تسجيل الخروج</Text>
         </TouchableOpacity>
-     </View>{/* Gather all floating */}
+</View>
+
+  }
+  
+  { userType=='Investor'&&  <View style={{ padding: 50,marginTop:120}}>
+
+
+<FloatingLabelInput 
+       label="الاسم"
+       value={userFullName}
+       staticLabel
+       hintTextColor={'#aaa'}
+       caretHidden={true}
+       editable={false} 
+        selectTextOnFocus={false} 
+       
+       containerStyles={{
+         borderWidth: 0.76,
+         paddingHorizontal: 8,
+         bottom:-3,
+         textAlign:"right",
+         borderColor: 'gray',
+         borderRadius: 8,
+         height:50
+       }}
+       customLabelStyles={{
+         colorFocused: 'black',
+         fontSizeFocused: 12,
+
+       }}
+       labelStyles={{
+         backgroundColor: '#f2f2f2',
+         paddingHorizontal: 5,
+        marginLeft:225,
+        fontFamily: "AJannatLT",
+       }}
+       inputStyles={{
+         color: 'black',
+         paddingHorizontal: 10,
+         fontFamily: "AJannatLT",
+         fontSize: 14,
+      color: "#002B3E",
+      textAlign:"right",
+      fontWeight: "bold",
+       }}
+       
+     
+     />
+     
+     <View style={{marginTop:25}} >
+<FloatingLabelInput 
+       label="البريد الالكتروني"
+       value={userEmailInv}
+       staticLabel
+       hintTextColor={'#aaa'}
+       caretHidden={true}
+       editable={false} 
+       selectTextOnFocus={false} 
+ 
+       containerStyles={{
+         borderWidth: 0.76,
+         paddingHorizontal: 8,
+         bottom:-3,
+         textAlign:"right",
+         borderColor: 'gray',
+         borderRadius: 8,
+         height:50
+       }}
+       customLabelStyles={{
+         colorFocused: 'black',
+         fontSizeFocused: 12,
+
+       }}
+       labelStyles={{
+         backgroundColor: '#f2f2f2',
+         paddingHorizontal: 5,
+        marginLeft:190,
+        fontFamily: "AJannatLT",
+       }}
+       inputStyles={{
+         color: 'black',
+         paddingHorizontal: 10,
+         fontFamily: "AJannatLT",
+         fontSize: 14,
+      color: "#002B3E",
+      textAlign:"right",
+      fontWeight: "bold",
+       }}
+       
+     
+     />
+        </View>{/* second field*/}
+
+     
+        <View style={{marginTop:25}} >
+
+<FloatingLabelInput 
+       label="رقم الجوال"
+       value={userPhoneInv}
+       staticLabel
+       hintTextColor={'#aaa'}
+       caretHidden={true}
+       editable={false} 
+       selectTextOnFocus={false} 
+ 
+       containerStyles={{
+         borderWidth: 0.76,
+         paddingHorizontal: 8,
+         bottom:-3,
+         textAlign:"right",
+         borderColor: 'gray',
+         borderRadius: 8,
+         height:50
+       }}
+       customLabelStyles={{
+         colorFocused: 'black',
+         fontSizeFocused: 12,
+
+       }}
+       labelStyles={{
+         backgroundColor: '#f2f2f2',
+         paddingHorizontal: 5,
+         marginLeft:215,
+        fontFamily: "AJannatLT",
+       }}
+       inputStyles={{
+         color: 'black',
+         paddingHorizontal: 10,
+         fontFamily: "AJannatLT",
+         fontSize: 14,
+      color: "#002B3E",
+      textAlign:"right",
+      fontWeight: "bold",
+       }}
+       
+     
+     />
+        </View>{/* fifth field*/}
+        <View style={{marginTop:25}} >
+
+<FloatingLabelInput 
+       label="وصف المستثمر"
+       value={userDecr}
+       staticLabel
+       hintTextColor={'#aaa'}
+       caretHidden={true}
+       editable={false} 
+       selectTextOnFocus={false} 
+ 
+       containerStyles={{
+         borderWidth: 0.76,
+         paddingHorizontal: 8,
+         bottom:-8,
+         textAlign:"right",
+         borderColor: 'gray',
+         borderRadius: 8,
+         height:120
+       }}
+       customLabelStyles={{
+         colorFocused: 'black',
+         fontSizeFocused: 12,
+
+       }}
+       labelStyles={{
+         backgroundColor: '#f2f2f2',
+         paddingHorizontal: 5,
+         marginLeft:215,
+        fontFamily: "AJannatLT",
+       }}
+       inputStyles={{
+         color: 'black',
+         paddingHorizontal: 10,
+    bottom:38,
+         fontFamily: "AJannatLT",
+         fontSize: 14,
+      color: "#002B3E",
+      textAlign:"right",
+      fontWeight: "bold",
+       }}
+       
+     
+     />
+        </View>{/* fifth field*/}
+
+        <TouchableOpacity style={styles.Button} onPress={onSignout}>
+          <Text style={styles.ButtonText}>تسجيل الخروج</Text>
+        </TouchableOpacity>
+</View>
+
+  }
+
      {NavigationBar({navigation, ScreenName:'profile'})}
       <StatusBar style="auto" />
 
@@ -309,7 +503,7 @@ const styles = StyleSheet.create({
     height: 52,
     backgroundColor: "#fff",
     borderRadius: 10,
-    marginTop:370,
+    marginTop:435,
 left:50,
 
     justifyContent: "center",

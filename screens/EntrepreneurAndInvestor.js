@@ -111,6 +111,7 @@ export default function Entrepreneur({ navigation }) {
 
        { userType=='Entrepreneur'&&
       <Text style={[Titlestyles.sectionTitle ,{marginTop:'5%' , right:'5%' , color:'white' , fontSize:30}] }> مرحبا، {userName}</Text>}
+      
         { userType=='Investor'&&
       <Text style={[Titlestyles.sectionTitle ,{marginTop:'5%' , color:'white' , fontSize:30}] }> مرحبا، {userName}</Text>}
      
