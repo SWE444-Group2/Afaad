@@ -25,6 +25,8 @@ import { default as profile } from './screens/profile' ;
 import {default as InvestedProductIdea} from './screens/InvestedProductIdea' ;
 import {default as Search} from './screens/Search';
 import {default as SearchResult} from './screens/SearchResult';
+import { default as updateProductIdea } from './screens/updateProductIdea';
+
 
 import {useFonts} from 'expo-font';
 
@@ -102,6 +104,9 @@ if(!isLoaded){
         headerStyle: { backgroundColor: '#7c98b3'}, headerBackVisible: false, headerTintColor: 'white', gestureEnabled: false}}/>
         <Stack.Screen name="SearchResult" component={SearchResult} options={{ headerTitle: "نتائج البحث",
         headerStyle: { backgroundColor: '#7c98b3'}, headerTintColor: 'white'}}/>
+
+<Stack.Screen name="updateProductIdea" component={updateProductIdea} options={{ headerTitle:'',
+        headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white' }}/>
         
       </Stack.Navigator>
     </NavigationContainer>

@@ -227,11 +227,17 @@ export default function productIdea({navigation , route}) {
                       <MenuOption onSelect={() => navigation.navigate('OffersList', {Product_id: route.params.Product_id})}>
                         <Text style={{textAlign: 'right', fontFamily: 'AJannatLT', fontSize:18 }}>قائمة عروض المستثمرين</Text>
                       </MenuOption>
-                    { deleteIdea == true &&
+                    { deleteIdea == true && 
+                      <MenuOption onSelect={() => navigation.navigate('updateProductIdea', {Product_id: route.params.Product_id})} >
+                      <Text style={{ textAlign: 'right', fontFamily: 'AJannatLT', fontSize: 18 }}>تعديل الفكرة</Text>
+                    </MenuOption>
+                    }  
+                    { deleteIdea == true && 
                       <MenuOption onSelect={() => deleteProductIdea()} >
                        <Text style={{ color: 'red', textAlign: 'right', fontFamily: 'AJannatLT', fontSize: 18 }}>حذف الفكرة</Text>
                      </MenuOption>
                     }
+
                     </MenuOptions>
                   </Menu>
                   }
