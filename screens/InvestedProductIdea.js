@@ -30,17 +30,30 @@ export default function InvestedProductIdea({ navigation }) {
     .on("value", (snapshot) =>{
       let data = [];
       snapshot.forEach((child)=>{
-        data.push(child);
+        data.push(child.key);
       })
      setProductList(data);
     });
 
     },[])
-
-    console.log(productList)
-
-
-
+/*
+    for(let i=0 ; i<= productList.length; i++){
+      useEffect(()=>{
+        AfaadFirebase
+        .database()
+        .ref("ProductIdea/"+productList[i]+"/InvestorList/")
+        .on("value", (snapshot) =>{
+          let data = [];
+          snapshot.forEach((child)=>{
+            data.push(child);
+          })
+         setProductList(data);
+        });
+    
+        },[])
+    }
+    */
+ 
 
   if(user){
     userID = user.uid ;
