@@ -64,18 +64,18 @@ const imageUploaderStyles=StyleSheet.create({
         position:'absolute',
         borderRadius:999,
         overflow:'hidden',
-        borderWidth:  0.1,
-        borderColor:"#6F7C88", 
+        borderWidth:  0.4,
+        borderColor:"#768FA7", 
         
 
        
     },
     uploadBtnContainer:{
-        opacity:0.7,
+        opacity:0.4,
         position:'absolute',
         right:0,
         bottom:-6,
-        backgroundColor:'lightgrey',
+        backgroundColor:'#768FA7',
         width:'100%',
         height:'30%',
     },
