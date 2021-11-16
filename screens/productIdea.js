@@ -37,6 +37,9 @@ export default function productIdea({navigation , route}) {
     const [userEmail , setUserEmail]=useState('');
     const [userPhone , setUserPhone]=useState('');
 
+    const user = AfaadFirebase.auth().currentUser ;
+
+
     const InvestorsListNode = AfaadFirebase.database().ref(ProductPath+'/InvestorsList/');
 
     const productIdeaRef = AfaadFirebase.database().ref(ProductPath)
@@ -184,6 +187,23 @@ export default function productIdea({navigation , route}) {
       ]
     );
 
+  } 
+
+  const favoriteIdea = () => {
+
+            const Ideadata = {
+              'Title' : Title
+            }
+            AfaadFirebase.database().ref('/Investor/' + user.uid +'/FavoriteIdeasList/'+route.params.Product_id).set(Ideadata)
+              .then(function () {
+                //global.Liked = true;
+                console.log("added favorite idead")
+              })
+              .catch(function (error) {
+                console.log("favorite failed: " + error.message)
+              });
+          
+
   }
 
     return(
@@ -281,7 +301,7 @@ export default function productIdea({navigation , route}) {
                      <TouchableOpacity   onPress={() => Linking.openURL('tel:$'+userPhone) }>
                      <Text style={[TitleStyles.subTitle , TitleStyles.DescText , {color:'#1F7A8C'}]}>{userPhone}</Text>
                      </TouchableOpacity> }
-
+                     
 
 
                     { userType== 'Admin' &&
@@ -300,6 +320,11 @@ export default function productIdea({navigation , route}) {
 
                </View>
 
+               { userType== 'Investor' &&
+                     <TouchableOpacity    onPress={() => favoriteIdea()} >
+                     <Icon name='heart' style={{marginLeft:-170, marginBottom:10} } size={35} color={"grey"} />
+                     </TouchableOpacity> }
+                    
 
                <Modal
                     visible={paymentModalVisible}
