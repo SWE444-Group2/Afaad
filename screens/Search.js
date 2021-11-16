@@ -6,7 +6,7 @@ import Titlestyles from './TitleStyles';
 import { ScrollView } from 'react-native-gesture-handler';
 import { NavigationBar } from './NavigationBar';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
+import SvgUri from "expo-svg-uri";
 const auth = AfaadFirebase.auth();
 //Check user type? 
 // let user = AfaadFirebase.auth().currentUser;
@@ -14,27 +14,16 @@ const auth = AfaadFirebase.auth();
 
 export default function Search({ navigation, route }) { 
 
-    const categories = 
-       ['اعلام ونشر',
-        'تجارة',
-        'ترفيه وفنون', 
-        'تعليم', 
-        'تقنية معلومات',
-        'زراعة', 
-        'صناعة', 
-        'عقار ومقاولات', 
-        'مطاعم ومقاهي', 
-        'آخرى']
-
     global.dict = 
-        [{name : 'تجارة',
+        [
+        {name : 'تجارة',
             logo : 'domain'},
         {name : 'اعلام ونشر',
             logo : 'play-network-outline'},
         {name : 'ترفيه وفنون',
             logo : 'palette'},
         {name : 'تعليم',
-            logo : 'school-outline'},
+            logo : 'school'},
         {name : 'تقنية معلومات',
             logo : 'xml'},
         {name : 'زراعة',
@@ -60,8 +49,9 @@ export default function Search({ navigation, route }) {
     return (
 
         <View style={Titlestyles.container}>
-          <View style={{ flex: 1,width:'100%',height:'13%', opacity:1, position:'absolute' ,transform: [{ rotate: '180deg'}], backgroundColor:'#7c98b3' , borderTopRightRadius:500 }}/>
-       
+ <View style={styles.SVG}>
+      <SvgUri  source={require('../assets/images/Frame.svg')} /> 
+      </View>       
             <View style={Titlestyles.tasksWrapper}>
 
             <Icon name = "magnify" style={{ marginTop:15} } size={40} color={"#fff"} onPress={() => navigation.navigate('SearchResult', {searchKey:keyword})}/> 
@@ -101,3 +91,12 @@ export default function Search({ navigation, route }) {
 )  
 
 }
+
+const styles = StyleSheet.create({
+    SVG:{
+      alignItems: "center",
+      position: 'absolute',
+      marginTop:-40,
+    
+    }
+})
