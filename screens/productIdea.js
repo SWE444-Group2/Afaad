@@ -36,6 +36,9 @@ export default function productIdea({navigation , route}) {
     //const [userGender , setUserGender]=useState('');
     const [userEmail , setUserEmail]=useState('');
     const [userPhone , setUserPhone]=useState('');
+    const [liked, setLiked] = useState(false);
+    const LikeButton = () => {
+      setLiked(true);}
 
     const user = AfaadFirebase.auth().currentUser ;
 
@@ -189,6 +192,28 @@ export default function productIdea({navigation , route}) {
 
   } 
 
+///////////////// Favorite Option //////////////////////
+
+
+const FavoritesRef = AfaadFirebase.database().ref('/Investor/'+user.uid+'/FavoriteIdeasList/');
+
+FavoritesRef.once('value').then(function(snapshot){
+        //console.log('how many rounds?')
+
+        const favsList=[]
+        const favs= snapshot.val();  
+        for (let ideaID in favs) {
+          favsList.push({ideaID,...favs[ideaID]});
+        } 
+  
+       global.liked = false;
+       for (let idea in favsList) {
+         if (favsList[idea].ideaID == route.params.Product_id) {
+           global.liked = true;
+           break;
+         }
+       };})
+
   const favoriteIdea = () => {
 
             const Ideadata = {
@@ -322,7 +347,11 @@ export default function productIdea({navigation , route}) {
 
                { userType== 'Investor' &&
                      <TouchableOpacity    onPress={() => favoriteIdea()} >
-                     <Icon name='heart' style={{marginLeft:-170, marginBottom:10} } size={35} color={"grey"} />
+                     <Icon
+                      name={"heart"}
+                      size={32}
+                      color={global.liked ? "#B22222" : "gray"}
+                      style={ {marginLeft: -160}} />
                      </TouchableOpacity> }
                     
 
