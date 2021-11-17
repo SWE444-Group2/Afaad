@@ -1,25 +1,24 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState, setState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
-  Button,
-  Image,
-  TextInput,
+  Alert
 } from "react-native";
-import AfaadFirebase from "../screens/firebaseConfig";
+import AfaadFirebase from "./firebaseConfig";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import "firebase/auth";
+import "firebase/database";
 import SvgUri from "expo-svg-uri";
 import { NavigationBar } from "./NavigationBar";
 //import  {shape}  from '../assets/images/shape.svg';
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import UploadImage from "./UploadImage";
-import { Keyboard } from 'react-native'
 import { FloatingLabelInput } from 'react-native-floating-label-input';
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
+import { getAuth, updateEmail,reauthenticateWithCredential } from "firebase/auth";
 
 export default function Profile({ navigation, route }) {
   const [userLastName, setLastName] = useState("");
@@ -28,12 +27,16 @@ export default function Profile({ navigation, route }) {
   const [userPhone, setUserPhone] = useState("");
   const [gennder, setgennder] = useState("");
 
+  const [NewFirstName, setNewFirstName] = useState("");
+  const [NewLastName, setNewLastName] = useState("");
+  const [NuserEmail, setNUserEmail] = useState("");
+  const [NuserPhone, setNUserPhone] = useState("");
+  const [Ngennder, setNgennder] = useState("");
+
   const [userEmailInv, setUserEmailInv] = useState("");
   const [userPhoneInv, setUserPhoneInv] = useState("");
   const [userFullName, setFullName] = useState("");
   const [userDecr, setuserDecr] = useState("");
-const full = userFirstName+" "+userLastName;
-
 
   const userType = route.params.userType;
   const userID = route.params.userID;
@@ -48,6 +51,7 @@ const full = userFirstName+" "+userLastName;
       setuserDecr(snapshot.child("Describetion").val());
     });
   } else {
+    
     const UserInfoRefEntr = AfaadFirebase.database().ref(
       "Entrepreneur/" + userID
     );
@@ -69,10 +73,211 @@ const full = userFirstName+" "+userLastName;
     });
   };
 
-  console.log("here type >>>> " + userType);
-  console.log("here ID" + userID);
+
+
+ 
+  const IsValidName = (NewName) => {
+  const RegxOfNames = /^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z\s]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z-_]*$/;
+  return RegxOfNames.test(NewName);
+  };
+
+  const IsValidPhone = (NuserPhone) => {
+    const RegxPhone = /^[0-9]*$/;
+    return RegxPhone.test(NuserPhone);
+  };
+
+  const IsValidPhoneStart = (NuserPhone) => {
+    var regex = new RegExp(/^(05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/);
+    return regex.test(NuserPhone);
+  };
+
+  const onSavePress = () => {
+
+    const UserInfoRefEntr = AfaadFirebase.database().ref(
+      "Entrepreneur/" + userID);
+
+      if(NuserEmail!=""){
+        UserInfoRefEntr.update({
+          email: NuserEmail
+        }
+          );
+        AfaadFirebase.auth().currentUser.updateEmail(NuserEmail)
+          .catch((error) => {
+      switch (error.code) {
+        case "auth/invalid-email":
+          Alert.alert(
+            "تنبيه",
+            "الأيميل المدخل غير صالح",
+
+            [
+              {
+                text: "حسناً",
+                onPress: () => console.log("yes Pressed"),
+                style: "cancel",
+              },
+            ]
+          );
+          break;
+       
+        case "auth/email-already-in-use":
+          Alert.alert(
+            "تنبيه",
+            "البريد الألكتروني مسجل من قبل",
+
+            [
+              {
+                text: "حسناً",
+                onPress: () => console.log("yes Pressed"),
+                style: "cancel",
+              },
+            ]
+          );
+          break;
+      
+  
+    }
+   
+    });
+}
+      
+    if (
+      NewFirstName == "" & //empty?
+      NewLastName == "" &
+      NuserEmail == "" &
+      NuserPhone == "" &
+      Ngennder == "" 
+    ) {
+      Alert.alert("تنبيه ", "لطفاً لم يتم اضافة معلومات جديدة    ", [
+        {
+          text: "حسناً",
+          onPress: () => console.log("yes Pressed"),
+          style: "cancel",
+        },
+      ]);
+
+      return;
+    }    
+  if(NewFirstName!=""){
+ 
+    if (IsValidName(NewFirstName) == false ||!NewFirstName.replace(/\s/g, '').length) {
+      Alert.alert("تنبيه ", "الاسم هنا يجب ان يحتوي على حروف فقط", [
+        {
+          text: "حسنًا",
+          onPress: () => console.log("yes Pressed"),
+          style: "cancel",
+        },
+      ]);
+      return;
+    }
+    
+    if (NewFirstName.replace(/\s+/g, '').length > 20 || NewFirstName.replace(/\s+/g, '').length < 2) {
+      Alert.alert(
+        "تنبيه",
+        "حقل الاسم الاول يجب ان يتكون من حرفين على الاقل حتى ٢٠ حرف ",
+
+        [
+          {
+            text: " حسنًا",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]
+      );
+      return;
+    }
+    UserInfoRefEntr.update({
+      FirstName: NewFirstName,
+    }
+      );
+
+  }
+    if(NewLastName!=""){
+    if (NewLastName.replace(/\s+/g, '').length > 20 || NewLastName.replace(/\s+/g, '').length < 2 ) {
+      Alert.alert(
+        "تنبيه",
+        "حقل الاسم الاخير يجب ان يتكون من حرفين على الاقل حتى ٢٠ حرف ",
+
+        [
+          {
+            text: " حسنًا",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]
+      );
+      return;
+    }
+    if (IsValidName(NewLastName) == false ||!NewLastName.replace(/\s/g, '').length) {
+      Alert.alert("تنبيه ", "الاسم يجب ان يحتوي على حروف فقط", [
+        {
+          text: "حسنًا",
+          onPress: () => console.log("yes Pressed"),
+          style: "cancel",
+        },
+      ]);
+      return;
+    }
+    UserInfoRefEntr.update({
+      Lastname: NewLastName,
+    }
+      );
+
+  }
+
+
+  if(NuserPhone!=""){
+    if (IsValidPhone(NuserPhone) == false) {
+      Alert.alert(
+        "تنبيه",
+        " يجب ان يكون رقم الهاتف من أرقام إنجليزية فقط ",
+
+        [
+          {
+            text: "حسنًا",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]
+      );
+      return;
+    }
+    if (IsValidPhoneStart(NuserPhone) == false) {
+      Alert.alert(
+        "تنبيه",
+        " يجب أن يبدأ الرقم بـ 05 ويتبعه 8 خانات فقط",
+
+        [
+          {
+            text: "حسنًا",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]
+      );
+      return;
+    }
+  
+
+  UserInfoRefEntr.update({
+    phone: NuserPhone,
+  }
+    );
+  }
+
+
+  Alert.alert("تنبيه ","تم تحديث البيانات بنجاح", [
+    {
+      text: "حسنًا",
+      onPress: () => console.log("yes Pressed"),
+      style: "cancel",
+    },
+  ]);
+}
+
 
   return (
+
+    
     <View style={{ height:"100%"}}>
       
     <View style={styles.SVG}>
@@ -82,26 +287,27 @@ const full = userFirstName+" "+userLastName;
   <View style={styles.containers}>
       <UploadImage/>
     </View>
-
+{/*
     <TouchableOpacity
    style={styles.roundButton1}>
      <Icon name="pencil" style={{ marginLeft:'25%' , marginTop:16} } size={30} color={"#fff"}/> 
- </TouchableOpacity> 
+ </TouchableOpacity>  */}
 
  
-{ userType=='Entrepreneur'&&<View style={{ padding: 50,marginTop:150}}>
+{ userType=='Entrepreneur'&&<View style={{ padding: 50,marginTop:130}}>
 
     
 <FloatingLabelInput 
-       label="الاسم"
-       value={full}
+       label="الاسم الأول"
        staticLabel
-       hintTextColor={'#aaa'}
-       caretHidden={true}
-       editable={false} 
-        selectTextOnFocus={false} 
-       
-       containerStyles={{
+       value={NewFirstName}
+       hintTextColor={'black'}
+       editable={true} 
+        selectTextOnFocus={true} 
+        hint={userFirstName}
+        onChangeText={(text) => setNewFirstName(text)}
+        caretHidden={false}
+         containerStyles={{
          borderWidth: 0.76,
          paddingHorizontal: 8,
          bottom:-3,
@@ -134,16 +340,57 @@ const full = userFirstName+" "+userLastName;
     
      />
 
+<View style={{marginTop:25}} >
+<FloatingLabelInput 
+       label="الاسم الثاني"
+       value={NewLastName}
+       staticLabel
+       hintTextColor={'black'}
+       onChangeText={(text) => setNewLastName(text)}
+       hint={userLastName}
+
+       containerStyles={{
+         borderWidth: 0.76,
+         paddingHorizontal: 8,
+         bottom:-3,
+         textAlign:"right",
+         borderColor: 'gray',
+         borderRadius: 8,
+         height:50
+       }}
+       customLabelStyles={{
+         colorFocused: 'black',
+         fontSizeFocused: 12,
+
+       }}
+       labelStyles={{
+         backgroundColor: '#f2f2f2',
+         paddingHorizontal: 5,
+        marginLeft:190,
+        fontFamily: "AJannatLT",
+       }}
+       inputStyles={{
+         color: 'black',
+         paddingHorizontal: 10,
+         fontFamily: "AJannatLT",
+         fontSize: 14,
+      color: "#002B3E",
+      textAlign:"right",
+      fontWeight: "bold",
+       }}
+       
+     
+     />
+        </View>{/* second field*/}
      <View style={{marginTop:25}} >
 <FloatingLabelInput 
        label="البريد الالكتروني"
-       value={userEmail}
+       hint={userEmail}
        staticLabel
-       hintTextColor={'#aaa'}
-       caretHidden={true}
-       editable={false} 
-       selectTextOnFocus={false} 
- 
+       hintTextColor={'black'}
+       onChangeText={(text) => setNUserEmail(text)}
+       value={NuserEmail}
+
        containerStyles={{
          borderWidth: 0.76,
          paddingHorizontal: 8,
@@ -182,12 +429,11 @@ const full = userFirstName+" "+userLastName;
         <View style={{marginTop:25}} >
 <FloatingLabelInput 
        label="الجنس"
-       value={gennder}
+       value={Ngennder}
        staticLabel
-       hintTextColor={'#aaa'}
-       caretHidden={true}
-       editable={false} 
-       selectTextOnFocus={false} 
+       hint={gennder}
+       hintTextColor={'black'}
+       onChangeText={(text) => setNgennder(text)}
  
        containerStyles={{
          borderWidth: 0.76,
@@ -225,13 +471,14 @@ const full = userFirstName+" "+userLastName;
         <View style={{marginTop:25}} >
 <FloatingLabelInput 
        label="رقم الجوال"
-       value={userPhone}
+       hint={userPhone}
+       value={NuserPhone}
        staticLabel
-       hintTextColor={'#aaa'}
-       caretHidden={true}
-       editable={false} 
-       selectTextOnFocus={false} 
- 
+       hintTextColor={'black'}
+       editable={true} 
+       selectTextOnFocus={true} 
+       onChangeText={(text) => setNUserPhone(text)}
+
        containerStyles={{
          borderWidth: 0.76,
          paddingHorizontal: 8,
@@ -266,7 +513,11 @@ const full = userFirstName+" "+userLastName;
      />
         </View>{/* fifth field*/}
 
-<TouchableOpacity style={styles.Button} onPress={onSignout}>
+<TouchableOpacity style={styles.Button2} onPress={onSavePress}>
+          <Text style={styles.ButtonText2}>حفظ التغيرات</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.Button} onPress={onSignout}>
           <Text style={styles.ButtonText}>تسجيل الخروج</Text>
         </TouchableOpacity>
 </View>
@@ -281,9 +532,7 @@ const full = userFirstName+" "+userLastName;
        value={userFullName}
        staticLabel
        hintTextColor={'#aaa'}
-       caretHidden={true}
-       editable={false} 
-        selectTextOnFocus={false} 
+     
        
        containerStyles={{
          borderWidth: 0.76,
@@ -417,6 +666,7 @@ const full = userFirstName+" "+userLastName;
        caretHidden={true}
        editable={false} 
        selectTextOnFocus={false} 
+       multiline={true}
  
        containerStyles={{
          borderWidth: 0.76,
@@ -448,10 +698,13 @@ const full = userFirstName+" "+userLastName;
       textAlign:"right",
       fontWeight: "bold",
        }}
-       
-     
-     />
+     />        
+
         </View>{/* fifth field*/}
+
+        <TouchableOpacity style={styles.Button} onPress={onSignout}>
+          <Text style={styles.ButtonText}>تسجيل الخروج</Text>
+        </TouchableOpacity>
 
         <TouchableOpacity style={styles.Button} onPress={onSignout}>
           <Text style={styles.ButtonText}>تسجيل الخروج</Text>
@@ -464,6 +717,7 @@ const full = userFirstName+" "+userLastName;
       <StatusBar style="auto" />
 
     </View>//First View
+
 
 
   )};
@@ -503,8 +757,21 @@ const styles = StyleSheet.create({
     height: 52,
     backgroundColor: "#fff",
     borderRadius: 10,
-    marginTop:435,
+    marginTop:420,
 left:50,
+
+    justifyContent: "center",
+    alignItems: "center",
+        position: "absolute",
+  },
+  Button2: {
+    width: "30%",
+    color: "#002B3E",
+    height: 40,
+    backgroundColor: "#CADAEA",
+    borderRadius: 10,
+    marginTop:-20,
+right:50,
 
     justifyContent: "center",
     alignItems: "center",
@@ -513,6 +780,12 @@ left:50,
   ButtonText: {
     fontFamily: "AJannatLT",
     fontSize: 18,
+    fontWeight: "bold",
+    color: "#002B3E",
+  },
+  ButtonText2: {
+    fontFamily: "AJannatLT",
+    fontSize: 15,
     fontWeight: "bold",
     color: "#002B3E",
   },
