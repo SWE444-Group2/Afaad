@@ -7,6 +7,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Titlestyles from './TitleStyles';
 import AfaadFirebase from './firebaseConfig';
 import { NavigationBar } from './NavigationBar';
+import SvgUri from "expo-svg-uri";
 import { mdiBorderColor } from '@mdi/js';
 
 
@@ -96,7 +97,11 @@ export default function NotificationsNav({ navigation }) {
     return(
         <View style={styles.container}>
 
-<StatusBar style="auto" />  
+        <View style={styles.SVG}>
+      <SvgUri  source={require('../assets/images/Frame.svg')} /> 
+      </View>
+
+      <Text style={styles.title}> الاشعارات</Text>
         
       <View style={styles.tasksWrapper}>
 
@@ -105,36 +110,36 @@ export default function NotificationsNav({ navigation }) {
         data={PendingProductList}
         keyExtractor={(item, index)=>index.toString()}
         renderItem={({ item })=>(
-          <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType})} >   
+          <TouchableOpacity   >   
           
         
           {userType== 'Entrepreneur' &&  (
-            <View style={styles.item}>       
-            <Text style={[Titlestyles.subTitle , Titlestyles.DescText , {fontSize:17}]}>يوجد لديك طلب استثمار جديد في : {item.Title}</Text>
+            <View style={styles.item}>   
+            <Button 
+                style={Titlestyles.DetailsBtn}
+                onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
+                title="عرض التفاصيل"
+                titleProps={{}}
+                //titleStyle={{ marginHorizontal: 1 }}
+                color='#247ba0'/>    
+            <Text style={[Titlestyles.subTitle , Titlestyles.DescText , {fontSize:17 , width:'53%'}]}>يوجد لديك طلب استثمار جديد في
+            <Text style={{color:'#247ba0'}}> {item.Title}</Text></Text>
              <Icon name="checkbox-blank-circle-outline"  size={20} color={"#022B3A"}
              />
              </View> )}
 
              {userType== 'Investor'  && item.InvestorsList[userID].status!='Pending'&&(
             <View style={styles.item}  >
-              <Text style={{     
-            backgroundColor: item.InvestorsList[userID].status=='Accepted' ? 
-            //Accepted
-            '#87c38f' :  
-            //Rejected
-            '#c75146', 
-            color:'white',
-            textAlign:'center',
-            width:60,
-            borderRadius:10,
-            overflow:'hidden',
-            fontFamily: 'AJannatLT',          
-            } }>  
-            { item.InvestorsList[userID].status=='Accepted' ?
-            'مقبول' :
-            'مرفوض'} 
-            </Text>
-            <Text style={[Titlestyles.subTitle , Titlestyles.DescText ,{fontSize:17 , width:'65%'}]}>حالة طلب اسثمارك في {item.Title}</Text> 
+              <Button 
+                style={Titlestyles.DetailsBtn}
+                onPress={() => navigation.navigate('InvestedProductIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
+                title="عرض التفاصيل"
+                titleProps={{}}
+                //titleStyle={{ marginHorizontal: 1 }}
+                color='#247ba0'/>
+                <Text style={[Titlestyles.subTitle , Titlestyles.DescText ,{fontSize:17 , width:'53%'}]}>تم تحديث حالة طلب اسثمارك في
+                  <Text style={{color:'#247ba0'}}> {item.Title}</Text>
+               </Text> 
             <Icon name='checkbox-blank-circle-outline' size={20} color='#6A687A'/> 
              </View> )}
             
@@ -174,7 +179,7 @@ const styles = StyleSheet.create({
 tasksWrapper:{
      flex:1,
      paddingHorizontal:20,
-     marginTop:30
+     marginTop:60
      
      
 }, 
@@ -184,7 +189,7 @@ item:{
      alignItems:'center',
      justifyContent:'flex-end',
      marginTop:10,
-     height:80,
+     height:65,
      overflow:'scroll',
      borderBottomWidth:1,
      borderBottomColor:'#A2ABB5',
@@ -192,5 +197,20 @@ item:{
      backgroundColor:'#eeeeee',
     
 
+},
+
+SVG:{
+  alignItems: "center",
+  position: 'absolute',
+
+},
+title: {
+  fontFamily: 'AJannatLTBold',
+  fontSize:40,
+  fontWeight:'bold',
+  textAlign: 'right',
+  color:'white' ,
+  paddingTop: 40,
+  paddingRight:20,
 },
   });

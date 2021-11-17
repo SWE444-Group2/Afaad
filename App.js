@@ -87,7 +87,7 @@ if(!isLoaded){
       
       <Stack.Screen name="PendingPage" component={PendingPage} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
       
-      <Stack.Screen name="NotificationsNav" component={NotificationsNav} options={{ headerTitle:'الاشعارات',headerBackVisible: false ,gestureEnabled: false}}/>
+      <Stack.Screen name="NotificationsNav" component={NotificationsNav} options={{ headerTitle:'الاشعارات',headerBackVisible: false ,gestureEnabled: false ,  headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white'}}/>
       
       <Stack.Screen name="InvestorRequest" component={InvestorRequest} options={{ headerTitle:'',
         headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white'}}/>
@@ -95,7 +95,7 @@ if(!isLoaded){
       <Stack.Screen name="OffersList" component={OffersList} options={{ headerTitle: "عروض الإستثمار",
         headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white'}}/>
       
-      <Stack.Screen name="InvestedProductIdea" component={InvestedProductIdea} options={{ headerTitle: "المشاريع المستثمرة" , headerBackVisible: false ,gestureEnabled: false}}/>
+      <Stack.Screen name="InvestedProductIdea" component={InvestedProductIdea} options={{ headerTitle: "المشاريع المستثمرة" , headerBackVisible: false ,gestureEnabled: false ,  headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white'}}/>
       
       <Stack.Screen name="profile" component={profile} options={{ headerTitle: "الملف الشخصي",
         headerStyle: { backgroundColor: '#7c98b3'}, headerBackVisible: false, headerTintColor: 'white', gestureEnabled: false}}/>
