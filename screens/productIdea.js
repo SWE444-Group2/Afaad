@@ -36,6 +36,12 @@ export default function productIdea({navigation , route}) {
     //const [userGender , setUserGender]=useState('');
     const [userEmail , setUserEmail]=useState('');
     const [userPhone , setUserPhone]=useState('');
+    const [liked, setLiked] = useState(false);
+    const LikeButton = () => {
+      setLiked(true);}
+
+    const user = AfaadFirebase.auth().currentUser ;
+
 
     const InvestorsListNode = AfaadFirebase.database().ref(ProductPath+'/InvestorsList/');
 
@@ -184,6 +190,45 @@ export default function productIdea({navigation , route}) {
       ]
     );
 
+  } 
+
+///////////////// Favorite Option //////////////////////
+
+
+const FavoritesRef = AfaadFirebase.database().ref('/Investor/'+user.uid+'/FavoriteIdeasList/');
+
+FavoritesRef.once('value').then(function(snapshot){
+        //console.log('how many rounds?')
+
+        const favsList=[]
+        const favs= snapshot.val();  
+        for (let ideaID in favs) {
+          favsList.push({ideaID,...favs[ideaID]});
+        } 
+  
+       global.liked = false;
+       for (let idea in favsList) {
+         if (favsList[idea].ideaID == route.params.Product_id) {
+           global.liked = true;
+           break;
+         }
+       };})
+
+  const favoriteIdea = () => {
+
+            const Ideadata = {
+              'Title' : Title
+            }
+            AfaadFirebase.database().ref('/Investor/' + user.uid +'/FavoriteIdeasList/'+route.params.Product_id).set(Ideadata)
+              .then(function () {
+                //global.Liked = true;
+                console.log("added favorite idead")
+              })
+              .catch(function (error) {
+                console.log("favorite failed: " + error.message)
+              });
+          
+
   }
 
     return(
@@ -281,7 +326,7 @@ export default function productIdea({navigation , route}) {
                      <TouchableOpacity   onPress={() => Linking.openURL('tel:$'+userPhone) }>
                      <Text style={[TitleStyles.subTitle , TitleStyles.DescText , {color:'#1F7A8C'}]}>{userPhone}</Text>
                      </TouchableOpacity> }
-
+                     
 
 
                     { userType== 'Admin' &&
@@ -300,6 +345,15 @@ export default function productIdea({navigation , route}) {
 
                </View>
 
+               { userType== 'Investor' &&
+                     <TouchableOpacity    onPress={() => favoriteIdea()} >
+                     <Icon
+                      name={"heart"}
+                      size={32}
+                      color={global.liked ? "#B22222" : "gray"}
+                      style={ {marginLeft: -160}} />
+                     </TouchableOpacity> }
+                    
 
                <Modal
                     visible={paymentModalVisible}
