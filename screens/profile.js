@@ -19,13 +19,20 @@ import { FloatingLabelInput } from 'react-native-floating-label-input';
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
 import { getAuth, updateEmail,reauthenticateWithCredential } from "firebase/auth";
+import DropDownPicker from "react-native-dropdown-picker";
 
 export default function Profile({ navigation, route }) {
   const [userLastName, setLastName] = useState("");
   const [userFirstName, setFirstName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPhone, setUserPhone] = useState("");
-  const [gennder, setgennder] = useState("");
+  const [gender, setGender] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const [items, setItems] = useState([
+    { label: "أنثـى", value: "انثى" },
+    { label: "ذكر", value: "ذكر" },
+  ]);
 
   const [NewFirstName, setNewFirstName] = useState("");
   const [NewLastName, setNewLastName] = useState("");
@@ -60,7 +67,7 @@ export default function Profile({ navigation, route }) {
       setLastName(snapshot.child("Lastname").val());
       setUserEmail(snapshot.child("email").val());
       setUserPhone(snapshot.child("phone").val());
-      setgennder(snapshot.child("Gender").val());
+      setGender(snapshot.child("Gender").val());
     });
   }
 
@@ -287,6 +294,13 @@ export default function Profile({ navigation, route }) {
   <View style={styles.containers}>
       <UploadImage/>
     </View>
+
+
+    <View style={{marginTop:"30%"}} >
+<TouchableOpacity style={styles.Button2} onPress={onSavePress}>
+          <Text style={styles.ButtonText2}>تحديث المعلومات الشخصية</Text>
+        </TouchableOpacity>
+        </View>
 {/*
     <TouchableOpacity
    style={styles.roundButton1}>
@@ -294,7 +308,7 @@ export default function Profile({ navigation, route }) {
  </TouchableOpacity>  */}
 
  
-{ userType=='Entrepreneur'&&<View style={{ padding: 50,marginTop:130}}>
+{ userType=='Entrepreneur'&&<View style={{ padding: 50,marginTop:30}}>
 
     
 <FloatingLabelInput 
@@ -323,8 +337,8 @@ export default function Profile({ navigation, route }) {
        }}
        labelStyles={{
          backgroundColor: '#f2f2f2',
-         paddingHorizontal: 5,
-        marginLeft:225,
+         paddingHorizontal:8,
+        marginLeft:200,
         fontFamily: "AJannatLT",
        }}
        inputStyles={{
@@ -366,7 +380,7 @@ export default function Profile({ navigation, route }) {
        labelStyles={{
          backgroundColor: '#f2f2f2',
          paddingHorizontal: 5,
-        marginLeft:190,
+        marginLeft:200,
         fontFamily: "AJannatLT",
        }}
        inputStyles={{
@@ -426,50 +440,10 @@ export default function Profile({ navigation, route }) {
         </View>{/* second field*/}
 
      
+      
         <View style={{marginTop:25}} >
-<FloatingLabelInput 
-       label="الجنس"
-       value={Ngennder}
-       staticLabel
-       hint={gennder}
-       hintTextColor={'black'}
-       onChangeText={(text) => setNgennder(text)}
- 
-       containerStyles={{
-         borderWidth: 0.76,
-         paddingHorizontal: 8,
-         bottom:-3,
-         textAlign:"right",
-         borderColor: 'gray',
-         borderRadius: 8,
-         height:50
-       }}
-       customLabelStyles={{
-         colorFocused: 'black',
-         fontSizeFocused: 12,
 
-       }}
-       labelStyles={{
-         backgroundColor: '#f2f2f2',
-         paddingHorizontal: 5,
-        marginLeft:235,
-        fontFamily: "AJannatLT",
-       }}
-       inputStyles={{
-         color: 'black',
-         paddingHorizontal: 10,
-         fontFamily: "AJannatLT",
-         fontSize: 14,
-      color: "#002B3E",
-      textAlign:"right",
-      fontWeight: "bold",
-       }}
-       
-     
-     />
-        </View>{/* fourth field*/}
-        <View style={{marginTop:25}} >
-<FloatingLabelInput 
+<FloatingLabelInput style={{zIndex:0}}
        label="رقم الجوال"
        hint={userPhone}
        value={NuserPhone}
@@ -478,7 +452,7 @@ export default function Profile({ navigation, route }) {
        editable={true} 
        selectTextOnFocus={true} 
        onChangeText={(text) => setNUserPhone(text)}
-
+  
        containerStyles={{
          borderWidth: 0.76,
          paddingHorizontal: 8,
@@ -496,7 +470,7 @@ export default function Profile({ navigation, route }) {
        labelStyles={{
          backgroundColor: '#f2f2f2',
          paddingHorizontal: 5,
-         marginLeft:215,
+         marginLeft:213,
         fontFamily: "AJannatLT",
        }}
        inputStyles={{
@@ -512,10 +486,7 @@ export default function Profile({ navigation, route }) {
      
      />
         </View>{/* fifth field*/}
-
-<TouchableOpacity style={styles.Button2} onPress={onSavePress}>
-          <Text style={styles.ButtonText2}>حفظ التغيرات</Text>
-        </TouchableOpacity>
+   
 
         <TouchableOpacity style={styles.Button} onPress={onSignout}>
           <Text style={styles.ButtonText}>تسجيل الخروج</Text>
@@ -739,10 +710,6 @@ const styles = StyleSheet.create({
     borderWidth:0.5,
     borderColor:"#6F7C88",
 
-
-  
-
-
   },
 
   TopView: {
@@ -757,7 +724,7 @@ const styles = StyleSheet.create({
     height: 52,
     backgroundColor: "#fff",
     borderRadius: 10,
-    marginTop:420,
+    marginTop:370,
 left:50,
 
     justifyContent: "center",
@@ -765,12 +732,12 @@ left:50,
         position: "absolute",
   },
   Button2: {
-    width: "30%",
+    width: "40%",
     color: "#002B3E",
     height: 40,
     backgroundColor: "#CADAEA",
     borderRadius: 10,
-    marginTop:-20,
+
 right:50,
 
     justifyContent: "center",
@@ -785,7 +752,7 @@ right:50,
   },
   ButtonText2: {
     fontFamily: "AJannatLT",
-    fontSize: 15,
+    fontSize: 13.5,
     fontWeight: "bold",
     color: "#002B3E",
   },
@@ -798,7 +765,7 @@ right:50,
   containers: {
     alignItems: "flex-start",
     marginTop: "25%",
-    marginLeft: "4%",
+    marginLeft: "5%",
   },
   roundButton1: {
     width: 60,
@@ -807,7 +774,7 @@ right:50,
     backgroundColor: "#AEC3D7",
     position: "absolute",
     marginTop: 135,
-    marginLeft: 285,
+    marginLeft: 280,
     shadowColor: "rgba(1,0,0, .4)", // IOS
     shadowOffset: { height: 2, width: 2 }, // IOS
     shadowOpacity: 2, // IOS

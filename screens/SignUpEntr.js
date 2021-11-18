@@ -349,58 +349,7 @@ export default function RegistrationScreen({ navigation }) {
           autoCapitalize="none"
           color="black"
         />
-        <DropDownPicker
-          textStyle={{
-            textAlign: "right",
-            fontFamily: 'AJannatLT',
-            fontSize: 18,
-            color:"black"
-            
-           
-            //backgroundColor:'#7C98B3',
-            
-          }}
-          containerStyle={{
-            marginTop: 20,
-            marginLeft: 30,
-            marginRight: 30,
-            width:'90%',
-            
-          
-            
-            //backgroundColor:'#7C98B3',
-          }}
-
-          dropDownContainerStyle={{//to style inside dropDown
-          backgroundColor:'#7C98B3',
-            borderColor: "#FFF",
-            
-      
-          }}
-     
-          labelStyle={{
-            fontSize: 16,
-            textAlign: 'right',
-          
-        }}
-      placeholderStyle={{
-        fontWeight: 'bold',
-        textAlign: 'right',
-      color:"white"
        
-    }}
-          style={{ borderColor: "#FFF", flexDirection: "row-reverse" ,borderWidth:1, backgroundColor:'#7C98B3'}}
-          open={open}
-          value={gender}
-          items={items}
-          setOpen={setOpen}
-          setValue={setGender}
-          setItems={setItems}
-          placeholder="*الجنـس"
-       
-          onChangeValue={(value) => setGender(value)}
-      
-        />
         <TextInput
          style={styles.TextInput}
           placeholder="*رقم الجوال : 05xxxxxxxx"
@@ -527,7 +476,7 @@ export default function RegistrationScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-   // backgroundColor: '#002B3E',
+    backgroundColor: '#7C98B3',
 
   },
 
