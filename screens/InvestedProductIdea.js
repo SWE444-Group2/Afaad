@@ -10,13 +10,17 @@ import SvgUri from "expo-svg-uri";
 import { useState } from 'react';
 import {useEffect } from 'react';
 
-//let InvestedIdeaList=[];
 
 export default function InvestedProductIdea({ navigation }) {
+
+  const[accept,setAccept]=useState(true);
+  const[reject,setReject]=useState(false);
+
 
   let user = AfaadFirebase.auth().currentUser ;
   const auth = AfaadFirebase.auth();
   let userID, userType , userName;
+
 
   if(user){
     userID = user.uid ;
@@ -42,6 +46,7 @@ export default function InvestedProductIdea({ navigation }) {
   const[PendingProductList ,setPendingproductsList ]=useState();
 
 //Brings pending
+
   useEffect(() => {
 
      let isUnmounted=false;
@@ -87,14 +92,15 @@ export default function InvestedProductIdea({ navigation }) {
      };
 
   }, [])
-
+  
+  //All the accepted list
   const acceptedList=[]
   for(let accepted in PendingProductList){
         if(PendingProductList[accepted].InvestorsList[userID].status=='Accepted'){
           acceptedList.push(PendingProductList[accepted])   
         }
   }
-
+  //All the rejected list
   const RejectedList=[]
   for(let rejected in PendingProductList){
     if(PendingProductList[rejected].InvestorsList[userID].status=='Rejected'){
@@ -103,97 +109,17 @@ export default function InvestedProductIdea({ navigation }) {
 }
 
 const renderAcceptedList = () => {
+  setAccept(true)
+  setReject(false)
+} 
 
-                return(
-                <FlatList style={{height:'85%'}}
-
-                    
-                data={acceptedList}
-                keyExtractor={(item, index)=>index.toString()}
-
-                renderItem={({ item })=>(
-
-                  <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType , user_Name:userName })}>   
-                
-                {userType=='Investor' && item.InvestorsList[userID].status!='Pending' && (
-                  <View style={Titlestyles.item}>
-
-                    <View style={{borderTopRightRadius:15}}>
-                  
-                      <Button 
-                        style={Titlestyles.DetailsBtn}
-                        onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
-                        title= 
-                        { item.InvestorsList[userID].status=='Accepted' ? 'مقبول'  : 'مرفوض' }
-                          
-
-                        titleProps={{}}
-                        //titleStyle={{ marginHorizontal: 1 }}
-                        color='#247ba0'/>
-                        
-
-                    </View>
-
-                    <Text style={Titlestyles.subTitle}>{item.Title}</Text>
-                    
-                  </View> )}
-                  </TouchableOpacity>
-                )}
-
-                /> 
-
-
-
-                );
-}; 
-
-const renderRejectedList = () => {
+const renderRejectedList = () =>{ 
+  setReject(true)
+  setAccept(false)
+}
 
   return(
-    <FlatList style={{height:'85%'}}
-
-        
-    data={RejectedList}
-    keyExtractor={(item, index)=>index.toString()}
-
-    renderItem={({ item })=>(
-
-      <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType , user_Name:userName })}>   
     
-    {userType=='Investor' && item.InvestorsList[userID].status!='Pending' && (
-      <View style={Titlestyles.item}>
-
-        <View style={{borderTopRightRadius:15}}>
-      
-          <Button 
-            style={Titlestyles.DetailsBtn}
-            onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
-            title= 
-            { item.InvestorsList[userID].status=='Accepted' ?
-              'مقبول'  : 'مرفوض' }
-
-            titleProps={{}}
-            //titleStyle={{ marginHorizontal: 1 }}
-            color='#247ba0'/>
-            
-
-        </View>
-
-        <Text style={Titlestyles.subTitle}>{item.Title}</Text>
-        
-      </View> )}
-      </TouchableOpacity>
-    )}
-
-    /> 
-
-
-
-    );
-  
-}; 
-
-  return(
         <View style={Titlestyles.container}>
 
       {NavigationBar({navigation, ScreenName: 'invested'})}
@@ -214,52 +140,97 @@ const renderRejectedList = () => {
                   <View style={styles.ViewButton}>
 
 
-                  <TouchableOpacity style={styles.Rbutton} onPress={() => renderRejectedList()} >
-                   <Text style={styles.RtextButton}>العروض المرفوضة</Text>
+                  <TouchableOpacity style={reject ? styles.Abutton : styles.Rbutton} onPress={renderRejectedList} >
+                   <Text style={reject ? styles.AtextButton: styles.RtextButton}>العروض المرفوضة</Text>
                   </TouchableOpacity>
 
-                  <TouchableOpacity style={styles.Abutton} onPress={() => renderAcceptedList()}>
-                   <Text style={styles.AtextButton}>العروض المقبولة</Text>
+                  <TouchableOpacity style={accept ? styles.Abutton : styles.Rbutton } onPress={renderAcceptedList}>
+                   <Text style={accept ? styles.AtextButton: styles.RtextButton}>العروض المقبولة</Text>
                   </TouchableOpacity>
-
                   </View>
 
-        <FlatList style={{height:'85%'}}
+          {/*  Accepted List */}
 
-    
-        data={PendingProductList}
-        keyExtractor={(item, index)=>index.toString()}
-       
-        renderItem={({ item })=>(
+          { accept == true && (
 
-          <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType , user_Name:userName })}>   
-         
-         {userType=='Investor' && item.InvestorsList[userID].status!='Pending' && (
-          <View style={Titlestyles.item}>
-      
-            <View style={{borderTopRightRadius:15}}>
-           
-               <Button 
-                style={Titlestyles.DetailsBtn}
-                onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
-                title= 
-                { item.InvestorsList[userID].status=='Accepted' ?
-                  'مقبول'  : 'مرفوض' }
+          <FlatList style={{height:'85%'}}
 
-                titleProps={{}}
-                //titleStyle={{ marginHorizontal: 1 }}
-                color='#247ba0'/>
-                
+              
+          data={acceptedList}
+          keyExtractor={(item, index)=>index.toString()}
 
-            </View>
+          renderItem={({ item })=>(
 
-            <Text style={Titlestyles.subTitle}>{item.Title}</Text>
+            <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType , user_Name:userName })}>   
+          
+          {userType=='Investor' && item.InvestorsList[userID].status!='Pending' && (
+            <View style={Titlestyles.item}>
+
+              <View style={{borderTopRightRadius:15}}>
             
-          </View> )}
-          </TouchableOpacity>
-        )}
+                <Button 
+                  style={Titlestyles.DetailsBtn}
+                  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
+                  title= 
+                  { item.InvestorsList[userID].status=='Accepted' ?
+                    'مقبول'  : 'مرفوض' }
 
-        /> 
+                  titleProps={{}}
+                  //titleStyle={{ marginHorizontal: 1 }}
+                  color='#247ba0'/>
+                  
+
+              </View>
+
+              <Text style={Titlestyles.subTitle}>{item.Title}</Text>
+              
+            </View> )}
+            </TouchableOpacity>
+          )}
+
+          />  )}
+
+          {/*  Rejected List */}
+
+          
+          { reject== true &&
+          
+          <FlatList style={{height:'85%'}}
+
+              
+          data={RejectedList}
+          keyExtractor={(item, index)=>index.toString()}
+
+          renderItem={({ item })=>(
+
+            <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType , user_Name:userName })}>   
+          
+          {userType=='Investor' && item.InvestorsList[userID].status!='Pending' && (
+            <View style={Titlestyles.item}>
+
+              <View style={{borderTopRightRadius:15}}>
+            
+                <Button 
+                  style={Titlestyles.DetailsBtn}
+                  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
+                  title= 
+                  { item.InvestorsList[userID].status=='Accepted' ?
+                    'مقبول'  : 'مرفوض' }
+
+                  titleProps={{}}
+                  //titleStyle={{ marginHorizontal: 1 }}
+                  color='#247ba0'/>
+                  
+
+              </View>
+
+              <Text style={Titlestyles.subTitle}>{item.Title}</Text>
+              
+            </View> )}
+            </TouchableOpacity>
+          )}
+
+/> }
        
                   </View>
               </View> 
