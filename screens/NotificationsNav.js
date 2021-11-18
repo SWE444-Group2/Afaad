@@ -110,10 +110,11 @@ export default function NotificationsNav({ navigation }) {
         data={PendingProductList}
         keyExtractor={(item, index)=>index.toString()}
         renderItem={({ item })=>(
-          <TouchableOpacity   onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})} >   
+          <TouchableOpacity >   
           
         
           {userType== 'Entrepreneur' &&  (
+          <TouchableOpacity   onPress={() => navigation.navigate('OffersList', {Product_id:item.productID, userType: userType, user_Name:userName})} >   
             <View style={styles.item}>   
            {/*  <Button 
                 style={Titlestyles.DetailsBtn}
@@ -126,9 +127,11 @@ export default function NotificationsNav({ navigation }) {
             <Text style={{color:'#247ba0'}}> {item.Title}</Text></Text>
              <Icon name="checkbox-blank-circle-outline"  size={20} color={"#022B3A"} style={{marginRight:20}}
              />
-             </View> )}
+             </View> 
+             </TouchableOpacity>)}
 
              {userType== 'Investor'  && item.InvestorsList[userID].status!='Pending'&&(
+               <TouchableOpacity   onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})} >  
             <View style={styles.item}  >
              {/* <Button 
                 onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
@@ -146,7 +149,8 @@ export default function NotificationsNav({ navigation }) {
                   <Text style={{color:'#247ba0'}}> {item.Title}</Text>
                </Text> }
             <Icon name='checkbox-blank-circle-outline' size={20} color='#6A687A' style={{marginRight:20}}/> 
-             </View> )}
+             </View> 
+             </TouchableOpacity>)}
             
 
 
