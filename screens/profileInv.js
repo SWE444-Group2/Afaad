@@ -19,36 +19,32 @@ import { FloatingLabelInput } from 'react-native-floating-label-input';
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
 import { getAuth, updateEmail,reauthenticateWithCredential } from "firebase/auth";
-import DropDownPicker from "react-native-dropdown-picker";
+
 
 export default function Profile({ navigation, route }) {
-  const [userLastName, setLastName] = useState("");
-  const [userFirstName, setFirstName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userPhone, setUserPhone] = useState("");
-  const [gender, setGender] = useState("");
- 
 
-  
   const [NewFirstName, setNewFirstName] = useState("");
   const [NewLastName, setNewLastName] = useState("");
   const [NuserEmail, setNUserEmail] = useState("");
   const [NuserPhone, setNUserPhone] = useState("");
- 
+  const [NuserDecs, setNuserDecs] = useState("");
+
+  const [userEmailInv, setUserEmailInv] = useState("");
+  const [userPhoneInv, setUserPhoneInv] = useState("");
+  const [userFullName, setFullName] = useState("");
+  const [userDecr, setuserDecr] = useState("");
 
   const userType = route.params.userType;
   const userID = route.params.userID;
 
-    
-    const UserInfoRefEntr = AfaadFirebase.database().ref(
-      "Entrepreneur/" + userID
-    );
-    UserInfoRefEntr.once("value").then(function (snapshot) {
-      setFirstName(snapshot.child("FirstName").val());
+  
+    const UserInfoRef = AfaadFirebase.database().ref("Investor/" + userID);
+    UserInfoRef.once("value").then(function (snapshot) {
+      setFullName(snapshot.child("FullName").val());
       setLastName(snapshot.child("Lastname").val());
-      setUserEmail(snapshot.child("email").val());
-      setUserPhone(snapshot.child("phone").val());
-      setGender(snapshot.child("Gender").val());
+      setUserEmailInv(snapshot.child("email").val());
+      setUserPhoneInv(snapshot.child("phone").val());
+      setuserDecr(snapshot.child("Describetion").val());
     });
   
 
@@ -81,11 +77,11 @@ export default function Profile({ navigation, route }) {
 
   const onSavePress = () => {
 
-    const UserInfoRefEntr = AfaadFirebase.database().ref(
+    const UserInfoRef = AfaadFirebase.database().ref(
       "Entrepreneur/" + userID);
 
       if(NuserEmail!=""){
-        UserInfoRefEntr.update({
+        UserInfoRef.update({
           email: NuserEmail
         }
           );
@@ -174,7 +170,7 @@ export default function Profile({ navigation, route }) {
       );
       return;
     }
-    UserInfoRefEntr.update({
+    UserInfoRef.update({
       FirstName: NewFirstName,
     }
       );
@@ -206,7 +202,7 @@ export default function Profile({ navigation, route }) {
       ]);
       return;
     }
-    UserInfoRefEntr.update({
+    UserInfoRef.update({
       Lastname: NewLastName,
     }
       );
@@ -247,7 +243,7 @@ export default function Profile({ navigation, route }) {
     }
   
 
-  UserInfoRefEntr.update({
+  UserInfoRef.update({
     phone: NuserPhone,
   }
     );
@@ -285,75 +281,32 @@ export default function Profile({ navigation, route }) {
      <Icon name="pencil" style={{ marginLeft:'25%' , marginTop:16} } size={30} color={"#fff"}/> 
  </TouchableOpacity>  */}
 
- 
 
-<View>
-
-<View style={{marginTop:"23%"}} >
   
+  <View>
+    
+     <View style={{marginTop:"23%"}} >
 <TouchableOpacity style={styles.Button2} onPress={onSavePress}>
           <Text style={styles.ButtonText2}>تحديث المعلومات الشخصية</Text>
         </TouchableOpacity>
         </View>
-</View>
+        </View>
+
 
 <View style={{ padding: 50,marginTop:40}}>
-    
+
 <FloatingLabelInput 
-       label="الاسم الأول"
+       label="الاسم"
        staticLabel
        value={NewFirstName}
        hintTextColor={'black'}
        editable={true} 
         selectTextOnFocus={true} 
-        hint={userFirstName}
+        hint={userFullName}
         onChangeText={(text) => setNewFirstName(text)}
         caretHidden={false}
 
-
-
-
-         containerStyles={{
-         borderWidth: 0.76,
-         paddingHorizontal: 8,
-         bottom:-3,
-         textAlign:"right",
-         borderColor: 'gray',
-         borderRadius: 8,
-         height:50
-       }}
-       customLabelStyles={{
-         colorFocused: 'black',
-         fontSizeFocused: 12,
-
-       }}
-       labelStyles={{
-         backgroundColor: '#f2f2f2',
-         paddingHorizontal:8,
-        marginLeft:200,
-        fontFamily: "AJannatLT",
-       }}
-       inputStyles={{
-         color: 'black',
-         paddingHorizontal: 10,
-         fontFamily: "AJannatLT",
-         fontSize: 14,
-      color: "#002B3E",
-      textAlign:"right",
-      fontWeight: "bold",
-       }}
        
-    
-     />
-
-<View style={{marginTop:25}} >
-<FloatingLabelInput 
-       label="الاسم الثاني"
-       value={NewLastName}
-       staticLabel
-       hintTextColor={'black'}
-       onChangeText={(text) => setNewLastName(text)}
-       hint={userLastName}
 
        containerStyles={{
          borderWidth: 0.76,
@@ -371,8 +324,8 @@ export default function Profile({ navigation, route }) {
        }}
        labelStyles={{
          backgroundColor: '#f2f2f2',
-         paddingHorizontal: 5,
-        marginLeft:200,
+         paddingHorizontal: 8,
+        marginLeft:230,
         fontFamily: "AJannatLT",
        }}
        inputStyles={{
@@ -387,16 +340,16 @@ export default function Profile({ navigation, route }) {
        
      
      />
-        </View>{/* second field*/}
+     
      <View style={{marginTop:25}} >
 <FloatingLabelInput 
-       label="البريد الالكتروني"
-       hint={userEmail}
-       staticLabel
-       hintTextColor={'black'}
-       onChangeText={(text) => setNUserEmail(text)}
-       value={NuserEmail}
-
+    label="البريد الالكتروني"
+    hint={userEmailInv}
+    staticLabel
+    hintTextColor={'black'}
+    onChangeText={(text) => setNUserEmail(text)}
+    value={NuserEmail}
+ 
        containerStyles={{
          borderWidth: 0.76,
          paddingHorizontal: 8,
@@ -427,22 +380,23 @@ export default function Profile({ navigation, route }) {
       fontWeight: "bold",
        }}
        
+     
      />
         </View>{/* second field*/}
 
-    
+     
         <View style={{marginTop:25}} >
 
-<FloatingLabelInput style={{zIndex:0}}
-       label="رقم الجوال"
-       hint={userPhone}
-       value={NuserPhone}
-       staticLabel
-       hintTextColor={'black'}
-       editable={true} 
-       selectTextOnFocus={true} 
-       onChangeText={(text) => setNUserPhone(text)}
-  
+<FloatingLabelInput 
+        label="رقم الجوال"
+        hint={userPhoneInv}
+        value={NuserPhone}
+        staticLabel
+        hintTextColor={'black'}
+        editable={true} 
+        selectTextOnFocus={true} 
+        onChangeText={(text) => setNUserPhone(text)}
+   
        containerStyles={{
          borderWidth: 0.76,
          paddingHorizontal: 8,
@@ -460,7 +414,7 @@ export default function Profile({ navigation, route }) {
        labelStyles={{
          backgroundColor: '#f2f2f2',
          paddingHorizontal: 5,
-         marginLeft:213,
+         marginLeft:215,
         fontFamily: "AJannatLT",
        }}
        inputStyles={{
@@ -473,21 +427,73 @@ export default function Profile({ navigation, route }) {
       fontWeight: "bold",
        }}
        
+     
      />
         </View>{/* fifth field*/}
-        
-        
+        <View style={{marginTop:25}} >
+
+<FloatingLabelInput 
+       label="وصف المستثمر"
+       value={NuserDecs}
+       hint={userDecr}
+       staticLabel
+       hintTextColor={'black'}
+       editable={true} 
+       selectTextOnFocus={true} 
+       onChangeText={(text) => setNuserDecs(text)}
+  
+       multiline={true}
+ 
+       containerStyles={{
+         borderWidth: 0.76,
+         paddingHorizontal: 8,
+         bottom:-11,
+         textAlign:"right",
+         borderColor: 'gray',
+         borderRadius: 8,
+         height:120
+       }}
+       customLabelStyles={{
+         colorFocused: 'black',
+         fontSizeFocused: 12,
+
+       }}
+       labelStyles={{
+         backgroundColor: '#f2f2f2',
+         paddingHorizontal: 5,
+         marginLeft:215,
+        fontFamily: "AJannatLT",
+       }}
+       inputStyles={{
+         color: 'black',
+         paddingHorizontal: 10,
+    bottom:35,
+         fontFamily: "AJannatLT",
+         fontSize: 14,
+      color: "#002B3E",
+      textAlign:"right",
+      fontWeight: "bold",
+       }}
+     />        
+
+        </View>{/* fifth field*/}
+
 
         <TouchableOpacity style={styles.Button} onPress={onSignout}>
           <Text style={styles.ButtonText}>تسجيل الخروج</Text>
         </TouchableOpacity>
-</View>
-  
+        
+
+
+
+  </View>
 
      {NavigationBar({navigation, ScreenName:'profile'})}
       <StatusBar style="auto" />
 
     </View>//First View
+
+
 
   )};
 
@@ -522,7 +528,7 @@ const styles = StyleSheet.create({
     height: 52,
     backgroundColor: "#fff",
     borderRadius: 10,
-    marginTop:370,
+    marginTop:420,
 left:50,
 
     justifyContent: "center",

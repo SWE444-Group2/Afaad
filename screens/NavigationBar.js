@@ -54,7 +54,7 @@ export function NavigationBar ({navigation, ScreenName}) {
       case 'plus':  setPlusIdea('plus-circle'),setPlusIdeaColro("#022B3A"); return ;
       case 'invested': setInvested('head-lightbulb') ,setInvestedColro("#022B3A"); return ;
       case 'notification': setNotification('bell') ,setNotificationColro("#022B3A"); return ;
-      case 'profile': setProfile('account-box'),setProfileColro("#022B3A"); return ;
+      case 'profile'||'profileInv': setProfile('account-box'),setProfileColro("#022B3A"); return ;
     }
   }, [])
 
@@ -94,7 +94,7 @@ export function NavigationBar ({navigation, ScreenName}) {
 
 
               { userType== 'Investor' &&  
-                 <TouchableOpacity onPress={() => navigation.navigate('profile',{userType: userType,userID:userID})}>
+                 <TouchableOpacity onPress={() => navigation.navigate('profileInv',{userType: userType,userID:userID})}>
                    <Icon name={profile} size={40} color={profileColro}/> 
                  </TouchableOpacity>
               }
