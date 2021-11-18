@@ -1,58 +1,131 @@
-import React, { useState, useEffect } from 'react';
-import { Image, View, Platform, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker';
-import { getStorage, ref, uploadBytes } from "firebase/storage";
-export default function UploadImage() {
-  const [image, setImage] = useState(null);
+import React, { useState, useEffect } from "react";
+import {
+  Image,
+  View,
+  Platform,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
+import AfaadFirebase from "./firebaseConfig";
+import "firebase/auth";
+import "firebase/database";
 
-  const addImage = async () => {
+export default function UploadImage() {
+  let user = AfaadFirebase.auth().currentUser;
+let userID, userType;
+
+const [Retimage, setRetimage] = useState("");
+
+if (user) {
+  userID = user.uid;
+  AfaadFirebase.database()
+    .ref("/Admin/" + userID)
+    .on("value", (snapshot) => {
+      if (snapshot.exists()) {
+        userType = "Admin";
+      }
+    });
+  AfaadFirebase.database()
+    .ref("/Entrepreneur/" + userID)
+    .on("value", (snapshot) => {
+      if (snapshot.exists()) {
+        userType = "Entrepreneur";
+      }
+    });
+  AfaadFirebase.database()
+    .ref("/Investor/"+userID)
+    .on("value",(snapshot) => {
+      if (snapshot.exists()) {
+        userType = "Investor";
+      }
+    });
+}
+console.log("the id is : "+userID
+);
+if (userType == "Investor") {
+  global.DataRef=AfaadFirebase.database().ref("Investor/"+userID);
+     DataRef.once("value").then(function (snapshot) {
+       setRetimage(snapshot.child("pic").val());
+  });
+} else {
+  global.DataRef=AfaadFirebase.database().ref("Entrepreneur/" + userID);
+
+  DataRef.once("value").then(function (snapshot) {
+    setRetimage(snapshot.child("pic").val());
+  });
+}
+const [image, setImage] = useState(null);
+
+const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4,3],
-      quality: 1,
+    mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    allowsEditing: true,
+    aspect: [4, 3],
+    quality: 1,
+  });
+  console.log(JSON.stringify(_image));
+  if (!_image.cancelled) {
+    setImage(_image.uri);
+
+  }
+};
+const uploadImage = async (uri) => {
+    let filename = uri;
+    if (Platform.OS === "ios") {
+     filename = uri.replace("file:", "");
+  }
+
+
+  const ext = filename.split(".").pop();
+  const path = `images/${userID}/`;
+  //console.log("the paath is >>>>> "+path);
+  const ref = AfaadFirebase.storage().ref(path);
+  //console.log("the REF is >>>>> "+ref);
+  //console.log("afaad ref is "+ref)
+  console.log("THE IMAGE "+Retimage)
+  setImage(Retimage);
+
+  try {
+    const response = await fetch(filename);
+    const blob = await response.blob();
+    await ref.put(blob);
+
+   global.downloadURL = await ref.getDownloadURL();
+    console.log("URL  "+downloadURL);
+
+    DataRef.update({
+      pic: downloadURL,
     });
 
-    console.log(JSON.stringify(_image));
+    return path;
+  } catch {
+    return null;
+  }
+};
 
-    if (!_image.cancelled) {
-      setImage(_image.uri);
-    }
-  };
-{/* 
-  const  checkForCameraRollPermission=async()=>{
-    const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
-    if (status !== 'granted') {
-      alert("Please grant camera roll permissions inside your system's settings");
-    }else{
-      console.log('Media Permissions are granted')
-    }
-  
-}
-useEffect(() => {
-    checkForCameraRollPermission()
-  }, []);
-*/}
+return (
+  <View style={imageUploaderStyles.container}>
+    {image && (
+      <Image source={{uri:image}} style={{ width: 200, height: 200 }} />
+    )}
+
+    <View style={imageUploaderStyles.uploadBtnContainer}>
 
 
-  return (
-            <View style={imageUploaderStyles.container}>
-                {
-                    image  && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-                }
-                    
-                    <View style={imageUploaderStyles.uploadBtnContainer}>
-                        <TouchableOpacity onPress={addImage} style={imageUploaderStyles.uploadBtn} >
-                            <Text>{image ? 'Edit' : 'Upload'} Image</Text>
-                            <AntDesign name="camera" size={15} color="black" />
-                        </TouchableOpacity>
-                    </View>
-              
 
-            </View>
-   
-  );
+      <TouchableOpacity
+        onPress={addImage}
+        style={imageUploaderStyles.uploadBtn}
+      >
+        <Text>{image ? "Edit" : "Upload"} Image</Text>
+        <AntDesign name="camera" size={15} color="black" />
+      </TouchableOpacity>
+    </View>
+  </View>
+);
 }
 
 const imageUploaderStyles=StyleSheet.create({
@@ -85,3 +158,4 @@ const imageUploaderStyles=StyleSheet.create({
         justifyContent:'center'
     }
 })
+
