@@ -110,37 +110,42 @@ export default function NotificationsNav({ navigation }) {
         data={PendingProductList}
         keyExtractor={(item, index)=>index.toString()}
         renderItem={({ item })=>(
-          <TouchableOpacity   >   
+          <TouchableOpacity   onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})} >   
           
         
           {userType== 'Entrepreneur' &&  (
             <View style={styles.item}>   
-            <Button 
+           {/*  <Button 
                 style={Titlestyles.DetailsBtn}
                 onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
                 title="عرض التفاصيل"
                 titleProps={{}}
                 //titleStyle={{ marginHorizontal: 1 }}
-                color='#247ba0'/>    
-            <Text style={[Titlestyles.subTitle , Titlestyles.DescText , {fontSize:17 , width:'53%'}]}>يوجد لديك طلب استثمار جديد في
+                color='#247ba0'/>  */}  
+            <Text style={[Titlestyles.subTitle , Titlestyles.DescText , {fontSize:16}]}>يوجد لديك طلب استثمار جديد في
             <Text style={{color:'#247ba0'}}> {item.Title}</Text></Text>
-             <Icon name="checkbox-blank-circle-outline"  size={20} color={"#022B3A"}
+             <Icon name="checkbox-blank-circle-outline"  size={20} color={"#022B3A"} style={{marginRight:20}}
              />
              </View> )}
 
              {userType== 'Investor'  && item.InvestorsList[userID].status!='Pending'&&(
             <View style={styles.item}  >
-              <Button 
-                style={Titlestyles.DetailsBtn}
-                onPress={() => navigation.navigate('InvestedProductIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
+             {/* <Button 
+                onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
                 title="عرض التفاصيل"
                 titleProps={{}}
-                //titleStyle={{ marginHorizontal: 1 }}
-                color='#247ba0'/>
-                <Text style={[Titlestyles.subTitle , Titlestyles.DescText ,{fontSize:17 , width:'53%'}]}>تم تحديث حالة طلب اسثمارك في
+                titleStyle={{ fontSize: 1 }}
+             color='#247ba0'/> */}
+                {item.InvestorsList[userID].status=='Accepted'&&
+                <Text style={[Titlestyles.subTitle , Titlestyles.DescText ,{fontSize:16 }]}>تم قبول طلب اسثمارك في
                   <Text style={{color:'#247ba0'}}> {item.Title}</Text>
-               </Text> 
-            <Icon name='checkbox-blank-circle-outline' size={20} color='#6A687A'/> 
+               </Text> }
+
+               {item.InvestorsList[userID].status=='Rejected'&&
+                <Text style={[Titlestyles.subTitle , Titlestyles.DescText ,{fontSize:16 }]}>تم رفض طلب اسثمارك في
+                  <Text style={{color:'#247ba0'}}> {item.Title}</Text>
+               </Text> }
+            <Icon name='checkbox-blank-circle-outline' size={20} color='#6A687A' style={{marginRight:20}}/> 
              </View> )}
             
 

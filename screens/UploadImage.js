@@ -14,10 +14,11 @@ import "firebase/auth";
 import "firebase/database";
 
 export default function UploadImage() {
-  let user = AfaadFirebase.auth().currentUser;
+
+let user = AfaadFirebase.auth().currentUser;
 let userID, userType;
 
-const [Retimage, setRetimage] = useState("");
+const [Retimage, setRetimage] = useState("here");
 
 if (user) {
   userID = user.uid;
@@ -43,20 +44,7 @@ if (user) {
       }
     });
 }
-console.log("the id is : "+userID
-);
-if (userType == "Investor") {
-  global.DataRef=AfaadFirebase.database().ref("Investor/"+userID);
-     DataRef.once("value").then(function (snapshot) {
-       setRetimage(snapshot.child("pic").val());
-  });
-} else {
-  global.DataRef=AfaadFirebase.database().ref("Entrepreneur/" + userID);
-
-  DataRef.once("value").then(function (snapshot) {
-    setRetimage(snapshot.child("pic").val());
-  });
-}
+;
 const [image, setImage] = useState(null);
 
 const addImage = async () => {
@@ -66,9 +54,11 @@ const addImage = async () => {
     aspect: [4, 3],
     quality: 1,
   });
-  console.log(JSON.stringify(_image));
+  //console.log(JSON.stringify(_image));
   if (!_image.cancelled) {
+    uploadImage(_image.uri);
     setImage(_image.uri);
+    
 
   }
 };
@@ -82,29 +72,49 @@ const uploadImage = async (uri) => {
   const ext = filename.split(".").pop();
   const path = `images/${userID}/`;
   //console.log("the paath is >>>>> "+path);
-  const ref = AfaadFirebase.storage().ref(path);
+  const ref = AfaadFirebase.storage().ref(path);//correct
   //console.log("the REF is >>>>> "+ref);
   //console.log("afaad ref is "+ref)
-  console.log("THE IMAGE "+Retimage)
-  setImage(Retimage);
+  //console.log("THE IMAGE "+Retimage)
+  
 
-  try {
     const response = await fetch(filename);
     const blob = await response.blob();
     await ref.put(blob);
 
    global.downloadURL = await ref.getDownloadURL();
-    console.log("URL  "+downloadURL);
+    //console.log("URL  "+downloadURL);
+
 
     DataRef.update({
       pic: downloadURL,
     });
+ setImage(DataRef.pic.val)
+ console.log(image);
 
-    return path;
-  } catch {
-    return null;
-  }
 };
+
+useEffect(() => {
+  if (userType == "Investor") {
+    console.log("inside inv if use effect")
+    global.DataRef=AfaadFirebase.database().ref("Investor/"+userID);
+       DataRef.once("value").then(function (snapshot) {
+        setImage(snapshot.child("pic").val());
+    });
+    console.log("inside inv if use effect")
+
+  } 
+  else {
+    global.DataRef=AfaadFirebase.database().ref("Entrepreneur/" + userID);
+  console.log("inside ent if use effect")
+
+    DataRef.once("value").then(function (snapshot) {
+      setImage(snapshot.child("pic").val());
+    });
+  }
+  console.log(Retimage)
+}, []);
+
 
 return (
   <View style={imageUploaderStyles.container}>
@@ -120,7 +130,7 @@ return (
         onPress={addImage}
         style={imageUploaderStyles.uploadBtn}
       >
-        <Text>{image ? "Edit" : "Upload"} Image</Text>
+        <Text>{Retimage ? "Edit" : "Upload"} Image</Text>
         <AntDesign name="camera" size={15} color="black" />
       </TouchableOpacity>
     </View>
@@ -133,7 +143,7 @@ const imageUploaderStyles=StyleSheet.create({
         elevation:2,
         height:150,
         width:150, 
-        backgroundColor:'#efefef',
+  
         position:'absolute',
         borderRadius:999,
         overflow:'hidden',
@@ -158,4 +168,5 @@ const imageUploaderStyles=StyleSheet.create({
         justifyContent:'center'
     }
 })
+
 

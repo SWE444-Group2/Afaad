@@ -221,14 +221,26 @@ FavoritesRef.once('value').then(function(snapshot){
             }
             AfaadFirebase.database().ref('/Investor/' + user.uid +'/FavoriteIdeasList/'+route.params.Product_id).set(Ideadata)
               .then(function () {
-                //global.Liked = true;
-                console.log("added favorite idead")
+                global.Liked = true;
+                console.log("added favorite idea")
               })
               .catch(function (error) {
                 console.log("favorite failed: " + error.message)
               });
           
 
+  }
+
+  const unFavoriteIdea = () => {
+
+              AfaadFirebase.database().ref('/Investor/' + user.uid +'/FavoriteIdeasList/'+route.params.Product_id).remove()
+              .then(function () {
+                global.Liked = false;
+                console.log("unfavorite idea successful")
+              })
+              .catch(function (error) {
+                console.log("favorite failed: " + error.message)
+              });
   }
 
     return(
@@ -261,6 +273,17 @@ FavoritesRef.once('value').then(function(snapshot){
             <Image source={AfaadLogo} style={{ width: 150, height: 150 }}/>
            <Text style={[TitleStyles.ProjectName ]}>{Title}</Text> 
               <View style={TitleStyles.square}>
+
+
+              { userType== 'Investor' && 
+                     <TouchableOpacity >
+                     <Icon
+                      onPress={global.liked ? () => unFavoriteIdea(): () => favoriteIdea()}
+                      name={"heart"}
+                      size={32}
+                      color={global.liked ? "#B22222" : "gray"}
+                      style={ {marginLeft: -340 , marginTop:10}} />
+                     </TouchableOpacity> }
 
                   <View style={{ flexDirection: 'row', paddingLeft: 30 }}>
                   { userType== 'Entrepreneur' &&
@@ -344,15 +367,6 @@ FavoritesRef.once('value').then(function(snapshot){
 
 
                </View>
-
-               { userType== 'Investor' &&
-                     <TouchableOpacity    onPress={() => favoriteIdea()} >
-                     <Icon
-                      name={"heart"}
-                      size={32}
-                      color={global.liked ? "#B22222" : "gray"}
-                      style={ {marginLeft: -160}} />
-                     </TouchableOpacity> }
                     
 
                <Modal
@@ -506,5 +520,3 @@ const styles = StyleSheet.create({
   }
 
 });
-
-
