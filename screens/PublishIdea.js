@@ -228,7 +228,7 @@ export default function PublishIdea({ navigation }) {
     };
     ProductsRef.push(productData).then((dataRef) => {
       if (dataRef) {
-        Alert.alert("نجاح", "تمت إضافة فكرتك بنجاح، سيتم تحويلك إلى قائمة أفكارك", [
+        Alert.alert("نجاح", "تمت إضافة فكرتك بنجاح", [
           {
             text: "حسنًا",
             onPress: () => {
@@ -332,6 +332,11 @@ export default function PublishIdea({ navigation }) {
               title="إرسال"
               titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT' }}
             />
+            <Button buttonStyle={[styles.button, {backgroundColor: 'grey'}]}
+              onPress={() => navigation.pop()}
+              title="إلغاء"
+              titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT' }}
+            />
 
             <StatusBar style="auto" />
           </View>
@@ -353,11 +358,7 @@ export default function PublishIdea({ navigation }) {
 
     },
     button: {
-      width: 150,
-      margin: 10,
-      marginLeft:'auto',
-      marginRight:'auto',
-
+      width: 70,
     },
     labelText: {
       fontSize: 16,
@@ -383,10 +384,10 @@ export default function PublishIdea({ navigation }) {
       fontFamily: 'AJannatLT',
     },
     button: {
-      width: 213,
+      width: 150,
       height: 52,
       borderRadius: 6,
-      marginVertical: 50,
+      marginVertical: 10,
       alignSelf: 'center',
       backgroundColor: '#022B3A',
     },

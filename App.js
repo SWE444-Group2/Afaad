@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator  } from '@react-navigation/stack';
 import { default as splash } from './screens/splash' ;
 import { default as ViewIdea } from './screens/ViewIdea' ;
 import {default as ViewAccount} from './screens/ViewAccount';
@@ -42,7 +42,15 @@ if(!isLoaded){
 }
 
 
-  const Stack = createNativeStackNavigator();
+  const Stack = createStackNavigator();
+
+  const animationOff = {
+    animation: 'timing',
+    config: {
+      duration: 0,
+    }
+  };
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="MainScreen">
@@ -50,7 +58,8 @@ if(!isLoaded){
 
       <Stack.Screen name="splash" component={splash} />  
 
-      <Stack.Screen name="welcome" component={welcome} options={{ headerTitle:'الصفحة الرئيسية', headerBackVisible: false, gestureEnabled: false, }}/>
+      <Stack.Screen name="welcome" component={welcome} options={{ headerTitle:'الصفحة الرئيسية',
+       headerBackVisible: false, gestureEnabled: false }}/>
       
       <Stack.Screen name="ViewIdea" component={ViewIdea} options={{ headerTitle: "قائمة المشاريع",
         headerStyle: { backgroundColor: '#7c98b3' }, headerBackTitleVisible: false, headerTintColor: 'white' }} />  
@@ -71,15 +80,16 @@ if(!isLoaded){
       
       <Stack.Screen name="SignUpInvst" component={SignUpInvst} options={{ headerTitle: "إنشاء حساب "}} />
       
-      <Stack.Screen name="PublishIdea" component={PublishIdea} options={{ headerTitle:'',
-        headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white' }}/>
+      <Stack.Screen name="PublishIdea" component={PublishIdea}  options={{ presentation: 'modal', gestureEnabled: false, headerTitle:'',
+        headerStyle: { backgroundColor: '#7c98b3'}, headerLeft: ()=> null, headerTintColor: 'white' }}/>
       
       <Stack.Screen name="Admin" component={Admin} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false , gestureEnabled: false,
         headerTintColor: 'white', headerStyle: { backgroundColor: '#7c98b3' } }}/>
 
-      <Stack.Screen name="EntrepreneurAndInvestor" component={EntrepreneurAndInvestor} 
-        options={{ headerTitle:'الصفحة الرئيسية', headerBackVisible: false, gestureEnabled: false, 
-        headerTintColor: 'white', headerStyle: { backgroundColor: '#7c98b3' },}}/>        
+      <Stack.Screen name="EntrepreneurAndInvestor" component={EntrepreneurAndInvestor} options={{ headerTitle:'الصفحة الرئيسية',
+        gestureEnabled: false, headerTintColor: 'white', headerStyle: { backgroundColor: '#7c98b3' },
+        headerLeft: ()=> null,
+        }}/>        
       
       <Stack.Screen name="SignupOption" component={SignupOption} options={{ headerTitle: ""}}/>
       
@@ -87,7 +97,14 @@ if(!isLoaded){
       
       <Stack.Screen name="PendingPage" component={PendingPage} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
       
-      <Stack.Screen name="NotificationsNav" component={NotificationsNav} options={{ headerTitle:'الاشعارات',headerBackVisible: false ,gestureEnabled: false ,  headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white'}}/>
+      <Stack.Screen name="NotificationsNav" component={NotificationsNav} options={{ headerTitle:'الاشعارات',headerBackVisible: false,
+        gestureEnabled: false, headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white',
+        transitionSpec: {
+          open: animationOff,
+          close: animationOff,
+        },
+        headerLeft: ()=> null
+        }}/>
       
       <Stack.Screen name="InvestorRequest" component={InvestorRequest} options={{ headerTitle:'',
         headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white'}}/>
@@ -97,17 +114,29 @@ if(!isLoaded){
       
       <Stack.Screen name="InvestedProductIdea" component={InvestedProductIdea} options={{ headerTitle: "المشاريع المستثمرة" , headerBackVisible: false ,gestureEnabled: false ,  headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white'}}/>
       
-      <Stack.Screen name="profile" component={profile} options={{ headerTitle: "الملف الشخصي",
-        headerStyle: { backgroundColor: '#7c98b3'}, headerBackVisible: false, headerTintColor: 'white', gestureEnabled: false}}/>
+      <Stack.Screen name="profile" component={profile} options={{ headerTitle: "الملف الشخصي", headerStyle: { backgroundColor: '#7c98b3'},
+        headerBackVisible: false, headerTintColor: 'white', gestureEnabled: false,
+        transitionSpec: {
+          open: animationOff,
+          close: animationOff,
+        },
+        headerLeft: ()=> null,}}/>
 
-      <Stack.Screen name="Search" component={Search} options={{ headerTitle: "البحث",
-        headerStyle: { backgroundColor: '#7c98b3'}, headerBackVisible: false, headerTintColor: 'white', gestureEnabled: false}}/>
-        <Stack.Screen name="SearchResult" component={SearchResult} options={{ headerTitle: "نتائج البحث",
+      <Stack.Screen name="Search" component={Search} options={{ headerTitle: "البحث", headerStyle: { backgroundColor: '#7c98b3'},
+        headerBackVisible: false, headerTintColor: 'white', gestureEnabled: false,
+        transitionSpec: {
+          open: animationOff,
+          close: animationOff,
+        },
+        headerLeft: ()=> null}}/>
+     
+      <Stack.Screen name="SearchResult" component={SearchResult} options={{ headerTitle: "نتائج البحث",
         headerStyle: { backgroundColor: '#7c98b3'}, headerTintColor: 'white'}}/>
 
-<Stack.Screen name="updateProductIdea" component={updateProductIdea} options={{ headerTitle:'',
+      <Stack.Screen name="updateProductIdea" component={updateProductIdea} options={{ headerTitle:'',
         headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white' }}/>
-        
+      
+      
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -64,62 +64,62 @@ export function NavigationBar ({navigation, ScreenName}) {
 
             { userType== 'Entrepreneur' &&  
               <TouchableOpacity  onPress={() => navigation.navigate('profile',{userType: userType,userID:userID})}>
-                <Icon name={profile} style={{ marginLeft:'5%' , marginTop:10} } size={40} color={profileColro}/> 
+                <Icon name={profile} size={40} color={profileColro}/> 
               </TouchableOpacity>
             }
 
             { userType== 'Entrepreneur' &&
               <TouchableOpacity onPress={() => navigation.navigate('NotificationsNav')} >
-                <Icon name={notification} style={{ marginLeft:'25%' , marginTop:-40} } size={40} color={notificationColro}/> 
+                <Icon name={notification} size={40} color={notificationColro}/> 
               </TouchableOpacity>
             } 
 
             { userType== 'Entrepreneur' && 
               <TouchableOpacity  onPress={() => navigation.navigate('PublishIdea')}>
-                <Icon name={plusIdea} style={{ marginLeft:'45%' , marginTop:-40} } size={40} color={plusIdeaColro}/>
+                <Icon name={plusIdea} size={40} color={plusIdeaColro}/>
               </TouchableOpacity>
             }
 
             { userType== 'Entrepreneur' && 
               <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-                <Icon name={search} style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={SearchColro}/> 
+                <Icon name={search} size={40} color={SearchColro}/> 
               </TouchableOpacity>
             }
             
             { userType== 'Entrepreneur' &&
               <TouchableOpacity onPress={() => navigation.navigate("EntrepreneurAndInvestor")}>
-                <Icon name={home} style={{ marginLeft:'82%' , marginTop:-43 } } size={43} color={homeColro}/> 
+                <Icon name={home} size={43} color={homeColro}/> 
               </TouchableOpacity>
             }
 
 
               { userType== 'Investor' &&  
                  <TouchableOpacity onPress={() => navigation.navigate('profile',{userType: userType,userID:userID})}>
-                   <Icon name={profile} style={{ marginLeft:'5%' , marginTop:10} } size={40} color={profileColro}/> 
+                   <Icon name={profile} size={40} color={profileColro}/> 
                  </TouchableOpacity>
               }
 
               { userType== 'Investor' &&
                   <TouchableOpacity onPress={() => navigation.navigate('NotificationsNav')} >
-                   <Icon name={notification} style={{ marginLeft:'25%' , marginTop:-40} } size={40} color={notificationColro}/> 
+                   <Icon name={notification} size={40} color={notificationColro}/> 
                   </TouchableOpacity>
               } 
 
               { userType== 'Investor' && 
                    <TouchableOpacity onPress={() => navigation.navigate('InvestedProductIdea')}>
-                     <Icon name={invested} style={{ marginLeft:'45%' , marginTop:-40} } size={37} color={investedColro}/> 
+                     <Icon name={invested} size={37} color={investedColro}/> 
                    </TouchableOpacity>
               }
 
               { userType== 'Investor' && 
                    <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-                     <Icon name={search} style={{ marginLeft:'65%' , marginTop:-43} } size={40} color={SearchColro}/> 
+                     <Icon name={search} size={40} color={SearchColro}/> 
                    </TouchableOpacity>
               }
 
               { userType== 'Investor' &&
               <TouchableOpacity onPress={() => navigation.navigate("EntrepreneurAndInvestor")}>
-              <Icon name={home} style={{ marginLeft:'83%' , marginTop:-43 } } size={43} color={homeColro}/> 
+              <Icon name={home} size={43} color={homeColro}/> 
               </TouchableOpacity>
               }
 
@@ -131,6 +131,10 @@ export function NavigationBar ({navigation, ScreenName}) {
 const styles = StyleSheet.create({
 
     BottomBar: {
+      flex:1,
+      justifyContent:'space-around',
+      flexDirection: 'row',
+      paddingTop: 10 ,
         position: 'absolute',
         height: 80,
         bottom: 0,
