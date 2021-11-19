@@ -177,6 +177,11 @@ export default function InvestorRequest({navigation , route}) {
               title="إرسال"
               titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT' }}
             />
+            <Button buttonStyle={[styles.button, {backgroundColor: 'grey'}]}
+              onPress={() => navigation.pop()}
+              title="إلغاء"
+              titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT' }}
+            />
 
 </View>
             <StatusBar style="auto" />
@@ -226,10 +231,10 @@ const styles = StyleSheet.create({
       fontFamily: 'AJannatLT',
     },
     button: {
-      width: 213,
+      width: 150,
       height: 52,
       borderRadius: 6,
-      marginVertical: 50,
+      marginVertical: 10,
       alignSelf: 'center',
       backgroundColor: '#022B3A',
     },

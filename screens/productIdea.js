@@ -370,7 +370,8 @@ FavoritesRef.once('value').then(function(snapshot){
                     
 
                <Modal
-                    visible={paymentModalVisible}
+                  animationType="slide"
+                  visible={paymentModalVisible}
                    onRequestClose={() => setPaymentModalVisible(!paymentModalVisible)} 
                 
                 >

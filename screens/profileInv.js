@@ -21,7 +21,7 @@ const auth = AfaadFirebase.auth();
 import { getAuth, updateEmail,reauthenticateWithCredential } from "firebase/auth";
 
 
-export default function Profile({ navigation, route }) {
+export default function profileInv({ navigation, route }) {
 
   const [NewFirstName, setNewFirstName] = useState("");
   const [NewLastName, setNewLastName] = useState("");
