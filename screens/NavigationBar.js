@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View , TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome5";
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 
@@ -33,7 +34,7 @@ export function NavigationBar ({navigation, ScreenName}) {
   const [home, setHome] = useState("home-circle-outline") ;
   const [search, setSearch] = useState("feature-search-outline") ;
   const [plusIdea, setPlusIdea] = useState("plus-circle-outline") ;
-  const [invested, setInvested] = useState("head-lightbulb-outline") ;
+  const [invested, setInvested] = useState("hand-holding-usd") ;
   const [notification, setNotification] = useState("bell-outline") ;
   const [profile, setProfile] = useState("account-box-outline") ;
 
@@ -49,10 +50,9 @@ export function NavigationBar ({navigation, ScreenName}) {
   useEffect(() => {
     switch(ScreenName){
       case 'home':  setHome('home-circle'), setHomeColro("#022B3A") ; return ;
-      case 'offers':  setHome('home-circle'), setHomeColro("#022B3A")  ; return ;
       case 'search':  setSearch('feature-search') ,setSearchColro("#022B3A"); return;
       case 'plus':  setPlusIdea('plus-circle'),setPlusIdeaColro("#022B3A"); return ;
-      case 'invested': setInvested('head-lightbulb') ,setInvestedColro("#022B3A"); return ;
+      case 'invested': setInvested('hand-holding-usd') ,setInvestedColro("#022B3A"); return ;
       case 'notification': setNotification('bell') ,setNotificationColro("#022B3A"); return ;
       case 'profile'||'profileInv': setProfile('account-box'),setProfileColro("#022B3A"); return ;
     }
@@ -107,7 +107,7 @@ export function NavigationBar ({navigation, ScreenName}) {
 
               { userType== 'Investor' && 
                    <TouchableOpacity onPress={() => navigation.navigate('InvestedProductIdea')}>
-                     <Icon name={invested} size={37} color={investedColro}/> 
+                     <FontAwesomeIcon name={invested} size={37} color={investedColro}/> 
                    </TouchableOpacity>
               }
 
