@@ -172,16 +172,18 @@ export default function InvestorRequest({navigation , route}) {
               multiline={true}
             />
 
-            <Button buttonStyle={styles.button}
-              onPress={submit}
-              title="إرسال"
-              titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT' }}
-            />
+            <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-around', marginTop: 20}}>
             <Button buttonStyle={[styles.button, {backgroundColor: 'grey'}]}
               onPress={() => navigation.pop()}
               title="إلغاء"
               titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT' }}
             />
+            <Button buttonStyle={styles.button}
+              onPress={submit}
+              title="إرسال"
+              titleStyle={{ marginHorizontal: 5, fontFamily: 'AJannatLT' }}
+            />
+            </View>
 
 </View>
             <StatusBar style="auto" />
@@ -199,6 +201,7 @@ const styles = StyleSheet.create({
       },
     inner: {
         justifyContent: "space-around",
+        paddingBottom: 40
     },
     button: {
       width: 150,
