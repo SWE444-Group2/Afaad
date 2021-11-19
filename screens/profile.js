@@ -26,10 +26,6 @@ export default function Profile({ navigation, route }) {
   const [userFirstName, setFirstName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPhone, setUserPhone] = useState("");
-  const [gender, setGender] = useState("");
- 
-
-  
   const [NewFirstName, setNewFirstName] = useState("");
   const [NewLastName, setNewLastName] = useState("");
   const [NuserEmail, setNUserEmail] = useState("");
@@ -48,7 +44,6 @@ export default function Profile({ navigation, route }) {
       setLastName(snapshot.child("Lastname").val());
       setUserEmail(snapshot.child("email").val());
       setUserPhone(snapshot.child("phone").val());
-      setGender(snapshot.child("Gender").val());
     });
   
 
@@ -133,8 +128,8 @@ export default function Profile({ navigation, route }) {
       NewFirstName == "" & //empty?
       NewLastName == "" &
       NuserEmail == "" &
-      NuserPhone == "" &
-      Ngennder == "" 
+      NuserPhone == "" 
+     
     ) {
       Alert.alert("تنبيه ", "لطفاً لم يتم اضافة معلومات جديدة    ", [
         {
@@ -290,7 +285,7 @@ export default function Profile({ navigation, route }) {
 <View>
 
 <View style={{marginTop:"23%"}} >
-  
+
 <TouchableOpacity style={styles.Button2} onPress={onSavePress}>
           <Text style={styles.ButtonText2}>تحديث المعلومات الشخصية</Text>
         </TouchableOpacity>
