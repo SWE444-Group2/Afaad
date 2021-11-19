@@ -25,8 +25,7 @@ import { getAuth, updateEmail,reauthenticateWithCredential } from "firebase/auth
 
 export default function profileInv({ navigation, route }) {
 
-  const [NewFirstName, setNewFirstName] = useState("");
-  const [NewLastName, setNewLastName] = useState("");
+  const [NewFirstName, setNewFirstName] = useState("");;
   const [NuserEmail, setNUserEmail] = useState("");
   const [NuserPhone, setNUserPhone] = useState("");
   const [NuserDecs, setNuserDecs] = useState("");
@@ -43,11 +42,12 @@ export default function profileInv({ navigation, route }) {
     const UserInfoRef = AfaadFirebase.database().ref("Investor/" + userID);
     UserInfoRef.once("value").then(function (snapshot) {
       setFullName(snapshot.child("FullName").val());
-      setLastName(snapshot.child("Lastname").val());
       setUserEmailInv(snapshot.child("email").val());
       setUserPhoneInv(snapshot.child("phone").val());
       setuserDecr(snapshot.child("Describetion").val());
     });
+  
+
   
 
   //signout function
@@ -59,14 +59,14 @@ export default function profileInv({ navigation, route }) {
     });
   };
 
-
-
- 
   const IsValidName = (NewName) => {
   const RegxOfNames = /^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z\s]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z-_]*$/;
   return RegxOfNames.test(NewName);
   };
-
+const IsValidEmail = (newmail) =>{
+  let regOfEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+  return regOfEmail.test(newmail);
+}
   const IsValidPhone = (NuserPhone) => {
     const RegxPhone = /^[0-9]*$/;
     return RegxPhone.test(NuserPhone);
@@ -80,59 +80,14 @@ export default function profileInv({ navigation, route }) {
   const onSavePress = () => {
 
     const UserInfoRef = AfaadFirebase.database().ref(
-      "Entrepreneur/" + userID);
-
-      if(NuserEmail!=""){
-        UserInfoRef.update({
-          email: NuserEmail
-        }
-          );
-        AfaadFirebase.auth().currentUser.updateEmail(NuserEmail)
-          .catch((error) => {
-      switch (error.code) {
-        case "auth/invalid-email":
-          Alert.alert(
-            "تنبيه",
-            "الأيميل المدخل غير صالح",
-
-            [
-              {
-                text: "حسناً",
-                onPress: () => console.log("yes Pressed"),
-                style: "cancel",
-              },
-            ]
-          );
-          break;
-       
-        case "auth/email-already-in-use":
-          Alert.alert(
-            "تنبيه",
-            "البريد الألكتروني مسجل من قبل",
-
-  
-            [
-              {
-                text: "حسناً",
-                onPress: () => console.log("yes Pressed"),
-                style: "cancel",
-              },
-            ]
-          );
-          break;
-      
-  
-    }
-   
-    });
-}
-      
+      "Investor/" + userID);
+        
     if (
       NewFirstName == "" & //empty?
-      NewLastName == "" &
       NuserEmail == "" &
       NuserPhone == "" &
-      Ngennder == "" 
+      NuserDecs == ""
+  
     ) {
       Alert.alert("تنبيه ", "لطفاً لم يتم اضافة معلومات جديدة    ", [
         {
@@ -173,20 +128,22 @@ export default function profileInv({ navigation, route }) {
       return;
     }
     UserInfoRef.update({
-      FirstName: NewFirstName,
+      FullName: NewFirstName,
     }
       );
 
   }
-    if(NewLastName!=""){
-    if (NewLastName.replace(/\s+/g, '').length > 20 || NewLastName.replace(/\s+/g, '').length < 2 ) {
+
+  if(NuserEmail!=""){
+
+    if (IsValidEmail(NuserEmail) == false) {
       Alert.alert(
         "تنبيه",
-        "حقل الاسم الاخير يجب ان يتكون من حرفين على الاقل حتى ٢٠ حرف ",
+        " الإيميل المدخل غير صحيح ",
 
         [
           {
-            text: " حسنًا",
+            text: "حسنًا",
             onPress: () => console.log("yes Pressed"),
             style: "cancel",
           },
@@ -194,23 +151,36 @@ export default function profileInv({ navigation, route }) {
       );
       return;
     }
-    if (IsValidName(NewLastName) == false ||!NewLastName.replace(/\s/g, '').length) {
-      Alert.alert("تنبيه ", "الاسم يجب ان يحتوي على حروف فقط", [
+    AfaadFirebase.auth().currentUser.updateEmail(NuserEmail)
+    .catch((error) => {
+switch (error.code) {
+  case "auth/email-already-in-use":
+    Alert.alert(
+      "تنبيه",
+      "البريد الألكتروني مسجل من قبل",
+
+
+      [
         {
-          text: "حسنًا",
+          text: "حسناً",
           onPress: () => console.log("yes Pressed"),
           style: "cancel",
         },
-      ]);
-      return;
-    }
-    UserInfoRef.update({
-      Lastname: NewLastName,
-    }
-      );
+      ]
+    );
+    break;
 
+
+}
+
+});
+
+UserInfoRef.update({
+  email: NuserEmail
+}
+  );
+    
   }
-
 
   if(NuserPhone!=""){
     if (IsValidPhone(NuserPhone) == false) {
@@ -251,6 +221,29 @@ export default function profileInv({ navigation, route }) {
     );
   }
 
+  if(NuserDecs!=""){  
+  if (NuserDecs.replace(/\s+/g, '').length>250 || !NuserDecs.replace(/\s+/g, '').length || NuserDecs.replace(/\s+/g, '').length < 10) {
+    Alert.alert(
+      "تنبيه",
+      "حقل وصف المستثمر يجب الا يقل عن ١٠ ولا يتجاوز ٢٥٠ حرف",
+
+      [
+        {
+          text: " حسنًا",
+          onPress: () => console.log("yes Pressed"),
+          style: "cancel",
+        },
+      ]
+    );
+    return;
+  }
+  
+  UserInfoRef.update({
+    Describetion: NuserDecs,
+  }
+    );
+  
+  }
 
   Alert.alert("تنبيه ","تم تحديث البيانات بنجاح", [
     {
@@ -259,6 +252,8 @@ export default function profileInv({ navigation, route }) {
       style: "cancel",
     },
   ]);
+
+
 }
 
 
@@ -278,7 +273,9 @@ export default function profileInv({ navigation, route }) {
   <View style={styles.containers}>
       <UploadImage/>
     </View>
-
+    <TouchableOpacity style={styles.Button2} onPress={onSavePress}>
+          <Text style={styles.ButtonText2}>تحديث المعلومات الشخصية</Text>
+        </TouchableOpacity>
 
 
 {/*
@@ -289,17 +286,14 @@ export default function profileInv({ navigation, route }) {
 
 
   
-  <View>
-    
-     <View style={{marginTop:"23%"}} >
-<TouchableOpacity style={styles.Button2} onPress={onSavePress}>
-          <Text style={styles.ButtonText2}>تحديث المعلومات الشخصية</Text>
-        </TouchableOpacity>
+
+     <View style={{marginTop:"40%"}} >
+       
         </View>
-        </View>
+     
 
 
-<View style={{ padding: 50,marginTop:40}}>
+<View style={{ padding: 50,marginTop:-45}}>
 
 <FloatingLabelInput 
        label="الاسم"
@@ -330,8 +324,7 @@ export default function profileInv({ navigation, route }) {
        }}
        labelStyles={{
          backgroundColor: '#f2f2f2',
-         paddingHorizontal: 8,
-        marginLeft:230,
+        marginLeft:225,
         fontFamily: "AJannatLT",
        }}
        inputStyles={{
@@ -372,8 +365,7 @@ export default function profileInv({ navigation, route }) {
        }}
        labelStyles={{
          backgroundColor: '#f2f2f2',
-         paddingHorizontal: 5,
-        marginLeft:190,
+        marginLeft:180,
         fontFamily: "AJannatLT",
        }}
        inputStyles={{
@@ -419,8 +411,7 @@ export default function profileInv({ navigation, route }) {
        }}
        labelStyles={{
          backgroundColor: '#f2f2f2',
-         paddingHorizontal: 5,
-         marginLeft:215,
+         marginLeft:205,
         fontFamily: "AJannatLT",
        }}
        inputStyles={{
@@ -442,18 +433,20 @@ export default function profileInv({ navigation, route }) {
        label="وصف المستثمر"
        value={NuserDecs}
        hint={userDecr}
+       caretHidden={true}
        staticLabel
        hintTextColor={'black'}
        editable={true} 
-       selectTextOnFocus={true} 
-       onChangeText={(text) => setNuserDecs(text)}
   
+       onChangeText={(text) => setNuserDecs(text)}
+    
        multiline={true}
  
        containerStyles={{
          borderWidth: 0.76,
+         
          paddingHorizontal: 8,
-         bottom:-11,
+         bottom:-8,
          textAlign:"right",
          borderColor: 'gray',
          borderRadius: 8,
@@ -466,14 +459,16 @@ export default function profileInv({ navigation, route }) {
        }}
        labelStyles={{
          backgroundColor: '#f2f2f2',
-         paddingHorizontal: 5,
-         marginLeft:215,
+         paddingHorizontal: 0,
+         marginLeft:180,
         fontFamily: "AJannatLT",
        }}
        inputStyles={{
          color: 'black',
+         margin: 1,
          paddingHorizontal: 10,
-    bottom:35,
+    bottom:5,
+
          fontFamily: "AJannatLT",
          fontSize: 14,
       color: "#002B3E",
@@ -483,6 +478,7 @@ export default function profileInv({ navigation, route }) {
      />        
 
         </View>{/* fifth field*/}
+
 
 
         <TouchableOpacity style={styles.Button} onPress={onSignout}>
@@ -528,27 +524,30 @@ const styles = StyleSheet.create({
     marginTop: "60%",
   },
   Button: {
-    width: "100%",
+    width: "70%",
     color: "#002B3E",
-    height: 52,
+    height: 39,
     backgroundColor: "#fff",
     borderRadius: 10,
-    marginTop:70,
+    marginTop:20,
     justifyContent: "center",
     alignItems: "center",
+left:40,
+borderColor: "#CCCCCC",
+
   },
   Button2: {
-    width: "40%",
+    width: "42%",
     color: "#002B3E",
     height: 40,
     backgroundColor: "#CADAEA",
-    borderRadius: 10,
-
-right:50,
-
+    borderRadius: 20,
+right:45,
+top:200,
     justifyContent: "center",
     alignItems: "center",
         position: "absolute",
+
   },
   ButtonText: {
     fontFamily: "AJannatLT",
