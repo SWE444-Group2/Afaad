@@ -5,7 +5,9 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Alert
+  Alert,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
 import AfaadFirebase from "./firebaseConfig";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -261,9 +263,13 @@ export default function profileInv({ navigation, route }) {
 
 
   return (
-
     
-    <View style={{ height:"100%"}}>
+  <View style={{flex:1, paddingBottom:70}}>
+
+  <KeyboardAwareScrollView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+  <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+
+  <View>
       
     <View style={styles.SVG}>
   <SvgUri  source={require('../assets/images/shapes.svg')} /> 
@@ -482,19 +488,18 @@ export default function profileInv({ navigation, route }) {
         <TouchableOpacity style={styles.Button} onPress={onSignout}>
           <Text style={styles.ButtonText}>تسجيل الخروج</Text>
         </TouchableOpacity>
-        
-
-
-
   </View>
 
-     {NavigationBar({navigation, ScreenName:'profile'})}
-      <StatusBar style="auto" />
 
-    </View>//First View
+</View>
 
+</TouchableWithoutFeedback>
+</KeyboardAwareScrollView>
 
+{NavigationBar({navigation, ScreenName:'profile'})}
+<StatusBar style="auto" />
 
+</View>
   )};
 
 const styles = StyleSheet.create({
@@ -528,12 +533,9 @@ const styles = StyleSheet.create({
     height: 52,
     backgroundColor: "#fff",
     borderRadius: 10,
-    marginTop:420,
-left:50,
-
+    marginTop:70,
     justifyContent: "center",
     alignItems: "center",
-        position: "absolute",
   },
   Button2: {
     width: "40%",

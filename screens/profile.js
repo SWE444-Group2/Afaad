@@ -5,7 +5,9 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Alert
+  Alert,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
 import AfaadFirebase from "./firebaseConfig";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -260,15 +262,19 @@ export default function Profile({ navigation, route }) {
 
 
   return (
-
     
-    <View style={{ height:"100%"}}>
-      
-    <View style={styles.SVG}>
-  <SvgUri  source={require('../assets/images/shapes.svg')} /> 
-  </View>
+    <View style={{flex:1, paddingBottom:70}}>
 
-  <View style={styles.containers}>
+    <KeyboardAwareScrollView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+
+    <View>
+    
+    <View style={styles.SVG}>
+    <SvgUri source={require('../assets/images/shapes.svg')} /> 
+    </View>
+    
+    <View style={styles.containers}>
       <UploadImage/>
     </View>
 
@@ -479,16 +485,21 @@ export default function Profile({ navigation, route }) {
 </View>
   
 
-     {NavigationBar({navigation, ScreenName:'profile'})}
-      <StatusBar style="auto" />
+</View>
 
-    </View>//First View
+</TouchableWithoutFeedback>
+</KeyboardAwareScrollView>
 
-  )};
+{NavigationBar({navigation, ScreenName:'profile'})}
+<StatusBar style="auto" />
+
+</View>
+)};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
 
     // backgroundColor: '#002B3E',
   },
@@ -517,12 +528,9 @@ const styles = StyleSheet.create({
     height: 52,
     backgroundColor: "#fff",
     borderRadius: 10,
-    marginTop:370,
-left:50,
-
+    marginTop:70,
     justifyContent: "center",
     alignItems: "center",
-        position: "absolute",
   },
   Button2: {
     width: "40%",
