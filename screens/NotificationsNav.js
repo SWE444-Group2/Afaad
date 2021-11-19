@@ -59,6 +59,7 @@ export default function NotificationsNav({ navigation }) {
         setproductsList(productsList);}
       
         
+        global.counter = 0;
 
         const PendingProductList=[]
         for(let productID in productsList){
@@ -68,12 +69,14 @@ export default function NotificationsNav({ navigation }) {
             for(let i in inv){
               if(inv[i]==userID){
                  PendingProductList.push(productsList[productID])
+                 counter++;
                 }
           }
            
      }
           else if (userType === 'Entrepreneur' && productsList[productID].userID == userID && productsList[productID].InvestorsList!=null ) {
             PendingProductList.push(productsList[productID])
+            counter++;
           }
         }
 
@@ -84,7 +87,7 @@ export default function NotificationsNav({ navigation }) {
      });
 
 
-     console.log(PendingProductList)
+     console.log(counter)
      
      return()=>{
       isUnmounted=true;
@@ -106,16 +109,20 @@ export default function NotificationsNav({ navigation }) {
       <View style={styles.tasksWrapper}>
 
       <View>
+      {global.counter==0 &&<Text style={[Titlestyles.subTitle , {marginRight:'25%' , marginTop:'10%'} ]}> لا توجد إشعارات حاليا </Text>}
+
         <FlatList style={{height:'85%'}}
         data={PendingProductList}
         keyExtractor={(item, index)=>index.toString()}
         renderItem={({ item })=>(
           <TouchableOpacity >   
           
+          
         
           {userType== 'Entrepreneur' &&  (
           <TouchableOpacity   onPress={() => navigation.navigate('OffersList', {Product_id:item.productID, userType: userType, user_Name:userName})} >   
             <View style={styles.item}>   
+            
            {/*  <Button 
                 style={Titlestyles.DetailsBtn}
                 onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
@@ -154,6 +161,8 @@ export default function NotificationsNav({ navigation }) {
             
 
 
+                
+               
           
           </TouchableOpacity>
         )}
