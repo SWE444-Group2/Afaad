@@ -151,30 +151,23 @@ const IsValidEmail = (newmail) =>{
       );
       return;
     }
-    AfaadFirebase.auth().currentUser.updateEmail(NuserEmail)
-    .catch((error) => {
-switch (error.code) {
-  case "auth/email-already-in-use":
-    Alert.alert(
-      "تنبيه",
-      "البريد الألكتروني مسجل من قبل",
+    if (NuserEmail == userEmailInv) {
 
-
-      [
-        {
-          text: "حسناً",
-          onPress: () => console.log("yes Pressed"),
-          style: "cancel",
-        },
-      ]
-    );
-    break;
-
-
-}
-
-});
-
+      Alert.alert(
+        "تنبيه",
+        "البريد الألكتروني مسجل من قبل",
+        [
+          {
+            text: "حسناً",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]
+      );
+      return;
+     }
+    AfaadFirebase.auth().currentUser.updateEmail(NuserEmail);
+ 
 UserInfoRef.update({
   email: NuserEmail
 }
