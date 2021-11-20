@@ -35,8 +35,7 @@ export default function profileInv({ navigation, route }) {
   const [userFullName, setFullName] = useState("");
   const [userDecr, setuserDecr] = useState("");
 
-  const userType = route.params.userType;
-  const userID = route.params.userID;
+const userID = route.params.userID;
 
   
     const UserInfoRef = AfaadFirebase.database().ref("Investor/" + userID);
@@ -77,8 +76,16 @@ const IsValidEmail = (newmail) =>{
     return regex.test(NuserPhone);
   };
 
-  const onSavePress = () => {
 
+  const UpdateEmail = async() => { 
+
+
+  };
+
+
+  const onSavePress = ({route}) => {
+var flag = true;
+  
     const UserInfoRef = AfaadFirebase.database().ref(
       "Investor/" + userID);
         
@@ -155,7 +162,7 @@ const IsValidEmail = (newmail) =>{
 
       Alert.alert(
         "تنبيه",
-        "البريد الألكتروني مسجل من قبل",
+        "الرجاء ادخال بريد الكتروني مختلف ",
         [
           {
             text: "حسناً",
@@ -166,12 +173,50 @@ const IsValidEmail = (newmail) =>{
       );
       return;
      }
-    AfaadFirebase.auth().currentUser.updateEmail(NuserEmail);
- 
-UserInfoRef.update({
-  email: NuserEmail
-}
-  );
+
+    AfaadFirebase.auth().currentUser.updateEmail(NuserEmail).then(()=>{
+      console.log("the console reach here")
+      UserInfoRef.update({
+        email: NuserEmail})
+    })
+       
+        .catch((error) => {
+          switch (error.code) {
+            case "auth/invalid-email":
+              Alert.alert(
+                "تنبيه",
+                "الأيميل المدخل غير صالح",
+    
+                [
+                  {
+                    text: "حسناً",
+                  },
+                ]
+              );
+              break;
+           
+            case "auth/email-already-in-use":
+              Alert.alert(
+                "تنبيه",
+                "البريد الألكتروني مسجل من قبل",
+    
+      
+                [
+                  {
+                    text: "حسناً",
+                 
+                  },
+                ]
+              );
+              break;
+          
+      
+        }
+       
+        });
+
+
+
     
   }
 
@@ -237,14 +282,6 @@ UserInfoRef.update({
     );
   
   }
-
-  Alert.alert("تنبيه ","تم تحديث البيانات بنجاح", [
-    {
-      text: "حسنًا",
-      onPress: () => console.log("yes Pressed"),
-      style: "cancel",
-    },
-  ]);
 
 
 }

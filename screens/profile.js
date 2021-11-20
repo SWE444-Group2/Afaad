@@ -28,6 +28,9 @@ export default function Profile({ navigation, route }) {
   const [userFirstName, setFirstName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPhone, setUserPhone] = useState("");
+
+
+
   const [NewFirstName, setNewFirstName] = useState("");
   const [NewLastName, setNewLastName] = useState("");
   const [NuserEmail, setNUserEmail] = useState("");
@@ -65,6 +68,10 @@ export default function Profile({ navigation, route }) {
   const RegxOfNames = /^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z\s]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z-_]*$/;
   return RegxOfNames.test(NewName);
   };
+  const IsValidEmail = (newmail) =>{
+    let regOfEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    return regOfEmail.test(newmail);
+  }
 
   const IsValidPhone = (NuserPhone) => {
     const RegxPhone = /^[0-9]*$/;
@@ -80,51 +87,6 @@ export default function Profile({ navigation, route }) {
 
     const UserInfoRefEntr = AfaadFirebase.database().ref(
       "Entrepreneur/" + userID);
-
-      if(NuserEmail!=""){
-        UserInfoRefEntr.update({
-          email: NuserEmail
-        }
-          );
-        AfaadFirebase.auth().currentUser.updateEmail(NuserEmail)
-          .catch((error) => {
-      switch (error.code) {
-        case "auth/invalid-email":
-          Alert.alert(
-            "تنبيه",
-            "الأيميل المدخل غير صالح",
-
-            [
-              {
-                text: "حسناً",
-                onPress: () => console.log("yes Pressed"),
-                style: "cancel",
-              },
-            ]
-          );
-          break;
-       
-        case "auth/email-already-in-use":
-          Alert.alert(
-            "تنبيه",
-            "البريد الألكتروني مسجل من قبل",
-
-  
-            [
-              {
-                text: "حسناً",
-                onPress: () => console.log("yes Pressed"),
-                style: "cancel",
-              },
-            ]
-          );
-          break;
-      
-  
-    }
-   
-    });
-}
       
     if (
       NewFirstName == "" & //empty?
@@ -251,16 +213,84 @@ export default function Profile({ navigation, route }) {
   }
 
 
-  Alert.alert("تنبيه ","تم تحديث البيانات بنجاح", [
-    {
-      text: "حسنًا",
-      onPress: () => console.log("yes Pressed"),
-      style: "cancel",
-    },
-  ]);
+  if(NuserEmail!=""){
+
+    if (IsValidEmail(NuserEmail) == false) {
+      Alert.alert(
+        "تنبيه",
+        " الإيميل المدخل غير صحيح ",
+
+        [
+          {
+            text: "حسنًا",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]
+      );
+      return;
+    }
+  
+    if (NuserEmail == userEmail) {
+
+      Alert.alert(
+        "تنبيه",
+        "الرجاء ادخال بريد الكتروني مختلف ",
+        [
+          {
+            text: "حسناً",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]
+      );
+      return;
+     }
+
+    AfaadFirebase.auth().currentUser.updateEmail(NuserEmail).then(()=>{
+      console.log("the console reach here")
+      UserInfoRefEntr.update({
+        email: NuserEmail})
+    })
+       
+        .catch((error) => {
+          switch (error.code) {
+            case "auth/invalid-email":
+              Alert.alert(
+                "تنبيه",
+                "الأيميل المدخل غير صالح",
+    
+                [
+                  {
+                    text: "حسناً",
+                  },
+                ]
+              );
+              break;
+           
+            case "auth/email-already-in-use":
+              Alert.alert(
+                "تنبيه",
+                "البريد الألكتروني مسجل من قبل",
+    
+      
+                [
+                  {
+                    text: "حسناً",
+                 
+                  },
+                ]
+              );
+              break;
+          
+      
+        }
+       
+        });
+      }
+
+
 }
-
-
   return (
     
     <View style={{flex:1, paddingBottom:70}}>

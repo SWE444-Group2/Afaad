@@ -84,12 +84,12 @@ export default function UploadImage() {
 
   useEffect(() => {
     if (userType == "Investor") {
-      console.log("inside inv if use effect");
+ 
       global.DataRef = AfaadFirebase.database().ref("Investor/" + userID);
       DataRef.once("value").then(function (snapshot) {
         setImage(snapshot.child("pic").val());
       });
-      console.log("inside inv if use effect");
+   
     } else {
       global.DataRef = AfaadFirebase.database().ref("Entrepreneur/" + userID);
       console.log("inside ent if use effect");
