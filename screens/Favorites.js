@@ -39,8 +39,8 @@ export default function Favorites({ navigation , route}) {
          };
   
       }, [])
-      console.log(route.params.userType)
-    return (
+      
+      return (
   
       
       <View style={Titlestyles.container}>
@@ -64,11 +64,11 @@ export default function Favorites({ navigation , route}) {
           data={FavList}
           keyExtractor={(item, index)=>index.toString()}
           renderItem={({ item })=>(
-            <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.ideaID, userType: route.params.userType})}>   
+            <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.ideaID, userType: route.params.userType ,  user_Name:route.params.user_Name, investor_Email:route.params.investor_Email })}>   
             <View style={Titlestyles.item}>
             <Button 
                   style={Titlestyles.DetailsBtn}
-                  onPress={() => navigation.navigate('productIdea', {Product_id:item.ideaID, userType: route.params.userType})}
+                  onPress={() => navigation.navigate('productIdea', {Product_id:item.ideaID, userType: route.params.userType,  user_Name:route.params.user_Name, investor_Email:route.params.investor_Email  })}
                   title="عرض التفاصيل"
                   titleProps={{}}
                   //titleStyle={{ marginHorizontal: 1 }}

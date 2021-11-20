@@ -122,7 +122,7 @@ export default function Entrepreneur({ navigation }) {
       { userType== 'Investor' && 
         <TouchableOpacity >
         <Icon2
-                    onPress={() => navigation.navigate('Favorites', {userID: user.uid ,userType: userType })} 
+                    onPress={() => navigation.navigate('Favorites', {userID: user.uid , userType: userType , user_Name:userName, investor_Email:investorEmail })} 
                       name={"heart"}
                       size={32}
                       color="#cccccc"
