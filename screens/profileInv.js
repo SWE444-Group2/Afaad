@@ -303,9 +303,8 @@ var flag = true;
   <View style={styles.containers}>
       <UploadImage/>
     </View>
-    <TouchableOpacity style={styles.Button2} onPress={onSavePress}>
-          <Text style={styles.ButtonText2}>تحديث المعلومات الشخصية</Text>
-        </TouchableOpacity>
+    
+ 
 
 
 {/*
@@ -315,15 +314,17 @@ var flag = true;
  </TouchableOpacity>  */}
 
 
-  
+<View>
 
-     <View style={{marginTop:"40%"}} >
-       
+     <View style={{marginTop:"23%"}} >
+     <TouchableOpacity style={styles.Button2} onPress={onSavePress}>
+          <Text style={styles.ButtonText2}>تحديث المعلومات الشخصية</Text>
+        </TouchableOpacity>
         </View>
      
+</View>  
 
-
-<View style={{ padding: 50,marginTop:-45}}>
+<View style={{ padding: 50,marginTop:20}}>
 
 <FloatingLabelInput 
        label="الاسم"
@@ -573,7 +574,7 @@ borderColor: "#CCCCCC",
     backgroundColor: "#CADAEA",
     borderRadius: 20,
 right:45,
-top:200,
+top:15,
     justifyContent: "center",
     alignItems: "center",
         position: "absolute",
