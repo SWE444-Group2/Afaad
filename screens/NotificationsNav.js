@@ -69,6 +69,7 @@ export default function NotificationsNav({ navigation }) {
             for(let i in inv){
               if(inv[i]==userID){
                  PendingProductList.push(productsList[productID])
+                 if(productsList[productID].InvestorsList[userID].status!='Pending')
                  counter++;
                 }
           }
