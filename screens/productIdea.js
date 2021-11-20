@@ -223,6 +223,10 @@ FavoritesRef.once('value').then(function(snapshot){
               .then(function () {
                 global.Liked = true;
                 console.log("added favorite idea")
+                Alert.alert(
+                  "رائع!",
+                  "تم اضافة  الفكرة الى مُفضلتك بنجاح",[]
+                  );
               })
               .catch(function (error) {
                 console.log("favorite failed: " + error.message)
@@ -237,6 +241,10 @@ FavoritesRef.once('value').then(function(snapshot){
               .then(function () {
                 global.Liked = false;
                 console.log("unfavorite idea successful")
+                Alert.alert(
+                  "رائع!",
+                  "تم حذف  الفكرة من مُفضلتك بنجاح",[]
+                  );
               })
               .catch(function (error) {
                 console.log("favorite failed: " + error.message)
