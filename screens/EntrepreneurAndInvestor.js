@@ -111,10 +111,10 @@ export default function Entrepreneur({ navigation }) {
 
 
        { userType=='Entrepreneur'&&
-      <Text style={[Titlestyles.sectionTitle ,{marginTop:'5%' , right:'5%' , color:'white' , fontSize:30}] }> مرحبا، {userName}</Text>}
+      <Text style={[Titlestyles.sectionTitle ,{marginTop:'5%' , right:'5%' , color:'white' , fontSize:30}] }> مرحبا بك! {/*{userName}*/}</Text>}
       
         { userType=='Investor'&&
-      <Text style={[Titlestyles.sectionTitle ,{marginTop:'5%' , color:'white' , fontSize:30}] }> مرحبا، {userName}</Text>}
+      <Text style={[Titlestyles.sectionTitle ,{marginTop:'5%' , color:'white' , fontSize:30}] }> مرحبا بك! {/*{userName}*/}</Text>}
      
        <View style={Titlestyles.tasksWrapper}>
       <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:5 , marginTop:35}]}>عرض الافكار</Text>
