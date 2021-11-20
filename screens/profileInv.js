@@ -316,7 +316,7 @@ var flag = true;
 
 <View>
 
-     <View style={{marginTop:"23%"}} >
+     <View style={{paddingTop:"25%"}} >
      <TouchableOpacity style={styles.Button2} onPress={onSavePress}>
           <Text style={styles.ButtonText2}>تحديث المعلومات الشخصية</Text>
         </TouchableOpacity>
@@ -324,7 +324,7 @@ var flag = true;
      
 </View>  
 
-<View style={{ padding: 50,marginTop:20}}>
+<View style={{ paddingRight:50,paddingLeft:50,marginTop:60}}>
 
 <FloatingLabelInput 
        label="الاسم"
@@ -574,7 +574,7 @@ borderColor: "#CCCCCC",
     backgroundColor: "#CADAEA",
     borderRadius: 20,
 right:45,
-top:15,
+top:100,
     justifyContent: "center",
     alignItems: "center",
         position: "absolute",
