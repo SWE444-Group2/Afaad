@@ -161,6 +161,7 @@ export default function PublishIdea({ navigation }) {
         ProductDescription == "" ||
         investorsSpec == "" ||
         costEstimation == '' ||
+        donation==''||
         categoryValue == null
       ) {
         Alert.alert("تنبيه ", "جميع الحقول مطلوبة", [
