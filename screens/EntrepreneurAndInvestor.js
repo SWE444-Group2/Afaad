@@ -9,6 +9,7 @@ import 'firebase/auth';
 import Titlestyles from './TitleStyles';
 import SignOut from '../assets/images/SignOut.png';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon2 from 'react-native-vector-icons/FontAwesome';
 import PlusIcon from '../assets/images/plusIcon.png';
 import Background from '../assets/images/Background.jpg';
 import ClickedHomeIcon from '../assets/images/ClickedHomeIcon.png';
@@ -118,8 +119,15 @@ export default function Entrepreneur({ navigation }) {
        <View style={Titlestyles.tasksWrapper}>
       <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:5 , marginTop:35}]}>عرض الافكار</Text>
     
-     
-
+      { userType== 'Investor' && 
+        <TouchableOpacity >
+        <Icon2
+                    onPress={() => navigation.navigate('Favorites', {userID: user.uid ,userType: userType })} 
+                      name={"heart"}
+                      size={32}
+                      color="#cccccc"
+                      style={ {marginTop:-40, marginBottom:30 , textDecorationLine:'underline'}} />
+                         </TouchableOpacity>}
      
       <View style={Titlestyles.items}>
         <FlatList style={{height:'85%'}}
