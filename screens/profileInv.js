@@ -283,7 +283,18 @@ var flag = true;
   
   }
 
+  Alert.alert(
+    "رائع",
+    "تم تحديث بياناتك",
 
+    [
+      {
+        text: " حسنًا",
+        onPress: () => console.log("yes Pressed"),
+        style: "cancel",
+      },
+    ]
+  );
 }
 
 
