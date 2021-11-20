@@ -82,10 +82,7 @@ export default function Profile({ navigation, route }) {
       "Entrepreneur/" + userID);
 
       if(NuserEmail!=""){
-        UserInfoRefEntr.update({
-          email: NuserEmail
-        }
-          );
+      
         AfaadFirebase.auth().currentUser.updateEmail(NuserEmail)
           .catch((error) => {
       switch (error.code) {
@@ -124,6 +121,11 @@ export default function Profile({ navigation, route }) {
     }
    
     });
+
+    UserInfoRefEntr.update({
+      email: NuserEmail
+    }
+      );
 }
       
     if (
@@ -249,18 +251,7 @@ export default function Profile({ navigation, route }) {
   }
     );
   }
-
-
-  Alert.alert("تنبيه ","تم تحديث البيانات بنجاح", [
-    {
-      text: "حسنًا",
-      onPress: () => console.log("yes Pressed"),
-      style: "cancel",
-    },
-  ]);
 }
-
-
   return (
     
     <View style={{flex:1, paddingBottom:70}}>

@@ -65,7 +65,7 @@ const Notfication = async() => {
     alert('Must use physical device for Push Notifications');
   }  
 
-  console.log(finalStatus);
+
 
   if(finalStatus=='granted'){
      userToken.update({
