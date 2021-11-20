@@ -34,14 +34,7 @@ const Notfication = async() => {
   }
   
   
-  Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-    _displayInForeground: true
-  }),
-});
+ 
 //Asked for permitions
 // check if it is real device?
   let token;
@@ -97,6 +90,16 @@ const Notfication = async() => {
       lightColor: '#FF231F7C',
     });
   }
+
+
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+      _displayInForeground: true 
+    }),
+  });
   return true;
 }
 export {Notfication};

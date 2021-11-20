@@ -54,7 +54,7 @@ export default function InvestorRequest({navigation , route}) {
          sound: 'default',
          title:'تنبيه',
          body: 'يوجد لديك طلب استثمار جديد',
-         displayInForeground: true 
+         ios: {_displayInForeground: true }
 
 
        })
