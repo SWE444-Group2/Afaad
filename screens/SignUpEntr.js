@@ -111,8 +111,8 @@ export default function RegistrationScreen({ navigation }) {
       confirmPassword == "" ||
       FirstName == "" ||
       LastName == "" ||
-      phone == "" ||
-      gender == ""
+      phone == "" 
+      
     ) {
       Alert.alert("تنبيه ", "جميع الحقول مطلوبة لإستكمال التسجيل", [
         {
