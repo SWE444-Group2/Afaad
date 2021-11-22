@@ -52,7 +52,7 @@ export default function PublishIdea({ navigation }) {
     ]);
     const [ProductDescription, setProductDescription] = useState('');
     const [costEstimation, setCostEstimation] = useState('');
-    const [donation , setDonation]=useState('');
+    const [donation , setDonation]=useState(null);
     const radioButtonsData = [{
       id: '1', 
       label: '١ ألف - أقل من ١٠ آلاف',
@@ -161,7 +161,7 @@ export default function PublishIdea({ navigation }) {
         ProductDescription == "" ||
         investorsSpec == "" ||
         costEstimation == '' ||
-        donation==''||
+        donation== null ||
         categoryValue == null
       ) {
         Alert.alert("تنبيه ", "جميع الحقول مطلوبة", [

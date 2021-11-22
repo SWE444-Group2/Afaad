@@ -39,14 +39,14 @@ export default function SearchResult({ navigation , route}) {
             const categoryList=[]
             if ( route.params.searchKey !== undefined){
                 for(let productID in ResultList){
-                    if (ResultList[productID].Title == route.params.searchKey) {
+                    if (ResultList[productID].Title == route.params.searchKey && ResultList[productID].status == 'Accepted') {
                         categoryList.push(ResultList[productID])
                         counter++;
                     }
                   }
             }
             else {for(let productID in ResultList){
-            if (ResultList[productID].category == route.params.category.name) {
+            if (ResultList[productID].category == route.params.category.name && ResultList[productID].status == 'Accepted') {
                 categoryList.push(ResultList[productID])
                 counter++;
             }

@@ -19,6 +19,7 @@ import ProfileIcon from '../assets/images/ProfileIcon.png'
 import  {Notfication}  from './Notfication';
 import { ScrollView } from 'react-native-gesture-handler';
 import { NavigationBar } from './NavigationBar';
+import SvgUri from 'expo-svg-uri';
 import { color } from 'react-native-reanimated';
 
 let user = AfaadFirebase.auth().currentUser;
@@ -107,14 +108,16 @@ export default function Entrepreneur({ navigation }) {
 
       <View style={Titlestyles.container}>
 
-    <View style={{ flex: 1,width:'100%',height:'13%', opacity:1, position:'absolute' ,transform: [{ rotate: '180deg'}] , backgroundColor:'#7c98b3' , borderTopRightRadius:500}}/>
+<View style={styles.SVG}>
+      <SvgUri  source={require('../assets/images/Frame.svg')} /> 
+      </View>
 
 
        { userType=='Entrepreneur'&&
-      <Text style={[Titlestyles.sectionTitle ,{marginTop:'5%' , right:'5%' , color:'white' , fontSize:30}] }> مرحبا بك! {/*{userName}*/}</Text>}
+      <Text style={[Titlestyles.sectionTitle ,{marginTop:'10%' , right:'5%' , color:'white' , fontSize:40}] }> مرحبا بك! {/*{userName}*/}</Text>}
       
         { userType=='Investor'&&
-      <Text style={[Titlestyles.sectionTitle ,{marginTop:'5%' , color:'white' , fontSize:30}] }> مرحبا بك! {/*{userName}*/}</Text>}
+      <Text style={[Titlestyles.sectionTitle ,{marginTop:'10%' , color:'white' , fontSize:40}] }> مرحبا بك! {/*{userName}*/}</Text>}
      
        <View style={Titlestyles.tasksWrapper}>
       <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:5 , marginTop:35}]}>عرض الافكار</Text>
@@ -216,6 +219,13 @@ BottomBar:{
     width:'100%',
     backgroundColor:'#7c98b3'
 
-}
+},
+SVG:{
+  alignItems: "center",
+  position: 'absolute',
+  marginTop:-40,
+
+
+},
 
 });

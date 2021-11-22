@@ -78,8 +78,7 @@ export default function UploadImage() {
     DataRef.update({
       pic: downloadURL,
     });
-    setImage(DataRef.pic.val);
-    console.log(image);
+   
   };
 
   useEffect(() => {

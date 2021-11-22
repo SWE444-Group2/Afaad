@@ -131,7 +131,7 @@ export default function NotificationsNav({ navigation }) {
                 titleProps={{}}
                 //titleStyle={{ marginHorizontal: 1 }}
                 color='#247ba0'/>  */}  
-            <Text style={[Titlestyles.subTitle , Titlestyles.DescText , {fontSize:16}]}>يوجد لديك طلب استثمار جديد في
+            <Text style={[Titlestyles.subTitle , Titlestyles.DescText , {fontSize:16 , width:'75%'}]}>يوجد لديك طلب استثمار جديد في
             <Text style={{color:'#247ba0'}}> {item.Title}</Text></Text>
              <Icon name="checkbox-blank-circle-outline"  size={20} color={"#022B3A"} style={{marginRight:20}}
              />
@@ -148,12 +148,12 @@ export default function NotificationsNav({ navigation }) {
                 titleStyle={{ fontSize: 1 }}
              color='#247ba0'/> */}
                 {item.InvestorsList[userID].status=='Accepted'&&
-                <Text style={[Titlestyles.subTitle , Titlestyles.DescText ,{fontSize:16 }]}>تم قبول طلب اسثمارك في
+                <Text style={[Titlestyles.subTitle , Titlestyles.DescText ,{fontSize:16 , width:'75%'}]}>تم قبول طلب اسثمارك في
                   <Text style={{color:'#247ba0'}}> {item.Title}</Text>
                </Text> }
 
                {item.InvestorsList[userID].status=='Rejected'&&
-                <Text style={[Titlestyles.subTitle , Titlestyles.DescText ,{fontSize:16 }]}>تم رفض طلب اسثمارك في
+                <Text style={[Titlestyles.subTitle , Titlestyles.DescText ,{fontSize:16 , width:'75%'}]}>تم رفض طلب اسثمارك في
                   <Text style={{color:'#247ba0'}}> {item.Title}</Text>
                </Text> }
             <Icon name='checkbox-blank-circle-outline' size={20} color='#6A687A' style={{marginRight:20}}/> 
@@ -221,6 +221,7 @@ item:{
 SVG:{
   alignItems: "center",
   position: 'absolute',
+  marginTop:-40
 
 },
 title: {

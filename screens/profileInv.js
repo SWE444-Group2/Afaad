@@ -36,6 +36,8 @@ export default function profileInv({ navigation, route }) {
   const [userDecr, setuserDecr] = useState("");
 
 const userID = route.params.userID;
+const userType = route.params.userType;
+
 
   
     const UserInfoRef = AfaadFirebase.database().ref("Investor/" + userID);
@@ -137,7 +139,8 @@ var flag = true;
     UserInfoRef.update({
       FullName: NewFirstName,
     }
-      );
+      ).then(() => navigation.navigate('profileInv',{userType: userType,userID:userID}))
+
 
   }
 
@@ -178,7 +181,7 @@ var flag = true;
       console.log("the console reach here")
       UserInfoRef.update({
         email: NuserEmail})
-    })
+    }).then(() => navigation.navigate('profileInv',{userType: userType,userID:userID}))
        
         .catch((error) => {
           switch (error.code) {
@@ -256,7 +259,7 @@ var flag = true;
   UserInfoRef.update({
     phone: NuserPhone,
   }
-    );
+    ).then(() => navigation.navigate('profileInv',{userType: userType,userID:userID}))
   }
 
   if(NuserDecs!=""){  

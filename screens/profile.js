@@ -136,7 +136,7 @@ export default function Profile({ navigation, route }) {
     UserInfoRefEntr.update({
       FirstName: NewFirstName,
     }
-      );
+      ).then(() => navigation.navigate('profile',{userType: userType,userID:userID}));
 
   }
     if(NewLastName!=""){
@@ -168,7 +168,7 @@ export default function Profile({ navigation, route }) {
     UserInfoRefEntr.update({
       Lastname: NewLastName,
     }
-      );
+      ).then(() => navigation.navigate('profile',{userType: userType,userID:userID}));
 
   }
 
@@ -209,7 +209,7 @@ export default function Profile({ navigation, route }) {
   UserInfoRefEntr.update({
     phone: NuserPhone,
   }
-    );
+    ).then(() => navigation.navigate('profile',{userType: userType,userID:userID}));
   }
 
 
@@ -250,7 +250,7 @@ export default function Profile({ navigation, route }) {
     AfaadFirebase.auth().currentUser.updateEmail(NuserEmail).then(()=>{
       console.log("the console reach here")
       UserInfoRefEntr.update({
-        email: NuserEmail})
+        email: NuserEmail}).then(() => navigation.navigate('profile',{userType: userType,userID:userID}))
     })
        
         .catch((error) => {
@@ -288,7 +288,18 @@ export default function Profile({ navigation, route }) {
        
         });
       }
-
+      Alert.alert(
+        "رائع",
+        "تم تحديث بياناتك",
+    
+        [
+          {
+            text: " حسنًا",
+            onPress: () => console.log("yes Pressed"),
+            style: "cancel",
+          },
+        ]
+      );
 
 }
   return (

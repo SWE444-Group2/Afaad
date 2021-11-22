@@ -255,6 +255,8 @@ const styles = StyleSheet.create({
   SVG:{
     alignItems: "center",
     position: 'absolute',
+    marginTop:-40
+
     
   
   },
@@ -264,7 +266,7 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
     textAlign: 'right',
     color:'white' ,
-    paddingTop: 55,
+    paddingTop: 40,
     paddingRight:20,
   },
 
