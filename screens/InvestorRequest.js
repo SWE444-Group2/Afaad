@@ -156,7 +156,7 @@ export default function InvestorRequest({navigation , route}) {
               *جميـع الحقول مطلوبـــة
             </Text>
 
-            <Text style={styles.labelText}>مبلغ الاستثمار المقترح(بالريال)<Text style={styles.warning}>*</Text></Text>
+            <Text style={styles.labelText}>مبلغ الاستثمار المقترح(بالريال السعودي)<Text style={styles.warning}>*</Text></Text>
             <TextInput
               style={styles.input}
               onChangeText={(text) => setSuggested(text)}

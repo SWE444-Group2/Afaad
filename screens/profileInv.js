@@ -20,7 +20,6 @@ import UploadImage from "./UploadImage";
 import { FloatingLabelInput } from 'react-native-floating-label-input';
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
-import { getAuth, updateEmail,reauthenticateWithCredential } from "firebase/auth";
 
 
 export default function profileInv({ navigation, route }) {

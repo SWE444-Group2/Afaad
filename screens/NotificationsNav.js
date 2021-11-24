@@ -1,5 +1,5 @@
 
-import React ,{useEffect , useState , setState} from 'react';
+import React ,{useEffect , useState } from 'react';
 import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image} from 'react-native';
 //import styles from './styles';
 import { StatusBar } from 'expo-status-bar';
@@ -8,8 +8,6 @@ import Titlestyles from './TitleStyles';
 import AfaadFirebase from './firebaseConfig';
 import { NavigationBar } from './NavigationBar';
 import SvgUri from "expo-svg-uri";
-import { mdiBorderColor } from '@mdi/js';
-
 
 
 let user = AfaadFirebase.auth().currentUser;

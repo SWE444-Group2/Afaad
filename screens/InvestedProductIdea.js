@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image } from 'react-native';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button } from 'react-native';
 //import styles from './styles';
 import { StatusBar } from 'expo-status-bar';
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Titlestyles from './TitleStyles';
 import AfaadFirebase from './firebaseConfig';
 import { NavigationBar } from './NavigationBar';

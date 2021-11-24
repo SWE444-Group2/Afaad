@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Text, View, StyleSheet ,Image,TouchableOpacity  } from 'react-native';
-import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
-import { Button, Icon } from 'react-native-elements';
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
 import TitleStyles from './TitleStyles';

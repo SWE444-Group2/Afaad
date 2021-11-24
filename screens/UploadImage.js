@@ -12,7 +12,6 @@ import * as ImagePicker from "expo-image-picker";
 import AfaadFirebase from "./firebaseConfig";
 import "firebase/auth";
 import "firebase/database";
-import DropDownPicker from "react-native-dropdown-picker";
 
 export default function UploadImage() {
   let user = AfaadFirebase.auth().currentUser;

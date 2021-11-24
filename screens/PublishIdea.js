@@ -2,19 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useState } from 'react';
 import { StyleSheet, TextInput, Text, Keyboard, TouchableWithoutFeedback, ScrollView, Alert, View,TouchableOpacity, Platform} from 'react-native';
-import { Button, normalize } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import DropDownPicker from 'react-native-dropdown-picker';
 import RadioGroup from 'react-native-radio-buttons-group';
-
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import * as DocumentPicker from 'expo-document-picker';
-import * as FileSystem from 'expo-file-system';
-import * as ImagePicker from 'expo-image-picker';
-import { mdiSignatureImage } from '@mdi/js';
-import { getStorage, ref, uploadBytes } from "firebase/storage";
 import SvgUri from "expo-svg-uri";
 //import storage from '@react-native-firebase/storage';
 //import storage from '@react-native-firebase/storage';

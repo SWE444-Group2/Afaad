@@ -1,9 +1,8 @@
-import React ,{useEffect , useState , setState} from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image,Modal,Alert,TextInput} from 'react-native';
+import React ,{ useState } from 'react';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity,TextInput} from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 import Titlestyles from './TitleStyles';
-import { ScrollView } from 'react-native-gesture-handler';
 import { NavigationBar } from './NavigationBar';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import SvgUri from "expo-svg-uri";
