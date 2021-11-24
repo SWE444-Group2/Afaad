@@ -9,15 +9,12 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   Alert,
-  ScrollView,
   Image,
   TouchableOpacity,
 } from "react-native";
-import { Button } from "react-native-elements";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import AfaadFirebase from "./firebaseConfig";
 import "firebase/auth";
-import TitleStyles from "./TitleStyles";
 import TextLogo from "../assets/images/AfaadLogo.jpeg";
 
 const auth = AfaadFirebase.auth();

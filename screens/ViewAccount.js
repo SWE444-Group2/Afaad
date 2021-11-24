@@ -1,11 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState ,useEffect , setState } from 'react';
-import { StyleSheet, Text, View, Button,TouchableOpacity, FlatList ,Image} from 'react-native';
+import { Text, View, Button,TouchableOpacity, FlatList ,Image} from 'react-native';
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
 //import { Item } from 'react-native-paper/lib/typescript/components/List/List';
 import Titlestyles from './TitleStyles';
-import { color } from 'react-native-reanimated';
 import Background from '../assets/images/Background.jpg';
 export default function ViewAccount({ navigation }) {
 

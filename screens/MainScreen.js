@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { Text, View, StyleSheet,Image,TouchableOpacity} from 'react-native';
-import { Button, Icon } from 'react-native-elements';
 //import styles from './styles';
 //import Titlestyles from './TitleStyles';
 import AfaadLogo from '../assets/images/LOGO.jpeg';

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View ,TouchableOpacity , Alert , Image } from 'react-native';
+import { Text, View ,TouchableOpacity , Alert , Image } from 'react-native';
 import AfaadFirebase from "./firebaseConfig";
 import TitleStyles from './TitleStyles';
 import AfaadLogo from '../assets/images/LOGO.jpeg';

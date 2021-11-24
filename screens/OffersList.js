@@ -1,22 +1,13 @@
 
-import Constants from 'expo-constants';
-import ViewIdea from './ViewIdea';
 import { StatusBar } from 'expo-status-bar';
-import React ,{useEffect , useState , setState} from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image,Modal,Alert,TextArea} from 'react-native';
+import React ,{useEffect , useState} from 'react';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image,Modal,Alert} from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 import Titlestyles from './TitleStyles';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import PlusIcon from '../assets/images/plusIcon.png';
 import Background from '../assets/images/Background.jpg';
-import ClickedHomeIcon from '../assets/images/ClickedHomeIcon.png';
-import SearchIcon from '../assets/images/SearchIcon.png';
-import NotificationIcon from '../assets/images/NotificationIcon.png'
-import ProfileIcon from '../assets/images/ProfileIcon.png'
-import { ScrollView } from 'react-native-gesture-handler';
 import InvestorLogo from '../assets/images/business-and-finance.png';
-import { NavigationBar } from './NavigationBar';
 import { Linking } from 'react-native'
 //import * as MailComposer from 'expo-mail-composer';
 
@@ -150,7 +141,7 @@ export default function OffersList({ navigation, route }) {
             //getInvestorToken(investorID,"Accepted")
              Alert.alert(
               "تنبيه!",
-              "هل أنت متأكد من قبول عرض المستمثر ؟",
+              "هل أنت متأكد من قبول عرض المستثمر ؟",
               [
                 { text: "إلغاء"},
               
@@ -173,7 +164,7 @@ export default function OffersList({ navigation, route }) {
         const RejectIdea=()=>{
             Alert.alert(
                 "تنبيه!",
-                "هل أنت متأكد من رفض عرض المستمثر ؟",
+                "هل أنت متأكد من رفض عرض المستثمر ؟",
                 [
                   { text: "إلغاء"},
                   {

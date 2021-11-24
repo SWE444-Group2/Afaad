@@ -1,12 +1,12 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Keyboard, TouchableWithoutFeedback, Alert, ScrollView ,Image,TouchableOpacity} from 'react-native';
-import { Button } from 'react-native-elements';
+import { StyleSheet, Text, TextInput, View, Keyboard, TouchableWithoutFeedback, Alert,Image,TouchableOpacity} from 'react-native';
+
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
-import TitleStyles from './TitleStyles';
+
 import TextLogo from '../assets/images/AfaadLogo.jpeg';
 
 

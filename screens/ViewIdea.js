@@ -7,8 +7,6 @@ import Titlestyles from './TitleStyles';
 import SignOut from '../assets/images/SignOut.png';
 import PlusIcon from '../assets/images/plusIcon.png';
 import Background from '../assets/images/Background.jpg';
-import { ScrollView } from 'react-native-gesture-handler';
-
 
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();

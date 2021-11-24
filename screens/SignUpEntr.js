@@ -6,8 +6,6 @@ import {
   TouchableOpacity,
   View,
   Alert,
-  Button,
-  Image,
   StyleSheet,
   ScrollView
 } from "react-native";
@@ -23,12 +21,10 @@ import "firebase/database";
 import DropDownPicker from "react-native-dropdown-picker";
 const auth = AfaadFirebase.auth();
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import alert from '../assets/images/alert.png';
 
 //fix VirtualizedLists should never be nested inside plain ScrollViews warnning
 DropDownPicker.setListMode("SCROLLVIEW");
 
-import RadioGroup from "react-native-radio-buttons-group";
 
 /*
 const radioButtonsData = [{

@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
   Text,
@@ -7,7 +6,6 @@ import {
   View,
   Alert,
   StyleSheet,
-  Image,
   ScrollView
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -18,7 +16,6 @@ import "firebase/auth";
 import "firebase/database";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import TipProvider from "react-native-tip";
-import TextLogo from '../assets/images/AfaadLogo.jpeg';
 
 import { Tip } from "react-native-tip";
 //Refrence to Investor object in DB

@@ -1,5 +1,5 @@
 
-import React ,{useEffect , useState , setState} from 'react';
+import React ,{useEffect , useState } from 'react';
 import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image} from 'react-native';
 //import styles from './styles';
 import { StatusBar } from 'expo-status-bar';
@@ -8,8 +8,6 @@ import Titlestyles from './TitleStyles';
 import AfaadFirebase from './firebaseConfig';
 import { NavigationBar } from './NavigationBar';
 import SvgUri from "expo-svg-uri";
-import { mdiBorderColor } from '@mdi/js';
-
 
 
 let user = AfaadFirebase.auth().currentUser;
@@ -133,7 +131,7 @@ export default function NotificationsNav({ navigation }) {
                 color='#247ba0'/>  */}  
             <Text style={[Titlestyles.subTitle , Titlestyles.DescText , {fontSize:16 , width:'75%'}]}>يوجد لديك طلب استثمار جديد في
             <Text style={{color:'#247ba0'}}> {item.Title}</Text></Text>
-             <Icon name="checkbox-blank-circle-outline"  size={20} color={"#022B3A"} style={{marginRight:20}}
+             <Icon name="checkbox-blank-circle"  size={15} color={"#022B3A"} style={{marginRight:20}}
              />
              </View> 
              </TouchableOpacity>)}
@@ -156,7 +154,7 @@ export default function NotificationsNav({ navigation }) {
                 <Text style={[Titlestyles.subTitle , Titlestyles.DescText ,{fontSize:16 , width:'75%'}]}>تم رفض طلب اسثمارك في
                   <Text style={{color:'#247ba0'}}> {item.Title}</Text>
                </Text> }
-            <Icon name='checkbox-blank-circle-outline' size={20} color='#6A687A' style={{marginRight:20}}/> 
+            <Icon name='checkbox-blank-circle' size={15} color='#6A687A' style={{marginRight:20}}/> 
              </View> 
              </TouchableOpacity>)}
             

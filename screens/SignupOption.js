@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Text, View, StyleSheet,Image,TouchableOpacity} from 'react-native';
-import { Button, Icon } from 'react-native-elements';
 //import styles from './styles';
 import InvestorLogo from '../assets/images/investorr.png';
 import EntrLogo from '../assets/images/Entr.png';

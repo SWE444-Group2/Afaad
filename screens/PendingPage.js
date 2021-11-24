@@ -1,6 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React ,{useEffect , useState , setState} from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image , Icon } from 'react-native';
+import { StyleSheet, Text, View , TouchableOpacity , Image } from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 import Titlestyles from './TitleStyles';

@@ -1,11 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import React ,{useEffect , useState , setState} from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image } from 'react-native';
+import React ,{useEffect , useState} from 'react';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button} from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 import Titlestyles from './TitleStyles';
 import SvgUri from "expo-svg-uri";
-import { ScrollView } from 'react-native-gesture-handler';
 
 
 let user = AfaadFirebase.auth().currentUser;

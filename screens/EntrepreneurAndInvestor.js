@@ -1,26 +1,14 @@
 
-import Constants from 'expo-constants';
-import ViewIdea from './ViewIdea';
 import { StatusBar } from 'expo-status-bar';
-import React ,{useEffect , useState , setState} from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image } from 'react-native';
+import React ,{useEffect , useState} from 'react';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button } from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 import Titlestyles from './TitleStyles';
-import SignOut from '../assets/images/SignOut.png';
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon2 from 'react-native-vector-icons/FontAwesome';
-import PlusIcon from '../assets/images/plusIcon.png';
-import Background from '../assets/images/Background.jpg';
-import ClickedHomeIcon from '../assets/images/ClickedHomeIcon.png';
-import SearchIcon from '../assets/images/SearchIcon.png';
-import NotificationIcon from '../assets/images/NotificationIcon.png'
-import ProfileIcon from '../assets/images/ProfileIcon.png'
 import  {Notfication}  from './Notfication';
-import { ScrollView } from 'react-native-gesture-handler';
 import { NavigationBar } from './NavigationBar';
 import SvgUri from 'expo-svg-uri';
-import { color } from 'react-native-reanimated';
 
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();

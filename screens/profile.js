@@ -20,8 +20,6 @@ import UploadImage from "./UploadImage";
 import { FloatingLabelInput } from 'react-native-floating-label-input';
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
-import { getAuth, updateEmail,reauthenticateWithCredential } from "firebase/auth";
-import DropDownPicker from "react-native-dropdown-picker";
 
 export default function Profile({ navigation, route }) {
   const [userLastName, setLastName] = useState("");
