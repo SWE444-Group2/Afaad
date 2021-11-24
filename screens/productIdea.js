@@ -1,7 +1,7 @@
 
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View , Button , TouchableOpacity , Alert ,Image, Modal } from 'react-native';
+import { StyleSheet, Text, View , Button , TouchableOpacity , Alert ,Image, Modal ,TextInput} from 'react-native';
 import TitleStyles from './TitleStyles';
 import AfaadLogo from '../assets/images/LOGO.jpeg';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -30,6 +30,9 @@ export default function productIdea({navigation , route}) {
     const [investorsSpec, setinvestorsSpec] = useState('');
     const[Donation , setDonation]=useState('');
     const [modalVisible, setModalVisible] = useState(false);
+     //Create model for pop up window to specify the rejection reason
+    const [modalVisible2, setModalVisible2] = useState(false);
+
     const [paymentModalVisible, setPaymentModalVisible] = useState(false);
     const [userInfo , setUserInfo]= useState('');
     const [userName , setUserName]=useState('');
@@ -159,10 +162,11 @@ export default function productIdea({navigation , route}) {
               {
                 text: "نعم", onPress: () => { 
                     productIdeaRef.update({status : 'Rejected' } )
-                    Alert.alert(
+                   /* Alert.alert(
                         "رائع!",
                         "تم رفض الفكرة بنجاح",[{text: "العودة لقائمه الافكار" ,onPress: () => {navigation.navigate('ViewIdea')}}]
-                        );                         }
+                   );  */
+                setModalVisible2(true)  }
               },
               { text: "إلغاء"}
             ]
@@ -278,6 +282,44 @@ FavoritesRef.once('value').then(function(snapshot){
               </View>
               </View>
             </Modal>
+
+            {/*Model 2 */}
+
+            <Modal
+              animationType="fade"
+              transparent={true}
+              visible={modalVisible2}
+            >
+              <View style={{backgroundColor:'rgba(52, 52, 52, 0.5)', height: '100%'}}>
+              <View style={styles.modalContent}>
+                <Icon
+                  name="close"
+                  size={30}
+                  style={{marginBottom:30, width: 30}}
+                  onPress={() => setModalVisible2(!modalVisible2)} />
+                <Text style={[TitleStyles.subTitle]}>ادخل سبب رفضك  لفكرة رائد الأعمال </Text>
+                <Text style={[TitleStyles.subTitle]}>سيتم ارسال سبب الرفض لصاحب الفكره ليتم تعديلها</Text>
+
+               <TextInput
+                style={styles.TextInputDoc}
+                placeholder="سبب رفضك لفكره رائد الأعمال"
+                placeholderTextColor={"gray"} 
+
+                //onChangeText={(text) => setDescribtion(text)}
+                //value={Describtion}
+                underlineColorAndroid="transparent"
+                autoCapitalize="none"
+                color="black"
+              />
+                <TouchableOpacity
+                  style={styles.investButton}
+                  onPress={{}}>
+                  <Text style={[TitleStyles.subTitle, { color: 'white', fontSize: 20 }]}>ارسال سبب الرفض</Text>
+                </TouchableOpacity>
+              </View>
+              </View>
+            </Modal>
+
             <Image source={AfaadLogo} style={{ width: 150, height: 150 }}/>
            <Text style={[TitleStyles.ProjectName ]}>{Title}</Text> 
               <View style={[TitleStyles.square ,
@@ -557,6 +599,25 @@ const styles = StyleSheet.create({
     width: 213,
     textAlign:'center',
     height: 40,
-  }
+  },
+  
+  TextInputDoc:{
+    height: 130,
+    overflow: "hidden",
+    marginLeft: 20,
+    marginRight: 30,
+    paddingRight: 10,
+    paddingBottom:90, 
+    width:'90%',
+    borderWidth:1,
+    borderColor:"gray",
+    borderRadius:10,
+    fontFamily: 'AJannatLT',
+    fontSize:14,
+    textAlign: 'right',
+    paddingRight:5,
+    marginTop:20,
+    color:"#fff",
+   },
 
 });
