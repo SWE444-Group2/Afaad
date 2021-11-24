@@ -280,7 +280,47 @@ FavoritesRef.once('value').then(function(snapshot){
             </Modal>
             <Image source={AfaadLogo} style={{ width: 150, height: 150 }}/>
            <Text style={[TitleStyles.ProjectName ]}>{Title}</Text> 
-              <View style={TitleStyles.square}>
+              <View style={[TitleStyles.square ,
+              userType=='Entrepreneur' ? {borderWidth:1 , borderColor:status=='مقبول' ? 
+                                //Accepted
+                               '#87c38f' : 
+                               status=='مرفوض' ? 
+                                //Rejected
+                                '#c75146':
+                                //Pending
+                                '#7c98b3' }:
+                                {borderWidth:0}
+
+                                 ]}>
+
+              { userType== 'Entrepreneur' &&
+                         <Text style={{     
+                                backgroundColor: status=='مقبول' ? 
+                                //Accepted
+                               '#87c38f' : 
+                               status=='مرفوض' ? 
+                                 //Rejected
+                                   '#c75146':
+                                 //Pending
+                                 '#7c98b3' ,   
+                                color:'white',
+                                textAlign:'center',
+                                width:80,
+                                overflow:'hidden',
+                                fontFamily: 'AJannatLT',
+                                borderRadius:5
+                                            } }>  
+                              {  
+                              status=='مقبول' ? 
+                                'مقبول': 
+                                status=='مرفوض' ? 
+                                'مرفوض' :
+                                'قيد المراجعة' 
+                                   } 
+                              </Text>
+                      }
+
+             
 
 
               { userType== 'Investor' && 
@@ -332,15 +372,6 @@ FavoritesRef.once('value').then(function(snapshot){
                     <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:'50%'}}/>
                     <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{investorsSpec}</Text>
                     
-                    { userType== 'Entrepreneur' &&
-                    <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>حالة المشروع</Text> 
-                    }
-                    { userType== 'Entrepreneur' &&
-                     <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:'50%'}}/>
-                    }
-                    { userType== 'Entrepreneur' &&
-                     <Text style={[TitleStyles.subTitle , TitleStyles.DescText]}>{status}</Text> }
-
                       { userType== 'Investor' &&
                      <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}> للتواصل مع رائد الاعمال</Text> } 
 
