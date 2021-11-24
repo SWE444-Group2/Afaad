@@ -6,7 +6,7 @@ import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
 import { Button } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view' ;
-
+import SvgUri from 'expo-svg-uri';
 
 
 
@@ -141,19 +141,22 @@ export default function InvestorRequest({navigation , route}) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView contentContainerStyle={styles.inner}>
 
-            <View style={{backgroundColor:"#7C98B3", height: 200, borderBottomStartRadius: 20,borderBottomEndRadius: 20}}>
+
+          <View style={styles.SVG}>
+      <SvgUri  source={require('../assets/images/Frame.svg')} /> 
+      </View>
             <Text style={styles.title}>
               طلب الاستثمار
             </Text>
-            </View>
+      
             
-            <View style={{backgroundColor:"white", padding: 24}}>
+            <View style={{backgroundColor:"white", padding: 24,marginTop:"10%"}}>
 
             <Text style={styles.warning}>
               *جميـع الحقول مطلوبـــة
             </Text>
 
-            <Text style={styles.labelText}>مبلغ الاستثمار المقترح<Text style={styles.warning}>*</Text></Text>
+            <Text style={styles.labelText}>مبلغ الاستثمار المقترح(بالريال)<Text style={styles.warning}>*</Text></Text>
             <TextInput
               style={styles.input}
               onChangeText={(text) => setSuggested(text)}
@@ -247,8 +250,15 @@ const styles = StyleSheet.create({
       fontWeight:'bold',
       textAlign: 'right',
       color:'white' ,
-      paddingTop: 55,
+      paddingTop: 60,
       paddingRight:20,
+    },
+    SVG:{
+      alignItems: "center",
+      position: 'absolute',
+  
+    
+    
     },
     
   });

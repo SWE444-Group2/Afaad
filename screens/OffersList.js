@@ -150,7 +150,7 @@ export default function OffersList({ navigation, route }) {
             //getInvestorToken(investorID,"Accepted")
              Alert.alert(
               "تنبيه!",
-              "هل أنت متأكد من قبول عرض المستمثر ؟",
+              "هل أنت متأكد من قبول عرض المستثمر ؟",
               [
                 { text: "إلغاء"},
               
@@ -173,7 +173,7 @@ export default function OffersList({ navigation, route }) {
         const RejectIdea=()=>{
             Alert.alert(
                 "تنبيه!",
-                "هل أنت متأكد من رفض عرض المستمثر ؟",
+                "هل أنت متأكد من رفض عرض المستثمر ؟",
                 [
                   { text: "إلغاء"},
                   {
