@@ -73,7 +73,8 @@ export default function NotificationsNav({ navigation }) {
           }
            
      }
-          else if (userType === 'Entrepreneur' && productsList[productID].userID == userID && productsList[productID].InvestorsList!=null ) {
+          else if (userType === 'Entrepreneur' && productsList[productID].userID == userID && productsList[productID].status != 'Pending'  ) {
+           
             PendingProductList.push(productsList[productID])
             counter++;
           }
@@ -118,41 +119,52 @@ export default function NotificationsNav({ navigation }) {
           
           
         
-          {userType== 'Entrepreneur' &&  (
-          <TouchableOpacity   onPress={() => navigation.navigate('OffersList', {Product_id:item.productID, userType: userType, user_Name:userName})} >   
+          {userType== 'Entrepreneur' &&  
+          <TouchableOpacity >   
+           {item.InvestorsList!=null &&
+           <TouchableOpacity onPress={() => navigation.navigate('OffersList', {Product_id:item.productID, userType: userType, user_Name:userName})}>
             <View style={styles.item}>   
-            
-           {/*  <Button 
-                style={Titlestyles.DetailsBtn}
-                onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
-                title="عرض التفاصيل"
-                titleProps={{}}
-                //titleStyle={{ marginHorizontal: 1 }}
-                color='#247ba0'/>  */}  
             <Text style={[Titlestyles.subTitle , Titlestyles.DescText , {fontSize:16 , width:'75%'}]}>يوجد لديك طلب استثمار جديد في
             <Text style={{color:'#247ba0'}}> {item.Title}</Text></Text>
              <Icon name="checkbox-blank-circle"  size={15} color={"#022B3A"} style={{marginRight:20}}
              />
              </View> 
-             </TouchableOpacity>)}
+             </TouchableOpacity>}
+
+             {item.status=='Rejected' &&
+            <View style={styles.item}>   
+            <Text style={[Titlestyles.subTitle , Titlestyles.DescText , {fontSize:16 , width:'75%'}]}>تم رفض فكرة مشروعك  
+            <Text style={{color:'#247ba0'}}> {item.Title}</Text></Text>
+             <Icon name="checkbox-blank-circle"  size={15} color={"#022B3A"} style={{marginRight:20}}
+             />
+             </View> }     
+
+             {item.status=='Accepted' &&
+             <TouchableOpacity>
+            <View style={styles.item}>   
+            <Text style={[Titlestyles.subTitle , Titlestyles.DescText , {fontSize:16 , width:'75%'}]}>تم قبول فكرة مشروعك  
+            <Text style={{color:'#247ba0'}}> {item.Title}</Text></Text>
+             <Icon name="checkbox-blank-circle"  size={15} color={"#022B3A"} style={{marginRight:20}}
+             />
+             </View>
+             </TouchableOpacity> }
+             
+             </TouchableOpacity>
+             
+             }
 
              {userType== 'Investor'  && item.InvestorsList[userID].status!='Pending'&&(
                <TouchableOpacity   onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})} >  
             <View style={styles.item}  >
-             {/* <Button 
-                onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
-                title="عرض التفاصيل"
-                titleProps={{}}
-                titleStyle={{ fontSize: 1 }}
-             color='#247ba0'/> */}
+            
                 {item.InvestorsList[userID].status=='Accepted'&&
                 <Text style={[Titlestyles.subTitle , Titlestyles.DescText ,{fontSize:16 , width:'75%'}]}>تم قبول طلب اسثمارك في
-                  <Text style={{color:'#247ba0'}}> {item.Title}</Text>
+                  <Text style={{color:'#247ba0' ,textDecorationLine: 'underline'}}> {item.Title}</Text>
                </Text> }
 
                {item.InvestorsList[userID].status=='Rejected'&&
                 <Text style={[Titlestyles.subTitle , Titlestyles.DescText ,{fontSize:16 , width:'75%'}]}>تم رفض طلب اسثمارك في
-                  <Text style={{color:'#247ba0'}}> {item.Title}</Text>
+                  <Text style={{color:'#247ba0' , textDecorationLine: 'underline'}}> {item.Title}</Text>
                </Text> }
             <Icon name='checkbox-blank-circle' size={15} color='#6A687A' style={{marginRight:20}}/> 
              </View> 
