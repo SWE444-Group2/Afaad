@@ -1,5 +1,5 @@
 import React ,{ useState } from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity,TextInput} from 'react-native';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity,TextInput, Alert} from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 import Titlestyles from './TitleStyles';
