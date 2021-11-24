@@ -7,7 +7,7 @@ import Titlestyles from './TitleStyles';
 import SignOut from '../assets/images/SignOut.png';
 import PlusIcon from '../assets/images/plusIcon.png';
 import Background from '../assets/images/Background.jpg';
-
+import SvgUri from "expo-svg-uri";
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
 
@@ -93,7 +93,6 @@ export default function ViewIdea({ navigation }) {
     <View style={Titlestyles.container}>
 
       <StatusBar style="auto" />  
-    <Image source={Background} style={{ flex: 1,width:'100%',height:'10%', opacity:1, position:'absolute' ,transform: [{ rotate: '180deg'}] }}/>
 
 
        { userType=='Entrepreneur'&&
@@ -102,12 +101,15 @@ export default function ViewIdea({ navigation }) {
       <Text style={[Titlestyles.sectionTitle ,{marginTop:'5%'}] }> مرحبا، {userName}</Text>}
      
        <View style={Titlestyles.tasksWrapper}>
-      <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:35 , marginTop:15}]}>عرض الافكار</Text>
     
          
+            <View style={styles.SVG}>
+            <SvgUri  source={require('../assets/images/Frame.svg')} /> 
+            </View>  
+            <Text style={styles.title}> عرض الافكار</Text>
 
      
-      <View style={Titlestyles.items}>
+      <View style={styles.items}>
         <FlatList style={{height:'85%'}}
         data={PendingProductList}
         keyExtractor={(item, index)=>index.toString()}
@@ -173,6 +175,27 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems:'center'
    
+},
+SVG:{
+    alignItems: "center",
+    position: 'absolute',
+    marginTop:-40 
+  
+  },
+  title: {
+    fontFamily: 'AJannatLTBold',
+    fontSize:35,
+    fontWeight:'bold',
+    textAlign: 'right',
+    color:'white' ,
+    paddingTop: 40,
+    paddingRight:20,
+  },
+  items:{
+    height:'75%',
+    marginTop:50,
+
+
 },
 });
 

@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState ,useEffect , setState } from 'react';
-import { Text, View, Button,TouchableOpacity, FlatList ,Image} from 'react-native';
+import {StyleSheet, Text, View, Button,TouchableOpacity, FlatList ,Image} from 'react-native';
 import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
 //import { Item } from 'react-native-paper/lib/typescript/components/List/List';
 import Titlestyles from './TitleStyles';
 import Background from '../assets/images/Background.jpg';
+import SvgUri from "expo-svg-uri";
+
 export default function ViewAccount({ navigation }) {
 
     //New code 
@@ -54,10 +56,12 @@ export default function ViewAccount({ navigation }) {
   
   return (
     <View style={Titlestyles.container}>
-        <Image source={Background} style={{ flex: 1,width:'100%',height:'10%', opacity:1, position:'absolute' ,transform: [{ rotate: '180deg'}] }}/>
 
+          <View style={styles.SVG}>
+            <SvgUri  source={require('../assets/images/Frame.svg')} /> 
+            </View>  
+            <Text style={styles.title}>  تفعيل حسابات المستثمرين</Text>
         <View style={Titlestyles.tasksWrapper}>
-        <Text style={[Titlestyles.subTitle , {fontSize:20 , marginBottom:35 , marginTop:15}]}>تفعيل حسابات المستثمرين</Text>
        
 
            <View style={Titlestyles.items}>
@@ -93,3 +97,21 @@ export default function ViewAccount({ navigation }) {
   );
 
 }
+const styles = StyleSheet.create({
+ 
+SVG:{
+    alignItems: "center",
+    position: 'absolute',
+    marginTop:-40 
+  
+  },
+  title: {
+    fontFamily: 'AJannatLTBold',
+    fontSize:28,
+    fontWeight:'bold',
+    textAlign: 'right',
+    color:'white' ,
+    paddingTop: 40,
+    paddingRight:5,
+  },
+});

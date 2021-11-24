@@ -8,7 +8,7 @@ import ideaLogo from '../assets/images/idea1.png';
 import accountLogo from '../assets/images/account.png';
 import SignOut from '../assets/images/SignOut.png';
 import Background from '../assets/images/Background.jpg';
-
+import SvgUri from "expo-svg-uri";
 //sprint 2 here 
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
@@ -29,8 +29,11 @@ export default function welcome({ navigation }) {
                  
       <View style={styles.container}>
 
-      <Image source={Background} style={{ flex: 1,width:'100%',height:'10%', opacity:1, position:'absolute' ,transform: [{ rotate: '180deg'}] }}/>
-      <Text style={TitleStyles.TitleFix}>مرحبا مشرف</Text>
+            <View style={styles.SVG}>
+            <SvgUri  source={require('../assets/images/Frame.svg')} /> 
+            </View>  
+            <Text style={styles.title}> مرحبا مشرف</Text>
+
           
 
           <View style={styles.item}>
@@ -116,8 +119,20 @@ color:'#FFF',
 textAlign:'center'
 
 },
-
-
-
+SVG:{
+    alignItems: "center",
+    position: 'absolute',
+    marginTop:-40 
+  
+  },
+  title: {
+    fontFamily: 'AJannatLTBold',
+    fontSize:35,
+    fontWeight:'bold',
+    textAlign: 'right',
+    color:'white' ,
+    paddingTop: 40,
+    paddingRight:20,
+  },
 
 });
