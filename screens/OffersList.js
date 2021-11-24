@@ -9,6 +9,8 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Background from '../assets/images/Background.jpg';
 import InvestorLogo from '../assets/images/business-and-finance.png';
 import { Linking } from 'react-native'
+import SvgUri from "expo-svg-uri";
+
 //import * as MailComposer from 'expo-mail-composer';
 
 let user = AfaadFirebase.auth().currentUser;
@@ -275,14 +277,17 @@ export default function OffersList({ navigation, route }) {
     return (
 
       <View style={Titlestyles.container}>
-        <Image source={Background} style={{ flex: 1,width:'100%',height:'13%', opacity:1, position:'absolute' ,transform: [{ rotate: '180deg'}] }}/>
-     
+
+            <View style={styles.SVG}>
+            <SvgUri  source={require('../assets/images/Frame.svg')} /> 
+            </View>  
+
           <View style={Titlestyles.tasksWrapper}>
             
-          <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:36 , marginTop:35}]}>عروض الإستثمار</Text>
+          <Text style={styles.title}>عروض الإستثمار</Text>
     
               <View style={Titlestyles.items}>
-              <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:15 , marginTop:10}]}> العروض المقبولة</Text>
+              <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:15 , marginTop:30}]}> العروض المقبولة</Text>
 
 {
                 counter==0 &&
@@ -393,26 +398,41 @@ export default function OffersList({ navigation, route }) {
                           size={20}
                           style={{marginBottom:30, width: 20, paddingTop:25,}}
                           onPress={() => setModalVisible(!modalVisible)} />
-                          <Image source={InvestorLogo} style={styles.icons} />
+                         
+                          <View>
 
+                          <Icon
+                          name="clipboard-account"
+                          size={40}
+                          style={{marginBottom:30,marginLeft:255 ,width:"100%",color:"#002B3E",marginTop:-55,}}
+                           />
+                          </View>
+                        
+                          
+                          {/*
+                          <Image source={InvestorLogo} style={styles.icons} />
+                          */}
                        
                           <Text style={styles.TextCenter}> معلومات دعم المستثمر  </Text> 
                           <View>
-                          <Text style={styles.OfferDetails}> اسم المستثمر: </Text> 
-                   
+                          <Text style={styles.OfferDetails}> اسم المستثمر </Text> 
                           <Text style={styles.DetailsText}> {InvestorName} </Text> 
+                          <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:300, marginLeft:-7,marginTop:5}}/>
 
-                          <Text style={styles.OfferDetails}> المبلغ المقترح للدعم:</Text> 
+                          <Text style={styles.OfferDetails}> المبلغ المقترح للدعم</Text> 
 
-                          <Text style={styles.DetailsText}>  {SuggCost}  </Text>
+                          <Text style={styles.DetailsText}>  {SuggCost} ريال سعودي  </Text>
+                          <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:300, marginLeft:-7,marginTop:5}}/>
 
-                           <Text style={styles.OfferDetails} > وصف دعم المستثمر: </Text> 
+                           <Text style={styles.OfferDetails} > وصف دعم المستثمر </Text> 
                     
                           <Text style={styles.DetailsText}>  {Message}  </Text>
+                          <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:300, marginLeft:-7,marginTop:5}}/>
+
                           { status=='Accepted' &&
                           <TouchableOpacity 
                           onPress={() => Linking.openURL('mailto:'+investorEmail)}>
-                              <Text style={styles.OfferDetails}>إرسال ملف دراسة الجدوى للمستثمر</Text>
+                              <Text style={styles.SendFeasibility}>إرسال ملف دراسة الجدوى للمستثمر</Text>
                               <Icon name="email-send"  style={{ marginTop:-27}} size={30} color={'#002B3E'}></Icon>
                           </TouchableOpacity> }
 
@@ -490,33 +510,45 @@ modalContent: {
 
 TextCenter:{
   fontFamily:'AJannatLTBold',
-  fontSize:18,
+  fontSize:16,
   color:'#637081',
-  textAlign: 'center',
-  marginTop:-10,
+  //textAlign: 'right',
+  marginTop:-65,
+  marginLeft:85,
 
 },
 
 DetailsText:{
 textAlign:"right",
-fontFamily: 'AJannatLTBold',
+fontFamily: 'AJannatLT',
 marginTop: 10,
 color:'#536b78',
 marginRight:10,
-fontSize:18,
+fontSize:16,
 //width:'90%',
 //paddingRight:0,
+marginRight:-20,
+//paddingTop:-15,
 },
 
 OfferDetails:{
 textAlign:"right",
-fontFamily: 'AJannatLT',
-marginTop: 10,
+fontFamily: 'AJannatLTBold',
+marginTop: 25,
 color:'#536b78',
 fontSize:16,
+marginRight:-20,
 
 },
-
+SendFeasibility:{
+  textAlign:"right",
+  fontFamily: 'AJannatLT',
+  marginTop: 10,
+  color:'#536b78',
+  fontSize:16,
+  textDecorationLine:"underline",
+  marginRight:-15,
+},
 AcceptDetailsBtn:{
   fontFamily:'AJannatLT',
   color:'#fff',
@@ -570,7 +602,24 @@ icons:{
   marginTop:-45,
   alignSelf:"center",
   //width:10,
+  marginLeft:245,
+  
   
 
+},
+SVG:{
+  alignItems: "center",
+  position: 'absolute',
+  marginTop:-40 
+
+},
+title: {
+  fontFamily: 'AJannatLTBold',
+  fontSize:35,
+  fontWeight:'bold',
+  textAlign: 'right',
+  color:'white' ,
+  paddingTop: 40,
+  paddingRight:20,
 },
 });

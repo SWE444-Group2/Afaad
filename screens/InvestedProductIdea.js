@@ -167,7 +167,8 @@ const renderRejectedList = () =>{
 
               <View style={{borderTopRightRadius:15}}>
             
-                <Button 
+            {/*   
+            <Button 
                   style={Titlestyles.DetailsBtn}
                   onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
                   title= 
@@ -177,6 +178,33 @@ const renderRejectedList = () =>{
                   titleProps={{}}
                   //titleStyle={{ marginHorizontal: 1 }}
                   color='#247ba0'/>
+                  */}
+              
+                  <Text style={{     
+                      backgroundColor: item.InvestorsList[userID].status=='Accepted' ? 
+                      //Accepted
+                      '#87c38f' : 
+                      item.InvestorsList[userID].status=='Rejected' ? 
+                      //Rejected
+                      '#c75146':
+                      //Pending
+                      '#7c98b3' , 
+
+                      color:'white',
+                      textAlign:'center',
+                      width:80,
+                      marginTop:-10,
+                      marginLeft:-10,
+                      overflow:'hidden',
+                      fontFamily: 'AJannatLT',
+                      } }>  
+                      { item.InvestorsList[userID].status=='Accepted' ? 
+                          'مقبول': 
+                        item.InvestorsList[userID].status=='Rejected' ? 
+                          'مرفوض' :
+                          'قيد المراجعة' 
+                          } 
+                   </Text>
                   
 
               </View>
@@ -208,17 +236,30 @@ const renderRejectedList = () =>{
             <View style={Titlestyles.item}>
 
               <View style={{borderTopRightRadius:15}}>
-            
-                <Button 
-                  style={Titlestyles.DetailsBtn}
-                  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
-                  title= 
-                  { item.InvestorsList[userID].status=='Accepted' ?
-                    'مقبول'  : 'مرفوض' }
-
-                  titleProps={{}}
-                  //titleStyle={{ marginHorizontal: 1 }}
-                  color='#247ba0'/>
+              <Text style={{     
+                      backgroundColor: item.InvestorsList[userID].status=='Accepted' ? 
+                      //Accepted
+                      '#87c38f' : 
+                      item.InvestorsList[userID].status=='Rejected' ? 
+                      //Rejected
+                      '#c75146':
+                      //Pending
+                      '#7c98b3' , 
+                      color:'white',
+                      textAlign:'center',
+                      width:80,
+                      marginTop:-10,
+                      marginLeft:-10,
+                      overflow:'hidden',
+                      fontFamily: 'AJannatLT',
+                      } }>  
+                      { item.InvestorsList[userID].status=='Accepted' ? 
+                          'مقبول': 
+                        item.InvestorsList[userID].status=='Rejected' ? 
+                          'مرفوض' :
+                          'قيد المراجعة' 
+                          } 
+                   </Text>
                   
 
               </View>
