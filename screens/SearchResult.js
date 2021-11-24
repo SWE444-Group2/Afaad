@@ -39,7 +39,7 @@ export default function SearchResult({ navigation , route}) {
             const categoryList=[]
             if ( route.params.searchKey !== undefined){
                 for(let productID in ResultList){
-                    if (ResultList[productID].Title == route.params.searchKey && ResultList[productID].status == 'Accepted') {
+                    if (ResultList[productID].Title.includes(route.params.searchKey) && ResultList[productID].status == 'Accepted') {
                         categoryList.push(ResultList[productID])
                         counter++;
                     }

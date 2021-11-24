@@ -39,7 +39,7 @@ export default function PublishIdea({ navigation }) {
 
 
     const [items, setItems] = useState([
-      {label: 'اعلام ونشر وتوزيع', value: 'اعلام ونشر وتوزيع'},
+      {label: 'اعلام ونشر', value: 'اعلام ونشر'},
       {label: 'تجارة', value: 'تجارة'},
       {label: 'ترفيه وفنون', value: 'ترفيه وفنون'},
       {label: 'تعليم', value: 'تعليم'},
