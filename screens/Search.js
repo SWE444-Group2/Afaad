@@ -41,8 +41,17 @@ export default function Search({ navigation, route }) {
         const[keyword ,setKeyword ]=useState('');
 
         const searchKey=(key)=>{
+            if (key !== ''){
             setKeyword(key)
-            navigation.navigate('SearchResult', {searchKey:keyword})
+            navigation.navigate('SearchResult', {searchKey:keyword})}
+            else {
+                Alert.alert("تنبيه ", "الرجاء كتابة العنوان المراد البحث عنه  ", [
+                    {
+                      text: "حسناً",
+                      style: "cancel",
+                    },
+                  ]);
+            }
         }
 
 
@@ -54,7 +63,17 @@ export default function Search({ navigation, route }) {
       </View>       
             <View style={Titlestyles.tasksWrapper}>
 
-            <Icon name = "magnify" style={{ marginTop:15} } size={40} color={"#fff"} onPress={() => navigation.navigate('SearchResult', {searchKey:keyword})}/> 
+            <Icon name = "magnify" style={{ marginTop:15} } size={40} color={"#fff"} onPress={() => {
+                if(keyword !==''){
+                navigation.navigate('SearchResult', {searchKey:keyword.trim()})}
+                else {
+                    Alert.alert("تنبيه ", "الرجاء كتابة العنوان المراد البحث عنه  ", [
+                        {
+                          text: "حسناً",
+                          style: "cancel",
+                        },
+                      ]);
+                }}}/> 
 
             <TextInput
               style={Titlestyles.input}
@@ -62,6 +81,17 @@ export default function Search({ navigation, route }) {
               value={keyword}
               placeholder='ابحث هنا'
               underlineColorAndroid="transparent"
+              onSubmitEditing= {() => {
+                if(keyword !==''){
+                navigation.navigate('SearchResult', {searchKey:keyword.trim()})}
+                else {
+                    Alert.alert("تنبيه ", "الرجاء كتابة العنوان المراد البحث عنه  ", [
+                        {
+                          text: "حسناً",
+                          style: "cancel",
+                        },
+                      ]);
+                }}}
             />
 
 
