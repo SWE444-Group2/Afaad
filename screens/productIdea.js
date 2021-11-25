@@ -335,6 +335,7 @@ FavoritesRef.once('value').then(function(snapshot){
 
                                  ]}>
 
+              <View style={{ width: '100%',flexDirection: 'row-reverse', justifyContent: 'space-between'}}>
               { userType== 'Entrepreneur' &&
                          <Text style={{     
                                 backgroundColor: status=='مقبول' ? 
@@ -350,8 +351,9 @@ FavoritesRef.once('value').then(function(snapshot){
                                 width:80,
                                 overflow:'hidden',
                                 fontFamily: 'AJannatLT',
-                                borderRadius:5
-                                            } }>  
+                                borderRadius:5,
+                                height: 30
+                                }}>  
                               {  
                               status=='مقبول' ? 
                                 'مقبول': 
@@ -375,11 +377,10 @@ FavoritesRef.once('value').then(function(snapshot){
                       style={ {marginLeft: -340 , marginTop:10}} />
                      </TouchableOpacity> }
 
-                  <View style={{ flexDirection: 'row', paddingLeft: 30 }}>
                   { userType== 'Entrepreneur' &&
                   <Menu renderer={renderers.Popover} rendererProps={{ placement: 'top' }}>
-                    <MenuTrigger >
-                      <MaterialIcons name="more-vert" style={{ marginTop:10}} size={50} color={"black"}/>
+                    <MenuTrigger>
+                      <MaterialIcons name="more-horiz" style={{ marginLeft: 10 }} size={50} color={"black"}/>
                     </MenuTrigger>
                     <MenuOptions customStyles ={optionsStyles}>
                       <MenuOption onSelect={() => navigation.navigate('OffersList', {Product_id: route.params.Product_id})}>
@@ -399,6 +400,8 @@ FavoritesRef.once('value').then(function(snapshot){
                     </MenuOptions>
                   </Menu>
                   }
+                  </View>
+                  <View style={{ flexDirection: 'row' }}>
 
                     <Text style={[TitleStyles.subTitle , TitleStyles.TitleFix]}>فكرة المشروع</Text>
                     </View>

@@ -28,6 +28,7 @@ import {default as Search} from './screens/Search';
 import {default as SearchResult} from './screens/SearchResult';
 import { default as updateProductIdea } from './screens/updateProductIdea';
 import { default as Favorites } from './screens/Favorites';
+import { default as contactForm } from './screens/contactForm' ;
 
 
 import {useFonts} from 'expo-font';
@@ -111,6 +112,10 @@ if(!isLoaded){
       <Stack.Screen name="InvestorRequest" component={InvestorRequest} options={{ presentation: 'modal', gestureEnabled: false,
         headerTitle:'', headerStyle: { backgroundColor: '#7c98b3'}, headerLeft: ()=> null,
        }}/>
+
+      <Stack.Screen name="contactForm" component={contactForm} options={{ presentation: 'modal', gestureEnabled: false,
+        headerTitle:'', headerStyle: { backgroundColor: '#7c98b3'}, headerLeft: ()=> null,
+       }}/>
       
       <Stack.Screen name="OffersList" component={OffersList} options={{ headerTitle: "",
         headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white'}}/>
@@ -150,10 +155,10 @@ if(!isLoaded){
         },
         headerLeft: ()=> null}}/>
      
-      <Stack.Screen name="SearchResult" component={SearchResult} options={{ headerTitle: "نتائج البحث",
+      <Stack.Screen name="SearchResult" component={SearchResult} options={{ headerTitle: "", headerBackTitleVisible: false,
         headerStyle: { backgroundColor: '#7c98b3'}, headerTintColor: 'white'}}/>
 
-      <Stack.Screen name="Favorites" component={Favorites} options={{ headerTitle: "المُفضلة",
+      <Stack.Screen name="Favorites" component={Favorites} options={{ headerTitle: "", headerBackTitleVisible: false,
         headerStyle: { backgroundColor: '#7c98b3'}, headerTintColor: 'white'}}/>
 
       <Stack.Screen name="updateProductIdea" component={updateProductIdea} options={{ headerTitle:'',

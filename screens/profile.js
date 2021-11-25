@@ -18,6 +18,7 @@ import { NavigationBar } from "./NavigationBar";
 //import  {shape}  from '../assets/images/shape.svg';
 import UploadImage from "./UploadImage";
 import { FloatingLabelInput } from 'react-native-floating-label-input';
+import Icon from 'react-native-vector-icons/MaterialIcons' ;
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
 
@@ -337,7 +338,7 @@ export default function Profile({ navigation, route }) {
         </View>
 </View>
 
-<View style={{ padding: 50,marginTop:40}}>
+<View style={{ padding: 50, marginTop:40, paddingBottom: 0}}>
     
 <FloatingLabelInput 
        label="الاسم الأول"
@@ -521,8 +522,19 @@ export default function Profile({ navigation, route }) {
         <TouchableOpacity style={styles.Button} onPress={onSignout}>
           <Text style={styles.ButtonText}>تسجيل الخروج</Text>
         </TouchableOpacity>
+        <View style={{ marginTop:20, marginBottom: 30, alignItems: 'center' }}>
+              <Text style={styles.contactText}>
+                <View>
+                  <Icon name='help-outline' size={30} color={"#002B3E"} style={{ marginLeft: 10 }} />
+                </View>
+                هل تحتاج إلى مساعدة؟ <Text style={[styles.contactText, { fontFamily: 'AJannatLTBold', textDecorationLine: "underline" }]} onPress={() => navigation.navigate('contactForm')}>
+                  تواصل معنا
+                </Text>
+              </Text>
+            </View>
 </View>
   
+
 
 </View>
 
@@ -620,5 +632,11 @@ right:50,
     shadowOpacity: 2, // IOS
     shadowRadius: 2, //IOS
     elevation: 2, // Android
+  },
+  contactText: {
+    color: "#002B3E",
+    fontFamily: "AJannatLT",
+    fontSize: 16,   
+    marginBottom: 6
   },
 });
