@@ -324,7 +324,7 @@ FavoritesRef.once('value').then(function(snapshot){
             <Image source={AfaadLogo} style={{ width: 150, height: 150 }}/>
            <Text style={[TitleStyles.ProjectName ]}>{Title}</Text> 
               <View style={[TitleStyles.square ,
-              userType=='Entrepreneur' ? {borderWidth:1 , borderColor:status=='مقبول' ? 
+              userType=='Entrepreneur' && userInfo==user.uid ? {borderWidth:1 , borderColor:status=='مقبول' ? 
                                 //Accepted
                                '#87c38f' : 
                                status=='مرفوض' ? 
@@ -337,7 +337,7 @@ FavoritesRef.once('value').then(function(snapshot){
                                  ]}>
 
               <View style={{ width: '100%',flexDirection: 'row-reverse', justifyContent: 'space-between'}}>
-              { userType== 'Entrepreneur' &&
+              { userType== 'Entrepreneur' && userInfo==user.uid &&
                          <Text style={{     
                                 backgroundColor: status=='مقبول' ? 
                                 //Accepted

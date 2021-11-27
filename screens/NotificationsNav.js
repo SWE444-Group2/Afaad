@@ -125,7 +125,7 @@ export default function NotificationsNav({ navigation }) {
            <TouchableOpacity onPress={() => navigation.navigate('OffersList', {Product_id:item.productID, userType: userType, user_Name:userName})}>
             <View style={styles.item}>   
             <Text style={[Titlestyles.subTitle , Titlestyles.DescText , {fontSize:16 , width:'75%'}]}>يوجد لديك طلب استثمار جديد في
-            <Text style={{color:'#247ba0'}}> {item.Title}</Text></Text>
+            <Text style={{color:'#247ba0', textDecorationLine: 'underline' , fontWeight:'bold'}}> {item.Title}</Text></Text>
              <Icon name="checkbox-blank-circle"  size={15} color={"#022B3A"} style={{marginRight:20}}
              />
              </View> 
@@ -134,7 +134,7 @@ export default function NotificationsNav({ navigation }) {
              {item.status=='Rejected' &&
             <View style={styles.item}>   
             <Text style={[Titlestyles.subTitle , Titlestyles.DescText , {fontSize:16 , width:'75%'}]}>تم رفض فكرة مشروعك  
-            <Text style={{color:'#247ba0'}}> {item.Title}</Text></Text>
+            <Text style={{color:'#247ba0' , textDecorationLine: 'underline'}}> {item.Title}</Text></Text>
              <Icon name="checkbox-blank-circle"  size={15} color={"#022B3A"} style={{marginRight:20}}
              />
              </View> }     
@@ -143,7 +143,7 @@ export default function NotificationsNav({ navigation }) {
              <TouchableOpacity>
             <View style={styles.item}>   
             <Text style={[Titlestyles.subTitle , Titlestyles.DescText , {fontSize:16 , width:'75%'}]}>تم قبول فكرة مشروعك  
-            <Text style={{color:'#247ba0'}}> {item.Title}</Text></Text>
+            <Text style={{color:'#247ba0' , textDecorationLine: 'underline'}}> {item.Title}</Text></Text>
              <Icon name="checkbox-blank-circle"  size={15} color={"#022B3A"} style={{marginRight:20}}
              />
              </View>
