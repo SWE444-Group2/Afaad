@@ -20,6 +20,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 export default function productIdea({navigation , route}) {
     const ProductPath='ProductIdea/'+route.params.Product_id ;
     const userType = route.params.userType;
+
     const [date, setdate] = useState('');
     const [Description, setDescription] = useState('');
     const [status, setStatus] = useState('');
@@ -377,7 +378,7 @@ FavoritesRef.once('value').then(function(snapshot){
                       style={ {marginLeft: -340 , marginTop:10}} />
                      </TouchableOpacity> }
 
-                  { userType== 'Entrepreneur' &&
+                  { userInfo == user.uid &&
                   <Menu renderer={renderers.Popover} rendererProps={{ placement: 'top' }}>
                     <MenuTrigger>
                       <MaterialIcons name="more-horiz" style={{ marginLeft: 10 }} size={50} color={"black"}/>
