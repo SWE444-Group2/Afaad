@@ -106,7 +106,7 @@ export function NavigationBar ({navigation, ScreenName}) {
               } 
 
               { userType== 'Investor' && 
-                   <TouchableOpacity onPress={() => navigation.navigate('InvestedProductIdea')}>
+                   <TouchableOpacity onPress={() => navigation.navigate('InvestedProductIdea',{userType: userType,userID:userID})}>
                      <FontAwesomeIcon name={invested} size={37} color={investedColro}/> 
                    </TouchableOpacity>
               }

@@ -20,6 +20,7 @@ export default function InvestedProductIdea({ navigation }) {
   const auth = AfaadFirebase.auth();
   let userID, userType , userName;
 
+  
 
   if(user){
     userID = user.uid ;
@@ -40,6 +41,7 @@ export default function InvestedProductIdea({ navigation }) {
       }
     })
   }
+  console.log(userType);
 
   const [productsList , setproductsList]= useState();
   const[PendingProductList ,setPendingproductsList ]=useState();
@@ -161,7 +163,7 @@ const renderRejectedList = () =>{
           renderItem={({ item })=>(
 
             <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType , user_Name:userName })}>   
-          
+   
           {userType=='Investor' && item.InvestorsList[userID].status!='Pending' && (
             <View style={Titlestyles.item}>
 
