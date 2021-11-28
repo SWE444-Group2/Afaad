@@ -16,6 +16,7 @@ import { Menu, MenuOptions, MenuOption, MenuTrigger, renderers } from 'react-nat
 
 import AfaadFirebase from "./firebaseConfig";
 import { ScrollView } from 'react-native-gesture-handler';
+import { cos, set } from 'react-native-reanimated';
 // Expecting an id of product idea
 export default function productIdea({navigation , route}) {
     const ProductPath='ProductIdea/'+route.params.Product_id ;
@@ -41,6 +42,16 @@ export default function productIdea({navigation , route}) {
     const [userEmail , setUserEmail]=useState('');
     const [userPhone , setUserPhone]=useState('');
     const [liked, setLiked] = useState(false);
+
+    //const [investStatus,setInvestStatus]=useState('');
+    let investStatus;
+    const InvestOfferStatus = AfaadFirebase.database().ref(ProductPath + '/InvestorsList/' +route.params.user_ID+"/status/");
+    InvestOfferStatus.on('value', (snapshot) => {
+      investStatus=snapshot.val();
+     console.log(investStatus);
+    })
+   
+
     const LikeButton = () => {
       setLiked(true);}
 
@@ -79,12 +90,11 @@ export default function productIdea({navigation , route}) {
       let deleteIdea ;
       InvestorsListNode.once('value', (snapshot) => {
         if (snapshot.exists()) {
-          deleteIdea = false  ;
+          deleteIdea = false  ;  
         }else{
           deleteIdea = true ;
-        }
+        }  
       })
-        
   const SendRequest = () => {
 
     const user = AfaadFirebase.auth().currentUser ;
@@ -102,6 +112,7 @@ export default function productIdea({navigation , route}) {
            CountAccepted++;
          }
        }
+
 
        if (CountAccepted == 3) {
          Alert.alert("تنبيه", "نعتذر، وصلت الفكرة الحد الأعلى لاستقبال طلبات الاستثمار", [
@@ -135,6 +146,8 @@ export default function productIdea({navigation , route}) {
        }
      });
   }
+
+ 
 
     const AcceptIdea=()=>{
         Alert.alert(
@@ -342,6 +355,16 @@ FavoritesRef.once('value').then(function(snapshot){
                                 //Pending
                                 '#7c98b3' }:
                                 {borderWidth:0}
+              ,       
+              userType=='Investor' && route.params.user_ID ? {borderWidth:1 , borderColor: investStatus=='Accepted' ? 
+                                //Accepted
+                               '#87c38f' : 
+                               //Rejected
+                                '#c75146'
+                                }:
+                                {borderWidth:0}
+
+                                               
 
                                  ]}>
 
@@ -374,18 +397,48 @@ FavoritesRef.once('value').then(function(snapshot){
                               </Text>
                       }
 
-             
+                      { userType=='Investor' && route.params.user_ID &&
+                         <Text style={{     
+                                backgroundColor: investStatus=='Accepted' ? 
+                                //Accepted
+                               '#87c38f' : 
+                                 //Rejected
+                                   '#c75146' ,   
+                                color:'white',
+                                textAlign:'center',
+                                width:80,
+                                overflow:'hidden',
+                                fontFamily: 'AJannatLT',
+                                borderRadius:5,
+                                height: 30
+                                }}>  
+                              {  
+                                investStatus=='Accepted' ? 
+                                'مقبول': 
+                                'مرفوض' 
+                                   } 
+                              </Text>
+                      }
 
-
-              { userType== 'Investor' && 
+                      { userType== 'Investor' && route.params.user_ID && (investStatus=='Accepted' || investStatus=='Rejected') &&
                      <TouchableOpacity >
                      <Icon
                       onPress={global.liked ? () => unFavoriteIdea(): () => favoriteIdea()}
                       name={"heart"}
                       size={32}
                       color={global.liked ? "#B22222" : "gray"}
-                      style={ {marginLeft: -340 , marginTop:10}} />
+                      style={ {marginLeft:  -115, marginTop:10}} />
                      </TouchableOpacity> }
+
+                      { userType== 'Investor' && 
+                            <TouchableOpacity >
+                            <Icon
+                              onPress={global.liked ? () => unFavoriteIdea(): () => favoriteIdea()}
+                              name={"heart"}
+                              size={32}
+                              color={global.liked ? "#B22222" : "gray"}
+                              style={ {marginLeft: -340 , marginTop:10}} />
+                            </TouchableOpacity> }
 
                   { userInfo == user.uid &&
                   <Menu renderer={renderers.Popover} rendererProps={{ placement: 'top' }}>
