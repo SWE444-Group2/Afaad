@@ -413,7 +413,7 @@ export default function OffersList({ navigation, route }) {
                           <Image source={InvestorLogo} style={styles.icons} />
                           */}
                        
-                          <Text style={styles.TextCenter}> معلومات دعم المستثمر  </Text> 
+                          <Text style={styles.TextCenter}> معلومات عرض المستثمر  </Text> 
                           <View>
                           <Text style={styles.OfferDetails}> اسم المستثمر </Text> 
                           <Text style={styles.DetailsText}> {InvestorName} </Text> 
@@ -430,10 +430,10 @@ export default function OffersList({ navigation, route }) {
                           <View style={{ backgroundColor: '#d2d2cf',height: 1 , width:300, marginLeft:-7,marginTop:5}}/>
 
                           { status=='Accepted' &&
-                          <TouchableOpacity 
+                          <TouchableOpacity tyle={styles.Feasibility}
                           onPress={() => Linking.openURL('mailto:'+investorEmail)}>
                               <Text style={styles.SendFeasibility}>إرسال ملف دراسة الجدوى للمستثمر</Text>
-                              <Icon name="email-send"  style={{ marginTop:-27}} size={30} color={'#002B3E'}></Icon>
+                            {/* <Icon name="email-send"  style={{ marginTop:-27}} size={30} color={'#002B3E'}></Icon> */}  
                           </TouchableOpacity> }
 
                           
@@ -546,7 +546,8 @@ SendFeasibility:{
   marginTop: 10,
   color:'#536b78',
   fontSize:16,
-  textDecorationLine:"underline",
+  //textDecorationLine:"underline",
+  marginTop:20,
   marginRight:-15,
 },
 AcceptDetailsBtn:{
@@ -621,5 +622,9 @@ title: {
   color:'white' ,
   paddingTop: 40,
   paddingRight:20,
+},
+
+Feasibility:{
+
 },
 });

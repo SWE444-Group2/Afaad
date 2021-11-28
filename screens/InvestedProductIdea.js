@@ -162,7 +162,7 @@ const renderRejectedList = () =>{
 
           renderItem={({ item })=>(
 
-            <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType , user_Name:userName })}>   
+            <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType , user_ID:userID })}>   
    
           {userType=='Investor' && item.InvestorsList[userID].status!='Pending' && (
             <View style={Titlestyles.item}>
@@ -232,7 +232,7 @@ const renderRejectedList = () =>{
 
           renderItem={({ item })=>(
 
-            <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType , user_Name:userName })}>   
+            <TouchableOpacity  onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType , user_ID:userID  })}>   
           
           {userType=='Investor' && item.InvestorsList[userID].status!='Pending' && (
             <View style={Titlestyles.item}>
