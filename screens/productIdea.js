@@ -181,10 +181,19 @@ export default function productIdea({navigation , route}) {
       [
         {
           text: "نعم", onPress: () => {
-            navigation.navigate('EntrepreneurAndInvestor')
             AfaadFirebase.database().ref(ProductPath).remove()
               .then(function () {
-                console.log("Remove succeeded.")
+                Alert.alert(
+                  "رائع!",
+                  "تم حذف فكرتك بنجاح",
+                  [
+                    {
+                      text: "العودة للصفحة الرئيسية", onPress: () => { 
+                        navigation.navigate('EntrepreneurAndInvestor')
+                        }
+                    }
+                  ]
+                );
               })
               .catch(function (error) {
                 console.log("Remove failed: " + error.message)
