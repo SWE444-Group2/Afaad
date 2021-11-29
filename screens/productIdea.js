@@ -346,7 +346,7 @@ FavoritesRef.once('value').then(function(snapshot){
             <Image source={AfaadLogo} style={{ width: 150, height: 150 }}/>
            <Text style={[TitleStyles.ProjectName ]}>{Title}</Text> 
               <View style={[TitleStyles.square ,
-              userType=='Entrepreneur' && userInfo==user.uid ? {borderWidth:1 , borderColor:status=='مقبول' ? 
+              userInfo==user.uid ? {borderWidth:1 , borderColor:status=='مقبول' ? 
                                 //Accepted
                                '#87c38f' : 
                                status=='مرفوض' ? 
@@ -354,7 +354,7 @@ FavoritesRef.once('value').then(function(snapshot){
                                 '#c75146':
                                 //Pending
                                 '#7c98b3' }:
-                                {borderWidth:0}
+                                {}
               ,       
               userType=='Investor' && route.params.user_ID ? {borderWidth:1 , borderColor: investStatus=='Accepted' ? 
                                 //Accepted
@@ -362,14 +362,14 @@ FavoritesRef.once('value').then(function(snapshot){
                                //Rejected
                                 '#c75146'
                                 }:
-                                {borderWidth:0}
+                                {}
 
                                                
 
                                  ]}>
 
               <View style={{ width: '100%',flexDirection: 'row-reverse', justifyContent: 'space-between'}}>
-              { userType== 'Entrepreneur' && userInfo==user.uid &&
+              {userInfo==user.uid &&
                          <Text style={{     
                                 backgroundColor: status=='مقبول' ? 
                                 //Accepted
