@@ -42,7 +42,7 @@ export default function productIdea({navigation , route}) {
     const [userEmail , setUserEmail]=useState('');
     const [userPhone , setUserPhone]=useState('');
     const [liked, setLiked] = useState(false);
-
+    const [adminRejectReason,setAdminRejectReason]=useState('');
     //const [investStatus,setInvestStatus]=useState('');
     let investStatus;
     const InvestOfferStatus = AfaadFirebase.database().ref(ProductPath + '/InvestorsList/' +route.params.user_ID+"/status/");
@@ -175,7 +175,7 @@ export default function productIdea({navigation , route}) {
             [
               {
                 text: "نعم", onPress: () => { 
-                    productIdeaRef.update({status : 'Rejected' } )
+                  //  productIdeaRef.update({status : 'Rejected' } )
                    /* Alert.alert(
                         "رائع!",
                         "تم رفض الفكرة بنجاح",[{text: "العودة لقائمه الافكار" ,onPress: () => {navigation.navigate('ViewIdea')}}]
@@ -277,6 +277,50 @@ FavoritesRef.once('value').then(function(snapshot){
                 console.log("favorite failed: " + error.message)
               });
   }
+///////////////// Sending reject reason to ent from admin //////////////////////
+  const SendRejectReason = () =>{
+    if(adminRejectReason == ''){
+      Alert.alert("تنبيه ", "الحقل مطلوب   ", [
+        {
+          text: "حسناً",
+          style: "cancel",
+        },
+      ]);
+      return
+    }
+
+    ////////
+    if(adminRejectReason.replace(/\s+/g,'').length > 150 || adminRejectReason.replace(/\s+/g,'').length < 10){
+      Alert.alert("تنبيه", "حقل سبب الرفض  يجب ألا يقل عن ١٠ أحرف وألا يتجاوز ١٥٠ حرف ", [
+        {
+          text: "حسنًا",
+          style: "cancel",
+        },
+      ]);
+      return
+    }
+    if (user){
+      const productRejectReasonRef = AfaadFirebase.database().ref('/ProductIdea/'+route.params.Product_id+'/RejectionReason/');
+      const productRejectReasonData= {
+       adminRejectReason,
+      };
+     
+      productRejectReasonRef.set(productRejectReasonData).then(() => {
+          Alert.alert("نجاح", "تم إرسال سبب الرفض إلى رائد الأعمال", [
+            {
+              text: "حسنًا",
+              onPress: () => {
+                productIdeaRef.update({status : 'Rejected' } )
+                setModalVisible2(false)
+              },
+              style: "cancel",
+            },
+          ]); 
+      });
+
+  }
+
+  }
 
     return(
         <View style={styles.container}>
@@ -320,23 +364,23 @@ FavoritesRef.once('value').then(function(snapshot){
                   size={30}
                   style={{marginBottom:30, width: 30}}
                   onPress={() => setModalVisible2(!modalVisible2)} />
-                <Text style={[TitleStyles.subTitle]}>ادخل سبب رفضك  لفكرة رائد الأعمال </Text>
-                <Text style={[TitleStyles.subTitle]}>سيتم ارسال سبب الرفض لصاحب الفكره ليتم تعديلها</Text>
+                
+                <Text style={styles.RejectText}>سيتم ارسال سبب الرفض لصاحب الفكره ليتم تعديلها</Text>
 
                <TextInput
                 style={styles.TextInputDoc}
                 placeholder="سبب رفضك لفكره رائد الأعمال"
                 placeholderTextColor={"gray"} 
-
-                //onChangeText={(text) => setDescribtion(text)}
-                //value={Describtion}
+                onChangeText={(text) => setAdminRejectReason(text)}
+                value={adminRejectReason}
                 underlineColorAndroid="transparent"
                 autoCapitalize="none"
                 color="black"
+                multiline={true}
               />
                 <TouchableOpacity
                   style={styles.investButton}
-                  onPress={{}}>
+                  onPress={SendRejectReason}>
                   <Text style={[TitleStyles.subTitle, { color: 'white', fontSize: 20 }]}>ارسال سبب الرفض</Text>
                 </TouchableOpacity>
               </View>
@@ -579,6 +623,7 @@ FavoritesRef.once('value').then(function(snapshot){
 
         
     )
+   
 }
 
 const optionsStyles = {
@@ -685,5 +730,12 @@ const styles = StyleSheet.create({
     marginTop:20,
     color:"#fff",
    },
+
+   RejectText:{ 
+    fontFamily: 'AJannatLT',
+    fontSize:18,
+    color:'#637081',
+    textAlign: 'center',
+      },
 
 });
