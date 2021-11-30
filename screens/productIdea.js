@@ -311,7 +311,11 @@ FavoritesRef.once('value').then(function(snapshot){
               text: "حسنًا",
               onPress: () => {
                 productIdeaRef.update({status : 'Rejected' } )
-                setModalVisible2(false)
+                Alert.alert(
+                  "رائع!",
+                  "تم رفض الفكرة بنجاح",[{text: "العودة لقائمه الافكار" ,onPress: () => {setModalVisible2(false),navigation.navigate('ViewIdea')}}]
+             );
+                
               },
               style: "cancel",
             },
