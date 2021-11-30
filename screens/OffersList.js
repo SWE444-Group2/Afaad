@@ -540,16 +540,22 @@ fontSize:16,
 marginRight:-20,
 
 },
+
 SendFeasibility:{
-  textAlign:"right",
+  textAlign:"center",
   fontFamily: 'AJannatLT',
   marginTop: 10,
   color:'#536b78',
   fontSize:16,
-  //textDecorationLine:"underline",
   marginTop:20,
-  marginRight:-15,
+  width:275,
+  backgroundColor:'#FFF',
+  borderWidth:1,
+  borderColor:"#002B3E",
+  borderRadius:6,
+  marginLeft:8,
 },
+
 AcceptDetailsBtn:{
   fontFamily:'AJannatLT',
   color:'#fff',
