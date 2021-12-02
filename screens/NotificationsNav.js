@@ -1,6 +1,6 @@
 
 import React ,{useEffect , useState } from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image} from 'react-native';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image , Modal} from 'react-native';
 //import styles from './styles';
 import { StatusBar } from 'expo-status-bar';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -15,6 +15,7 @@ const auth = AfaadFirebase.auth();
 
 export default function NotificationsNav({ navigation }) {
 
+  const [modalVisible, setModalVisible] = useState(false);
   
   let user = AfaadFirebase.auth().currentUser ;
   let userID, userType , userName;
@@ -41,6 +42,7 @@ export default function NotificationsNav({ navigation }) {
 
   const [productsList , setproductsList]= useState();
   const[PendingProductList ,setPendingproductsList ]=useState();
+  const  [adminRejectReason, setadminRejectReason] = useState('') ;
 
   useEffect(() => {
     let isUnmounted=false;
@@ -96,7 +98,18 @@ export default function NotificationsNav({ navigation }) {
 
   }, [])
 
+  const getInfo=(itemID)=>{
+    if(userType=='Entrepreneur' ){
+    global.InRef= AfaadFirebase.database().ref("ProductIdea/"+itemID+"/RejectionReason/")
+    InRef.once('value').then(function(snapshot){            
+          setadminRejectReason(snapshot.child("adminRejectReason").val())
+          console.log(adminRejectReason)
+          setModalVisible(true);
 
+      });}
+
+    }
+  
     return(
         <View style={styles.container}>
 
@@ -132,12 +145,14 @@ export default function NotificationsNav({ navigation }) {
              </TouchableOpacity>}
 
              {item.status=='Rejected' &&
+             <TouchableOpacity onPress={() => getInfo(item.productID)}>
             <View style={styles.item}>   
             <Text style={[Titlestyles.subTitle , Titlestyles.DescText , {fontSize:16 , width:'75%'}]}>تم رفض فكرة مشروعك  
             <Text style={{color:'#247ba0' , textDecorationLine: 'underline'}}> {item.Title}</Text></Text>
              <Icon name="checkbox-blank-circle"  size={15} color={"#022B3A"} style={{marginRight:20}}
              />
-             </View> }     
+             </View> 
+             </TouchableOpacity>}     
 
              {item.status=='Accepted' &&
              <TouchableOpacity>
@@ -169,6 +184,35 @@ export default function NotificationsNav({ navigation }) {
             <Icon name='checkbox-blank-circle' size={15} color='#6A687A' style={{marginRight:20}}/> 
              </View> 
              </TouchableOpacity>)}
+             
+             <Modal
+              animationType="fade"
+              transparent={true}
+              visible={modalVisible}
+            >
+              <View style={{backgroundColor:'rgba(52, 52, 52, 0.5)', height: '100%'}}>
+              <View style={styles.modalContent}>
+                
+                <Icon
+                  name="close"
+                  size={30}
+                  style={{marginBottom:30, width: 30}}
+                  onPress={() => setModalVisible(!modalVisible)} />
+                  
+                  <Text style={styles.RejectText}>  سبب الرفض  : </Text>
+                 
+                {userType=='Entrepreneur' && item.RejectionReason!=null &&
+                <Text>
+                  {adminRejectReason}</Text> }
+
+
+                  
+
+              
+                
+              </View>
+              </View>
+            </Modal>
             
 
 
@@ -242,5 +286,29 @@ title: {
   color:'white' ,
   paddingTop: 40,
   paddingRight:20,
+}, 
+modalContent: {
+  margin: 20,
+  marginBottom: 'auto',
+  marginTop: 'auto',
+  backgroundColor: "white",
+  borderRadius: 20,
+  padding: 35,
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 2
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 4,
+  elevation: 5
 },
+RejectText:{ 
+  fontFamily: 'AJannatLT',
+  fontSize:20,
+  color:'#637081',
+  textAlign: 'right',
+  
+    },
+
   });
