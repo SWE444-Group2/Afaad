@@ -99,16 +99,16 @@ export default function NotificationsNav({ navigation }) {
   }, [])
 
   const getInfo=(itemID)=>{
-    if(userType=='Entrepreneur' ){
-    global.InRef= AfaadFirebase.database().ref("ProductIdea/"+itemID+"/RejectionReason/")
+    
+    global.InRef= AfaadFirebase.database().ref("ProductIdea/"+itemID);
+    
     InRef.once('value').then(function(snapshot){            
-          setadminRejectReason(snapshot.child("adminRejectReason").val())
-          console.log(adminRejectReason)
+          setadminRejectReason(snapshot.child("adminRejectReason").val());
           setModalVisible(true);
+      });
 
-      });}
-
-    }
+      console.log(adminRejectReason);
+}
   
     return(
         <View style={styles.container}>
@@ -201,9 +201,8 @@ export default function NotificationsNav({ navigation }) {
                   
                   <Text style={styles.RejectText}>  سبب الرفض  : </Text>
                  
-                {userType=='Entrepreneur' && item.RejectionReason!=null &&
-                <Text>
-                  {adminRejectReason}</Text> }
+                {userType=='Entrepreneur' &&
+                <Text>{adminRejectReason}</Text> }
 
 
                   
