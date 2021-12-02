@@ -300,12 +300,12 @@ FavoritesRef.once('value').then(function(snapshot){
       return
     }
     if (user){
-      const productRejectReasonRef = AfaadFirebase.database().ref('/ProductIdea/'+route.params.Product_id+'/RejectionReason/');
+      const productRejectReasonRef = AfaadFirebase.database().ref('/ProductIdea/'+route.params.Product_id);
       const productRejectReasonData= {
        adminRejectReason,
       };
      
-      productRejectReasonRef.set(productRejectReasonData).then(() => {
+      productRejectReasonRef.update(productRejectReasonData).then(() => {
           Alert.alert("نجاح", "تم إرسال سبب الرفض إلى رائد الأعمال", [
             {
               text: "حسنًا",
