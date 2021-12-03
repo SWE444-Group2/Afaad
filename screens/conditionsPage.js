@@ -1,9 +1,11 @@
+import React from 'react' ;
 import {
   Text,
   View,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
+
 
 export default function RegistrationScreen({ navigation }) {
   

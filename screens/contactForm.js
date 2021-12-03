@@ -6,13 +6,76 @@ import AfaadFirebase from './firebaseConfig';
 import 'firebase/auth';
 import { Button } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view' ;
+import SvgUri from "expo-svg-uri";
 
 
 
 
 export default function contactForm({ navigation }) {
 
+  const [messageTitle, setMessageTitle] = useState('') ;
+  const [contactEmail, setContactEmail] = useState('') ;
+  const [message, setMessage] = useState('') ;
   const submit = () => {
+
+    if (contactEmail == "" ||  message == "") {
+      Alert.alert("تنبيه ", "جميع الحقول مطلوبة", [
+        {
+          text: "حسناً",
+          style: "cancel",
+        },
+      ]);
+
+      return
+    } 
+    if(messageTitle.replace(/\s+/g,'').length > 30 || messageTitle.replace(/\s+/g,'').length < 3){
+      Alert.alert("تنبيه", "عنوان الرسالة يجب ألا يقل عن ٣ أحرف وألا يتجاوز ٣٠ حرف ", [
+        {
+          text: "حسنًا",
+          style: "cancel",
+        },
+      ]);
+      return
+    }
+    if(message.replace(/\s+/g,'').length > 250){
+      Alert.alert("تنبيه", "حقل وصف المشروع يجب ألا يتجاوز ٢٥٠ حرف ", [
+        {
+          text: "حسنًا",
+          style: "cancel",
+        },
+      ]);
+      return
+    }
+
+    const messagesReference = AfaadFirebase.database().ref('ContactMessages');
+
+    const messageDetails = {
+      messageTitle,
+      contactEmail,
+      message
+  };
+  messagesReference.push(messageDetails).then((dataRef) => {
+    if (dataRef) {
+      Alert.alert("نجاح", "تمت إرسال رسالتك بنجاح، سنتواصل معك فورًا لمساعدتك ", [
+        {
+          text: "حسنًا",
+          onPress: () => {
+            navigation.pop()
+          },
+          style: "cancel",
+        },
+      ]);
+    } else {
+      Alert.alert("تنبيه", "حدث خطأ ما، حاول مرة أخرى", [
+        {
+          text: "حسنًا",
+          style: "cancel",
+        },
+      ]);
+    }
+
+  });
+
 
   }
     return(
@@ -20,23 +83,33 @@ export default function contactForm({ navigation }) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView contentContainerStyle={styles.inner}>
 
-            <View style={{backgroundColor:"#7C98B3", height: 200, borderBottomStartRadius: 20,borderBottomEndRadius: 20}}>
+          <View style={styles.SVG}>
+            <SvgUri  source={require('../assets/images/Frame.svg')} /> 
+          </View>
             <Text style={styles.title}>
               استمارة التواصل
             </Text>
-            </View>
             
-            <View style={{backgroundColor:"white", padding: 24}}>
+            <View style={{backgroundColor:"white", paddingHorizontal: 24, marginTop: 60}}>
 
             <Text style={styles.warning}>
               *جميـع الحقول مطلوبـــة
             </Text>
 
+            <Text style={styles.labelText}>عنوان رسالتك<Text style={styles.warning}>*</Text></Text>
+            <TextInput
+              style={styles.input}
+              underlineColorAndroid="transparent"
+              value={messageTitle}
+              onChangeText={(text) => setMessageTitle(text)}
+            />
+
             <Text style={styles.labelText}>البريد الإلكتروني للتواصل<Text style={styles.warning}>*</Text></Text>
             <TextInput
               style={styles.input}
               underlineColorAndroid="transparent"
-              keyboardType='numeric'
+              value={contactEmail}
+              onChangeText={(text) => setContactEmail(text)}
             />
 
             <Text style={styles.labelText}>رسالتك<Text style={styles.warning}>*</Text></Text>
@@ -45,6 +118,8 @@ export default function contactForm({ navigation }) {
               placeholder="(حد أقصى:٢٥٠ حرف)"
               underlineColorAndroid="transparent"
               multiline={true}
+              value={message}
+              onChangeText={(text) => setMessage(text)}
             />
 
             <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-around', marginTop: 20}}>
@@ -124,6 +199,11 @@ const styles = StyleSheet.create({
       color:'white' ,
       paddingTop: 55,
       paddingRight:20,
+    },
+    SVG:{
+      alignItems: "center",
+      position: 'absolute',
+    
     },
     
   });

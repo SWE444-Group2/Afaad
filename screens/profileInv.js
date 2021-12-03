@@ -14,6 +14,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import "firebase/auth";
 import "firebase/database";
 import SvgUri from "expo-svg-uri";
+import Icon from 'react-native-vector-icons/MaterialIcons' ;
 import { NavigationBar } from "./NavigationBar";
 //import  {shape}  from '../assets/images/shape.svg';
 import UploadImage from "./UploadImage";
@@ -528,6 +529,16 @@ var flag = true;
         <TouchableOpacity style={styles.Button} onPress={onSignout}>
           <Text style={styles.ButtonText}>تسجيل الخروج</Text>
         </TouchableOpacity>
+        <View style={{ marginTop:20, marginBottom: 30, alignItems: 'center' }}>
+              <Text style={styles.contactText}>
+                <View>
+                  <Icon name='help-outline' size={30} color={"#002B3E"} style={{ marginLeft: 10 }} />
+                </View>
+                هل تحتاج إلى مساعدة؟ <Text style={[styles.contactText, { fontFamily: 'AJannatLTBold', textDecorationLine: "underline" }]} onPress={() => navigation.navigate('contactForm')}>
+                  تواصل معنا
+                </Text>
+              </Text>
+            </View>
   </View>
 
 
@@ -629,5 +640,11 @@ top:100,
     shadowOpacity: 2, // IOS
     shadowRadius: 2, //IOS
     elevation: 2, // Android
+  },
+    contactText: {
+    color: "#002B3E",
+    fontFamily: "AJannatLT",
+    fontSize: 16,   
+    marginBottom: 6
   },
 });
