@@ -66,7 +66,7 @@ export default function ViewAccount({ navigation }) {
 
            <View style={Titlestyles.items}>
              {/* Investors Accounts is displayed  */}
-             <FlatList  
+             <FlatList style={{ marginTop: 70 }}
              data = {PendingAccountsList}
              keyExtractor={(item, index)=>index.toString()}
              renderItem = {({item})=>(

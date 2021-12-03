@@ -6,6 +6,7 @@ import 'firebase/auth';
 import TitleStyles from './TitleStyles';
 import ideaLogo from '../assets/images/idea1.png';
 import accountLogo from '../assets/images/account.png';
+import supportLogo from '../assets/images/support.png';
 import SignOut from '../assets/images/SignOut.png';
 import Background from '../assets/images/Background.jpg';
 import SvgUri from "expo-svg-uri";
@@ -35,7 +36,6 @@ export default function welcome({ navigation }) {
             <Text style={styles.title}> مرحبا مشرف</Text>
 
           
-
           <View style={styles.item}>
 
                   <View style={styles.Box1}>
@@ -55,6 +55,17 @@ export default function welcome({ navigation }) {
 
                   </View>
   
+
+        
+
+                  <View style={styles.Box3}>
+
+                  <TouchableOpacity   onPress={() => navigation.navigate('ContactMessages')}>
+                  <Image source={supportLogo} style={styles.icons}/>
+                  <Text style={styles.TextBox}>دعم المستخدمين</Text>
+                  </TouchableOpacity>
+
+                  </View>
 
           </View>
 
@@ -78,7 +89,6 @@ backgroundColor:'#FFFFFF',
 //justifyContent:'center',
 //alignItems:'center',
 },
-
 Box1:{
 width:155,
 height:155,
@@ -94,22 +104,27 @@ backgroundColor: "#002B3E",
 borderRadius:6,
 margin:10,
 },
+Box3:{
+  width:155,
+  height:155,
+  backgroundColor: "#637081",
+  borderRadius:6,
+  margin:10,
+  },
 
 item:{
-// backgroundColor:'#536B78',
 padding:10,
-//   borderRadius:10,
-flexDirection:'row',
-// alignItems:'center',
+flexDirection:'column',
+alignItems:'center',
 justifyContent:"space-between",
 margin:10,
-marginTop:180, 
-//   marginBottom:30, 
+marginTop:40, 
 },
 
 icons:{
-marginLeft:50,
 marginTop:35,
+marginLeft: 'auto', 
+marginRight: 'auto', 
 },
 
 TextBox:{
