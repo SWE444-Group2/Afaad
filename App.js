@@ -29,7 +29,7 @@ import {default as SearchResult} from './screens/SearchResult';
 import { default as updateProductIdea } from './screens/updateProductIdea';
 import { default as Favorites } from './screens/Favorites';
 import { default as contactForm } from './screens/contactForm' ;
-
+import { default as ContactMessages } from './screens/contactMessages' ;
 
 import {useFonts} from 'expo-font';
 
@@ -86,8 +86,9 @@ if(!isLoaded){
       <Stack.Screen name="PublishIdea" component={PublishIdea}  options={{ presentation: 'modal', gestureEnabled: false, headerTitle:'',
         headerStyle: { backgroundColor: '#7c98b3'}, headerLeft: ()=> null, headerTintColor: 'white' }}/>
       
-      <Stack.Screen name="Admin" component={Admin} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false , gestureEnabled: false,
-        headerTintColor: 'white', headerStyle: { backgroundColor: '#7c98b3' } }}/>
+      <Stack.Screen name="Admin" component={Admin} options={{ headerTitle:'',
+        gestureEnabled: false, headerTintColor: 'white', headerStyle: { backgroundColor: '#7c98b3' },
+        headerLeft: ()=> null}}/>
 
       <Stack.Screen name="EntrepreneurAndInvestor" component={EntrepreneurAndInvestor} options={{ headerTitle:'',
         gestureEnabled: false, headerTintColor: 'white', headerStyle: { backgroundColor: '#7c98b3' },
@@ -164,6 +165,8 @@ if(!isLoaded){
       <Stack.Screen name="updateProductIdea" component={updateProductIdea} options={{ headerTitle:'',
         headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white' }}/>
       
+      <Stack.Screen name="ContactMessages" component={ContactMessages} options={{ headerTitle: "", headerBackTitleVisible: false,
+        headerStyle: { backgroundColor: '#7c98b3'}, headerTintColor: 'white'}}/>
       
       </Stack.Navigator>
     </NavigationContainer>
