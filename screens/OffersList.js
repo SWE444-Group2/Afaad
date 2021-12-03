@@ -6,7 +6,6 @@ import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 import Titlestyles from './TitleStyles';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Background from '../assets/images/Background.jpg';
 import InvestorLogo from '../assets/images/business-and-finance.png';
 import { Linking } from 'react-native'
 import SvgUri from "expo-svg-uri";
@@ -29,6 +28,8 @@ export default function OffersList({ navigation, route }) {
     const [InvestorToken, setInvestorToken]=useState('');
     const [InvestorStat, setInvestorStat]=useState('');
 
+    const[accept,setAccept]=useState(true);
+    const[pending,setPending]=useState(false);
 
 
     useEffect(() => {
@@ -64,6 +65,7 @@ export default function OffersList({ navigation, route }) {
             const pendingOffers=[]
             for(let status in offersList){
               if (offersList[status].status == 'Pending') {
+                // auto rejection 
                 if (CountAccepted==3){
                   // getInvestorToken(GlobalinvestorID,'Rejected')
                  // dataref+"/"+offersList[status].offerID.update({status : 'Rejected' })
@@ -72,7 +74,7 @@ export default function OffersList({ navigation, route }) {
                   pendingIdeaRef.update({status : 'Rejected' })
                  }
                  ))
-                 console.log(offersList[status].offerID);
+
                  AfaadFirebase.database().ref("Investor/"+offersList[status].offerID).once('value').then(function(snapshot) {
                   setInvestorToken(snapshot.child('Token').val());
           });
@@ -83,6 +85,7 @@ export default function OffersList({ navigation, route }) {
                 }
               else{ 
                  pendingOffers.push(offersList[status])
+                 setPCounter(Pcounter+1);
               }
               }
             }
@@ -193,6 +196,7 @@ export default function OffersList({ navigation, route }) {
             const  [status, setStatus] = useState('') ;
             const [investorEmail,setInvestorEmail]=useState("");
             const  [counter, setCounter] = useState(0) ;
+            const  [Pcounter, setPCounter] = useState(0) ;
        
             const _onPress=(investorID)=>{
             global.InRef= AfaadFirebase.database().ref("Investor/"+investorID)
@@ -273,6 +277,15 @@ export default function OffersList({ navigation, route }) {
    //InvestorStat(snapshot.child("Token").val());
    //Just to make sure the entrepruner has a token and send the notification 
 
+   const renderAccepted = () => {
+    setAccept(true)
+    setPending(false)
+  } 
+  
+  const renderPending = () =>{ 
+    setPending(true)
+    setAccept(false)
+  }
   
     return (
 
@@ -287,14 +300,26 @@ export default function OffersList({ navigation, route }) {
           <Text style={styles.title}>عروض الإستثمار</Text>
     
               <View style={Titlestyles.items}>
-              <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:15 , marginTop:30}]}> العروض المقبولة</Text>
+              
+              <View style={styles.ViewButton}>
+
+              <TouchableOpacity style={pending ? styles.Abutton : styles.Rbutton} onPress={renderPending} >
+              <Text style={pending ? styles.AtextButton: styles.RtextButton}>عروض قيد الإنتظار</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={accept ? styles.Abutton : styles.Rbutton } onPress={renderAccepted}>
+              <Text style={accept ? styles.AtextButton: styles.RtextButton}>العروض المقبولة</Text>
+              </TouchableOpacity>
+              
+              </View>
+              
 
 {
-                counter==0 &&
+               (accept==true && counter==0) &&
                 <Text style={[Titlestyles.subTitle ,{fontSize:15 , marginBottom:15 , marginTop:10, marginRight:100}]}>لا يوجد عروض مقبولة</Text>
               }
               {
-                counter==0 &&
+                (counter==0 && accept == true ) &&
                 <FlatList style={{height:'0%'}}
                 data={acceptedOffers}
                 keyExtractor={(item, index)=>index.toString()}
@@ -325,7 +350,7 @@ export default function OffersList({ navigation, route }) {
                />               }
 
 {
-                counter!=0 &&
+                (counter!=0 && accept == true )&&
                 <FlatList style={{height:'53%'}}
                 data={acceptedOffers}
                 keyExtractor={(item, index)=>index.toString()}
@@ -355,9 +380,11 @@ export default function OffersList({ navigation, route }) {
 
                />               }
                
-               
-                  <Text style={[Titlestyles.subTitle ,{fontSize:20 , marginBottom:15 , marginTop:35}]}>عروض في قيد الإنتظار</Text>
-
+    {
+                (pending == true && Pcounter==0) &&
+                <Text style={[Titlestyles.subTitle ,{fontSize:15 , marginBottom:15 , marginTop:10, marginRight:100}]}>لا يوجد عروض قيد الإنتظار</Text>
+              }           
+{                 pending == true &&
                   <FlatList style={{height:'50%'}}
                     data={pendingOffers}
                     keyExtractor={(item, index)=>index.toString()}
@@ -385,7 +412,7 @@ export default function OffersList({ navigation, route }) {
 
                     
 
-                   /> 
+                   /> }
                           <Modal
                           animationType="slide"
                           transparent={true}
@@ -630,7 +657,38 @@ title: {
   paddingRight:20,
 },
 
-Feasibility:{
+ViewButton:{
+  flexDirection: "row",
+  justifyContent: 'space-between',
+ padding: 10,
+  marginBottom:20,
+  marginTop:25,
+  
+},
 
+Abutton: {
+  alignItems: "center",
+  backgroundColor: "#7c98b3",
+  padding: 10,
+  borderRadius:10,
+  width:130
+},
+
+Rbutton: {
+  alignItems: "center",
+  backgroundColor: "#FFF",
+  padding: 10,
+  borderWidth:1,
+  borderRadius:10,
+  width:130,
+  borderColor:"gray",
+},
+
+AtextButton:{
+  color:"#FFF",
+
+},
+RtextButton:{
+  color:"gray",
 },
 });
