@@ -5,6 +5,8 @@ import 'firebase/auth';
 import Titlestyles from './TitleStyles';
 import SignOut from '../assets/images/SignOut.png';
 import exclamationmark from '../assets/images/exclamation-mark.png';
+import React, { useState } from "react";
+
 
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();

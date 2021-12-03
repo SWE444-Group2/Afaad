@@ -99,7 +99,7 @@ if(!isLoaded){
       
       <Stack.Screen name="ResetPass" component={ResetPass} options={{ headerTitle: "إعادة تعيين كلمة المرور"}}/>
       
-      <Stack.Screen name="PendingPage" component={PendingPage} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false}}/>
+      <Stack.Screen name="PendingPage" component={PendingPage} options={{ headerTitle:'الصفحة الرئيسية',headerBackVisible: false ,gestureEnabled: false, headerLeft: ()=> null}}/>
       
       <Stack.Screen name="NotificationsNav" component={NotificationsNav} options={{ headerTitle:'',headerBackVisible: false,
         gestureEnabled: false, headerStyle: { backgroundColor: '#7c98b3'}, headerBackTitleVisible: false, headerTintColor: 'white',
