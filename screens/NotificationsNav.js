@@ -89,7 +89,7 @@ export default function NotificationsNav({ navigation }) {
      });
 
 
-     console.log(counter)
+     
      
      return()=>{
       isUnmounted=true;
@@ -107,7 +107,7 @@ export default function NotificationsNav({ navigation }) {
           setModalVisible(true);
       });
 
-      console.log(adminRejectReason);
+     
 }
   
     return(
@@ -202,7 +202,7 @@ export default function NotificationsNav({ navigation }) {
                   <Text style={styles.RejectText}>  سبب الرفض  : </Text>
                  
                 {userType=='Entrepreneur' &&
-                <Text>{adminRejectReason}</Text> }
+                <Text style={styles.Rejectreason}>{adminRejectReason}</Text> }
 
 
                   
@@ -303,11 +303,18 @@ modalContent: {
   elevation: 5
 },
 RejectText:{ 
+  marginTop:-45,
   fontFamily: 'AJannatLT',
   fontSize:20,
   color:'#637081',
   textAlign: 'right',
   
     },
+    Rejectreason:{
+      fontFamily:'AJannatLT',
+      textAlign:'right',
+      fontSize:16
+
+    }
 
   });
