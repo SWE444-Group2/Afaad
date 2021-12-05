@@ -173,23 +173,35 @@ export default function Entrepreneur({ navigation }) {
             </Text>)}
 
            {/*if user is an Investor*/}
-            {userType=='Investor'&&( <Button 
-                style={Titlestyles.DetailsBtn}
+            {userType=='Investor'&&(
+               <Button 
+                style={styles.DetailsBtn}
                 onPress={() => navigation.navigate('productIdea', {Product_id:item.productID, userType: userType, user_Name:userName})}
                 title="عرض التفاصيل"
                 titleProps={{}}
                 //titleStyle={{ marginHorizontal: 1 }}
                 color='#247ba0'/>)}
 
-          {userType=='Entrepreneur'&& item.status=='Rejected'&&(
-             <Button 
-             onPress={() => getInfo(item.productID)}
-             title="سبب الرفض"
-             titleProps={{}}
-             //titleStyle={{ marginHorizontal: 1 }}
-             color='#247ba0'/>
+          {userType=='Entrepreneur'&& item.status=='Rejected'&& (
+            <TouchableOpacity onPress={() => getInfo()}
+            style={{
+    position:'absolute',
+              height:60,
+              PaddingTop:21
+           
+            }} >
+
+       
+            <View style={{
+    
+              width:90,
+            }} >
+
+ <Text style={styles.Reject} >سبب الرفض</Text>
+
+            </View>
              
-           )}
+            </TouchableOpacity>  )}
             </View>
             
             <Text style={Titlestyles.subTitle}>{item.Title}</Text>
@@ -265,7 +277,13 @@ SVG:{
   alignItems: "center",
   position: 'absolute',
   marginTop:-40,
-
+},
+Reject:{
+  color:'#247ba0',
+  position: 'absolute',
+  marginTop:18,
+  textDecorationLine:'underline',
+  fontSize:14,
 
 },
 RejectText:{ 
