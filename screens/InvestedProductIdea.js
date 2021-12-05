@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button } from 'react-native';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button ,Modal} from 'react-native';
 //import styles from './styles';
 import { StatusBar } from 'expo-status-bar';
 import Titlestyles from './TitleStyles';
@@ -8,19 +8,44 @@ import { NavigationBar } from './NavigationBar';
 import SvgUri from "expo-svg-uri";
 import { useState } from 'react';
 import {useEffect } from 'react';
+import { Icon } from "react-native-elements/dist/icons/Icon";
 
 
 export default function InvestedProductIdea({ navigation }) {
 
   const[accept,setAccept]=useState(true);
   const[reject,setReject]=useState(false);
-
+  const  [EntrRejectReason, setEntrRejectReason] = useState('') ;
+  const [modalVisible, setModalVisible] = useState(false);
 
   let user = AfaadFirebase.auth().currentUser ;
   const auth = AfaadFirebase.auth();
   let userID, userType , userName;
 
   
+  const getInfo=(itemID,keyiD)=>{
+
+    if (userType=='Entrepreneur'){
+    
+    global.EntrRef= AfaadFirebase.database().ref("ProductIdea/"+itemID);
+    
+    EntrRef.once('value').then(function(snapshot){            
+          setadminRejectReason(snapshot.child("adminRejectReason").val());
+          setModalVisible(true);
+      });
+}else {
+
+  global.InRef= AfaadFirebase.database().ref("ProductIdea/"+itemID+"/InvestorsList/"+keyiD);
+  InRef.once('value').then(function(snapshot){            
+    setEntrRejectReason(snapshot.child("offerRejectReasonData").val());
+    
+    setModalVisible(true);
+    console.log("key "+keyiD)
+});
+}
+  
+}
+
 
   if(user){
     userID = user.uid ;
@@ -238,6 +263,8 @@ const renderRejectedList = () =>{
             <View style={Titlestyles.item}>
 
               <View style={{borderTopRightRadius:15}}>
+
+
               <Text style={{     
                       backgroundColor: item.InvestorsList[userID].status=='Accepted' ? 
                       //Accepted
@@ -255,20 +282,78 @@ const renderRejectedList = () =>{
                       overflow:'hidden',
                       fontFamily: 'AJannatLT',
                       } }>  
+
                       { item.InvestorsList[userID].status=='Accepted' ? 
                           'مقبول': 
                         item.InvestorsList[userID].status=='Rejected' ? 
                           'مرفوض' :
                           'قيد المراجعة' 
+
                           } 
                    </Text>
-                  
+
+                   {userType == "Investor" && item.InvestorsList[userID].status == "Rejected" && (
+                      <TouchableOpacity
+                        onPress={() => getInfo(item.productID,userID)}
+                        style={{
+                          position: "absolute",
+                          height: 60,
+                          PaddingTop: 21,
+                        }}
+                      >
+                        <View
+                          style={{
+                            width: 90,
+                          }}
+                        >
+                          <Text style={styles.Reject}>سبب الرفض</Text>
+                        </View>
+                      </TouchableOpacity>
+                    )}
 
               </View>
 
               <Text style={Titlestyles.subTitle}>{item.Title}</Text>
               
             </View> )}
+
+
+            <Modal
+                  animationType="fade"
+                  transparent={true}
+                  visible={modalVisible}
+                >
+                  <View
+                    style={{
+                      backgroundColor: "rgba(52, 52, 52, 0.5)",
+                      height: "100%",
+                    }}
+                  >
+                    <View style={styles.modalContent}>
+                      <Icon
+                        name="close"
+                        size={30}
+                        style={{ marginBottom: 30, width: 30 }}
+                        onPress={() => setModalVisible(!modalVisible)}
+                      />
+
+                      <Text style={styles.RejectText}> سبب الرفض : </Text>
+
+                      {userType== 'Investor'  && EntrRejectReason!=""&&
+                 <Text style={styles.Rejectreason}>{EntrRejectReason}
+                {  console.log("rejcaction "+EntrRejectReason) }
+                 </Text>   }
+    
+                   
+                 {userType== 'Investor'  && EntrRejectReason==""&&
+                 <Text style={styles.Rejectreason}> لا يوجد سبب رفض مرفق
+                {  console.log("rejcaction "+EntrRejectReason) }
+                 </Text>   }
+
+                      
+                    </View>
+                  </View>
+                </Modal>
             </TouchableOpacity>
           )}
 
@@ -349,5 +434,40 @@ const styles = StyleSheet.create({
   },
   items:{
     height:'90%'
+},
+Reject: {
+  color: "#247ba0",
+  position: "absolute",
+  marginTop: 18,
+  textDecorationLine: "underline",
+  fontSize: 14,
+},
+modalContent: {
+  margin: 20,
+  marginBottom: "auto",
+  marginTop: "auto",
+  backgroundColor: "white",
+  borderRadius: 20,
+  padding: 35,
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 4,
+  elevation: 5,
+},
+RejectText: {
+  marginTop: -45,
+  fontFamily: "AJannatLT",
+  fontSize: 20,
+  color: "#637081",
+  textAlign: "right",
+},
+Rejectreason: {
+  fontFamily: "AJannatLT",
+  textAlign: "right",
+  fontSize: 16,
 },
   });
