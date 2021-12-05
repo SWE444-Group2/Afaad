@@ -1,7 +1,7 @@
 
 import { StatusBar } from 'expo-status-bar';
 import React ,{useEffect , useState} from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button } from 'react-native';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button ,Modal } from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 import Titlestyles from './TitleStyles';
@@ -9,6 +9,7 @@ import Icon2 from 'react-native-vector-icons/FontAwesome';
 import  {Notfication}  from './Notfication';
 import { NavigationBar } from './NavigationBar';
 import SvgUri from 'expo-svg-uri';
+import { Icon } from 'react-native-elements/dist/icons/Icon';
 
 let user = AfaadFirebase.auth().currentUser;
 const auth = AfaadFirebase.auth();
@@ -28,6 +29,9 @@ export default function Entrepreneur({ navigation }) {
   let userID, userType , userName;
   let NotificationAllowed=Notfication();
   let investorEmail ;
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const  [adminRejectReason, setadminRejectReason] = useState('') ;
 
   if(user){
     userID = user.uid ;
@@ -92,6 +96,16 @@ export default function Entrepreneur({ navigation }) {
        };
 
     }, [])
+
+    const getInfo=(itemID)=>{
+    
+      global.InRef= AfaadFirebase.database().ref("ProductIdea/"+itemID);
+      
+      InRef.once('value').then(function(snapshot){            
+            setadminRejectReason(snapshot.child("adminRejectReason").val());
+            setModalVisible(true);
+        });
+      }
     return (
 
       <View style={Titlestyles.container}>
@@ -166,10 +180,49 @@ export default function Entrepreneur({ navigation }) {
                 titleProps={{}}
                 //titleStyle={{ marginHorizontal: 1 }}
                 color='#247ba0'/>)}
+
+          {userType=='Entrepreneur'&& item.status=='Rejected'&&(
+             <Button 
+             onPress={() => getInfo(item.productID)}
+             title="سبب الرفض"
+             titleProps={{}}
+             //titleStyle={{ marginHorizontal: 1 }}
+             color='#247ba0'/>
+             
+           )}
             </View>
+            
             <Text style={Titlestyles.subTitle}>{item.Title}</Text>
             
           </View>
+
+          <Modal
+              animationType="fade"
+              transparent={true}
+              visible={modalVisible}
+            >
+              <View style={{backgroundColor:'rgba(52, 52, 52, 0.5)', height: '100%'}}>
+              <View style={styles.modalContent}>
+                
+                <Icon
+                  name="close"
+                  size={30}
+                  style={{marginBottom:30, width: 30}}
+                  onPress={() => setModalVisible(!modalVisible)} />
+                  
+                  <Text style={styles.RejectText}>  سبب الرفض  : </Text>
+                 
+                {userType=='Entrepreneur' &&
+                <Text style={styles.Rejectreason}>{adminRejectReason}</Text> }
+
+
+                  
+
+              
+                
+              </View>
+              </View>
+            </Modal>
           </TouchableOpacity>
         )}
 
@@ -215,5 +268,35 @@ SVG:{
 
 
 },
+RejectText:{ 
+  marginTop:-45,
+  fontFamily: 'AJannatLT',
+  fontSize:20,
+  color:'#637081',
+  textAlign: 'right',
+  
+    },
+    Rejectreason:{
+      fontFamily:'AJannatLT',
+      textAlign:'right',
+      fontSize:16
+
+    },
+    modalContent: {
+      margin: 20,
+      marginBottom: 'auto',
+      marginTop: 'auto',
+      backgroundColor: "white",
+      borderRadius: 20,
+      padding: 35,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5
+    },
 
 });
