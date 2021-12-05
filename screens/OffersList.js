@@ -1,10 +1,10 @@
 
 import { StatusBar } from 'expo-status-bar';
 import React ,{useEffect , useState} from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image,Modal,Alert} from 'react-native';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image,Modal,Alert, TextInput} from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
-import Titlestyles from './TitleStyles';
+import TitleStyles from './TitleStyles';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import InvestorLogo from '../assets/images/business-and-finance.png';
 import { Linking } from 'react-native'
@@ -24,6 +24,8 @@ export default function OffersList({ navigation, route }) {
     const [acceptedOffers , setAcceptedOffers] = useState();
     const [pendingOffers , setPendingOffers] = useState();
     const dataref=AfaadFirebase.database().ref(offersPath);
+    const [modalVisible2, setModalVisible2] = useState(false);
+    const [offerRejectReason,setOfferRejectReason]=useState('');
 
     const [InvestorToken, setInvestorToken]=useState('');
     const [InvestorStat, setInvestorStat]=useState('');
@@ -112,7 +114,7 @@ export default function OffersList({ navigation, route }) {
 
               Alert.alert(
                 "تنبيه!",
-                "لقد تجاوزدت الحد المسموح لقبول عروض المستثمرين",   [
+                "لقد تجاوزت الحد المسموح لقبول عروض المستثمرين",   [
 
                   { text: "حسناً", onPress:()=>{setModalVisible(!modalVisible);}}
                 ]        
@@ -177,8 +179,8 @@ export default function OffersList({ navigation, route }) {
                       SendNotification(InvestorToken,'Rejected')
                       invstorsOfferRef.update({status : 'Rejected' })
                         Alert.alert(
-                            "تنبيه!",
-                            "تم رفض المستثمر بنجاح",[{text: "العودة لقائمه العروض" ,onPress: () => {setModalVisible(!modalVisible)}}]
+                            "نجاح",
+                            "تم رفض المستثمر بنجاح",[{text: "العودة لقائمه العروض" ,onPress: () => {setModalVisible(!modalVisible)}}, {text: "ارسال سبب الرفض", onPress: () =>  {setModalVisible(false); setModalVisible2(true)} }]
                             );                        
                           
                           }
@@ -191,6 +193,7 @@ export default function OffersList({ navigation, route }) {
             
 
             const  [InvestorName, setInvestorName] = useState('') ;
+            const  [invID, setInID] = useState('') ;
             const  [Message, setMessage] = useState('') ;
             const  [SuggCost, setSuggCost] = useState('') ;
             const  [status, setStatus] = useState('') ;
@@ -199,6 +202,7 @@ export default function OffersList({ navigation, route }) {
             const  [Pcounter, setPCounter] = useState(0) ;
        
             const _onPress=(investorID)=>{
+            setInID(investorID);
             global.InRef= AfaadFirebase.database().ref("Investor/"+investorID)
             InRef.on('value',(snapshot) =>{
               setInvestorToken(snapshot.child('Token').val());
@@ -286,20 +290,63 @@ export default function OffersList({ navigation, route }) {
     setPending(true)
     setAccept(false)
   }
+
+
+  /////////////////////////  Rejection fron ent to investor
+  const SendRejectReason = () =>{
+    if(offerRejectReason == ''){
+      Alert.alert("تنبيه ", "الحقل مطلوب   ", [
+        {
+          text: "حسناً",
+          style: "cancel",
+        },
+      ]);
+      return
+    }
+
+    if(offerRejectReason.replace(/\s+/g,'').length > 150 || offerRejectReason.replace(/\s+/g,'').length < 10){
+      Alert.alert("تنبيه", "حقل سبب الرفض  يجب ألا يقل عن ١٠ أحرف وألا يتجاوز ١٥٠ حرف ", [
+        {
+          text: "حسنًا",
+          style: "cancel",
+        },
+      ]);
+      return
+    }
+    const pId = route.params.Product_id
+    if (user){
+      const offerRejectReasonRef = AfaadFirebase.database().ref('ProductIdea/'+pId+'/InvestorsList/'+invID);
+      const offerRejectReasonData= {
+       offerRejectReason,
+      };
+     
+      offerRejectReasonRef.update(offerRejectReasonData).then(() => {
+          Alert.alert("نجاح", "تم إرسال سبب الرفض إلى المستثمر", [
+            {
+              text: "حسنًا",
+              onPress:() => {setModalVisible2(false),navigation.navigate('OffersList',  {Product_id: route.params.Product_id}); setOfferRejectReason('')},
+              style: "cancel",
+            },
+          ]); 
+      });
+
+  }
+
+  }
   
     return (
 
-      <View style={Titlestyles.container}>
+      <View style={TitleStyles.container}>
 
             <View style={styles.SVG}>
             <SvgUri  source={require('../assets/images/Frame.svg')} /> 
             </View>  
 
-          <View style={Titlestyles.tasksWrapper}>
+          <View style={TitleStyles.tasksWrapper}>
             
           <Text style={styles.title}>عروض الإستثمار</Text>
     
-              <View style={Titlestyles.items}>
+              <View style={TitleStyles.items}>
               
               <View style={styles.ViewButton}>
 
@@ -316,7 +363,7 @@ export default function OffersList({ navigation, route }) {
 
 {
                (accept==true && counter==0) &&
-                <Text style={[Titlestyles.subTitle ,{fontSize:15 , marginBottom:15 , marginTop:10, marginRight:100}]}>لا يوجد عروض مقبولة</Text>
+                <Text style={[TitleStyles.subTitle ,{fontSize:15 , marginBottom:15 , marginTop:10, marginRight:100}]}>لا يوجد عروض مقبولة</Text>
               }
               {
                 (counter==0 && accept == true ) &&
@@ -328,16 +375,16 @@ export default function OffersList({ navigation, route }) {
                                
                   <TouchableOpacity onPress={() => _onPress(item.offerID)}>   
                   <View>
-                  <View style={Titlestyles.item}>
+                  <View style={TitleStyles.item}>
                   <Button 
-                        style={Titlestyles.DetailsBtn}
+                        style={TitleStyles.DetailsBtn}
                         onPress={() => _onPress(item.offerID)}
                         title="عرض التفاصيل"
                         titleProps={{}}
                         color='#247ba0'
                     />
                     
-                    <Text style={Titlestyles.subTitle}>{item.Investorname}</Text>
+                    <Text style={TitleStyles.subTitle}>{item.Investorname}</Text>
                    </View>
                    
                   </View>
@@ -359,16 +406,16 @@ export default function OffersList({ navigation, route }) {
                                
                   <TouchableOpacity onPress={() => _onPress(item.offerID)}>   
                   <View>
-                  <View style={Titlestyles.item}>
+                  <View style={TitleStyles.item}>
                   <Button 
-                        style={Titlestyles.DetailsBtn}
+                        style={TitleStyles.DetailsBtn}
                         onPress={() => _onPress(item.offerID)}
                         title="عرض التفاصيل"
                         titleProps={{}}
                         color='#247ba0'
                     />
                     
-                    <Text style={Titlestyles.subTitle}>{item.Investorname}</Text>
+                    <Text style={TitleStyles.subTitle}>{item.Investorname}</Text>
                    </View>
                    
                   </View>
@@ -382,7 +429,7 @@ export default function OffersList({ navigation, route }) {
                
     {
                 (pending == true && Pcounter==0) &&
-                <Text style={[Titlestyles.subTitle ,{fontSize:15 , marginBottom:15 , marginTop:10, marginRight:100}]}>لا يوجد عروض قيد الإنتظار</Text>
+                <Text style={[TitleStyles.subTitle ,{fontSize:15 , marginBottom:15 , marginTop:10, marginRight:100}]}>لا يوجد عروض قيد الإنتظار</Text>
               }           
 {                 pending == true &&
                   <FlatList style={{height:'50%'}}
@@ -393,16 +440,16 @@ export default function OffersList({ navigation, route }) {
                                    
                       <TouchableOpacity onPress={() => _onPress(item.offerID)}>   
                       <View>
-                      <View style={Titlestyles.item}>
+                      <View style={TitleStyles.item}>
                       <Button 
-                            style={Titlestyles.DetailsBtn}
+                            style={TitleStyles.DetailsBtn}
                             onPress={() => _onPress(item.offerID)}
                             title="عرض التفاصيل"
                             titleProps={{}}
                             color='#247ba0'
                         />
                         
-                        <Text style={Titlestyles.subTitle}>{item.Investorname}</Text>
+                        <Text style={TitleStyles.subTitle}>{item.Investorname}</Text>
                        </View>
                        
                       </View>
@@ -485,6 +532,41 @@ export default function OffersList({ navigation, route }) {
 
                           </View>
                           </Modal>
+
+                          <Modal
+              animationType="fade"
+              transparent={true}
+              visible={modalVisible2}
+            >
+              <View style={{backgroundColor:'rgba(52, 52, 52, 0.5)', height: '100%'}}>
+              <View style={styles.modalContent}>
+                <Icon
+                  name="close"
+                  size={30}
+                  style={{marginBottom:30, width: 30}}
+                  onPress={() => setModalVisible2(!modalVisible2)} />
+                
+                <Text style={styles.RejectText}>سيتم ارسال سبب الرفض لصاحب عرض الاستثمار</Text>
+
+               <TextInput
+                style={styles.TextInputDoc}
+                placeholder="سبب رفضك لعرض الاستثمار"
+                placeholderTextColor={"gray"} 
+                onChangeText={(text) => setOfferRejectReason(text)}
+                value={offerRejectReason}
+                underlineColorAndroid="transparent"
+                autoCapitalize="none"
+                color="black"
+                multiline={true}
+              />
+                <TouchableOpacity
+                  style={styles.investButton}
+                  onPress={SendRejectReason}>
+                  <Text style={[TitleStyles.subTitle, { color: 'white', fontSize: 20 }]}>ارسال سبب الرفض</Text>
+                </TouchableOpacity>
+              </View>
+              </View>
+            </Modal>
        
              </View>
         
@@ -691,4 +773,41 @@ AtextButton:{
 RtextButton:{
   color:"gray",
 },
+RejectText:{ 
+  fontFamily: 'AJannatLT',
+  fontSize:18,
+  color:'#637081',
+  textAlign: 'center',
+    },
+
+    TextInputDoc:{
+      height: 130,
+      overflow: "hidden",
+      marginLeft: 20,
+      marginRight: 30,
+      paddingRight: 10,
+      paddingBottom:90, 
+      width:'90%',
+      borderWidth:1,
+      borderColor:"gray",
+      borderRadius:10,
+      fontFamily: 'AJannatLT',
+      fontSize:14,
+      textAlign: 'right',
+      paddingRight:5,
+      marginTop:20,
+      color:"#fff",
+     },
+     investButton: {
+      width: 213,
+      height: 52,
+      borderRadius: 6,
+      marginTop: 40,
+      alignSelf: 'center',
+      alignItems: "center",
+      justifyContent: "center",
+      borderWidth: 2,
+      borderColor: '#002B3E',
+      backgroundColor: '#002B3E'
+    },
 });
