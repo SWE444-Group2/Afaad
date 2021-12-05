@@ -15,6 +15,7 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import AfaadFirebase from "./firebaseConfig";
 import "firebase/auth";
+import SvgUri from "expo-svg-uri";
 import TextLogo from "../assets/images/AfaadLogo.jpeg";
 
 const auth = AfaadFirebase.auth();
@@ -147,12 +148,21 @@ export default function Login({ navigation }) {
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.mainView}>
+          
           <View style={styles.TopView}>
             <Image source={TextLogo} style={styles.image} />
           </View>
 
+
           <View style={styles.BottomView}>
+
+          <View style={styles.SVG}>
+    <SvgUri source={require('../assets/images/logIn.svg')} /> 
+    </View>
+
+            
             <Text style={styles.Heading}> تسجيل الدخول </Text>
+
 
             <View style={styles.FormView}>
               <TextInput
@@ -281,9 +291,7 @@ const styles = StyleSheet.create({
   BottomView: {
     width: "100%",
     height: "70%",
-    backgroundColor: "#7C98B3",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+
   },
   image: {
     width: "50%",
@@ -292,12 +300,12 @@ const styles = StyleSheet.create({
   Heading: {
     color: "#fff",
     fontFamily: "AJannatLTBold",
-    fontSize: 34,
+    fontSize: 36,
     fontWeight: "bold",
     textAlign: "center",
     marginRight: 30,
     margin: 30,
-    marginTop: 30,
+    marginTop: 35,
   },
 
   TextInput: {
@@ -360,5 +368,12 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     marginTop: 10,
     fontWeight: "bold",
+    textDecorationLine:'underline'
+  },
+  SVG: {
+    alignItems: "center",
+    position: "absolute",
+    width:"97%",
+    marginLeft:"3%"
   },
 });
