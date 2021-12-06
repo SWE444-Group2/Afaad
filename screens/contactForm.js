@@ -16,6 +16,12 @@ export default function contactForm({ navigation }) {
   const [messageTitle, setMessageTitle] = useState('') ;
   const [contactEmail, setContactEmail] = useState('') ;
   const [message, setMessage] = useState('') ;
+
+  const IsValidEmail = (newmail) =>{
+    let regOfEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    return regOfEmail.test(newmail);
+  }
+  
   const submit = () => {
 
     if (contactEmail == "" ||  message == "") {
@@ -28,6 +34,20 @@ export default function contactForm({ navigation }) {
 
       return
     } 
+    if (!IsValidEmail(contactEmail)) {
+      Alert.alert(
+        "تنبيه",
+        " الإيميل المدخل غير صحيح ",
+        [
+          {
+            text: "حسنًا",
+            style: "cancel",
+          },
+        ]
+      );
+      return;
+    }
+
     if(messageTitle.replace(/\s+/g,'').length > 30 || messageTitle.replace(/\s+/g,'').length < 3){
       Alert.alert("تنبيه", "عنوان الرسالة يجب ألا يقل عن ٣ أحرف وألا يتجاوز ٣٠ حرف ", [
         {
