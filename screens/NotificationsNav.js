@@ -127,7 +127,7 @@ export default function NotificationsNav({ navigation }) {
 
   global.InRef= AfaadFirebase.database().ref("ProductIdea/"+itemID+"/InvestorsList/"+keyiD);
   InRef.once('value').then(function(snapshot){            
-    setEntrRejectReason(snapshot.child("offerRejectReasonData").val());
+    setEntrRejectReason(snapshot.child("offerRejectReason").val());
     
     setModalVisible(true);
     console.log("key "+keyiD)
@@ -239,7 +239,14 @@ export default function NotificationsNav({ navigation }) {
                     )}
 
                     {item.status == "Accepted" && (
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={() =>
+                        navigation.navigate("productIdea", {
+                          Product_id: item.productID,
+                          userType: userType,
+                          user_Name: userName,
+                          
+                        })
+                      }>
                         <View style={styles.item}>
                           <Text
                             style={[
@@ -275,7 +282,14 @@ export default function NotificationsNav({ navigation }) {
                   item.InvestorsList[userID].status != "Pending" && (
                     <TouchableOpacity>
                       {item.InvestorsList[userID].status == "Accepted" && (
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() =>
+                          navigation.navigate("productIdea", {
+                            Product_id: item.productID,
+                            userType: userType,
+                            user_Name: userName,
+                           
+                          })
+                        }>
                           <View style={styles.item}>
                             <Text
                               style={[
@@ -365,7 +379,7 @@ export default function NotificationsNav({ navigation }) {
                         </Text>
                       )}
                       
-                 {userType== 'Entrepreneur'  && adminRejectReason==""&&
+                 {userType== 'Entrepreneur'  && adminRejectReason==null&&
                  <Text style={styles.Rejectreason}> لا يوجد سبب رفض مرفق
      
                  </Text>   }
@@ -376,7 +390,7 @@ export default function NotificationsNav({ navigation }) {
                  </Text>   }
     
                    
-                 {userType== 'Investor'  && EntrRejectReason==""&&
+                 {userType== 'Investor'  && EntrRejectReason==null&&
                  <Text style={styles.Rejectreason}> لا يوجد سبب رفض مرفق
                 {  console.log("rejcaction "+EntrRejectReason) }
                  </Text>   }
