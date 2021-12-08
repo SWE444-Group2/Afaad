@@ -1,7 +1,7 @@
 
 import { StatusBar } from 'expo-status-bar';
 import React ,{useEffect , useState} from 'react';
-import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image,Modal,Alert, TextInput} from 'react-native';
+import { StyleSheet, Text, View , FlatList , TouchableOpacity , Button , Image,Modal,Alert, TextInput, Keyboard} from 'react-native';
 import AfaadFirebase from '../screens/firebaseConfig';
 import 'firebase/auth';
 import TitleStyles from './TitleStyles';
@@ -180,7 +180,7 @@ export default function OffersList({ navigation, route }) {
                       invstorsOfferRef.update({status : 'Rejected' })
                         Alert.alert(
                             "نجاح",
-                            "تم رفض المستثمر بنجاح",[{text: "العودة لقائمه العروض" ,onPress: () => {setModalVisible(!modalVisible)}}, {text: "ارسال سبب الرفض", onPress: () =>  {setModalVisible(false); setModalVisible2(true)} }]
+                            "تم رفض عرض المستثمر بنجاح",[{text: "العودة لقائمه العروض" ,onPress: () => {setModalVisible(!modalVisible)}}, {text: "ارسال سبب الرفض", onPress: () =>  {setModalVisible(false); setModalVisible2(true)} }]
                             );                        
                           
                           }
@@ -314,7 +314,7 @@ export default function OffersList({ navigation, route }) {
       return
     }
     const pId = route.params.Product_id
-    if (user){
+    
       const offerRejectReasonRef = AfaadFirebase.database().ref('ProductIdea/'+pId+'/InvestorsList/'+invID);
       const offerRejectReasonData= {
        offerRejectReason,
@@ -330,7 +330,7 @@ export default function OffersList({ navigation, route }) {
           ]); 
       });
 
-  }
+  
 
   }
   
@@ -558,6 +558,7 @@ export default function OffersList({ navigation, route }) {
                 autoCapitalize="none"
                 color="black"
                 multiline={true}
+                onSubmitEditing= {() => Keyboard.dismiss()}
               />
                 <TouchableOpacity
                   style={styles.investButton}
