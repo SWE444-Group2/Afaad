@@ -373,7 +373,5 @@ const styles = StyleSheet.create({
   SVG: {
     alignItems: "center",
     position: "absolute",
-    width:"97%",
-    marginLeft:"3%"
   },
 });
