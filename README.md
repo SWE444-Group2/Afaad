@@ -1,6 +1,6 @@
 # Afaad
 
-![Afaad](AfaadReadme/Afaad Header.png)
+![Afaad Header](https://user-images.githubusercontent.com/51900114/173230729-fb93eea0-10d0-4488-ad1c-df0ff4c463de.png)
 ### Afaad is a cross platform mobile application that acts as a mediator between young and bright entrepreneurs and helping them find their future investors.
 
 
